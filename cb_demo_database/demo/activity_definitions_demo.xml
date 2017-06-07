@@ -10,21 +10,21 @@
                 Generación del Worklist para la modalidad RM</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedurerequest'])]" />
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
         </record>
         <record id="workflow_activity_definition_02"
                 model="workflow.activity.definition">
             <field name="name">Tiempo en Máquina</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedurerequest'])]" />
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
         </record>
         <record id="workflow_activity_definition_03"
                 model="workflow.activity.definition">
             <field name="name">Informe del profesional</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedurerequest'])]" />
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
         </record>
         <record id="workflow_activity_definition_04"
                 model="workflow.activity.definition">
@@ -33,14 +33,14 @@
                 (autoasignado y autofinalizado)</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedurerequest'])]" />
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
         </record>
         <record id="workflow_activity_definition_05"
                 model="workflow.activity.definition">
             <field name="name">Contraste RM</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedurerequest'])]" />
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
         </record>
         <record id="workflow_activity_definition_06"
                 model="workflow.activity.definition">
