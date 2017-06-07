@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 LasLabs Inc.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <data noupdate="0">
+        <record id="procedure_request_01" model="medical.procedurerequest">
+            <field name="title">CRRM</field>
+            <field name="subject_id" ref="medical.medical_patient_patient_1" />
+            <field name="request_group_id"
+                   ref="cb_demo_database.request_group_01" />
+        </record>
+        <record id="procedure_request_02" model="medical.procedurerequest">
+            <field name="title">CTRL</field>
+            <field name="subject_id" ref="medical.medical_patient_patient_1" />
+            <field name="request_group_id"
+                   ref="cb_demo_database.request_group_01" />
+        </record>
+        <record id="procedure_request_03" model="medical.procedurerequest">
+            <field name="title">INF</field>
+            <field name="subject_id" ref="medical.medical_patient_patient_1" />
+            <field name="request_group_id"
+                   ref="cb_demo_database.request_group_01" />
+        </record>
+        <record id="procedure_request_04" model="medical.procedurerequest">
+            <field name="title">MAQ</field>
+            <field name="subject_id" ref="medical.medical_patient_patient_1" />
+            <field name="request_group_id"
+                   ref="cb_demo_database.request_group_01" />
+        </record>
+        <record id="procedure_request_05" model="medical.procedurerequest">
+            <field name="title">WL RM</field>
+            <field name="subject_id" ref="medical.medical_patient_patient_1" />
+            <field name="request_group_id"
+                   ref="cb_demo_database.request_group_01" />
+        </record>
+    </data>
+</odoo>
