@@ -12,16 +12,5 @@
                    [ref('cb_demo_database.workflow_plan_definition_01')])]" />
             <field name="encounter_id" ref="cb_demo_database.encounter_01" />
         </record>
-        <record id="medical_careplan_activity_1"
-                model="medical.careplan.activity">
-            <field name="careplan_id"
-                   ref="cb_demo_database.medical_careplan_1" />
-            <field name="patient_id" ref="medical.medical_patient_patient_1" />
-            <field name="activity_definition_id"
-                   ref="cb_demo_database.workflow_activity_definition_06" />
-            <field name="request_group_id"
-                   ref="cb_demo_database.request_group_01" />
-            <field name="name">RMNRod</field>
-        </record>
     </data>
 </odoo>

@@ -7,6 +7,8 @@
         <record id="request_group_01" model="medical.request.group">
             <field name="name">RMNRod</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
+            <field name="careplan_id"
+                   ref="cb_demo_database.medical_careplan_1" />
         </record>
     </data>
 </odoo>
