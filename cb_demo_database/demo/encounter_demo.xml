@@ -8,5 +8,9 @@
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
             <field name="status">arrived</field>
         </record>
+        <record id="encounter_21" model="medical.encounter">
+            <field name="patient_id" ref="medical.medical_patient_patient_2" />
+            <field name="status">arrived</field>
+        </record>
     </data>
 </odoo>

@@ -4,6 +4,9 @@
 
 <odoo>
     <data noupdate="0">
+
+        <!-- RMN de Rodilla -->
+
         <record id="workflow_plan_definition_01"
                 model="workflow.plan.definition">
             <field name="name">RMN de rodilla</field>
@@ -57,6 +60,144 @@
                    ref="cb_demo_database.workflow_plan_definition_action_01"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_05"/>
+        </record>
+
+        <!-- Cirugía (Ligamentoplastia LCA por artroscopia) -->
+
+        <record id="workflow_plan_definition_21"
+                model="workflow.plan.definition">
+            <field name="name">Cirugía (Ligamentoplastia LCA por artroscopia)</field>
+            <field name="state">draft</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
+        </record>
+
+        <!-- Q2167 -->
+
+        <record id="workflow_plan_definition_action_21"
+                model="workflow.plan.definition.action">
+            <field name="name">Q2167</field>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_33"/>
+        </record>
+        <record id="workflow_plan_definition_action_22"
+                model="workflow.plan.definition.action">
+            <field name="name">Q2</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_21"/>
+        </record>
+        <record id="workflow_plan_definition_action_23"
+                model="workflow.plan.definition.action">
+            <field name="name">ART</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_22"/>
+        </record>
+        <record id="workflow_plan_definition_action_24"
+                model="workflow.plan.definition.action">
+            <field name="name">REA1</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_23"/>
+        </record>
+        <record id="workflow_plan_definition_action_25"
+                model="workflow.plan.definition.action">
+            <field name="name">ESTQ</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_24"/>
+        </record>
+        <record id="workflow_plan_definition_action_26"
+                model="workflow.plan.definition.action">
+            <field name="name">MATMED</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_25"/>
+        </record>
+        <record id="workflow_plan_definition_action_27"
+                model="workflow.plan.definition.action">
+            <field name="name">MATMQ</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_26"/>
+        </record>
+        <record id="workflow_plan_definition_action_28"
+                model="workflow.plan.definition.action">
+            <field name="name">MATGAS</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_27"/>
+        </record>
+        <record id="workflow_plan_definition_action_29"
+                model="workflow.plan.definition.action">
+            <field name="name">MATMCL</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_28"/>
+        </record>
+
+        <!-- ANEIII -->
+
+        <record id="workflow_plan_definition_action_30"
+                model="workflow.plan.definition.action">
+            <field name="name">ANEIII</field>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_34"/>
+        </record>
+        <record id="workflow_plan_definition_action_31"
+                model="workflow.plan.definition.action">
+            <field name="name">ANE</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_30"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_29"/>
+        </record>
+        <record id="workflow_plan_definition_action_32"
+                model="workflow.plan.definition.action">
+            <field name="name">CTRL</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_30"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_36"/>
+        </record>
+
+        <!-- H2167 -->
+
+        <record id="workflow_plan_definition_action_33"
+                model="workflow.plan.definition.action">
+            <field name="name">H2167</field>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_35"/>
+        </record>
+        <record id="workflow_plan_definition_action_34"
+                model="workflow.plan.definition.action">
+            <field name="name">HOCIR</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_33"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_31"/>
+        </record>
+        <record id="workflow_plan_definition_action_35"
+                model="workflow.plan.definition.action">
+            <field name="name">HOCIR2</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_33"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_32"/>
         </record>
     </data>
 </odoo>
