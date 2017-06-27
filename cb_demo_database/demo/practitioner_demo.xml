@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 LasLabs Inc.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <data noupdate="0">
+        <record id="practitioner_01" model="medical.practitioner">
+            <field name="name">RXB01</field>
+            <field name="role_ids"
+                   eval="[(6,0,[ref('medical_practitioner.doctor')])]" />
+        </record>
+
+        <record id="practitioner_02" model="medical.practitioner">
+            <field name="name">RXB02</field>
+            <field name="role_ids"
+                   eval="[(6,0,[ref('medical_practitioner.doctor')])]" />
+        </record>
+
+        <record id="practitioner_03" model="medical.practitioner">
+            <field name="name">Técnico</field>
+            <field name="role_ids"
+                   eval="[(6,0,[ref('medical_practitioner.technician')])]" />
+        </record>
+    </data>
+</odoo>

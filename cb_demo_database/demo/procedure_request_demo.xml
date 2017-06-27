@@ -15,12 +15,16 @@
             <field name="subject_id" ref="medical.medical_patient_patient_1" />
             <field name="request_group_id"
                    ref="cb_demo_database.request_group_01" />
+            <field name="performer_id"
+                   ref="cb_demo_database.practitioner_01" />
         </record>
         <record id="procedure_request_03" model="medical.procedure.request">
             <field name="title">INF</field>
             <field name="subject_id" ref="medical.medical_patient_patient_1" />
             <field name="request_group_id"
                    ref="cb_demo_database.request_group_01" />
+            <field name="performer_id"
+                   ref="cb_demo_database.practitioner_02" />
         </record>
         <record id="procedure_request_04" model="medical.procedure.request">
             <field name="title">MAQ</field>

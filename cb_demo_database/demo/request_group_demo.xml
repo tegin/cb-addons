@@ -9,6 +9,13 @@
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
             <field name="careplan_id"
                    ref="cb_demo_database.medical_careplan_1" />
+            <field name="service_id"
+                   ref="cb_demo_database.product_02" />
+            <field name="insurance_authorization_status">approved</field>
+            <field name="private_pricelist_id"
+                   ref="cb_demo_database.product_01_product_template" />
+            <field name="insurance_pricelist_id"
+                   ref="cb_demo_database.product_02_product_template" />
         </record>
     </data>
 </odoo>

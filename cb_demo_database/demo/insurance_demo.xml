@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 LasLabs Inc.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <data noupdate="0">
+
+        <record id="product_01" model="product.product">
+            <field name="name">DKV</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+        </record>
+
+        <record id="company_01" model="medical.insurance.company">
+            <field name="name">DKV</field>
+        </record>
+
+        <record id="product_01" model="product.product">
+            <field name="name">DKV</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+        </record>
+
+        <record id="plan_template_01" model="medical.insurance.template">
+            <field name="code">00001</field>
+            <field name="description">DKV plan template</field>
+            <field name="product_id" ref="cb_demo_database.product_01"/>
+            <field name="insurance_company_id"
+                   ref="cb_demo_database.company_01"/>
+        </record>
+
+        <record id="pricelist_01" model="medical.insurance.pricelist">
+            <field name="name">DKV agreement</field>
+            <field name="insurance_name">DKV</field>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="insurance_currency_id" ref="base.EUR"/>
+            <field name="private_name" ref="medical.medical_patient_patient_1"/>
+            <field name="private_currency_id" ref="base.EUR"/>
+            <field name="insurance_template_ids"
+                   eval="[(6,0,[ref('cb_demo_database.plan_template_01')])]" />
+        </record>
+
+        <record id="plan_01" model="medical.insurance.plan">
+            <field name="patient_id" ref="medical.medical_patient_patient_1"/>
+            <field name="insurance_template_id" ref="cb_demo_database.plan_template_01"/>
+        </record>
+
+        <record id="pricelist_item_01" model="medical.insurance.pricelist.item">
+            <field name="plan_definition_id" ref="cb_demo_database.workflow_plan_definition_01"/>
+            <field name="applied_on">0_product_variant</field>
+            <field name="product_id" ref="cb_demo_database.product_02"/>
+            <field name="medical_pricelist_id" ref="cb_demo_database.pricelist_01"/>
+            <field name="compute_price">fixed</field>
+            <field name="insurance_fixed_price">90</field>
+            <field name="private_fixed_price">10</field>
+        </record>
+
+    </data>
+</odoo>

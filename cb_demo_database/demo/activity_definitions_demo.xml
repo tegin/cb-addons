@@ -29,8 +29,7 @@
         <record id="workflow_activity_definition_04"
                 model="workflow.activity.definition">
             <field name="name">
-                Control del responsable del departamento
-                (autoasignado y autofinalizado)</field>
+                Control del responsable del departamento (autoasignado y autofinalizado)</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
                    search="[('model', 'in', ['medical.procedure.request'])]" />
@@ -42,12 +41,19 @@
             <field name="model_id"
                    search="[('model', 'in', ['medical.procedure.request'])]" />
         </record>
+        <record id="product_02" model="product.product">
+            <field name="name">Diagnóstico por la Imágen</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+        </record>
         <record id="workflow_activity_definition_06"
                 model="workflow.activity.definition">
             <field name="name">Diagnóstico por la Imágen</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
                    search="[('model', 'in', ['medical.request.group'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_02" />
         </record>
+
     </data>
 </odoo>

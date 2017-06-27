@@ -8,9 +8,9 @@
             <field name="title">Test Care Plan</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
             <field name="plandefinition_ids"
-                   eval="[(6,0,
-                   [ref('cb_demo_database.workflow_plan_definition_01')])]" />
+                   eval="[(6,0,[ref('cb_demo_database.workflow_plan_definition_01')])]" />
             <field name="encounter_id" ref="cb_demo_database.encounter_01" />
+            <field name="insurance_plan_id" ref="cb_demo_database.plan_01" />
         </record>
     </data>
 </odoo>
