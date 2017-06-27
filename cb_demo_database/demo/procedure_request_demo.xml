@@ -4,11 +4,23 @@
 
 <odoo>
     <data noupdate="0">
+        <record id="product_03" model="product.product">
+            <field name="name">Contraste RM</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+        </record>
         <record id="procedure_request_01" model="medical.procedure.request">
             <field name="title">CRRM</field>
             <field name="subject_id" ref="medical.medical_patient_patient_1" />
             <field name="request_group_id"
                    ref="cb_demo_database.request_group_01" />
+            <field name="service_id"
+                   ref="cb_demo_database.product_03" />
+        </record>
+        <record id="product_04" model="product.product">
+            <field name="name">Control del responsable del departamento (autoasignado y autofinalizado)</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
         </record>
         <record id="procedure_request_02" model="medical.procedure.request">
             <field name="title">CTRL</field>
@@ -17,6 +29,13 @@
                    ref="cb_demo_database.request_group_01" />
             <field name="performer_id"
                    ref="cb_demo_database.practitioner_01" />
+            <field name="service_id"
+                   ref="cb_demo_database.product_04" />
+        </record>
+        <record id="product_05" model="product.product">
+            <field name="name">Informe del profesional</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
         </record>
         <record id="procedure_request_03" model="medical.procedure.request">
             <field name="title">INF</field>
@@ -25,18 +44,34 @@
                    ref="cb_demo_database.request_group_01" />
             <field name="performer_id"
                    ref="cb_demo_database.practitioner_02" />
+            <field name="service_id"
+                   ref="cb_demo_database.product_05" />
+        </record>
+        <record id="product_06" model="product.product">
+            <field name="name">Tiempo en Máquina</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
         </record>
         <record id="procedure_request_04" model="medical.procedure.request">
             <field name="title">MAQ</field>
             <field name="subject_id" ref="medical.medical_patient_patient_1" />
             <field name="request_group_id"
                    ref="cb_demo_database.request_group_01" />
+            <field name="service_id"
+                   ref="cb_demo_database.product_06" />
+        </record>
+        <record id="product_07" model="product.product">
+            <field name="name">Generación del Worklist para la modalidad RM</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
         </record>
         <record id="procedure_request_05" model="medical.procedure.request">
             <field name="title">WL RM</field>
             <field name="subject_id" ref="medical.medical_patient_patient_1" />
             <field name="request_group_id"
                    ref="cb_demo_database.request_group_01" />
+        <field name="service_id"
+                   ref="cb_demo_database.product_07" />
         </record>
     </data>
 </odoo>

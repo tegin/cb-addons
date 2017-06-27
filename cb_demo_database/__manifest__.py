@@ -9,6 +9,7 @@
     'author': 'Eficent, Odoo Community Association (OCA)',
     'category': '',
     'depends': [
+        'medical_procedure_purchase',
         'medical_practitioner',
         'workflow_plandefinition',
         'medical_insurance_sale',
