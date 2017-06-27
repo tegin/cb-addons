@@ -30,16 +30,16 @@
             <field name="name">ANEIII</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
             <field name="careplan_id"
-                   ref="cb_demo_database.medical_careplan_1" />
+                   ref="cb_demo_database.medical_careplan_2" />
             <field name="service_id"
                    ref="cb_demo_database.product_23" />
             <field name="insurance_authorization_status">approved</field>
         </record>
-        <record id="request_group_01" model="medical.request.group">
+        <record id="request_group_23" model="medical.request.group">
             <field name="name">H2167</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
             <field name="careplan_id"
-                   ref="cb_demo_database.medical_careplan_1" />
+                   ref="cb_demo_database.medical_careplan_2" />
             <field name="service_id"
                    ref="cb_demo_database.product_24" />
             <field name="insurance_authorization_status">approved</field>
