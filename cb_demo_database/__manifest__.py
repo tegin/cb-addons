@@ -24,6 +24,7 @@
         'medical_encounter_careplan',
     ],
     'demo': [
+        'demo/products_demo.xml',
         'demo/groups_demo.xml',
         'demo/practitioner_demo.xml',
         'demo/workflow_types_demo.xml',

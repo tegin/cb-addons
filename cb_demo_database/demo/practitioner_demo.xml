@@ -4,22 +4,48 @@
 
 <odoo>
     <data noupdate="0">
+        <record id="anaesthetist" model="medical.role">
+            <field name="name">Anaesthetist</field>
+            <field name="description">Anaesthetist</field>
+        </record>
+        <record id="surgeon" model="medical.role">
+            <field name="name">Surgeon</field>
+            <field name="description">Surgeon</field>
+        </record>
         <record id="practitioner_01" model="medical.practitioner">
             <field name="name">RXB01</field>
             <field name="role_ids"
                    eval="[(6,0,[ref('medical_practitioner.doctor')])]" />
         </record>
-
         <record id="practitioner_02" model="medical.practitioner">
             <field name="name">RXB02</field>
             <field name="role_ids"
                    eval="[(6,0,[ref('medical_practitioner.doctor')])]" />
         </record>
-
         <record id="practitioner_03" model="medical.practitioner">
             <field name="name">Técnico</field>
             <field name="role_ids"
                    eval="[(6,0,[ref('medical_practitioner.technician')])]" />
+        </record>
+        <record id="practitioner_04" model="medical.practitioner">
+            <field name="name">ANE01</field>
+            <field name="role_ids"
+                   eval="[(6,0,[ref('cb_demo_database.anaesthetist')])]" />
+        </record>
+        <record id="practitioner_05" model="medical.practitioner">
+            <field name="name">ANE02</field>
+            <field name="role_ids"
+                   eval="[(6,0,[ref('cb_demo_database.anaesthetist')])]" />
+        </record>
+        <record id="practitioner_06" model="medical.practitioner">
+            <field name="name">TRA01</field>
+            <field name="role_ids"
+                   eval="[(6,0,[ref('cb_demo_database.surgeon')])]" />
+        </record>
+        <record id="practitioner_07" model="medical.practitioner">
+            <field name="name">TRA02</field>
+            <field name="role_ids"
+                   eval="[(6,0,[ref('cb_demo_database.surgeon')])]" />
         </record>
     </data>
 </odoo>

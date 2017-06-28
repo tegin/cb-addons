@@ -9,13 +9,13 @@
 
         <record id="workflow_plan_definition_01"
                 model="workflow.plan.definition">
-            <field name="name">RMN de rodilla</field>
+            <field name="name">Resonanica magnética</field>
             <field name="state">draft</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
         </record>
         <record id="workflow_plan_definition_action_01"
                 model="workflow.plan.definition.action">
-            <field name="name">RMNRod</field>
+            <field name="name">RM Rodilla</field>
             <field name="direct_plan_definition_id"
                    ref="cb_demo_database.workflow_plan_definition_01"/>
             <field name="activity_definition_id"
@@ -23,7 +23,7 @@
         </record>
         <record id="workflow_plan_definition_action_02"
                 model="workflow.plan.definition.action">
-            <field name="name">WL RM</field>
+            <field name="name">Generación del Worklist para la modalidad RM</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_01"/>
             <field name="activity_definition_id"
@@ -31,7 +31,7 @@
         </record>
         <record id="workflow_plan_definition_action_03"
                 model="workflow.plan.definition.action">
-            <field name="name">MAQ</field>
+            <field name="name">Tiempo en Máquina</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_01"/>
             <field name="activity_definition_id"
@@ -39,7 +39,7 @@
         </record>
         <record id="workflow_plan_definition_action_04"
                 model="workflow.plan.definition.action">
-            <field name="name">INF</field>
+            <field name="name">Informe del profesional</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_01"/>
             <field name="activity_definition_id"
@@ -47,7 +47,7 @@
         </record>
         <record id="workflow_plan_definition_action_05"
                 model="workflow.plan.definition.action">
-            <field name="name">CTRL</field>
+            <field name="name">Control del responsable del departamento (autoasignado y autofinalizado)</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_01"/>
             <field name="activity_definition_id"
@@ -55,7 +55,7 @@
         </record>
         <record id="workflow_plan_definition_action_06"
                 model="workflow.plan.definition.action">
-            <field name="name">CRRM</field>
+            <field name="name">Contraste RM</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_01"/>
             <field name="activity_definition_id"
@@ -75,7 +75,7 @@
 
         <record id="workflow_plan_definition_action_21"
                 model="workflow.plan.definition.action">
-            <field name="name">Q2167</field>
+            <field name="name">Gestión clínica LCA</field>
             <field name="direct_plan_definition_id"
                    ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
@@ -83,7 +83,7 @@
         </record>
         <record id="workflow_plan_definition_action_22"
                 model="workflow.plan.definition.action">
-            <field name="name">Q2</field>
+            <field name="name">2 Horas en Quirófanos</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_21"/>
             <field name="activity_definition_id"
@@ -91,7 +91,7 @@
         </record>
         <record id="workflow_plan_definition_action_23"
                 model="workflow.plan.definition.action">
-            <field name="name">ART</field>
+            <field name="name">Uso del artroscopio</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_21"/>
             <field name="activity_definition_id"
@@ -99,7 +99,7 @@
         </record>
         <record id="workflow_plan_definition_action_24"
                 model="workflow.plan.definition.action">
-            <field name="name">REA1</field>
+            <field name="name">1 Hora en reanimación</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_21"/>
             <field name="activity_definition_id"
@@ -107,7 +107,7 @@
         </record>
         <record id="workflow_plan_definition_action_25"
                 model="workflow.plan.definition.action">
-            <field name="name">ESTQ</field>
+            <field name="name">1 día de estancia quirúrgica</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_21"/>
             <field name="activity_definition_id"
@@ -115,7 +115,7 @@
         </record>
         <record id="workflow_plan_definition_action_26"
                 model="workflow.plan.definition.action">
-            <field name="name">MATMED</field>
+            <field name="name">Medicación</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_21"/>
             <field name="activity_definition_id"
@@ -123,7 +123,7 @@
         </record>
         <record id="workflow_plan_definition_action_27"
                 model="workflow.plan.definition.action">
-            <field name="name">MATMQ</field>
+            <field name="name">Material Quirúrgico</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_21"/>
             <field name="activity_definition_id"
@@ -131,7 +131,7 @@
         </record>
         <record id="workflow_plan_definition_action_28"
                 model="workflow.plan.definition.action">
-            <field name="name">MATGAS</field>
+            <field name="name">Gases</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_21"/>
             <field name="activity_definition_id"
@@ -139,7 +139,7 @@
         </record>
         <record id="workflow_plan_definition_action_29"
                 model="workflow.plan.definition.action">
-            <field name="name">MATMCL</field>
+            <field name="name">Material Clínico</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_21"/>
             <field name="activity_definition_id"
@@ -150,7 +150,7 @@
 
         <record id="workflow_plan_definition_action_30"
                 model="workflow.plan.definition.action">
-            <field name="name">ANEIII</field>
+            <field name="name">Anestesia necesaria para realizar un LCA</field>
             <field name="direct_plan_definition_id"
                    ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
@@ -158,7 +158,7 @@
         </record>
         <record id="workflow_plan_definition_action_31"
                 model="workflow.plan.definition.action">
-            <field name="name">ANE</field>
+            <field name="name">Realización de la anestesia por parte de un profesional</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_30"/>
             <field name="activity_definition_id"
@@ -166,7 +166,7 @@
         </record>
         <record id="workflow_plan_definition_action_32"
                 model="workflow.plan.definition.action">
-            <field name="name">CTRL</field>
+            <field name="name">Control del responsable del departamento (autoasignado y autofinalizado)</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_30"/>
             <field name="activity_definition_id"
@@ -177,7 +177,7 @@
 
         <record id="workflow_plan_definition_action_33"
                 model="workflow.plan.definition.action">
-            <field name="name">H2167</field>
+            <field name="name">Honorarios LCA</field>
             <field name="direct_plan_definition_id"
                    ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
@@ -185,7 +185,7 @@
         </record>
         <record id="workflow_plan_definition_action_34"
                 model="workflow.plan.definition.action">
-            <field name="name">HOCIR</field>
+            <field name="name">Honorarios del profesional principal</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_33"/>
             <field name="activity_definition_id"
@@ -193,7 +193,7 @@
         </record>
         <record id="workflow_plan_definition_action_35"
                 model="workflow.plan.definition.action">
-            <field name="name">HOCIR2</field>
+            <field name="name">Honorarios de ayudantía</field>
             <field name="parent_id"
                    ref="cb_demo_database.workflow_plan_definition_action_33"/>
             <field name="activity_definition_id"
