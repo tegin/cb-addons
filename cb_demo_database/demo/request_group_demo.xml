@@ -12,9 +12,9 @@
             <field name="service_id"
                    ref="cb_demo_database.product_02" />
             <field name="insurance_authorization_status">approved</field>
-            <field name="private_pricelist_id"
+            <field name="private_agreement_id"
                    ref="cb_demo_database.product_01_product_template" />
-            <field name="insurance_pricelist_id"
+            <field name="insurance_agreement_id"
                    ref="cb_demo_database.product_02_product_template" />
         </record>
         <record id="request_group_21" model="medical.request.group">
