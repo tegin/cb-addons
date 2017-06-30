@@ -7,6 +7,7 @@
         <record id="medical_careplan_1" model="medical.careplan">
             <field name="title">Care Plan Resonancia Magnética</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="plandefinition_ids"
                    eval="[(6,0,[ref('cb_demo_database.workflow_plan_definition_01')])]" />
             <field name="encounter_id" ref="cb_demo_database.encounter_01" />
@@ -15,6 +16,7 @@
         <record id="medical_careplan_2" model="medical.careplan">
             <field name="title">Care Plan Cirugía</field>
             <field name="patient_id" ref="medical.medical_patient_patient_2" />
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="plandefinition_ids"
                    eval="[(6,0,[ref('cb_demo_database.workflow_plan_definition_21')])]" />
             <field name="encounter_id" ref="cb_demo_database.encounter_21" />

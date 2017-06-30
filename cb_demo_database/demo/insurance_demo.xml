@@ -28,6 +28,7 @@
         <record id="agreement_01" model="medical.insurance.agreement">
             <field name="name">DKV agreement</field>
             <field name="insurance_name">DKV</field>
+            <field name="insurance_company" ref="cb_demo_database.company_01"/>
             <field name="currency_id" ref="base.EUR"/>
             <field name="insurance_currency_id" ref="base.EUR"/>
             <field name="private_name" ref="medical.medical_patient_patient_1"/>
@@ -41,11 +42,12 @@
             <field name="insurance_template_id" ref="cb_demo_database.plan_template_01"/>
         </record>
 
-        <record id="agreement_item_01" model="medical.insurance.agreement.item">
+        <record id="pricelist_item_01" model="medical.insurance.pricelist.item">
             <field name="plan_definition_id" ref="cb_demo_database.workflow_plan_definition_01"/>
             <field name="applied_on">0_product_variant</field>
             <field name="product_id" ref="cb_demo_database.product_02"/>
-            <field name="medical_agreement_id" ref="cb_demo_database.agreement_01"/>
+            <field name="medical_pricelist_id"
+                   ref="cb_demo_database.agreement_01"/>
             <field name="compute_price">fixed</field>
             <field name="insurance_fixed_price">90</field>
             <field name="private_fixed_price">10</field>
@@ -74,6 +76,7 @@
         <record id="agreement_21" model="medical.insurance.agreement">
             <field name="name">Adeslas agreement</field>
             <field name="insurance_name">Adeslas</field>
+            <field name="insurance_company" ref="cb_demo_database.company_21"/>
             <field name="currency_id" ref="base.EUR"/>
             <field name="insurance_currency_id" ref="base.EUR"/>
             <field name="private_name" ref="medical.medical_patient_patient_2"/>
@@ -87,11 +90,12 @@
             <field name="insurance_template_id" ref="cb_demo_database.plan_template_21"/>
         </record>
 
-        <record id="agreement_item_21" model="medical.insurance.agreement.item">
+        <record id="pricelist_item_21" model="medical.insurance.pricelist.item">
             <field name="plan_definition_id" ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="applied_on">0_product_variant</field>
             <field name="product_id" ref="cb_demo_database.product_22"/>
-            <field name="medical_agreement_id" ref="cb_demo_database.agreement_21"/>
+            <field name="medical_pricelist_id"
+                   ref="cb_demo_database.agreement_21"/>
             <field name="compute_price">fixed</field>
             <field name="insurance_fixed_price">90</field>
             <field name="private_fixed_price">10</field>
