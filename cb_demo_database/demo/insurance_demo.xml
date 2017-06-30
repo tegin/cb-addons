@@ -42,7 +42,7 @@
             <field name="insurance_template_id" ref="cb_demo_database.plan_template_01"/>
         </record>
 
-        <record id="pricelist_item_01" model="medical.insurance.pricelist.item">
+        <record id="agreement_item_01" model="medical.insurance.agreement.item">
             <field name="plan_definition_id" ref="cb_demo_database.workflow_plan_definition_01"/>
             <field name="applied_on">0_product_variant</field>
             <field name="product_id" ref="cb_demo_database.product_02"/>
@@ -90,7 +90,7 @@
             <field name="insurance_template_id" ref="cb_demo_database.plan_template_21"/>
         </record>
 
-        <record id="pricelist_item_21" model="medical.insurance.pricelist.item">
+        <record id="agreement_item_21" model="medical.insurance.agreement.item">
             <field name="plan_definition_id" ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="applied_on">0_product_variant</field>
             <field name="product_id" ref="cb_demo_database.product_22"/>
