@@ -3,6 +3,7 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 
 <odoo>
+
     <data noupdate="0">
         <record id="medical_careplan_1" model="medical.careplan">
             <field name="title">Care Plan Resonancia Magnética</field>
@@ -23,4 +24,5 @@
             <field name="insurance_plan_id" ref="cb_demo_database.plan_21" />
         </record>
     </data>
+
 </odoo>

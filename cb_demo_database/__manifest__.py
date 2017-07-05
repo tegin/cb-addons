@@ -23,6 +23,8 @@
         'medical_request_group',
         'medical_practitioner',
         'medical_procedure',
+        'medical_careplan_sale',
+        'medical_procedure_purchase',
     ],
     'demo': [
         'demo/workflow_types_demo.xml',
