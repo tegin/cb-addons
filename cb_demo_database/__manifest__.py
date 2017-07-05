@@ -18,6 +18,7 @@
         'stock',
         'medical_insurance',
         'medical_insurance_sale',
+        'medical_encounter_careplan',
         'medical_careplan',
         'medical_request_group',
         'medical_practitioner',
