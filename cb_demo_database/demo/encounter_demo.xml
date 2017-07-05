@@ -15,7 +15,7 @@
             <field name="status">arrived</field>
         </record>
         <record id="encounter_31" model="medical.encounter">
-            <field name="patient_id" ref="medical.medical_patient_patient_4" />
+            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_4" />
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="status">arrived</field>
         </record>
