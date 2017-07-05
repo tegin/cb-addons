@@ -4,21 +4,6 @@
 
 <odoo>
     <data noupdate="0">
-        <record id="encounter_01" model="medical.encounter">
-            <field name="patient_id" ref="medical.medical_patient_patient_1" />
-            <field name="center_id" ref="cb_demo_database.medical_center_01" />
-            <field name="status">arrived</field>
-        </record>
-        <record id="encounter_21" model="medical.encounter">
-            <field name="patient_id" ref="medical.medical_patient_patient_2" />
-            <field name="center_id" ref="cb_demo_database.medical_center_01" />
-            <field name="status">arrived</field>
-        </record>
-        <record id="encounter_31" model="medical.encounter">
-            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_4" />
-            <field name="center_id" ref="cb_demo_database.medical_center_01" />
-            <field name="status">arrived</field>
-        </record>
 
         <!-- 4th patient -->
         <record id="res_partner_patient_4" model="res.partner">
@@ -37,6 +22,23 @@
                    ref="cb_demo_database.res_partner_patient_4" />
             <field name="birthdate_date">1968-09-08</field>
             <field name='gender'>male</field>
+        </record>
+
+	<!-- Encounters-->
+        <record id="encounter_01" model="medical.encounter">
+            <field name="patient_id" ref="medical.medical_patient_patient_1" />
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
+            <field name="status">arrived</field>
+        </record>
+        <record id="encounter_21" model="medical.encounter">
+            <field name="patient_id" ref="medical.medical_patient_patient_2" />
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
+            <field name="status">arrived</field>
+        </record>
+        <record id="encounter_31" model="medical.encounter">
+            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_4" />
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
+            <field name="status">arrived</field>
         </record>
     </data>
 </odoo>
