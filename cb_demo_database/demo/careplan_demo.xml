@@ -25,7 +25,7 @@
         </record>
         <record id="medical_careplan_3" model="medical.careplan">
             <field name="title">Care Plan Visita especialista</field>
-            <field name="patient_id" ref="medical.medical_patient_patient_4" />
+            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_4" />
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="plandefinition_ids"
                    eval="[(6,0,[ref('cb_demo_database.workflow_plan_definition_31')])]" />

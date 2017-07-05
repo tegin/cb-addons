@@ -59,7 +59,8 @@
 
         <record id="request_group_31" model="medical.request.group">
             <field name="name">TRA</field>
-            <field name="patient_id" ref="medical.medical_patient_patient_4" />
+            <field name="patient_id"
+                   ref="cb_demo_database.medical_patient_patient_4" />
             <field name="careplan_id"
                    ref="cb_demo_database.medical_careplan_3" />
             <field name="service_id"

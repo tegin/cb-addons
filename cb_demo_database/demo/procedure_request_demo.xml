@@ -182,7 +182,7 @@
 
         <record id="procedure_request_41" model="medical.procedure.request">
             <field name="title">Visita traumatología</field>
-            <field name="subject_id" ref="medical.medical_patient_patient_4" />
+            <field name="subject_id" ref="cb_demo_database.medical_patient_patient_4" />
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="request_group_id"
                    ref="cb_demo_database.request_group_31" />
