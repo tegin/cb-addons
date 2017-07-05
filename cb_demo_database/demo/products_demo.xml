@@ -57,84 +57,109 @@
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">Q2</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_41" model="product.product">
             <field name="name">Uso del artroscopio</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">ART</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_42" model="product.product">
             <field name="name">1 Hora en reanimación</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">REA1</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_43" model="product.product">
             <field name="name">1 día de estancia quirúrgica</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">ESTQ</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_44" model="product.product">
             <field name="name">Medicación</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">MATMED</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_45" model="product.product">
             <field name="name">Material Quirúrgico</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">MATMQ</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_46" model="product.product">
             <field name="name">Gases</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">MATGAS</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_47" model="product.product">
             <field name="name">Material Clínico</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">MATMCL</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_48" model="product.product">
             <field name="name">Realización de la anestesia por parte de un profesional</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">ANE</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_49" model="product.product">
             <field name="name">Honorarios del profesional principal</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">HOCIR</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_50" model="product.product">
             <field name="name">Honorarios de ayudantía</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">HOCIR2</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_22" model="product.product">
             <field name="name">Gestión clínica LCA</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">Q2167</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_23" model="product.product">
             <field name="name">Anestesia necesaria para realizar un LCA</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">ANEIII</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_24" model="product.product">
             <field name="name">Honorarios LCA</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">H2167</field>
+            <field name="taxes_id"/>
         </record>
+
+        <!-- Visita especialista -->
+
+        <record id="product_51" model="product.product">
+            <field name="name">Visita de traumatología</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+            <field name="default_code">TRA</field>
+            <field name="taxes_id"/>
+        </record>
+
     </data>
 </odoo>

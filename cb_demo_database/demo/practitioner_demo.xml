@@ -22,6 +22,11 @@
             <field name="role_ids"
                    eval="[(6,0,[ref('medical_practitioner.doctor')])]" />
         </record>
+        <record id="practitioner_08" model="medical.practitioner">
+            <field name="name">RXB03</field>
+            <field name="role_ids"
+                   eval="[(6,0,[ref('medical_practitioner.doctor')])]" />
+        </record>
         <record id="practitioner_03" model="medical.practitioner">
             <field name="name">Técnico</field>
             <field name="role_ids"

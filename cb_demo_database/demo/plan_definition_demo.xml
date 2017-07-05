@@ -199,5 +199,30 @@
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_32"/>
         </record>
+
+        <!-- Visita especialista -->
+
+        <record id="workflow_plan_definition_31"
+                model="workflow.plan.definition">
+            <field name="name">Visita especialista</field>
+            <field name="state">draft</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
+        </record>
+        <record id="workflow_plan_definition_action_36"
+                model="workflow.plan.definition.action">
+            <field name="name">Visita de traumatología</field>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_31"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_36"/>
+        </record>
+        <record id="workflow_plan_definition_action_37"
+                model="workflow.plan.definition.action">
+            <field name="name">Visita de traumatología</field>
+            <field name="parent_id"
+                   ref="cb_demo_database.workflow_plan_definition_action_36"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_37"/>
+        </record>
     </data>
 </odoo>

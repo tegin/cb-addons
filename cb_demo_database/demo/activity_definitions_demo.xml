@@ -198,5 +198,26 @@
             <field name="resource_product_id"
                    ref="cb_demo_database.product_24" />
         </record>
+
+        <!-- Visita especialista -->
+
+        <record id="workflow_activity_definition_36"
+                model="workflow.activity.definition">
+            <field name="name">Visita de traumatología</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id"
+                   ref="cb_demo_database.product_51" />
+        </record>
+        <record id="workflow_activity_definition_37"
+                model="workflow.activity.definition">
+            <field name="name">Visita de traumatología</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
+            <field name="resource_product_id"
+                   ref="cb_demo_database.product_51" />
+        </record>
     </data>
 </odoo>

@@ -54,5 +54,19 @@
             <field name="insurance_authorization_status">approved</field>
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
         </record>
+
+        <!-- Visita especialista -->
+
+        <record id="request_group_31" model="medical.request.group">
+            <field name="name">TRA</field>
+            <field name="patient_id" ref="medical.medical_patient_patient_4" />
+            <field name="careplan_id"
+                   ref="cb_demo_database.medical_careplan_3" />
+            <field name="service_id"
+                   ref="cb_demo_database.product_51" />
+            <field name="insurance_authorization_status">approved</field>
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
+        </record>
+
     </data>
 </odoo>

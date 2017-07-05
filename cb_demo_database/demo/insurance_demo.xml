@@ -56,6 +56,18 @@
             <field name="private_fixed_price">10</field>
         </record>
 
+        <record id="agreement_item_02" model="medical.insurance.agreement.item">
+            <field name="plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_31"/>
+            <field name="applied_on">0_product_variant</field>
+            <field name="product_id" ref="cb_demo_database.product_51"/>
+            <field name="medical_pricelist_id"
+                   ref="cb_demo_database.agreement_01"/>
+            <field name="compute_price">fixed</field>
+            <field name="insurance_fixed_price">25</field>
+            <field name="private_fixed_price">60</field>
+        </record>
+
         <!-- Adeslas -->
 
         <record id="product_21" model="product.product">
