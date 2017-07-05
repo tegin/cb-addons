@@ -4,6 +4,9 @@
 
 <odoo>
     <data noupdate="0">
+
+        <!-- RMN de Rodilla -->
+
         <record id="request_group_01" model="medical.request.group">
             <field name="name">RMNRod</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
@@ -11,12 +14,16 @@
                    ref="cb_demo_database.medical_careplan_1" />
             <field name="service_id"
                    ref="cb_demo_database.product_02" />
-            <field name="insurance_authorization_status">approved</field>
             <field name="private_agreement_id"
                    ref="cb_demo_database.product_01_product_template" />
             <field name="insurance_agreement_id"
                    ref="cb_demo_database.product_02_product_template" />
+            <field name="insurance_authorization_status">approved</field>
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
         </record>
+
+        <!-- Cirugía (Ligamentoplastia LCA por artroscopia) -->
+
         <record id="request_group_21" model="medical.request.group">
             <field name="name">Q2167</field>
             <field name="patient_id" ref="medical.medical_patient_patient_2" />
@@ -25,6 +32,7 @@
             <field name="service_id"
                    ref="cb_demo_database.product_22" />
             <field name="insurance_authorization_status">approved</field>
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
         </record>
         <record id="request_group_22" model="medical.request.group">
             <field name="name">ANEIII</field>
@@ -34,6 +42,7 @@
             <field name="service_id"
                    ref="cb_demo_database.product_23" />
             <field name="insurance_authorization_status">approved</field>
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
         </record>
         <record id="request_group_23" model="medical.request.group">
             <field name="name">H2167</field>
@@ -43,6 +52,7 @@
             <field name="service_id"
                    ref="cb_demo_database.product_24" />
             <field name="insurance_authorization_status">approved</field>
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
         </record>
     </data>
 </odoo>

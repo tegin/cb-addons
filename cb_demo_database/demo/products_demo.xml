@@ -12,36 +12,42 @@
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">WL RM</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_61" model="product.product">
             <field name="name">Tiempo en Máquina</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">MAQ</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_62" model="product.product">
             <field name="name">Informe del profesional</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">INF</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_25" model="product.product">
             <field name="name">Control del responsable del departamento (autoasignado y autofinalizado)</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">CTRL</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_63" model="product.product">
             <field name="name">Contraste RM</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">CRRM</field>
+            <field name="taxes_id"/>
         </record>
         <record id="product_02" model="product.product">
             <field name="name">RM Rodilla</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
             <field name="default_code">RMNRod</field>
+            <field name="taxes_id"/>
         </record>
 
         <!-- Cirugía (Ligamentoplastia LCA por artroscopia) -->

@@ -6,10 +6,12 @@
     <data noupdate="0">
         <record id="encounter_01" model="medical.encounter">
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="status">arrived</field>
         </record>
         <record id="encounter_21" model="medical.encounter">
             <field name="patient_id" ref="medical.medical_patient_patient_2" />
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="status">arrived</field>
         </record>
     </data>
