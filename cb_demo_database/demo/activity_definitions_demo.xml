@@ -206,7 +206,7 @@
             <field name="name">Visita de traumatología</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedure.request'])]" />
+                   search="[('model', 'in', ['medical.request.group'])]" />
             <field name="resource_product_id"
                    ref="cb_demo_database.product_51" />
         </record>
@@ -215,7 +215,7 @@
             <field name="name">Visita de traumatología</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.request.group'])]" />
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
             <field name="resource_product_id"
                    ref="cb_demo_database.product_51" />
         </record>
