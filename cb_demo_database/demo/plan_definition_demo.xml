@@ -12,52 +12,46 @@
             <field name="name">Resonanica magnética</field>
             <field name="state">draft</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
-        </record>
-        <record id="workflow_plan_definition_action_01"
-                model="workflow.plan.definition.action">
-            <field name="name">RM Rodilla</field>
-            <field name="direct_plan_definition_id"
-                   ref="cb_demo_database.workflow_plan_definition_01"/>
-            <field name="activity_definition_id"
-                   ref="cb_demo_database.workflow_activity_definition_06"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
         </record>
         <record id="workflow_plan_definition_action_02"
                 model="workflow.plan.definition.action">
             <field name="name">Generación del Worklist para la modalidad RM</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_01"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_01"/>
         </record>
         <record id="workflow_plan_definition_action_03"
                 model="workflow.plan.definition.action">
             <field name="name">Tiempo en Máquina</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_01"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_02"/>
         </record>
         <record id="workflow_plan_definition_action_04"
                 model="workflow.plan.definition.action">
             <field name="name">Informe del profesional</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_01"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_03"/>
         </record>
         <record id="workflow_plan_definition_action_05"
                 model="workflow.plan.definition.action">
             <field name="name">Control del responsable del departamento (autoasignado y autofinalizado)</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_01"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_04"/>
         </record>
         <record id="workflow_plan_definition_action_06"
                 model="workflow.plan.definition.action">
             <field name="name">Contraste RM</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_01"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_05"/>
         </record>
@@ -69,6 +63,8 @@
             <field name="name">Cirugía (Ligamentoplastia LCA por artroscopia)</field>
             <field name="state">draft</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
         </record>
 
         <!-- Q2167 -->
@@ -207,20 +203,14 @@
             <field name="name">Visita especialista</field>
             <field name="state">draft</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
-        </record>
-        <record id="workflow_plan_definition_action_36"
-                model="workflow.plan.definition.action">
-            <field name="name">Visita de traumatología</field>
-            <field name="direct_plan_definition_id"
-                   ref="cb_demo_database.workflow_plan_definition_31"/>
-            <field name="activity_definition_id"
-                   ref="cb_demo_database.workflow_activity_definition_36"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
         </record>
         <record id="workflow_plan_definition_action_37"
                 model="workflow.plan.definition.action">
             <field name="name">Visita de traumatología</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_36"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_31"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_37"/>
         </record>
