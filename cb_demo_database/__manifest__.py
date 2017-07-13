@@ -25,6 +25,9 @@
         'medical_procedure',
         'medical_careplan_sale',
         'medical_procedure_purchase',
+        'sale',
+        'sale_commission',
+        'sale_commission_formula',
     ],
     'demo': [
         'demo/workflow_types_demo.xml',
@@ -38,6 +41,7 @@
         'demo/request_group_demo.xml',
         'demo/practitioner_demo.xml',
         'demo/procedure_request_demo.xml',
+        'demo/sale_commission_formula_demo.xml',
     ],
     'website': '',
     'licence': 'LGPL-3',
