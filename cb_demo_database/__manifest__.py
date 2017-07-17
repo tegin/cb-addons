@@ -27,7 +27,7 @@
         'sale_commission',
         'sale_commission_formula',
         'medical_procedure_purchase',
-        'medical_commission'
+        'medical_commission',
         'medical_careplan_sale',
     ],
     'demo': [
