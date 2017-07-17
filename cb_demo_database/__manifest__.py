@@ -23,11 +23,12 @@
         'medical_request_group',
         'medical_practitioner',
         'medical_procedure',
-        'medical_careplan_sale',
-        'medical_procedure_purchase',
         'sale',
         'sale_commission',
         'sale_commission_formula',
+        'medical_procedure_purchase',
+        'medical_commission'
+        'medical_careplan_sale',
     ],
     'demo': [
         'demo/workflow_types_demo.xml',
