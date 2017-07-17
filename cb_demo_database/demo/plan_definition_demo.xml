@@ -58,140 +58,137 @@
 
         <!-- Cirugía (Ligamentoplastia LCA por artroscopia) -->
 
+        <!-- Q2167 -->
+
         <record id="workflow_plan_definition_21"
                 model="workflow.plan.definition">
-            <field name="name">Cirugía (Ligamentoplastia LCA por artroscopia)</field>
+            <field name="name">Gestión clínica LCA</field>
             <field name="state">draft</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
                    search="[('model', 'in', ['medical.request.group'])]" />
-        </record>
-
-        <!-- Q2167 -->
-
-        <record id="workflow_plan_definition_action_21"
-                model="workflow.plan.definition.action">
-            <field name="name">Gestión clínica LCA</field>
-            <field name="direct_plan_definition_id"
-                   ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_33"/>
         </record>
         <record id="workflow_plan_definition_action_22"
                 model="workflow.plan.definition.action">
             <field name="name">2 Horas en Quirófanos</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_21"/>
         </record>
         <record id="workflow_plan_definition_action_23"
                 model="workflow.plan.definition.action">
             <field name="name">Uso del artroscopio</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_22"/>
         </record>
         <record id="workflow_plan_definition_action_24"
                 model="workflow.plan.definition.action">
             <field name="name">1 Hora en reanimación</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_23"/>
         </record>
         <record id="workflow_plan_definition_action_25"
                 model="workflow.plan.definition.action">
             <field name="name">1 día de estancia quirúrgica</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_24"/>
         </record>
         <record id="workflow_plan_definition_action_26"
                 model="workflow.plan.definition.action">
             <field name="name">Medicación</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_25"/>
         </record>
         <record id="workflow_plan_definition_action_27"
                 model="workflow.plan.definition.action">
             <field name="name">Material Quirúrgico</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_26"/>
         </record>
         <record id="workflow_plan_definition_action_28"
                 model="workflow.plan.definition.action">
             <field name="name">Gases</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_27"/>
         </record>
         <record id="workflow_plan_definition_action_29"
                 model="workflow.plan.definition.action">
             <field name="name">Material Clínico</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_21"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_21"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_28"/>
         </record>
 
         <!-- ANEIII -->
 
-        <record id="workflow_plan_definition_action_30"
-                model="workflow.plan.definition.action">
+        <record id="workflow_plan_definition_41"
+                model="workflow.plan.definition">
             <field name="name">Anestesia necesaria para realizar un LCA</field>
-            <field name="direct_plan_definition_id"
-                   ref="cb_demo_database.workflow_plan_definition_21"/>
+            <field name="state">draft</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_34"/>
         </record>
         <record id="workflow_plan_definition_action_31"
                 model="workflow.plan.definition.action">
             <field name="name">Realización de la anestesia por parte de un profesional</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_30"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_41"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_29"/>
         </record>
         <record id="workflow_plan_definition_action_32"
                 model="workflow.plan.definition.action">
             <field name="name">Control del responsable del departamento (autoasignado y autofinalizado)</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_30"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_41"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_36"/>
         </record>
 
         <!-- H2167 -->
 
-        <record id="workflow_plan_definition_action_33"
-                model="workflow.plan.definition.action">
+        <record id="workflow_plan_definition_51"
+                model="workflow.plan.definition">
             <field name="name">Honorarios LCA</field>
-            <field name="direct_plan_definition_id"
-                   ref="cb_demo_database.workflow_plan_definition_21"/>
+            <field name="state">draft</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_35"/>
         </record>
         <record id="workflow_plan_definition_action_34"
                 model="workflow.plan.definition.action">
             <field name="name">Honorarios del profesional principal</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_33"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_51"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_31"/>
         </record>
         <record id="workflow_plan_definition_action_35"
                 model="workflow.plan.definition.action">
             <field name="name">Honorarios de ayudantía</field>
-            <field name="parent_id"
-                   ref="cb_demo_database.workflow_plan_definition_action_33"/>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_51"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_32"/>
         </record>
