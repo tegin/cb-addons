@@ -183,6 +183,7 @@
                    ref="cb_demo_database.workflow_plan_definition_51"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_31"/>
+            <field name="fee">60</field>
         </record>
         <record id="workflow_plan_definition_action_35"
                 model="workflow.plan.definition.action">
@@ -191,6 +192,7 @@
                    ref="cb_demo_database.workflow_plan_definition_51"/>
             <field name="activity_definition_id"
                    ref="cb_demo_database.workflow_activity_definition_32"/>
+            <field name="fee">30</field>
         </record>
 
         <!-- Visita especialista -->

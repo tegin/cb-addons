@@ -90,7 +90,7 @@
 
         <record id="agreement_21" model="medical.insurance.agreement">
             <field name="name">Adeslas agreement</field>
-            <field name="company_id" ref="stock.res_company_1" />
+            <field name="company_id" ref="base.main_company" />
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="insurance_id" ref="cb_demo_database.company_21" />
             <field name="insurance_name">Adeslas</field>

@@ -42,15 +42,27 @@
             <field name="role_ids"
                    eval="[(6,0,[ref('cb_demo_database.anaesthetist')])]" />
         </record>
+        <record id="res_partner_practitioner_06" model="res.partner">
+            <field name="name">TRA01</field>
+            <field name="agent" eval="True"/>
+            <field name="commission" ref="cb_demo_database.commission_01" />
+        </record>
         <record id="practitioner_06" model="medical.practitioner">
             <field name="name">TRA01</field>
             <field name="role_ids"
                    eval="[(6,0,[ref('cb_demo_database.surgeon')])]" />
+            <field name="partner_id" ref="cb_demo_database.res_partner_practitioner_06" />
+        </record>
+        <record id="res_partner_practitioner_07" model="res.partner">
+            <field name="name">TRA02</field>
+            <field name="agent" eval="True"/>
+            <field name="commission" ref="cb_demo_database.commission_01" />
         </record>
         <record id="practitioner_07" model="medical.practitioner">
             <field name="name">TRA02</field>
             <field name="role_ids"
                    eval="[(6,0,[ref('cb_demo_database.surgeon')])]" />
+            <field name="partner_id" ref="cb_demo_database.res_partner_practitioner_07" />
         </record>
     </data>
 </odoo>
