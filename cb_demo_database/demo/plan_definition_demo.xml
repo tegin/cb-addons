@@ -9,11 +9,13 @@
 
         <record id="workflow_plan_definition_01"
                 model="workflow.plan.definition">
-            <field name="name">Resonanica magnética</field>
+            <field name="name">Resonancia magnética</field>
             <field name="state">draft</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
                    search="[('model', 'in', ['medical.request.group'])]" />
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_06"/>
         </record>
         <record id="workflow_plan_definition_action_02"
                 model="workflow.plan.definition.action">
@@ -204,6 +206,8 @@
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
                    search="[('model', 'in', ['medical.request.group'])]" />
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_36"/>
         </record>
         <record id="workflow_plan_definition_action_37"
                 model="workflow.plan.definition.action">

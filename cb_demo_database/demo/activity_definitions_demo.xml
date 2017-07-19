@@ -9,7 +9,7 @@
 
         <record id="workflow_activity_definition_01"
                 model="workflow.activity.definition">
-            <field name="name"> Generación del Worklist para la modalidad RM</field>
+            <field name="name">Generación del Worklist para la modalidad RM</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
                    search="[('model', 'in', ['medical.procedure.request'])]" />
@@ -54,7 +54,7 @@
         </record>
         <record id="workflow_activity_definition_06"
                 model="workflow.activity.definition">
-            <field name="name">RM Rodilla</field>
+            <field name="name">Resonancia magnética</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
                    search="[('model', 'in', ['medical.request.group'])]" />
@@ -203,7 +203,7 @@
 
         <record id="workflow_activity_definition_36"
                 model="workflow.activity.definition">
-            <field name="name">Visita de traumatología</field>
+            <field name="name">Visita especialista</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
                    search="[('model', 'in', ['medical.request.group'])]" />
