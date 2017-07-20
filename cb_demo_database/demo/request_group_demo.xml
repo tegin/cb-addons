@@ -8,7 +8,7 @@
         <!-- RMN de Rodilla -->
 
         <record id="request_group_01" model="medical.request.group">
-            <field name="name">RMNRod</field>
+            <field name="name">Resonancia magnética</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
             <field name="careplan_id"
                    ref="cb_demo_database.medical_careplan_1" />
@@ -25,7 +25,7 @@
         <!-- Cirugía (Ligamentoplastia LCA por artroscopia) -->
 
         <record id="request_group_21" model="medical.request.group">
-            <field name="name">Q2167</field>
+            <field name="name">Gestión clínica LCA</field>
             <field name="patient_id" ref="medical.medical_patient_patient_2" />
             <field name="careplan_id"
                    ref="cb_demo_database.medical_careplan_2" />
@@ -35,7 +35,7 @@
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
         </record>
         <record id="request_group_22" model="medical.request.group">
-            <field name="name">ANEIII</field>
+            <field name="name">Anestesia necesaria para realizar un LCA</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
             <field name="careplan_id"
                    ref="cb_demo_database.medical_careplan_2" />
@@ -45,7 +45,7 @@
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
         </record>
         <record id="request_group_23" model="medical.request.group">
-            <field name="name">H2167</field>
+            <field name="name">Honorarios LCA</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
             <field name="careplan_id"
                    ref="cb_demo_database.medical_careplan_2" />
@@ -58,7 +58,7 @@
         <!-- Visita especialista -->
 
         <record id="request_group_31" model="medical.request.group">
-            <field name="name">TRA</field>
+            <field name="name">Visita especialista</field>
             <field name="patient_id"
                    ref="cb_demo_database.medical_patient_patient_4" />
             <field name="careplan_id"

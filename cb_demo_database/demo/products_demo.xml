@@ -119,6 +119,7 @@
             <field name="name">Honorarios del profesional principal</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
+            <field name="medical_commission" eval="True"/>
             <field name="default_code">HOCIR</field>
             <field name="taxes_id"/>
         </record>
@@ -126,6 +127,7 @@
             <field name="name">Honorarios de ayudantía</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
+            <field name="medical_commission" eval="True"/>
             <field name="default_code">HOCIR2</field>
             <field name="taxes_id"/>
         </record>
@@ -147,6 +149,7 @@
             <field name="name">Honorarios LCA</field>
             <field name="type">service</field>
             <field name="categ_id" ref="product.product_category_3"/>
+            <field name="medical_commission" eval="True"/>
             <field name="default_code">H2167</field>
             <field name="taxes_id"/>
         </record>
