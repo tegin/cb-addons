@@ -14,8 +14,9 @@
             [('purchase_partner_id', '=', agent.id),
              ('procedure_request_id.request_group_id', '=', line.request_group_id.id)])
     if procedures:
-        fee = sum(procedures.mapped('fee'))
-        result = fee/100 * line.price_subtotal
+        variable_fee = sum(procedures.mapped('variable_fee'))
+        fixed_fee = sum(procedures.mapped('fixed_fee'))
+        result = (variable_fee/100 * line.price_subtotal) + fixed_fee
     else:
         result = 0
 if line._name == 'account.invoice.line':
@@ -26,8 +27,9 @@ if line._name == 'account.invoice.line':
             [('purchase_partner_id', '=', agent.id),
              ('procedure_request_id.request_group_id', '=', sale_line.request_group_id.id)])
         if procedures:
-            fee = sum(procedures.mapped('fee'))
-            result = fee/100 * line.price_subtotal
+            variable_fee = sum(procedures.mapped('variable_fee'))
+            fixed_fee = sum(procedures.mapped('fixed_fee'))
+            result = (variable_fee/100 * line.price_subtotal) + fixed_fee
         else:
             result = 0
     else:
