@@ -43,6 +43,7 @@
         'demo/sale_commission_formula_demo.xml',
         'demo/practitioner_demo.xml',
         'demo/procedure_request_demo.xml',
+        'demo/product_category_demo.xml',
     ],
     'website': '',
     'licence': 'LGPL-3',

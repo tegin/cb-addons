@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 LasLabs Inc.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <data noupdate="0">
+
+        <record id="product_category_01" model="product.category">
+            <field name="name">Medicación</field>
+        </record>
+        <record id="product_category_02" model="product.category">
+            <field name="name">Material Quirúrgico</field>
+        </record>
+        <record id="product_category_03" model="product.category">
+            <field name="name">Gases</field>
+        </record>
+        <record id="product_category_04" model="product.category">
+            <field name="name">Material Clínico</field>
+        </record>
+
+    </data>
+</odoo>
