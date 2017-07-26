@@ -82,29 +82,29 @@
         </record>
         <record id="product_44" model="product.product">
             <field name="name">Medicación</field>
-            <field name="type">service</field>
-            <field name="categ_id" ref="product.product_category_3"/>
+            <field name="type">product</field>
+            <field name="categ_id" ref="cb_demo_database.product_category_01"/>
             <field name="default_code">MATMED</field>
             <field name="taxes_id"/>
         </record>
         <record id="product_45" model="product.product">
             <field name="name">Material Quirúrgico</field>
-            <field name="type">service</field>
-            <field name="categ_id" ref="product.product_category_3"/>
+            <field name="type">product</field>
+            <field name="categ_id" ref="cb_demo_database.product_category_02"/>
             <field name="default_code">MATMQ</field>
             <field name="taxes_id"/>
         </record>
         <record id="product_46" model="product.product">
             <field name="name">Gases</field>
-            <field name="type">service</field>
-            <field name="categ_id" ref="product.product_category_3"/>
+            <field name="type">product</field>
+            <field name="categ_id" ref="cb_demo_database.product_category_03"/>
             <field name="default_code">MATGAS</field>
             <field name="taxes_id"/>
         </record>
         <record id="product_47" model="product.product">
             <field name="name">Material Clínico</field>
-            <field name="type">service</field>
-            <field name="categ_id" ref="product.product_category_3"/>
+            <field name="type">product</field>
+            <field name="categ_id" ref="cb_demo_database.product_category_04"/>
             <field name="default_code">MATMCL</field>
             <field name="taxes_id"/>
         </record>

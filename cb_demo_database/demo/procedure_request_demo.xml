@@ -97,42 +97,6 @@
             <field name="service_id"
                    ref="cb_demo_database.product_43" />
         </record>
-        <record id="procedure_request_25" model="medical.procedure.request">
-            <field name="title">Medicación</field>
-            <field name="subject_id" ref="medical.medical_patient_patient_2" />
-            <field name="center_id" ref="cb_demo_database.medical_center_01" />
-            <field name="request_group_id"
-                   ref="cb_demo_database.request_group_21" />
-            <field name="service_id"
-                   ref="cb_demo_database.product_44" />
-        </record>
-        <record id="procedure_request_26" model="medical.procedure.request">
-            <field name="title">Material Quirúrgico</field>
-            <field name="subject_id" ref="medical.medical_patient_patient_2" />
-            <field name="center_id" ref="cb_demo_database.medical_center_01" />
-            <field name="request_group_id"
-                   ref="cb_demo_database.request_group_21" />
-            <field name="service_id"
-                   ref="cb_demo_database.product_45" />
-        </record>
-        <record id="procedure_request_27" model="medical.procedure.request">
-            <field name="title">Gases</field>
-            <field name="subject_id" ref="medical.medical_patient_patient_2" />
-            <field name="center_id" ref="cb_demo_database.medical_center_01" />
-            <field name="request_group_id"
-                   ref="cb_demo_database.request_group_21" />
-            <field name="service_id"
-                   ref="cb_demo_database.product_46" />
-        </record>
-        <record id="procedure_request_28" model="medical.procedure.request">
-            <field name="title">Material Clínico</field>
-            <field name="subject_id" ref="medical.medical_patient_patient_2" />
-            <field name="center_id" ref="cb_demo_database.medical_center_01" />
-            <field name="request_group_id"
-                   ref="cb_demo_database.request_group_21" />
-            <field name="service_id"
-                   ref="cb_demo_database.product_47" />
-        </record>
 
         <!-- ANEIII -->
 
