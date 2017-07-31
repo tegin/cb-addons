@@ -5,7 +5,7 @@
 <odoo>
     <data noupdate="0">
 
-        <!-- RMN de Rodilla -->
+        <!-- RMN de Rodilla con contraste-->
 
         <record id="request_group_01" model="medical.request.group">
             <field name="name">Resonancia magnética</field>
@@ -22,13 +22,26 @@
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
         </record>
 
+        <!-- RMN de Rodilla con desglose-->
+
+        <record id="request_group_02" model="medical.request.group">
+            <field name="name">Resonancia magnética</field>
+            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_4" />
+            <field name="careplan_id"
+                   ref="cb_demo_database.medical_careplan_2" />
+            <field name="service_id"
+                   ref="cb_demo_database.product_02" />
+            <field name="insurance_authorization_status">approved</field>
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
+        </record>
+
         <!-- Cirugía (Ligamentoplastia LCA por artroscopia) -->
 
         <record id="request_group_21" model="medical.request.group">
             <field name="name">Gestión clínica LCA</field>
             <field name="patient_id" ref="medical.medical_patient_patient_2" />
             <field name="careplan_id"
-                   ref="cb_demo_database.medical_careplan_2" />
+                   ref="cb_demo_database.medical_careplan_3" />
             <field name="service_id"
                    ref="cb_demo_database.product_22" />
             <field name="insurance_authorization_status">approved</field>
@@ -36,9 +49,9 @@
         </record>
         <record id="request_group_22" model="medical.request.group">
             <field name="name">Anestesia necesaria para realizar un LCA</field>
-            <field name="patient_id" ref="medical.medical_patient_patient_1" />
+            <field name="patient_id" ref="medical.medical_patient_patient_2" />
             <field name="careplan_id"
-                   ref="cb_demo_database.medical_careplan_2" />
+                   ref="cb_demo_database.medical_careplan_3" />
             <field name="service_id"
                    ref="cb_demo_database.product_23" />
             <field name="insurance_authorization_status">approved</field>
@@ -46,9 +59,9 @@
         </record>
         <record id="request_group_23" model="medical.request.group">
             <field name="name">Honorarios LCA</field>
-            <field name="patient_id" ref="medical.medical_patient_patient_1" />
+            <field name="patient_id" ref="medical.medical_patient_patient_2" />
             <field name="careplan_id"
-                   ref="cb_demo_database.medical_careplan_2" />
+                   ref="cb_demo_database.medical_careplan_3" />
             <field name="service_id"
                    ref="cb_demo_database.product_24" />
             <field name="insurance_authorization_status">approved</field>
@@ -60,9 +73,9 @@
         <record id="request_group_31" model="medical.request.group">
             <field name="name">Visita especialista</field>
             <field name="patient_id"
-                   ref="cb_demo_database.medical_patient_patient_4" />
+                   ref="cb_demo_database.medical_patient_patient_5" />
             <field name="careplan_id"
-                   ref="cb_demo_database.medical_careplan_3" />
+                   ref="cb_demo_database.medical_careplan_4" />
             <field name="service_id"
                    ref="cb_demo_database.product_51" />
             <field name="insurance_authorization_status">approved</field>

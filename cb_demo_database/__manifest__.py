@@ -9,9 +9,9 @@
     'author': 'Eficent, Odoo Community Association (OCA)',
     'category': '',
     'depends': [
+        'medical',
         'workflow_plandefinition',
         'product',
-        'medical',
         'medical_center',
         'medical_encounter',
         'base',
@@ -32,6 +32,7 @@
         'medical_material',
     ],
     'demo': [
+        'demo/patient_demo.xml',
         'demo/workflow_types_demo.xml',
         'demo/product_category_demo.xml',
         'demo/products_demo.xml',
@@ -46,6 +47,7 @@
         'demo/practitioner_demo.xml',
         'demo/procedure_request_demo.xml',
         'demo/material_request_demo.xml',
+        'demo/procedure_demo.xml',
     ],
     'website': '',
     'licence': 'LGPL-3',

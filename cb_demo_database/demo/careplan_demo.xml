@@ -6,7 +6,7 @@
 
     <data noupdate="0">
         <record id="medical_careplan_1" model="medical.careplan">
-            <field name="title">Care Plan Resonancia Magnética</field>
+            <field name="title">Care Plan Resonancia Magnética con Contraste</field>
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="plandefinition_ids"
@@ -15,22 +15,35 @@
             <field name="insurance_plan_id" ref="cb_demo_database.plan_01" />
         </record>
         <record id="medical_careplan_2" model="medical.careplan">
-            <field name="title">Care Plan Cirugía</field>
+            <field name="title">Care Plan Resonancia Magnética (con desglose)</field>
+            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_4" />
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
+            <field name="plandefinition_ids"
+                   eval="[(6,0,[ref('cb_demo_database.workflow_plan_definition_01')])]" />
+            <field name="encounter_id" ref="cb_demo_database.encounter_02" />
+            <field name="insurance_plan_id" ref="cb_demo_database.plan_100" />
+        </record>
+        <record id="medical_careplan_3" model="medical.careplan">
+            <field name="title">Care Plan Cirugía (con honorarios)</field>
             <field name="patient_id" ref="medical.medical_patient_patient_2" />
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="plandefinition_ids"
                    eval="[(6,0,[ref('cb_demo_database.workflow_plan_definition_21')])]" />
+            <field name="plandefinition_ids"
+                   eval="[(6,0,[ref('cb_demo_database.workflow_plan_definition_41')])]" />
+            <field name="plandefinition_ids"
+                   eval="[(6,0,[ref('cb_demo_database.workflow_plan_definition_51')])]" />
             <field name="encounter_id" ref="cb_demo_database.encounter_21" />
             <field name="insurance_plan_id" ref="cb_demo_database.plan_21" />
         </record>
-        <record id="medical_careplan_3" model="medical.careplan">
+        <record id="medical_careplan_4" model="medical.careplan">
             <field name="title">Care Plan Visita especialista</field>
-            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_4" />
+            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_5" />
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="plandefinition_ids"
                    eval="[(6,0,[ref('cb_demo_database.workflow_plan_definition_31')])]" />
             <field name="encounter_id" ref="cb_demo_database.encounter_31" />
-            <field name="insurance_plan_id" ref="cb_demo_database.plan_01" />
+            <field name="insurance_plan_id" ref="cb_demo_database.plan_200" />
         </record>
     </data>
 

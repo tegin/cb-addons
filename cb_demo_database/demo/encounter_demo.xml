@@ -4,29 +4,13 @@
 
 <odoo>
     <data noupdate="0">
-
-        <!-- 4th patient -->
-        <record id="res_partner_patient_4" model="res.partner">
-            <field name="name">David Michelangelo</field>
-            <field name="city">New York</field>
-            <field name="state_id" ref="base.state_us_23" />
-            <field name="country_id" ref="base.us" />
-            <field name="zip">89119</field>
-            <field name="street">123 Example Way</field>
-            <field name="email">emma@example.com</field>
-            <field name="phone">+1 (702) 555-6581</field>
-            <field name="parent_id" ref="base.partner_demo" />
-        </record>
-        <record id="medical_patient_patient_4" model="medical.patient">
-            <field name="partner_id"
-                   ref="cb_demo_database.res_partner_patient_4" />
-            <field name="birthdate_date">1968-09-08</field>
-            <field name='gender'>male</field>
-        </record>
-
-	<!-- Encounters-->
         <record id="encounter_01" model="medical.encounter">
             <field name="patient_id" ref="medical.medical_patient_patient_1" />
+            <field name="center_id" ref="cb_demo_database.medical_center_01" />
+            <field name="status">arrived</field>
+        </record>
+        <record id="encounter_02" model="medical.encounter">
+            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_4" />
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="status">arrived</field>
         </record>
@@ -36,7 +20,7 @@
             <field name="status">arrived</field>
         </record>
         <record id="encounter_31" model="medical.encounter">
-            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_4" />
+            <field name="patient_id" ref="cb_demo_database.medical_patient_patient_5" />
             <field name="center_id" ref="cb_demo_database.medical_center_01" />
             <field name="status">arrived</field>
         </record>
