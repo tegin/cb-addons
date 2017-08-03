@@ -87,6 +87,13 @@
             <field name="default_code">MATMED</field>
             <field name="taxes_id"/>
         </record>
+        <record id="more_stock_01" model="stock.change.product.qty">
+            <field name="product_id" ref="cb_demo_database.product_44"/>
+            <field name="new_quantity">100</field>
+        </record>
+        <function model="stock.change.product.qty"
+                  name="change_product_qty"
+                  eval='[ref("cb_demo_database.more_stock_01")]'/>
         <record id="product_45" model="product.product">
             <field name="name">Material Quirúrgico</field>
             <field name="type">product</field>
@@ -94,6 +101,13 @@
             <field name="default_code">MATMQ</field>
             <field name="taxes_id"/>
         </record>
+        <record id="more_stock_02" model="stock.change.product.qty">
+            <field name="product_id" ref="cb_demo_database.product_45"/>
+            <field name="new_quantity">100</field>
+        </record>
+        <function model="stock.change.product.qty"
+                  name="change_product_qty"
+                  eval='[ref("cb_demo_database.more_stock_02")]'/>
         <record id="product_46" model="product.product">
             <field name="name">Gases</field>
             <field name="type">product</field>
@@ -101,6 +115,13 @@
             <field name="default_code">MATGAS</field>
             <field name="taxes_id"/>
         </record>
+        <record id="more_stock_03" model="stock.change.product.qty">
+            <field name="product_id" ref="cb_demo_database.product_46"/>
+            <field name="new_quantity">100</field>
+        </record>
+        <function model="stock.change.product.qty"
+                  name="change_product_qty"
+                  eval='[ref("cb_demo_database.more_stock_03")]'/>
         <record id="product_47" model="product.product">
             <field name="name">Material Clínico</field>
             <field name="type">product</field>
@@ -108,6 +129,13 @@
             <field name="default_code">MATMCL</field>
             <field name="taxes_id"/>
         </record>
+        <record id="more_stock_04" model="stock.change.product.qty">
+            <field name="product_id" ref="cb_demo_database.product_47"/>
+            <field name="new_quantity">100</field>
+        </record>
+        <function model="stock.change.product.qty"
+                  name="change_product_qty"
+                  eval='[ref("cb_demo_database.more_stock_04")]'/>
         <record id="product_48" model="product.product">
             <field name="name">Realización de la anestesia por parte de un profesional</field>
             <field name="type">service</field>
