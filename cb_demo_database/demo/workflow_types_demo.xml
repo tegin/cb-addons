@@ -10,7 +10,7 @@
             <field name="model_id"
                    search="[('model', 'in', ['medical.request.group'])]" />
             <field name="model_ids"
-                   search="[('model', 'in', ['medical.procedure.request', 'medical.request.group'])]"/>
+                   search="[('model', 'in', ['medical.procedure.request', 'medical.request.group', 'medical.material.request'])]"/>
         </record>
     </data>
 </odoo>

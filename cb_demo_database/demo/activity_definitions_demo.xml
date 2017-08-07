@@ -104,7 +104,7 @@
             <field name="name">Medicación</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedure.request'])]" />
+                   search="[('model', 'in', ['medical.material.request'])]" />
             <field name="categ_id"
                    ref="cb_demo_database.product_category_01" />
         </record>
@@ -113,7 +113,7 @@
             <field name="name">Material Quirúrgico</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedure.request'])]" />
+                   search="[('model', 'in', ['medical.material.request'])]" />
             <field name="categ_id"
                    ref="cb_demo_database.product_category_02" />
         </record>
@@ -122,7 +122,7 @@
             <field name="name">Gases</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedure.request'])]" />
+                   search="[('model', 'in', ['medical.material.request'])]" />
             <field name="categ_id"
                    ref="cb_demo_database.product_category_03" />
         </record>
@@ -131,7 +131,7 @@
             <field name="name">Material Clínico</field>
             <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
             <field name="model_id"
-                   search="[('model', 'in', ['medical.procedure.request'])]" />
+                   search="[('model', 'in', ['medical.material.request'])]" />
             <field name="categ_id"
                    ref="cb_demo_database.product_category_04" />
         </record>
