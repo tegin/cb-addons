@@ -38,6 +38,7 @@
         </record>
 
         <record id="agreement_item_01" model="medical.insurance.agreement.item">
+            <field name="insurance_agreement_id" ref="cb_demo_database.agreement_01"/>
             <field name="product_id" ref="cb_demo_database.product_02"/>
             <field name="plan_definition_id" ref="cb_demo_database.workflow_plan_definition_01"/>
             <field name="total_price">100</field>
@@ -45,30 +46,35 @@
         </record>
 
         <record id="agreement_item_02" model="medical.insurance.agreement.item">
+            <field name="insurance_agreement_id" ref="cb_demo_database.agreement_01"/>
             <field name="product_id" ref="cb_demo_database.product_60"/>
             <field name="total_price">20</field>
             <field name="insurance_percentage">100</field>
         </record>
 
         <record id="agreement_item_03" model="medical.insurance.agreement.item">
+            <field name="insurance_agreement_id" ref="cb_demo_database.agreement_01"/>
             <field name="product_id" ref="cb_demo_database.product_61"/>
             <field name="total_price">20</field>
             <field name="insurance_percentage">100</field>
         </record>
 
         <record id="agreement_item_04" model="medical.insurance.agreement.item">
+            <field name="insurance_agreement_id" ref="cb_demo_database.agreement_01"/>
             <field name="product_id" ref="cb_demo_database.product_62"/>
             <field name="total_price">20</field>
             <field name="insurance_percentage">100</field>
         </record>
 
         <record id="agreement_item_05" model="medical.insurance.agreement.item">
+            <field name="insurance_agreement_id" ref="cb_demo_database.agreement_01"/>
             <field name="product_id" ref="cb_demo_database.product_25"/>
             <field name="total_price">20</field>
             <field name="insurance_percentage">100</field>
         </record>
 
         <record id="agreement_item_06" model="medical.insurance.agreement.item">
+            <field name="insurance_agreement_id" ref="cb_demo_database.agreement_01"/>
             <field name="product_id" ref="cb_demo_database.product_63"/>
             <field name="total_price">20</field>
             <field name="insurance_percentage">100</field>

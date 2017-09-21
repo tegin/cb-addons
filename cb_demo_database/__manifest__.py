@@ -11,7 +11,6 @@
     'depends': [
     ],
     'demo': [
-        'demo/patient_demo.xml',
         'demo/prova_workflow_types.xml',
         'demo/product_category_demo.xml',
         'demo/products_demo.xml',
