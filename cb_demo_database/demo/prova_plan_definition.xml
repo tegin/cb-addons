@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 LasLabs Inc.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo noupdate="0">
+
+        <!-- RMN de Rodilla -->
+
+        <record id="workflow_plan_definition_01"
+                model="workflow.plan.definition">
+            <field name="name">Resonancia magnética</field>
+            <field name="state">draft</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_05"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_06"/>
+            <field name="is_billable">True</field>
+            <field name="is_breakdown">True</field>
+        </record>
+        <record id="workflow_plan_definition_action_02"
+                model="workflow.plan.definition.action">
+            <field name="name">Generación del Worklist para la modalidad RM</field>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_01"/>
+            <field name="is_billable">False</field>
+        </record>
+        <record id="workflow_plan_definition_action_03"
+                model="workflow.plan.definition.action">
+            <field name="name">Tiempo en Máquina</field>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_02"/>
+            <field name="is_billable">False</field>
+        </record>
+        <record id="workflow_plan_definition_action_04"
+                model="workflow.plan.definition.action">
+            <field name="name">Informe del profesional</field>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_03"/>
+            <field name="is_billable">False</field>
+        </record>
+        <record id="workflow_plan_definition_action_05"
+                model="workflow.plan.definition.action">
+            <field name="name">Control del responsable del departamento (autoasignado y autofinalizado)</field>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_04"/>
+            <field name="is_billable">False</field>
+        </record>
+        <record id="workflow_plan_definition_action_06"
+                model="workflow.plan.definition.action">
+            <field name="name">Contraste RM</field>
+            <field name="direct_plan_definition_id"
+                   ref="cb_demo_database.workflow_plan_definition_01"/>
+            <field name="activity_definition_id"
+                   ref="cb_demo_database.workflow_activity_definition_05"/>
+            <field name="is_billable">False</field>
+        </record>
+
+</odoo>

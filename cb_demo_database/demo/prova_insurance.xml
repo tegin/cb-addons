@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 LasLabs Inc.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo noupdate="0">
+
+        <!-- DKV agreement-->
+
+        <record id="product_01" model="product.product">
+            <field name="name">DKV</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+        </record>
+
+        <record id="company_01" model="medical.insurance.company">
+            <field name="name">DKV</field>
+        </record>
+
+        <record id="plan_template_01" model="medical.insurance.template">
+            <field name="code">00001</field>
+            <field name="description">DKV plan template</field>
+            <field name="product_id" ref="cb_demo_database.product_01"/>
+            <field name="insurance_company_id"
+                   ref="cb_demo_database.company_01"/>
+        </record>
+
+        <record id="agreement_01" model="medical.insurance.agreement">
+            <field name="name">DKV agreement</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="center_ids" eval="[(6,0,[ref('cb_demo_database.medical_center_01')])]"/>
+            <field name="insurance_template_ids"
+                   eval="[(6,0,[ref('cb_demo_database.plan_template_01')])]" />
+        </record>
+
+        <record id="plan_01" model="medical.insurance.plan">
+            <field name="patient_id" ref="medical.medical_patient_patient_1"/>
+            <field name="insurance_template_id" ref="cb_demo_database.plan_template_01"/>
+        </record>
+
+        <record id="agreement_item_01" model="medical.insurance.agreement.item">
+            <field name="product_id" ref="cb_demo_database.product_02"/>
+            <field name="plan_definition_id" ref="cb_demo_database.workflow_plan_definition_01"/>
+            <field name="total_price">100</field>
+            <field name="insurance_percentage">100</field>
+        </record>
+
+        <record id="agreement_item_02" model="medical.insurance.agreement.item">
+            <field name="product_id" ref="cb_demo_database.product_60"/>
+            <field name="total_price">20</field>
+            <field name="insurance_percentage">100</field>
+        </record>
+
+        <record id="agreement_item_03" model="medical.insurance.agreement.item">
+            <field name="product_id" ref="cb_demo_database.product_61"/>
+            <field name="total_price">20</field>
+            <field name="insurance_percentage">100</field>
+        </record>
+
+        <record id="agreement_item_04" model="medical.insurance.agreement.item">
+            <field name="product_id" ref="cb_demo_database.product_62"/>
+            <field name="total_price">20</field>
+            <field name="insurance_percentage">100</field>
+        </record>
+
+        <record id="agreement_item_05" model="medical.insurance.agreement.item">
+            <field name="product_id" ref="cb_demo_database.product_25"/>
+            <field name="total_price">20</field>
+            <field name="insurance_percentage">100</field>
+        </record>
+
+        <record id="agreement_item_06" model="medical.insurance.agreement.item">
+            <field name="product_id" ref="cb_demo_database.product_63"/>
+            <field name="total_price">20</field>
+            <field name="insurance_percentage">100</field>
+        </record>
+
+</odoo>
