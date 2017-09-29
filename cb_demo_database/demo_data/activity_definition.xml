@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2017 Eficent Business and IT Consulting Services, S.L.
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<odoo noupdate="0">
+
+        <!-- RMN Cardíaca -->
+
+        <record id="workflow_activity_definition_01"
+                model="workflow.activity.definition">
+            <field name="name">Resonancia magnética cardíaca</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_01" />
+        </record>
+
+        <record id="workflow_activity_definition_02"
+                model="workflow.activity.definition">
+            <field name="name">Generación del Worklist para la modalidad RM</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id"
+                   ref="cb_demo_database.product_02" />
+        </record>
+        <record id="workflow_activity_definition_03"
+                model="workflow.activity.definition">
+            <field name="name">Tiempo en Máquina</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id"
+                   ref="cb_demo_database.product_03" />
+        </record>
+        <record id="workflow_activity_definition_04"
+                model="workflow.activity.definition">
+            <field name="name">Informe del profesional</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id"
+                   ref="cb_demo_database.product_04" />
+        </record>
+        <record id="workflow_activity_definition_05"
+                model="workflow.activity.definition">
+            <field name="name">Control del responsable del departamento (autoasignado y autofinalizado)</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id"
+                   ref="cb_demo_database.product_05" />
+        </record>
+        <record id="workflow_activity_definition_06"
+                model="workflow.activity.definition">
+            <field name="name">Contraste RM</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id"
+                   ref="cb_demo_database.product_06" />
+        </record>
+
+        <!-- Cirugía (Ligamentoplastia LCA por artroscopia) -->
+
+        <record id="workflow_activity_definition_07"
+                model="workflow.activity.definition">
+            <field name="name">Gestión clínica LCA</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_07" />
+        </record>
+        <record id="workflow_activity_definition_08"
+                model="workflow.activity.definition">
+            <field name="name">2 Horas en Quirófanos</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_08" />
+        </record>
+        <record id="workflow_activity_definition_09"
+                model="workflow.activity.definition">
+            <field name="name">Uso del artroscopio</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_09" />
+        </record>
+        <record id="workflow_activity_definition_10"
+                model="workflow.activity.definition">
+            <field name="name">1 Hora en reanimación</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_10" />
+        </record>
+        <record id="workflow_activity_definition_11"
+                model="workflow.activity.definition">
+            <field name="name">1 día de estancia quirúrgica</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_11" />
+        </record>
+        <record id="workflow_activity_definition_12"
+                model="workflow.activity.definition">
+            <field name="name">Medicación</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.material.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_12" />
+            <field name="categ_id" ref="cb_demo_database.product_category_01" />
+        </record>
+        <record id="workflow_activity_definition_13"
+                model="workflow.activity.definition">
+            <field name="name">Material Quirúrgico</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.material.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_13" />
+            <field name="categ_id" ref="cb_demo_database.product_category_02" />
+        </record>
+        <record id="workflow_activity_definition_14"
+                model="workflow.activity.definition">
+            <field name="name">Gases</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.material.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_14" />
+            <field name="categ_id" ref="cb_demo_database.product_category_03" />
+        </record>
+        <record id="workflow_activity_definition_15"
+                model="workflow.activity.definition">
+            <field name="name">Material Clínico</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.material.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_15" />
+            <field name="categ_id" ref="cb_demo_database.product_category_04" />
+        </record>
+        <record id="workflow_activity_definition_16"
+                model="workflow.activity.definition">
+            <field name="name">Anestesia necesaria para realizar un LCA</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_16" />
+        </record>
+        <record id="workflow_activity_definition_17"
+                model="workflow.activity.definition">
+            <field name="name">Realización de la anestesia por parte de un profesional</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_17" />
+        </record>
+        <record id="workflow_activity_definition_18"
+                model="workflow.activity.definition">
+            <field name="name">Honorarios LCA</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.request.group'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_18" />
+        </record>
+        <record id="workflow_activity_definition_19"
+                model="workflow.activity.definition">
+            <field name="name">Honorarios del profesional principal</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_19" />
+        </record>
+        <record id="workflow_activity_definition_20"
+                model="workflow.activity.definition">
+            <field name="name">Honorarios de ayudantía</field>
+            <field name="type_id" ref="cb_demo_database.workflow_type_01"/>
+            <field name="model_id"
+                   search="[('model', 'in', ['medical.procedure.request'])]" />
+            <field name="resource_product_id" ref="cb_demo_database.product_20" />
+        </record>
+
+</odoo>
