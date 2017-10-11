@@ -17,8 +17,6 @@
         'medical_careplan_plandefinition',
         'medical_material',
         'medical_careplan_sale',
-        'medical_practitioner',
-        'medical_procedure_purchase',
     ],
     'demo': [
         'demo_data/workflow_type.xml',
@@ -26,6 +24,9 @@
         'demo_data/products.xml',
         'demo_data/activity_definition.xml',
         'demo_data/plan_definition.xml',
+        'demo_data/sale_commission_formula.xml',
+        'demo_data/practitioners.xml',
+        'demo_data/patients.xml',
     ],
     'licence': 'LGPL-3',
     'installable': True,
