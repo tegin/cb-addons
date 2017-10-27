@@ -19,5 +19,8 @@
         <record id="product_category_04" model="product.category">
             <field name="name">Material Clínico</field>
         </record>
+        <record id="product_category_05" model="product.category">
+            <field name="name">All</field>
+        </record>
 
 </odoo>
