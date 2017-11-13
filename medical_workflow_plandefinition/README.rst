@@ -7,13 +7,12 @@ Medical Plan Definition
 =======================
 
 Adds to the Plan Definition from FHIR the following concepts:
-* Breakdown: Whether the plan can be broken down in situation where it gets
-  complicated.
-* Billing: Describes which elements should be taken into account during the
-  billing process.
-* An Activity Definition is also added to Plan Definition as it will be
-  considered as a grouping entity during the process and therefore needs to be
-  indicated in which entity it has to be transformed into.
+
+* Breakdown: Whether the plan can be broken down in situation where it gets complicated.
+
+* Billing: Describes which elements should be taken into account during the billing process.
+
+* An Activity Definition is also added to Plan Definition as it will be considered as a grouping entity during the process and therefore needs to be indicated in which entity it has to be transformed into.
 
 Installation
 ============
