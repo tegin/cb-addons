@@ -151,9 +151,11 @@ class TestMedicalCoverageAgreement(TransactionCase):
         coverage_agreement = self.coverage_agreement_model.\
             sudo(self.medical_user).create(coverage_agreement_vals)
         self.assertNotEquals(coverage_agreement, False)
-        self._create_coverage_agreement_item(
+        item_1 = self._create_coverage_agreement_item(
             coverage_agreement, self.product_1)
         coverage_agreement.action_search_item()
+        self.assertEquals(item_1.coverage_price, 100)
+        self.assertEquals(item_1.private_price, 0)
 
     def test_add_agreement_items(self):
         coverage_template = self._create_coverage_template()

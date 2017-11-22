@@ -81,6 +81,5 @@ class MedicalCoverageAgreementItem(models.Model):
 
     _sql_constraints = [
         ('product_id_agreement_id_unique',
-         'unique(product_id, coverage_agreement_id))',
-         _('Product has to be unique in each agreement!'))
-    ]
+         'unique(product_id, coverage_agreement_id)',
+         _('Product has to be unique in each agreement!'))]
