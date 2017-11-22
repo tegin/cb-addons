@@ -28,13 +28,6 @@ Usage
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/159/11.0
 
-Known Issues / Roadmap
-======================
-
-* Improve and provide a full description for this module into the README.rst
-* The fields 'Insurance' and 'Medical center' from Encounter are still missing but
-  since they depend on other entities that haven't been implemented they aren't available yet.
-
 Bug Tracker
 ===========
 
