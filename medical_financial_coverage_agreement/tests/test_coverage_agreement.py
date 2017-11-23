@@ -163,13 +163,9 @@ class TestMedicalCoverageAgreement(TransactionCase):
         vals = {
             'coverage_agreement_id': coverage_agreement.id,
             'plan_definition_id': self.plan_1.id,
-        }
-        item_1 = self.coverage_agreement_model_item.new(vals)
-        item_1._onchange_plan_definition_id()
-        vals.update({
             'product_id': self.product_1.id,
             'total_price': 100,
             'coverage_percentage': 100,
-        })
+        }
         self.coverage_agreement_model_item.create(vals)
         self.assertEquals(len(coverage_agreement.item_ids), 1)

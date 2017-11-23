@@ -8,19 +8,17 @@
 
 <odoo>
 
-	<record id="medical_coverage_template_view_form" model="ir.ui.view">
-		<field name="name">medical.coverage.template.view.form</field>
-		<field name="model">medical.coverage.template</field>
-		<field name="inherit_id"
-			   ref="medical_financial_coverage.medical_coverage_template_view_form"/>
-		<field name="arch" type="xml">
-            <page name="messages" position="before">
-				<page name="coverage_agreements"
-					  string="Agreements">
-					<field name="agreement_ids" nolabel="1"/>
-				</page>
-			</page>
-		</field>
-	</record>
+    <record id="medical_coverage_template_view_form" model="ir.ui.view">
+        <field name="name">medical.coverage.template.view.form</field>
+        <field name="model">medical.coverage.template</field>
+        <field name="inherit_id" ref="medical_financial_coverage.medical_coverage_template_view_form"/>
+        <field name="arch" type="xml">
+            <notebook name="coverage" position="inside">
+                <page name="coverage_agreements" string="Agreements">
+                    <field name="agreement_ids" nolabel="1"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
 
 </odoo>
