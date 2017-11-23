@@ -14,7 +14,7 @@
         'views/workflow_plan_definition.xml',
     ],
     'website': 'https://github.com/OCA/vertical-medical',
-    'licence': 'LGPL-3',
+    'license': 'LGPL-3',
     'installable': True,
     'auto_install': False,
 }
