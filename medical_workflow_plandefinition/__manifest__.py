@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# Copyright 2017 Creu Blanca
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
@@ -7,7 +7,7 @@
     'version': '11.0.1.0.0',
     'author': 'Eficent, Odoo Community Association (OCA)',
     'depends': [
-        'workflow_plandefinition',
+        'medical_workflow',
     ],
     'data': [
         'views/workflow_plan_definition_action.xml',
