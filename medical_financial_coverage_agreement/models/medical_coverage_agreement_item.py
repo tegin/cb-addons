@@ -61,24 +61,6 @@ class MedicalCoverageAgreementItem(models.Model):
             rec.private_price = \
                 ((100 - rec.coverage_percentage) * rec.total_price) / 100
 
-    @api.onchange('plan_definition_id')
-    def _onchange_plan_definition_id(self):
-        self.product_id = False
-        self.ensure_one()
-        if self.plan_definition_id:
-            return {
-                'domain': {
-                    'product_id': [('id', '=', self.plan_definition_id.
-                                    activity_definition_id.service_id.id)],
-                },
-            }
-        else:
-            return {
-                'domain': {
-                    'product_id': [(1, '=', 1)],
-                },
-            }
-
     _sql_constraints = [
         ('product_id_agreement_id_unique',
          'unique(product_id, coverage_agreement_id)',
