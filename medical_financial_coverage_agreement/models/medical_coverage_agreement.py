@@ -63,5 +63,5 @@ class MedicalCoverageAgreement(models.Model):
                               'medical_coverage_agreement_item_action')
         result = action.read()[0]
         result['context'] = {'default_coverage_agreement_id': self.id}
-        result['domain'] = "[('id', 'in', " + str(self.item_ids.ids) + ")]"
+        result['domain'] = [('coverage_agreement_id', '=', self.id)]
         return result
