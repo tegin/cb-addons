@@ -59,7 +59,7 @@ class MedicalCoverageAgreement(models.Model):
 
     @api.multi
     def action_search_item(self):
-        action = self.env.ref('medical_financial_coverage_agreement.'
+        action = self.env.ref('cb_medical_financial_coverage_agreement.'
                               'medical_coverage_agreement_item_action')
         result = action.read()[0]
         result['context'] = {'default_coverage_agreement_id': self.id}
