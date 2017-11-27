@@ -15,6 +15,7 @@
         'medical_clinical_procedure',
     ],
     'data': [
+        'data/sale_commission_formula.xml',
         'views/medical_practitioner_views.xml',
         'views/product_template_view.xml',
         'views/medical_procedure_request_view.xml',
