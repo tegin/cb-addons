@@ -10,13 +10,17 @@
     <record model="ir.ui.view" id="medical_add_plan_definition_form">
         <field name="name">medical.careplan.add.plan.definition.form</field>
         <field name="model">medical.careplan.add.plan.definition</field>
-        <field name="inherit_id" ref="medical_clinical_careplan.medical_add_plan_definition_form"/>
+        <field name="inherit_id"
+               ref="medical_clinical_careplan.medical_add_plan_definition_form"/>
         <field name="arch" type="xml">
             <field name="plan_definition_id" position="attributes">
-                <attribute name="readonly">1</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
             <field name="plan_definition_id" position="after">
-                <field name="service_id"/>
+                <field name="agreement_line_id"/>
+                <field name="product_id" invisible="1"/>
+                <field name="coverage_id" invisible="1"/>
+                <field name="coverage_template_id" invisible="1"/>
             </field>
 
         </field>

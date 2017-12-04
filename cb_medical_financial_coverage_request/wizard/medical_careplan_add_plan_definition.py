@@ -12,26 +12,28 @@ class MedicalCareplanAddPlanDefinition(models.TransientModel):
         'medical.coverage',
         related='careplan_id.coverage_id'
     )
-
-    service_id = fields.Many2one(
-        'product.product'
+    coverage_template_id = fields.Many2one(
+        'medical.coverage.template',
+        related='coverage_id.coverage_template_id'
     )
-
+    agreement_line_id = fields.Many2one(
+        'medical.coverage.agreement.item',
+        domain="[('coverage_template_ids', '=', coverage_template_id)]"
+    )
+    product_id = fields.Many2one(
+        'product.product',
+        related="agreement_line_id.product_id"
+    )
     plan_definition_id = fields.Many2one(
         comodel_name='workflow.plan.definition',
-        compute='_compute_plan_definition_id',
-        required=True
+        related='agreement_line_id.plan_definition_id'
     )
-
-    def _compute_plan_definition_id(self):
-        agreement = self.env['medical.coverage.agreement.item'].search([
-            ('coverage_agreement_id', 'in', self.coverage_id.coverage_template_id.agreement_ids.ids),
-            ('product_id', '=', self.service_id.id)
-        ])
-        agreement.ensure_one()
-        self.plan_definition_id = agreement.plan_definition_id
 
     def _get_values(self):
         values = super(MedicalCareplanAddPlanDefinition, self)._get_values()
         values['coverage_id'] = self.careplan_id.coverage_id.id
+        values['coverage_agreement_item_id'] = self.agreement_line_id.id
+        values[
+            'coverage_agreement_id'
+        ] = self.agreement_line_id.coverage_agreement_id.id
         return values

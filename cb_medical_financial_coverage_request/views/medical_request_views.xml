@@ -16,6 +16,8 @@
         <field name="arch" type="xml">
             <group name="inheritance" position="inside">
                 <field name="coverage_id"/>
+                <field name="coverage_agreement_id"/>
+                <field name="coverage_agreement_item_id"/>
                 <field name="careplan_id" readonly="1"
                        attrs="{'invisible': [('careplan_id', '=', False)]}"/>
             </group>

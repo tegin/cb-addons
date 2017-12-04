@@ -2,30 +2,15 @@
    :target: https://www.gnu.org/licenses/lgpl-3.0-standalone.html
    :alt: License: LGPL-3
 
-================
-Medical Workflow
-================
+=============================
+Medical Request with coverage
+=============================
 
-This module creates the workflow model used in FHIR. It involves:
-
-* `Plan definition <https://www.hl7.org/fhir/plandefinition.html>`_
-* `Activity definition <https://www.hl7.org/fhir/activitydefinition.html>`_
-* `Request <https://www.hl7.org/fhir/request.html>`_
-* `Event <https://www.hl7.org/fhir/event.html>`_
+Adds coverage on requests in order to improve them.
 
 Usage
 =====
 
-#. Access `Medical /  Workflow / Activity definitions` and define activities
-#. Access `Medical /  Workflow / Plan definitions` and define plans and actions
-
-Add Plans on patients
----------------------
-
-You can configure them if you apply the option in
-`Medical / Configuration / Settings`.
-
-Then, you can add a plan definition directly on a patient.
 
 Bug Tracker
 ===========
