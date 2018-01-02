@@ -12,7 +12,7 @@
     'depends': [
         'medical_clinical_careplan',
         'cb_medical_workflow_plandefinition',
-        'cb_medical_financial_coverage_agreement'
+        'cb_medical_financial_coverage_agreement',
     ],
     'data': [
         'views/medical_request_views.xml',

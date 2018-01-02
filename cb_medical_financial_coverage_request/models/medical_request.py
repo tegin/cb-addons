@@ -11,15 +11,15 @@ class MedicalRequest(models.AbstractModel):
     coverage_id = fields.Many2one(
         'medical.coverage',
         required=False,
-        domain="[('patient_id', '=', patient_id)]"
+        domain="[('patient_id', '=', patient_id)]",
     )
     coverage_agreement_item_id = fields.Many2one(
         'medical.coverage.agreement.item',
         readonly=True,
-        ondelete='restrict'
+        ondelete='restrict',
     )
     coverage_agreement_id = fields.Many2one(
         'medical.coverage.agreement',
         readonly=True,
-        ondelete='restrict'
+        ondelete='restrict',
     )

@@ -10,11 +10,11 @@ class MedicalCareplanAddPlanDefinition(models.TransientModel):
 
     coverage_id = fields.Many2one(
         'medical.coverage',
-        related='careplan_id.coverage_id'
+        related='careplan_id.coverage_id',
     )
     coverage_template_id = fields.Many2one(
         'medical.coverage.template',
-        related='coverage_id.coverage_template_id'
+        related='coverage_id.coverage_template_id',
     )
     agreement_line_id = fields.Many2one(
         'medical.coverage.agreement.item',
