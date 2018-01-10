@@ -10,14 +10,13 @@
     <data noupdate="0">
 
         <record id="commission_01" model="sale.commission">
-        <field name="name">Cálculo de honorarios</field>
-        <field name="commission_type">formula</field>
-        <field name="active">True</field>
-        <field name="formula">if line._name == 'sale.order.line':
+            <field name="name">Cálculo de honorarios</field>
+            <field name="commission_type">formula</field>
+            <field name="active">True</field>
+            <field name="formula">if line._name == 'sale.order.line':
     agent = self.agent
-    procedures = self.env['medical.procedure'].search(
-            [('purchase_partner_id', '=', agent.id),
-             ('procedure_request_id.request_group_id', '=', line.request_group_id.id)])
+    procedures = line.compute_procedure()
+    procedures = procedures.filtered(lambda p: p.commission_agent_id.id == agent.id)
     if procedures:
         variable_fee = sum(procedures.mapped('variable_fee'))
         fixed_fee = sum(procedures.mapped('fixed_fee'))
@@ -28,9 +27,8 @@ if line._name == 'account.invoice.line':
     agent = self.agent
     if line.sale_line_ids:
         sale_line = line.sale_line_ids[0]
-        procedures = self.env['medical.procedure'].search(
-            [('purchase_partner_id', '=', agent.id),
-             ('procedure_request_id.request_group_id', '=', sale_line.request_group_id.id)])
+        procedures = sale_line.compute_procedure()
+        procedures = procedures.filtered(lambda p: p.commission_agent_id.id == agent.id)
         if procedures:
             variable_fee = sum(procedures.mapped('variable_fee'))
             fixed_fee = sum(procedures.mapped('fixed_fee'))
@@ -39,8 +37,8 @@ if line._name == 'account.invoice.line':
             result = 0
     else:
         result = 0
-        </field>
-      </record>
+            </field>
+        </record>
 
     </data>
 </odoo>

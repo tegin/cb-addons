@@ -10,11 +10,14 @@ class MedicalProcedure(models.Model):
 
     variable_fee = fields.Float(
         string='Variable fee (%)',
-        default='0.0',
+        related='procedure_request_id.variable_fee'
     )
     fixed_fee = fields.Float(
         string='Fixed fee',
-        default='0.0',
+        related='procedure_request_id.fixed_fee'
+    )
+    service_id = fields.Many2one(
+        related='procedure_request_id.service_id'
     )
     make_invisible = fields.Boolean(
         default=True,
@@ -23,6 +26,10 @@ class MedicalProcedure(models.Model):
     commission_agent_id = fields.Many2one(
         string='Commission Agent',
         comodel_name='res.partner',
+    )
+    sale_order_line_ids = fields.Many2many(
+        string='Sale order lines',
+        comodel_name='sale.order.line'
     )
 
     @api.onchange('performer_id')
@@ -40,6 +47,14 @@ class MedicalProcedure(models.Model):
                           self.performer_id.commission_agent_ids.ids)]
                      }
             }
+
+    def compute_commission(self, request):
+        if request.is_billable:
+            self.sale_order_line_ids = request.sale_order_line_ids
+            return
+        if request.parent_model and request.parent_id:
+            self.compute_commission(
+                self.env[request.parent_model].browse(request.parent_id))
 
     @api.depends('service_id')
     def _compute_hide_fee(self):

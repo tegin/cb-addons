@@ -1,5 +1,3 @@
-vertical-medical https://github.com/Eficent/vertical-medical 11.0-dev
+vertical-medical https://github.com/OCA/vertical-medical 11.0-dev
 commission https://github.com/OCA/commission 11.0
-sale_order_action_invoice_create_hook https://github.com/Eficent/sale-workflow 11.0-mig-sale_order_action_invoice_create_hook
-sale_invoice_group_method https://github.com/Eficent/sale-workflow 11.0-mig-sale_invoice_group_method
-sale_merge_draft_invoice https://github.com/Eficent/sale-workflow 11.0-mig-sale_merge_draft_invoice
+sale-workflow https://github.com/OCA/sale-workflow 11.0
