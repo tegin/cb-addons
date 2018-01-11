@@ -1,3 +1,4 @@
 vertical-medical https://github.com/OCA/vertical-medical 11.0-dev
-commission https://github.com/OCA/commission 11.0
-sale-workflow https://github.com/OCA/sale-workflow 11.0
+commission
+sale-workflow
+pos
