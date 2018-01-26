@@ -1,4 +1,4 @@
-vertical-medical https://github.com/OCA/vertical-medical 11.0-dev
+medical-fhir https://github.com/eficent/medical-fhir 11.0-dev
 commission
 sale-workflow
 pos
