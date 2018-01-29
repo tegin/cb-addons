@@ -17,6 +17,7 @@
         'cb_medical_workflow_plandefinition',
     ],
     'data': [
+        'views/sale_order_line_view.xml',
         'views/medical_request_group_view.xml',
         'views/medical_careplan_views.xml',
         'views/medical_request_views.xml',

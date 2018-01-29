@@ -20,6 +20,7 @@
                 <field name="coverage_agreement_item_id"/>
                 <field name="careplan_id" readonly="1"
                        attrs="{'invisible': [('careplan_id', '=', False)]}"/>
+                <field name="authorization_num"/>
             </group>
         </field>
     </record>

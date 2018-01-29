@@ -28,3 +28,6 @@ class SaleOrderLine(models.AbstractModel):
         'medical.encounter',
         readonly=True,
     )
+    authorization_num = fields.Char(
+        'Authorization number',
+    )

@@ -29,6 +29,9 @@ class MedicalCareplanAddPlanDefinition(models.TransientModel):
         comodel_name='workflow.plan.definition',
         related='agreement_line_id.plan_definition_id'
     )
+    authorization_num = fields.Char(
+        'Authorization number',
+    )
 
     def _get_values(self):
         values = super(MedicalCareplanAddPlanDefinition, self)._get_values()
@@ -37,4 +40,5 @@ class MedicalCareplanAddPlanDefinition(models.TransientModel):
         values[
             'coverage_agreement_id'
         ] = self.agreement_line_id.coverage_agreement_id.id
+        values['authorization_num'] = self.authorization_num
         return values
