@@ -67,6 +67,7 @@ class MedicalRequest(models.AbstractModel):
             'product_uom_qty': 1,
             'product_uom': self.service_id.uom_id.id,
             'price_unit': self.compute_price(is_insurance),
+            'authorization_num': self.authorization_num,
         }
         if self.encounter_id:
             vals['encounter_id'] = self.encounter_id.id

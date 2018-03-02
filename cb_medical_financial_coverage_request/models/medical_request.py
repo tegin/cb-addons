@@ -23,3 +23,6 @@ class MedicalRequest(models.AbstractModel):
         readonly=True,
         ondelete='restrict'
     )
+    authorization_num = fields.Char(
+        'Authorization number',
+    )

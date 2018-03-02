@@ -4,9 +4,10 @@
     Copyright 2017 Eficent Business and IT Consulting Services, S.L.
     Copyright 2017 Creu Blanca
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-    -->
+-->
 
 <odoo>
+
     <record model="ir.ui.view" id="medical_add_plan_definition_form">
         <field name="name">medical.careplan.add.plan.definition.form</field>
         <field name="model">medical.careplan.add.plan.definition</field>
@@ -21,6 +22,11 @@
                 <field name="product_id" invisible="1"/>
                 <field name="coverage_id" invisible="1"/>
                 <field name="coverage_template_id" invisible="1"/>
+                <group>
+                    <group>
+                        <field name="authorization_num" />
+                    </group>
+                </group>
             </field>
 
         </field>

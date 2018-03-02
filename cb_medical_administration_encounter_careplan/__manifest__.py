@@ -3,26 +3,17 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Medical Careplan to sales',
+    'name': 'CB Medical Administration Encounter Careplan',
     'version': '11.0.1.0.0',
     'author': 'Eficent, Creu Blanca, Odoo Community Association (OCA)',
     'category': 'Medical',
     'depends': [
-        'medical_clinical_careplan',
-        'medical_clinical_procedure',
-        'medical_medication_request',
         'medical_administration_encounter_careplan',
-        'sale',
-        'cb_medical_financial_coverage_request',
-        'cb_medical_workflow_plandefinition',
     ],
     'data': [
-        'views/sale_order_line_view.xml',
-        'views/medical_request_group_view.xml',
         'views/medical_careplan_views.xml',
-        'views/medical_request_views.xml',
+        'views/medical_encounter_view.xml',
     ],
-    'website': 'https://github.com/eficent/cb-addons',
     'license': 'LGPL-3',
     'installable': True,
     'auto_install': False,
