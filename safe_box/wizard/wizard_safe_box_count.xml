@@ -19,6 +19,7 @@
                     <field name="state" invisible="1" />
                 </group>
                 <field name="coin_ids" options="{'no_create_edit': True}"/>
+                <field name="safe_box_coin_ids" invisible="1"/>
                 <div class="alert alert-success text-center o_form_header"
                      role="alert" style="margin-bottom:0px;"
                      attrs="{'invisible':[('state', '=', 'different')]}">
