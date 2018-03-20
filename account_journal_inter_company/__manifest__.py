@@ -10,7 +10,7 @@
     'summary': 'Creates inter company relations',
     'sequence': 30,
     'category': 'Accounting',
-    'depends': ['account', 'sale', 'sale_commission'],
+    'depends': ['account'],
     'license': 'LGPL-3',
     'data': [
         'security/ir.model.access.csv',
