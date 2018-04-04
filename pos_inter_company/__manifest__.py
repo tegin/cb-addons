@@ -22,6 +22,6 @@
         'wizard/cash_invoice_out.xml',
     ],
     'installable': True,
-    'application': True,
+    'application': False,
     'auto_install': False,
 }
