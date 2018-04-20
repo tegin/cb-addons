@@ -1,4 +1,5 @@
 medical-fhir https://github.com/eficent/medical-fhir 11.0-dev
 commission
-sale-workflow
 pos
+sale-workflow
+stock-logistics-warehouse

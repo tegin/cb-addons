@@ -12,31 +12,54 @@ class TestMedicalCareplanSale(TransactionCase):
         self.payor = self.env['res.partner'].create({
             'name': 'Payor',
             'is_payor': True,
+            'is_medical': True,
+        })
+        self.sub_payor = self.env['res.partner'].create({
+            'name': 'Sub Payor',
+            'is_sub_payor': True,
+            'is_medical': True,
+            'payor_id': self.payor.id,
         })
         self.coverage_template = self.env['medical.coverage.template'].create({
             'payor_id': self.payor.id,
             'name': 'Coverage',
         })
         self.company = self.browse_ref('base.main_company')
+        self.center = self.env['res.partner'].create({
+            'name': 'Center',
+            'is_medical': True,
+            'is_center': True,
+            'stock_location_id': self.browse_ref('stock.warehouse0').id,
+            'stock_picking_type_id': self.env['stock.picking.type'].search(
+                [], limit=1).id
+        })
         self.location = self.env['res.partner'].create({
             'name': 'Location',
+            'is_medical': True,
             'is_location': True,
-            'stock_location_id': self.browse_ref('stock.warehouse0').id
+            'center_id': self.center.id,
+            'stock_location_id': self.browse_ref('stock.warehouse0').id,
+            'stock_picking_type_id': self.env['stock.picking.type'].search(
+                [], limit=1).id
         })
         self.agreement = self.env['medical.coverage.agreement'].create({
             'name': 'Agreement',
-            'location_ids': [(4, self.location.id)],
+            'center_ids': [(4, self.center.id)],
             'coverage_template_ids': [(4, self.coverage_template.id)],
             'company_id': self.company.id,
             'invoice_group_method_id': self.browse_ref(
-                'cb_medical_sale_invoice_group_method.by_preinvoicing').id
+                'cb_medical_sale_invoice_group_method.by_preinvoicing').id,
+            'authorization_method_id': self.browse_ref(
+                'cb_medical_financial_coverage_request.without').id,
+            'authorization_format_id': self.browse_ref(
+                'cb_medical_financial_coverage_request.format_anything').id,
         })
         self.patient_01 = self.create_patient('Patient 01')
         self.coverage_01 = self.env['medical.coverage'].create({
             'patient_id': self.patient_01.id,
             'coverage_template_id': self.coverage_template.id,
         })
-        self.product_01 = self.create_product('Medical ressonance')
+        self.product_01 = self.create_product('Medical resonance')
         self.product_02 = self.create_product('Report')
         self.product_03 = self.env['product.product'].create({
             'type': 'consu',
@@ -86,7 +109,11 @@ class TestMedicalCareplanSale(TransactionCase):
             'coverage_agreement_id': self.agreement.id,
             'plan_definition_id': self.plan_definition.id,
             'total_price': 100,
-            'coverage_percentage': 0.5
+            'coverage_percentage': 0.5,
+            'authorization_method_id': self.browse_ref(
+                'cb_medical_financial_coverage_request.without').id,
+            'authorization_format_id': self.browse_ref(
+                'cb_medical_financial_coverage_request.format_anything').id,
         })
         self.agreement_line2 = self.env[
             'medical.coverage.agreement.item'
@@ -95,6 +122,10 @@ class TestMedicalCareplanSale(TransactionCase):
             'coverage_agreement_id': self.agreement.id,
             'total_price': 0.0,
             'coverage_percentage': 100.0,
+            'authorization_method_id': self.browse_ref(
+                'cb_medical_financial_coverage_request.without').id,
+            'authorization_format_id': self.browse_ref(
+                'cb_medical_financial_coverage_request.format_anything').id,
         })
         self.practitioner_01 = self.create_practitioner('Practitioner 01')
         self.practitioner_02 = self.create_practitioner('Practitioner 02')
@@ -133,10 +164,18 @@ class TestMedicalCareplanSale(TransactionCase):
         })
 
     def create_careplan_and_group(self):
-        careplan = self.env['medical.careplan'].create({
+        encounter = self.env['medical.encounter'].create({
+            'patient_id': self.patient_01.id,
+            'center_id': self.center.id,
+        })
+        careplan = self.env['medical.careplan'].new({
             'patient_id': self.patient_01.id,
             'coverage_id': self.coverage_01.id,
+            'encounter_id': encounter.id,
         })
+        careplan._onchange_encounter()
+        careplan = careplan.create(careplan._convert_to_write(careplan._cache))
+        self.assertEqual(careplan.center_id, encounter.center_id)
         wizard = self.env['medical.careplan.add.plan.definition'].create({
             'careplan_id': careplan.id,
             'agreement_line_id': self.agreement_line.id,
@@ -146,22 +185,27 @@ class TestMedicalCareplanSale(TransactionCase):
         group = self.env['medical.request.group'].search([
             ('careplan_id', '=', careplan.id)])
         group.ensure_one()
+        self.assertEqual(group.center_id, encounter.center_id)
         return careplan, group
 
     def test_careplan_sale(self):
         encounter = self.env['medical.encounter'].create({
             'patient_id': self.patient_01.id,
-            'location_id': self.location.id,
+            'center_id': self.center.id,
         })
         encounter_02 = self.env['medical.encounter'].create({
             'patient_id': self.patient_01.id,
-            'location_id': self.location.id,
+            'center_id': self.center.id,
         })
-        careplan = self.env['medical.careplan'].create({
+        careplan = self.env['medical.careplan'].new({
             'patient_id': self.patient_01.id,
             'encounter_id': encounter.id,
             'coverage_id': self.coverage_01.id,
+            'sub_payor_id': self.sub_payor.id,
         })
+        careplan._onchange_encounter()
+        careplan = careplan.create(careplan._convert_to_write(careplan._cache))
+        self.assertEqual(careplan.center_id, encounter.center_id)
         self.env['wizard.medical.careplan.add.amount'].create({
             'careplan_id': careplan.id,
             'amount': 10,
@@ -176,6 +220,8 @@ class TestMedicalCareplanSale(TransactionCase):
             wizard.run()
         self.action.is_billable = False
         wizard.run()
+
+        self.assertTrue(self.session.action_view_sale_orders()['res_id'])
         groups = self.env['medical.request.group'].search([
             ('careplan_id', '=', careplan.id)])
         self.assertTrue(groups)
@@ -183,6 +229,7 @@ class TestMedicalCareplanSale(TransactionCase):
             ('careplan_id', '=', careplan.id)
         ])
         for request in medication_requests:
+            self.assertEqual(request.center_id, encounter.center_id)
             request.qty = 2
             request.draft2active()
             values = request.action_view_medication_administration()['context']
@@ -192,16 +239,23 @@ class TestMedicalCareplanSale(TransactionCase):
             admin.location_id = self.location.id
             admin.preparation2in_progress()
             admin.in_progress2completed()
-            stock_move = self.env['stock.move.line'].search([
-                ('product_id', '=', self.product_03.id),
+            stock_move = self.env['stock.picking'].search([
                 ('medication_administration_id', '=', admin.id)
-            ])
+            ]).move_lines.move_line_ids
             self.assertEqual(stock_move.qty_done, 2.0)
         self.env['wizard.medical.careplan.close'].create({
             'careplan_id': careplan.id,
             'pos_session_id': self.session.id,
         }).run()
         self.assertGreater(len(careplan.sale_order_ids), 0)
+        self.assertGreater(self.session.careplan_count, 0)
+        self.assertGreater(self.session.sale_order_count, 0)
+        self.assertEqual(self.session.action_view_careplans()['res_id'],
+                         careplan.id)
+        self.session.action_pos_session_closing_control()
+        self.assertTrue(self.session.invoice_ids)
+        self.assertTrue(self.session.down_payment_ids)
+        self.assertEqual(self.session.validation_status, 'in_progress')
         procedure_requests = self.env['medical.procedure.request'].search([
             ('careplan_id', '=', careplan.id)
         ])
@@ -225,6 +279,7 @@ class TestMedicalCareplanSale(TransactionCase):
         ])
         self.assertGreater(len(procedure_requests), 0)
         for request in procedure_requests:
+            self.assertEqual(request.center_id, encounter.center_id)
             procedure = request.generate_event()
             procedure.performer_id = self.practitioner_01
             procedure.commission_agent_id = self.practitioner_01
@@ -233,7 +288,9 @@ class TestMedicalCareplanSale(TransactionCase):
             self.assertEqual(
                 procedure.commission_agent_id, self.practitioner_02)
         careplan.recompute_commissions()
-        for sale_order in careplan.sale_order_ids:
+        for sale_order in careplan.sale_order_ids.filtered(
+            lambda r: not r.is_down_payment
+        ):
             sale_order.recompute_lines_agents()
             self.assertGreater(sale_order.commission_total, 0)
         preinvoice_obj = self.env['sale.preinvoice.group']
@@ -241,7 +298,7 @@ class TestMedicalCareplanSale(TransactionCase):
             ('agreement_id', '=', self.agreement.id)]))
         self.env['wizard.sale.preinvoice.group'].create({
             'company_ids': [(6, 0, self.company.ids)],
-            'partner_ids': [(6, 0, self.payor.ids)]
+            'payor_ids': [(6, 0, self.payor.ids)]
         }).run()
         self.assertFalse(preinvoice_obj.search([
             ('agreement_id', '=', self.agreement.id)]))
@@ -249,7 +306,7 @@ class TestMedicalCareplanSale(TransactionCase):
             sale_order.action_confirm()
         self.env['wizard.sale.preinvoice.group'].create({
             'company_ids': [(6, 0, self.company.ids)],
-            'partner_ids': [(6, 0, self.payor.ids)]
+            'payor_ids': [(6, 0, self.payor.ids)]
         }).run()
         preinvoices = preinvoice_obj.search([
             ('agreement_id', '=', self.agreement.id),
@@ -268,7 +325,7 @@ class TestMedicalCareplanSale(TransactionCase):
         self.assertFalse(preinvoices)
         self.env['wizard.sale.preinvoice.group'].create({
             'company_ids': [(6, 0, self.company.ids)],
-            'partner_ids': [(6, 0, self.payor.ids)]
+            'payor_ids': [(6, 0, self.payor.ids)]
         }).run()
         preinvoices = preinvoice_obj.search([
             ('agreement_id', '=', self.agreement.id),
@@ -291,7 +348,7 @@ class TestMedicalCareplanSale(TransactionCase):
         self.assertFalse(preinvoices)
         self.env['wizard.sale.preinvoice.group'].create({
             'company_ids': [(6, 0, self.company.ids)],
-            'partner_ids': [(6, 0, self.payor.ids)]
+            'payor_ids': [(6, 0, self.payor.ids)]
         }).run()
         preinvoices = preinvoice_obj.search([
             ('agreement_id', '=', self.agreement.id),
@@ -319,7 +376,7 @@ class TestMedicalCareplanSale(TransactionCase):
             preinvoice.close()
             self.assertTrue(preinvoice.invoice_id)
         invoices = invoice_obj.search([
-            ('partner_id', '=', self.payor.id)
+            ('partner_id', 'in', [self.payor.id, self.sub_payor.id])
         ])
         self.assertTrue(invoices)
         # Test invoice unlink
@@ -337,7 +394,7 @@ class TestMedicalCareplanSale(TransactionCase):
         self.assertFalse(preinvoices)
         self.env['wizard.sale.preinvoice.group'].create({
             'company_ids': [(6, 0, self.company.ids)],
-            'partner_ids': [(6, 0, self.payor.ids)]
+            'payor_ids': [(6, 0, self.payor.ids)]
         }).run()
         preinvoices = preinvoice_obj.search([
             ('agreement_id', '=', self.agreement.id),
@@ -354,7 +411,7 @@ class TestMedicalCareplanSale(TransactionCase):
             self.assertTrue(preinvoice.line_ids)
             self.assertTrue(preinvoice.invoice_id)
         invoices = invoice_obj.search([
-            ('partner_id', '=', self.payor.id)
+            ('partner_id', 'in', [self.payor.id, self.sub_payor.id])
         ])
         self.assertTrue(invoices)
         for invoice in invoices:
@@ -392,7 +449,11 @@ class TestMedicalCareplanSale(TransactionCase):
             'product_id': self.product_02.id,
             'coverage_agreement_id': self.agreement.id,
             'total_price': 110,
-            'coverage_percentage': 0.5
+            'coverage_percentage': 0.5,
+            'authorization_method_id': self.browse_ref(
+                'cb_medical_financial_coverage_request.without').id,
+            'authorization_format_id': self.browse_ref(
+                'cb_medical_financial_coverage_request.format_anything').id,
         })
         group.breakdown()
         self.assertFalse(group.is_billable)

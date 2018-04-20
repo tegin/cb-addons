@@ -16,6 +16,6 @@
         'views/res_company_views.xml',
     ],
     'installable': True,
-    'application': True,
+    'application': False,
     'auto_install': False,
 }

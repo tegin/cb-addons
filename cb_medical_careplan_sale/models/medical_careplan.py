@@ -18,17 +18,21 @@ class MedicalCareplan(models.Model):
     payor_id = fields.Many2one(
         'res.partner',
         related='coverage_id.coverage_template_id.payor_id',
-        readonly=True,
     )
-    partner_invoice_id = fields.Many2one(
+    sub_payor_id = fields.Many2one(
         'res.partner',
-        domain="[('id', 'child_of', payor_id), ('type', '=', 'invoice')]",
+        domain="[('payor_id', '=', payor_id), ('is_sub_payor', '=', True)]"
     )
+
+    @api.onchange('encounter_id')
+    def _onchange_encounter(self):
+        for record in self:
+            record.center_id = self.encounter_id.center_id
 
     @api.onchange('coverage_id')
     def _onchange_coverage_id(self):
         for record in self:
-            record.partner_invoice_id = False
+            record.sub_payor_id = False
 
     def get_sale_order_vals(self, partner, key, is_insurance):
         vals = {
@@ -40,13 +44,13 @@ class MedicalCareplan(models.Model):
         }
         if is_insurance:
             vals['company_id'] = key.company_id.id
-        if self.partner_invoice_id and is_insurance:
-            vals['partner_invoice_id'] = self.partner_invoice_id.id
         return vals
 
     def get_payor(self, is_insurance):
         if is_insurance:
-            return self.coverage_id.coverage_template_id.payor_id
+            if self.sub_payor_id:
+                return self.sub_payor_id
+            return self.payor_id
         return self.patient_id.partner_id
 
     def generate_sale_order(self, key, order_lines):
@@ -57,9 +61,9 @@ class MedicalCareplan(models.Model):
         partner = self.get_payor(is_insurance)
         order = self.sale_order_ids.filtered(lambda r: (
             (agreement.id == r.coverage_agreement_id.id and is_insurance and
-             not r.state == 'cancel') or
-            (not is_insurance and not self.coverage_agreement_id and not
-             r.state == 'cancel')))
+             r.state == 'draft') or
+            (not is_insurance and not self.coverage_agreement_id and
+             r.state == 'draft')))
         if not order:
             order_vals = self.get_sale_order_vals(
                 partner, agreement, is_insurance)

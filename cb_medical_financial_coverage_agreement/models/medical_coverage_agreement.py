@@ -21,13 +21,13 @@ class MedicalCoverageAgreement(models.Model):
     active = fields.Boolean(
         default=True,
     )
-    location_ids = fields.Many2many(
-        string='Location',
+    center_ids = fields.Many2many(
+        string='Centers',
         comodel_name='res.partner',
-        domain=[('is_location', '=', True)],
+        domain=[('is_center', '=', True)],
         required=True,
         index=True,
-        help='Responsible Medical Location',
+        help='Medical centers',
     )
     company_id = fields.Many2one(
         comodel_name='res.company',
@@ -69,10 +69,10 @@ class MedicalCoverageAgreement(models.Model):
     actual_date = fields.Date(
         default=fields.Date.today(),
     )
-    payor = fields.Selection([
+    principal_concept = fields.Selection([
         ('private', 'Private'),
         ('coverage', 'Coverage')],
-        'Payor',
+        'Concept',
     )
 
     @api.model

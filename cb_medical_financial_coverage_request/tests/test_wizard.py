@@ -3,6 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo.tests.common import TransactionCase
+from odoo.exceptions import ValidationError
 
 
 class TestWizard(TransactionCase):
@@ -19,23 +20,37 @@ class TestWizard(TransactionCase):
             'name': 'Template',
             'payor_id': self.payor.id
         })
-        self.location = self.env['res.partner'].create({
+        self.center = self.env['res.partner'].create({
             'name': 'Location',
-            'is_location': True,
+            'is_center': True,
         })
         self.coverage = self.env['medical.coverage'].create({
             'patient_id': self.patient.id,
             'coverage_template_id': self.template.id,
         })
+        self.encounter = self.env['medical.encounter'].create({
+            'patient_id': self.patient.id,
+            'center_id': self.center.id,
+        })
         self.careplan = self.env['medical.careplan'].create({
             'patient_id': self.patient.id,
             'coverage_id': self.coverage.id,
+            'encounter_id': self.encounter.id,
+            'center_id': self.encounter.center_id.id,
+        })
+        self.format = self.env['medical.authorization.format'].create({
+            'code': 'Format',
+            'name': 'Format test',
+            'formula': '^[0-9]{2}$'
         })
         self.agreement = self.env['medical.coverage.agreement'].create({
             'name': 'Agreement',
-            'location_ids': [(6, 0, self.location.ids)],
+            'center_ids': [(6, 0, self.center.ids)],
             'coverage_template_ids': [(6, 0, self.template.ids)],
             'company_id': self.browse_ref('base.main_company').id,
+            'authorization_method_id': self.browse_ref(
+                'cb_medical_financial_coverage_request.only_number').id,
+            'authorization_format_id': self.format.id,
         })
         self.product = self.env['product.product'].create({
             'name': 'Product',
@@ -60,7 +75,9 @@ class TestWizard(TransactionCase):
         })
         self.agreement_line = self.env[
             'medical.coverage.agreement.item'
-        ].create({
+        ].with_context(
+            default_coverage_agreement_id=self.agreement.id
+        ).create({
             'coverage_agreement_id': self.agreement.id,
             'product_id': self.product.id,
             'plan_definition_id': self.plan_definition.id,
@@ -68,10 +85,22 @@ class TestWizard(TransactionCase):
             'coverage_percentage': 0,
         })
 
+    def test_wizard_failure(self):
+        wizard = self.env['medical.careplan.add.plan.definition'].create({
+            'careplan_id': self.careplan.id,
+            'agreement_line_id': self.agreement_line.id,
+            'authorization_number': '222'
+        })
+        self.assertEqual(wizard.patient_id, self.patient)
+        self.assertTrue(wizard.plan_definition_id)
+        with self.assertRaises(ValidationError):
+            wizard.run()
+
     def test_wizard(self):
         wizard = self.env['medical.careplan.add.plan.definition'].create({
             'careplan_id': self.careplan.id,
             'agreement_line_id': self.agreement_line.id,
+            'authorization_number': '22'
         })
         self.assertEqual(wizard.patient_id, self.patient)
         self.assertTrue(wizard.plan_definition_id)

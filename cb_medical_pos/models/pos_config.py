@@ -5,8 +5,10 @@
 from odoo import fields, models
 
 
-class MedicalRequest(models.AbstractModel):
-    _inherit = 'medical.request'
+class PosConfig(models.Model):
+    _inherit = 'pos.config'
 
-    parent_id = fields.Integer()
-    parent_model = fields.Char()
+    session_sequence_id = fields.Many2one(
+        'ir.sequence',
+        'Sequence for sessions'
+    )
