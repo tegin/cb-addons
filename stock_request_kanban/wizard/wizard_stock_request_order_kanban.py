@@ -39,10 +39,6 @@ class WizardStockRequestOrderKanban(models.TransientModel):
         bcc = getCodes()[self.get_barcode_format()](value=barcode[:-1])
         bcc.validate()
         bcc.encode()
-        import logging
-        logging.info(barcode)
-        logging.info(bcc.validated)
-        logging.info(bcc.encoded)
         if bcc.encoded[1:-1] != barcode:
             raise ValidationError(_('CRC is not valid'))
         return barcode[:-1]
