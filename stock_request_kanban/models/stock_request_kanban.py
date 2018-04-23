@@ -126,9 +126,10 @@ class StockRequestKanban(models.Model):
     def onchange_location_id(self):
         res = {'domain': {}}
         if self.location_id:
-            loc_wh = self.location_id.get_warehouse()
-            if self.warehouse_id != loc_wh:
+            loc_wh = self.location_id.sudo().get_warehouse()
+            if loc_wh and self.warehouse_id != loc_wh:
                 self.warehouse_id = loc_wh
+                self.onchange_warehouse_id()
         return res
 
     @api.onchange('company_id')
