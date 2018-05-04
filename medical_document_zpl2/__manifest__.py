@@ -3,19 +3,20 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'CB Testing',
+    'name': 'Medical documents',
     'version': '11.0.1.0.0',
     'author': 'Eficent, Creu Blanca, Odoo Community Association (OCA)',
     'depends': [
-        'cb_medical_careplan_sale',
-        'medical_document_zpl2',
-        'pos_validation',
-        'cb_medical_identifier',
-        'cb_medical_sale_invoice_group_method',
+        'medical_document',
+        'label_zpl2',
     ],
     'data': [
+        'views/medical_document_type_views.xml',
+        'views/medical_document_reference_views.xml',
     ],
-    'website': 'https://github.com/OCA/vertical-medical',
+    'demo': [
+    ],
+    'website': 'https://github.com/OCA/cb-addons',
     'license': 'LGPL-3',
     'installable': True,
     'auto_install': False,

@@ -2,11 +2,11 @@
    :target: https://www.gnu.org/licenses/lgpl-3.0-standalone.html
    :alt: License: LGPL-3
 
-=================
-Medical Documents
-=================
+========================
+CB Medical Document ZPL2
+========================
 
-This module adds medical documents on medical environment.
+Allows to generate ZPL2 documents
 
 Contributors
 ------------
