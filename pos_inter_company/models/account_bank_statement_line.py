@@ -68,3 +68,8 @@ class BankStatementLine(models.Model):
                     journal_id=st_line.statement_id.journal_id.id,
                     default_journal_id=st_line.statement_id.journal_id.id,
                 )).fast_counterpart_creation()
+
+    @api.multi
+    @api.constrains('company_id', 'account_id')
+    def _check_company_id_account_id(self):
+        return
