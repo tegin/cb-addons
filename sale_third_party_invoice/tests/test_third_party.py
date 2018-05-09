@@ -20,11 +20,11 @@ class ThirdParty(TransactionCase):
             'type': 'service',
             'name': 'Product'
         })
-        self.supplier_tax = self.env['account.tax'].create({
+        self.third_party_taxes = self.env['account.tax'].create({
             'company_id': self.company.id,
             'name': 'Supplier Tax',
             'amount': 20,
-            'type_tax_use': 'purchase',
+            'type_tax_use': 'sale',
         })
         self.tax = self.env['account.tax'].create({
             'company_id': self.company.id,
@@ -35,7 +35,7 @@ class ThirdParty(TransactionCase):
         self.third_party_product = self.env['product.product'].create({
             'type': 'service',
             'name': 'Third party product',
-            'supplier_taxes_id': [(6, 0, self.supplier_tax.ids)],
+            'taxes_id': [(6, 0, self.third_party_taxes.ids)],
         })
         self.product = self.env['product.product'].create({
             'type': 'service',
@@ -65,7 +65,6 @@ class ThirdParty(TransactionCase):
         self.assertEqual('to invoice', sale_order.invoice_status)
         sale_order.action_invoice_create()
         self.assertEqual('invoiced', sale_order.invoice_status)
-        self.assertEqual('in_invoice', sale_order.invoice_ids.type)
         self.assertEqual(sale_order.amount_total, 110)
         self.assertEqual(
             self.third_party_product,
