@@ -3,22 +3,21 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Cash payments between intercompanies',
+    'name': 'Sale third party invoice',
     'version': '11.0.1.0.0',
     'author': 'Eficent, Creu Blanca, Odoo Community Association (OCA)',
     'website': 'http://github.com/eficent/cb-addons',
-    'summary': 'Payment of invoices to another company',
+    'summary': 'Creates inter company relations',
     'sequence': 30,
-    'category': 'Accounting',
+    'category': 'Sale',
     'depends': [
-        'account_cash_invoice',
-        'account_journal_inter_company',
+        'sale',
+        'mcfix_sale',
     ],
     'license': 'LGPL-3',
     'data': [
-        'views/account_bank_statement_line.xml',
-        'wizard/cash_invoice_in.xml',
-        'wizard/cash_invoice_out.xml',
+        'views/sale_order_views.xml',
+        'views/partner_views.xml',
     ],
     'installable': True,
     'application': False,
