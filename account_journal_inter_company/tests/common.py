@@ -10,12 +10,12 @@ class TestInterCompany(SavepointCase):
     def setUp(self):
         super(TestInterCompany, self).setUp()
         self.company_1 = self.env['res.company'].create({
-            'name': 'Company 1',
+            'name': '1Company',
             'vat': 1,
             'currency_id': self.ref('base.USD')
         })
         self.company_2 = self.env['res.company'].create({
-            'name': 'Company 2',
+            'name': '2Company',
             'vat': 2,
             'currency_id': self.ref('base.USD')
         })
