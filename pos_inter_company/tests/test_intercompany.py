@@ -12,11 +12,13 @@ class TestInterCompanyCashInvoice(common.TestInterCompany):
         self.product = self.env['product.product'].create({
             'name': 'Product',
             'type': 'service',
+            'company_id': False,
         })
         self.partner = self.env['res.partner'].create({
             'name': 'Partner',
             'customer': True,
             'supplier': True,
+            'company_id': False,
         })
         self.user_type = self.browse_ref('account.data_account_type_revenue')
 
