@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_shipping_id" position="after">
+                <field name="third_party_order" invisible="1"/>
+            </field>
+            <notebook position="inside">
+                <page name="third_party" string="Third party">
+                    <group>
+                        <group>
+                            <field name="third_party_partner_id"/>
+                        </group>
+                        <group>
+                            <field name="third_party_number"/>
+                            <button type="action" name="third_party_invoice_print"
+                                    string="print" attrs="{'invisible': [('third_party_number','=', False)]}"
+                            />
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']"
+                   position="after">
+                <field name="third_party_price"
+                       attrs="{'invisible': [('third_party_order', '=', False)]}"/>
+                <field name="third_party_order" invisible="1"/>
+                <field name="third_party_product_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='price_unit']"
+                   position="after">
+                <field name="third_party_price"
+                       attrs="{'invisible': [('third_party_order', '=', False)]}"/>
+                <field name="third_party_order" invisible="1"/>
+                <field name="third_party_product_id" attrs="{'invisible': [('third_party_order', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
