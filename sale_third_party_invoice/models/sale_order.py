@@ -18,6 +18,58 @@ class SaleOrder(models.Model):
             ('third_party_sequence_id', '!=', False)],
     )
     third_party_number = fields.Char(copy=False, readonly=True)
+    third_party_move_id = fields.Many2one(
+        'account.move',
+        readonly=True,
+    )
+
+    @api.multi
+    def action_done(self):
+        for rec in self:
+            if rec.third_party_order and not rec.third_party_move_id:
+                rec.create_third_party_move()
+        return super().action_done()
+
+    @api.multi
+    def action_unlock(self):
+        return super(SaleOrder, self.filtered(
+            lambda r: not r.third_party_order or not r.third_party_move_id
+        )).action_unlock()
+
+    def create_third_party_move(self):
+        self.third_party_move_id= self.env['account.move'].create(
+            self._third_party_move_vals())
+
+    def _third_party_move_vals(self):
+        journal = self.company_id.third_party_journal_id
+        if not journal:
+            journal = self.env['account.journal'].search([
+                ('company_id', '=', self.company_id.id),
+                ('type', '=', 'general')
+            ], limit=1)
+        return {
+            'journal_id': journal.id,
+            'line_ids': [
+                (0, 0, {
+                    'name': self.partner_id.name,
+                    'partner_id': self.partner_id.id,
+                    'account_id': self.partner_id.with_context(
+                        force_company=self.company_id.id
+                    ).property_third_party_customer_account_id.id,
+                    'debit': self.amount_total,
+                    'credit': 0,
+                }),
+                (0, 0, {
+                    'name': self.third_party_partner_id.name,
+                    'partner_id': self.third_party_partner_id.id,
+                    'account_id': self.third_party_partner_id.with_context(
+                        force_company=self.company_id.id
+                    ).property_third_party_supplier_account_id.id,
+                    'debit': 0,
+                    'credit': self.amount_total,
+                }),
+            ]
+        }
 
     @api.multi
     def action_invoice_create(self, grouped=False, final=False):

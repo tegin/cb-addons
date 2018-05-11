@@ -10,4 +10,16 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_partner_property_multicompany_form" model="ir.ui.view">
+        <field name="name">res.partner.property.form</field>
+        <field name="model">res.partner.property</field>
+        <field name="inherit_id" ref="multicompany_property_account.view_partner_property_multicompany_form"/>
+        <field name="arch" type="xml">
+            <field name="property_supplier_payment_term_id" position="after">
+                <field name="property_third_party_customer_account_id"/>
+                <field name="property_third_party_supplier_account_id"/>
+            </field>
+        </field>
+    </record>
 </odoo>
