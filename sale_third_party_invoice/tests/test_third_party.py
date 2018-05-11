@@ -61,6 +61,7 @@ class ThirdParty(TransactionCase):
         })
         self.assertEqual(0, sale_order.invoice_count)
         self.assertEqual('no', sale_order.invoice_status)
+        self.assertFalse(sale_order.third_party_move_id)
         sale_order.action_confirm()
         self.assertEqual('to invoice', sale_order.invoice_status)
         sale_order.action_invoice_create()
@@ -70,3 +71,6 @@ class ThirdParty(TransactionCase):
             self.third_party_product,
             sale_order.invoice_ids.invoice_line_ids.product_id)
         self.assertEqual(sale_order.invoice_ids.amount_total, 12)
+        self.assertTrue(sale_order.third_party_move_id)
+        sale_order.action_unlock()
+        self.assertEqual(sale_order.state, 'done')

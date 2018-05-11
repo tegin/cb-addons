@@ -11,12 +11,14 @@
     'sequence': 30,
     'category': 'Sale',
     'depends': [
-        'sale',
+        'mcfix_account',
         'mcfix_sale',
+        'multicompany_property_account',
     ],
     'license': 'LGPL-3',
     'data': [
         'views/sale_order_views.xml',
+        'views/res_company_views.xml',
         'views/partner_views.xml',
     ],
     'installable': True,

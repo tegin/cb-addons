@@ -6,10 +6,10 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <field name="partner_shipping_id" position="after">
-                <field name="third_party_order" invisible="1"/>
+                <field name="third_party_order"/>
             </field>
             <notebook position="inside">
-                <page name="third_party" string="Third party">
+                <page name="third_party" string="Third party" attrs="{'invisible': [('third_party_order', '=', False)]}">
                     <group>
                         <group>
                             <field name="third_party_partner_id"/>
@@ -19,6 +19,7 @@
                             <button type="action" name="third_party_invoice_print"
                                     string="print" attrs="{'invisible': [('third_party_number','=', False)]}"
                             />
+                            <field name="third_party_move_id"/>
                         </group>
                     </group>
                 </page>
