@@ -1,5 +1,4 @@
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class SaleOrder(models.Model):
@@ -36,6 +35,35 @@ class SaleOrder(models.Model):
         string='Third party order #',
         compute='_compute_third_party_order_count',
         readonly=True)
+    third_party_customer_state = fields.Selection([
+        ('pending', 'Pending amount'), ('payed', 'Fully payed')
+    ], compute='_compute_third_party_pending', store=True, index=True)
+    third_party_customer_amount = fields.Monetary(
+        currency_field='currency_id',
+        compute='_compute_third_party_pending',
+    )
+    third_party_customer_move_line_ids = fields.One2many(
+        'account.move.line',
+        inverse_name='third_party_customer_sale_order_id'
+    )
+
+    @api.multi
+    @api.depends('third_party_order', 'third_party_customer_move_line_ids',
+                 'amount_total')
+    def _compute_third_party_pending(self):
+        for rec in self.filtered(
+                lambda r: r.third_party_order and r.third_party_move_id
+        ):
+            amount = rec.amount_total
+            amount += sum(rec.third_party_customer_move_line_ids.mapped(
+                'debit'))
+            amount -= sum(
+                rec.third_party_customer_move_line_ids.mapped('credit'))
+            rec.third_party_customer_amount = amount
+            if amount != 0:
+                rec.third_party_customer_state = 'pending'
+            else:
+                rec.third_party_customer_state = 'payed'
 
     @api.multi
     def _compute_third_party_order_count(self):
@@ -103,6 +131,9 @@ class SaleOrder(models.Model):
     def _action_confirm(self):
         res = super(SaleOrder, self)._action_confirm()
         for order in self.filtered(lambda o: o.third_party_order):
+            if not order.third_party_number:
+                order.third_party_number = order.third_party_partner_id.\
+                    third_party_sequence_id.next_by_id()
             order.create_third_party_move()
             order._create_third_party_order()
         return res
@@ -119,7 +150,7 @@ class SaleOrder(models.Model):
     def action_cancel(self):
         res = super(SaleOrder, self).action_cancel()
         for order in self.filtered(lambda o: o.third_party_move_id):
-            order.third_party_order_id.action_cancel()
+            order.third_party_order_ids.action_cancel()
             order.third_party_move_id.button_cancel()
             order.third_party_move_id.unlink()
         return res
@@ -140,10 +171,13 @@ class SaleOrder(models.Model):
 class SalerOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.depends('order_id.third_party_order')
+    @api.depends('state', 'product_uom_qty', 'qty_delivered', 'qty_to_invoice',
+                 'qty_invoiced', 'order_id.third_party_order')
     def _compute_invoice_status(self):
-        for line in self:
+        res = super()._compute_invoice_status()
+        for line in self.filtered(lambda r: r.order_id.third_party_order):
             line.invoice_status = 'no'
+        return res
 
     third_party_order = fields.Boolean(
         related='order_id.third_party_order'
