@@ -42,6 +42,19 @@ class ThirdParty(TransactionCase):
             'name': 'Product',
             'taxes_id': [(6, 0, self.tax.ids)],
         })
+        self.account = self.env['account.account'].create({
+            'name': 'Account 01',
+            'code': '001',
+            'company_id': self.company.id,
+            'user_type_id': self.ref(
+                'account.data_account_type_current_assets'),
+        })
+        self.supplier.with_context(
+            force_company=self.company.id
+        ).property_third_party_supplier_account_id = self.account.id
+        self.customer.with_context(
+            force_company=self.company.id
+        ).property_third_party_customer_account_id = self.account.id
 
     def test_third_party(self):
         sale_order = self.env['sale.order'].create({
@@ -63,14 +76,11 @@ class ThirdParty(TransactionCase):
         self.assertEqual('no', sale_order.invoice_status)
         self.assertFalse(sale_order.third_party_move_id)
         sale_order.action_confirm()
-        self.assertEqual('to invoice', sale_order.invoice_status)
-        sale_order.action_invoice_create()
-        self.assertEqual('invoiced', sale_order.invoice_status)
+        self.assertEqual('no', sale_order.invoice_status)
+        self.assertEqual(len(sale_order.third_party_order_ids), 1)
+        third_party_order = sale_order.third_party_order_ids[0]
+        self.assertEqual(third_party_order.partner_id,
+                         sale_order.third_party_partner_id)
         self.assertEqual(sale_order.amount_total, 110)
-        self.assertEqual(
-            self.third_party_product,
-            sale_order.invoice_ids.invoice_line_ids.product_id)
-        self.assertEqual(sale_order.invoice_ids.amount_total, 12)
         self.assertTrue(sale_order.third_party_move_id)
-        sale_order.action_unlock()
         self.assertEqual(sale_order.state, 'done')
