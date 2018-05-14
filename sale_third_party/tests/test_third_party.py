@@ -5,6 +5,26 @@ class ThirdParty(TransactionCase):
     def setUp(self):
         super().setUp()
         self.company = self.browse_ref('base.main_company')
+        self.company.write({
+            'default_third_party_customer_account_id': self.env[
+                'account.account'].create({
+                    'company_id': self.company.id,
+                    'code': 'ThirdPartyCust',
+                    'name': 'Third party customer account',
+                    'user_type_id': self.browse_ref(
+                        'account.data_account_type_revenue').id,
+                    'reconcile': True,
+                }).id,
+            'default_third_party_supplier_account_id': self.env[
+                'account.account'].create({
+                    'company_id': self.company.id,
+                    'code': 'ThirdPartySupp',
+                    'name': 'Third party supplier account',
+                    'user_type_id': self.browse_ref(
+                        'account.data_account_type_revenue').id,
+                    'reconcile': True,
+                }).id,
+        })
         self.supplier = self.env['res.partner'].create({
             'name': 'supplier',
             'supplier': True,
@@ -42,19 +62,6 @@ class ThirdParty(TransactionCase):
             'name': 'Product',
             'taxes_id': [(6, 0, self.tax.ids)],
         })
-        self.account = self.env['account.account'].create({
-            'name': 'Account 01',
-            'code': '001',
-            'company_id': self.company.id,
-            'user_type_id': self.ref(
-                'account.data_account_type_current_assets'),
-        })
-        self.supplier.with_context(
-            force_company=self.company.id
-        ).property_third_party_supplier_account_id = self.account.id
-        self.customer.with_context(
-            force_company=self.company.id
-        ).property_third_party_customer_account_id = self.account.id
 
     def test_third_party(self):
         sale_order = self.env['sale.order'].create({
@@ -83,4 +90,42 @@ class ThirdParty(TransactionCase):
                          sale_order.third_party_partner_id)
         self.assertEqual(sale_order.amount_total, 110)
         self.assertTrue(sale_order.third_party_move_id)
+        self.assertEqual(sale_order.third_party_customer_amount, 110)
+        self.assertEqual(sale_order.third_party_customer_state, 'pending')
         self.assertEqual(sale_order.state, 'done')
+        journal = self.env['account.journal'].search(
+            [('company_id', '=', self.company.id)], limit=1)
+        statement = self.env['account.bank.statement'].create({
+            'name': 'Statement',
+            'journal_id': journal.id
+        })
+        wizard = self.env['cash.third.party.sale'].with_context(
+            active_ids=statement.ids, active_model=statement._name
+        ).create({
+            'sale_order_id': sale_order.id,
+            'amount': 0
+        })
+        wizard._onchange_sale_order()
+        self.assertEqual(wizard.amount, sale_order.amount_total)
+        wizard.amount = 100
+        wizard.run()
+        statement.balance_end_real = statement.balance_end
+        statement.check_confirm_bank()
+        self.assertEqual(sale_order.third_party_customer_amount, 10)
+        self.assertEqual(sale_order.third_party_customer_state, 'pending')
+        statement = self.env['account.bank.statement'].create({
+            'name': 'Statement',
+            'journal_id': journal.id
+        })
+        wizard = self.env['cash.third.party.sale'].with_context(
+            active_ids=statement.ids, active_model=statement._name
+        ).create({
+            'sale_order_id': sale_order.id,
+            'amount': 0
+        })
+        wizard._onchange_sale_order()
+        self.assertEqual(wizard.amount, sale_order.third_party_customer_amount)
+        wizard.run()
+        statement.balance_end_real = statement.balance_end
+        statement.check_confirm_bank()
+        self.assertEqual(sale_order.third_party_customer_state, 'payed')
