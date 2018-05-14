@@ -29,6 +29,8 @@
                                     string="print" attrs="{'invisible': [('third_party_number','=', False)]}"
                             />
                             <field name="third_party_move_id"/>
+                            <field name="third_party_customer_state" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
+                            <field name="third_party_customer_amount" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
                         </group>
                     </group>
                 </page>
