@@ -10,13 +10,11 @@ class ResPartner(models.Model):
     property_third_party_customer_account_id = fields.Many2one(
         'account.account',
         domain="[('deprecated', '=', False)]",
-        readonly=True,
         company_dependent=True,
     )
     property_third_party_supplier_account_id = fields.Many2one(
         'account.account',
         domain="[('deprecated', '=', False)]",
-        readonly=True,
         company_dependent=True,
     )
 
