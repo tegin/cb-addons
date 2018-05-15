@@ -141,9 +141,8 @@ class SaleOrder(models.Model):
     @api.multi
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
-        for order in self:
-            if self.filtered(lambda o: o.third_party_order):
-                order.action_done()
+        for order in self.filtered(lambda o: o.third_party_order):
+            order.action_done()
         return res
 
     @api.multi
