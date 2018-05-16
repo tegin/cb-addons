@@ -38,16 +38,14 @@
             <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']"
                    position="after">
                 <field name="third_party_price"
-                       attrs="{'invisible': [('third_party_order', '=', False)]}"/>
-                <field name="third_party_order" invisible="1"/>
-                <field name="third_party_product_id" attrs="{'invisible': [('third_party_order', '=', False)]}"/>
+                       attrs="{'invisible': [('parent.third_party_order', '=', False)]}"/>
+                <field name="third_party_product_id" attrs="{'invisible': [('parent.third_party_order', '=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/form//field[@name='price_unit']"
                    position="after">
                 <field name="third_party_price"
-                       attrs="{'invisible': [('third_party_order', '=', False)]}"/>
-                <field name="third_party_order" invisible="1"/>
-                <field name="third_party_product_id" attrs="{'invisible': [('third_party_order', '=', False)]}"/>
+                       attrs="{'invisible': [('parent.third_party_order', '=', False)]}"/>
+                <field name="third_party_product_id" attrs="{'invisible': [('parent.third_party_order', '=', False)]}"/>
             </xpath>
         </field>
     </record>
