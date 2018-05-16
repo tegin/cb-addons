@@ -178,9 +178,6 @@ class SalerOrderLine(models.Model):
             line.invoice_status = 'no'
         return res
 
-    third_party_order = fields.Boolean(
-        related='order_id.third_party_order'
-    )
     third_party_price = fields.Monetary(
         currency_field='currency_id'
     )
