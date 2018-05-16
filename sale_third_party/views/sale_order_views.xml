@@ -21,7 +21,7 @@
                 <page name="third_party" string="Third party" attrs="{'invisible': [('third_party_order', '=', False)]}">
                     <group>
                         <group>
-                            <field name="third_party_partner_id"/>
+                            <field name="third_party_partner_id" context="{'default_supplier': True, 'default_customer': False}"/>
                         </group>
                         <group>
                             <field name="third_party_number"/>
