@@ -40,9 +40,7 @@ class ThirdParty(TransactionCase):
         self.supplier = self.env['res.partner'].create({
             'name': 'supplier',
             'supplier': True,
-            'third_party_sequence_id': self.env['ir.sequence'].create({
-                'name': 'supplier third party sequence',
-            }).id
+            'third_party_sequence_prefix': 'SUP',
         })
         self.customer = self.env['res.partner'].create({
             'name': 'Customer',
@@ -106,6 +104,18 @@ class ThirdParty(TransactionCase):
             ).property_third_party_customer_account_id,
             prop.property_third_party_customer_account_id
         )
+
+    def test_create_partner_third_party(self):
+        third_party = self.env['res.partner'].create({
+            'name': 'supplier',
+            'supplier': True,
+            'third_party_sequence_prefix': 'SUP',
+        })
+        self.assertTrue(third_party.third_party_sequence_id)
+        self.assertEqual(third_party.third_party_sequence_id.prefix, "SUP")
+        self.assertFalse(third_party.third_party_sequence_id.company_id)
+        third_party.third_party_sequence_prefix = "SUP2"
+        self.assertEqual(third_party.third_party_sequence_id.prefix, "SUP2")
 
     def test_cancel_third_party(self):
         self.company.write({
