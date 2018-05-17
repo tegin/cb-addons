@@ -89,7 +89,7 @@ class CashInvoiceOut(models.TransientModel):
 
     @api.onchange('sale_order_id')
     def _onchange_sale_order(self):
-        self.amount = self.sale_order_id.third_party_customer_amount
+        self.amount = self.sale_order_id.third_party_customer_in_residual
 
     @api.multi
     def _calculate_values_for_statement_line(self, record):

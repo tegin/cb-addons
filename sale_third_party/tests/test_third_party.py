@@ -1,3 +1,4 @@
+import time
 from odoo.tests.common import TransactionCase
 from odoo.exceptions import UserError
 
@@ -13,12 +14,20 @@ class ThirdParty(TransactionCase):
             'update_posted': True,
             'type': 'general',
         })
+        self.transfer_acc = self.env['account.account'].create({
+            'company_id': self.company.id,
+            'code': 'Tra',
+            'name': 'Transfer Account',
+            'user_type_id': self.browse_ref(
+                'account.data_account_type_current_assets').id,
+            'reconcile': False,
+        })
         self.customer_acc = self.env['account.account'].create({
             'company_id': self.company.id,
             'code': 'ThirdPartyCust',
             'name': 'Third party customer account',
             'user_type_id': self.browse_ref(
-                'account.data_account_type_revenue').id,
+                'account.data_account_type_receivable').id,
             'reconcile': True,
         })
 
@@ -27,7 +36,7 @@ class ThirdParty(TransactionCase):
             'code': 'ThirdPartyCust2',
             'name': 'Third party customer account2',
             'user_type_id': self.browse_ref(
-                'account.data_account_type_revenue').id,
+                'account.data_account_type_receivable').id,
             'reconcile': True,
         })
         self.supplier_acc = self.env['account.account'].create({
@@ -35,7 +44,7 @@ class ThirdParty(TransactionCase):
             'code': 'ThirdPartySupp',
             'name': 'Third party supplier account',
             'user_type_id': self.browse_ref(
-                'account.data_account_type_revenue').id,
+                'account.data_account_type_payable').id,
             'reconcile': True,
         })
         self.supplier = self.env['res.partner'].create({
@@ -213,8 +222,10 @@ class ThirdParty(TransactionCase):
                          sale_order.third_party_partner_id)
         self.assertEqual(sale_order.amount_total, 110)
         self.assertTrue(sale_order.third_party_move_id)
-        self.assertEqual(sale_order.third_party_customer_amount, 110)
-        self.assertEqual(sale_order.third_party_customer_state, 'pending')
+        self.assertEqual(sale_order.third_party_customer_in_residual, 110)
+        self.assertEqual(sale_order.third_party_customer_out_residual, 110)
+        self.assertEqual(sale_order.third_party_customer_in_state, 'pending')
+        self.assertEqual(sale_order.third_party_customer_out_state, 'pending')
         self.assertEqual(sale_order.state, 'done')
         journal = self.env['account.journal'].search(
             [('company_id', '=', self.company.id)], limit=1)
@@ -234,8 +245,8 @@ class ThirdParty(TransactionCase):
         wizard.run()
         statement.balance_end_real = statement.balance_end
         statement.check_confirm_bank()
-        self.assertEqual(sale_order.third_party_customer_amount, 10)
-        self.assertEqual(sale_order.third_party_customer_state, 'pending')
+        self.assertEqual(sale_order.third_party_customer_in_residual, 10)
+        self.assertEqual(sale_order.third_party_customer_in_state, 'pending')
         statement = self.env['account.bank.statement'].create({
             'name': 'Statement',
             'journal_id': journal.id
@@ -247,8 +258,41 @@ class ThirdParty(TransactionCase):
             'amount': 0
         })
         wizard._onchange_sale_order()
-        self.assertEqual(wizard.amount, sale_order.third_party_customer_amount)
+        self.assertEqual(wizard.amount,
+                         sale_order.third_party_customer_in_residual)
         wizard.run()
         statement.balance_end_real = statement.balance_end
         statement.check_confirm_bank()
-        self.assertEqual(sale_order.third_party_customer_state, 'payed')
+        self.assertEqual(sale_order.third_party_customer_in_state, 'paid')
+        # Test the outbound payment
+        bank_journal = self.env['account.journal'].create({
+            'name': 'Bank Test',
+            'code': 'BNKT',
+            'type': 'bank',
+            'company_id': self.company.id,
+        })
+        payment = self.env['account.payment'].create(
+            {'payment_type': 'outbound',
+             'payment_method_id': self.env.ref(
+                 'account.account_payment_method_manual_out').id,
+             'partner_type': 'supplier',
+             'partner_id': self.supplier.id,
+             'amount': sale_order.third_party_customer_out_residual,
+             'currency_id': self.company.currency_id.id,
+             'payment_date': time.strftime('%Y') + '-01-05',
+             'journal_id': bank_journal.id,
+             'use_third_party_account': True,
+             })
+        payment.post()
+        supplier_acc = payment.partner_id.with_context(
+            force_company=self.company.id
+        ).property_third_party_supplier_account_id
+        aml_recs = payment.move_line_ids.filtered(
+            lambda l: l.account_id == supplier_acc)
+        aml_recs += sale_order.third_party_move_id.line_ids.filtered(
+            lambda l: l.partner_id == self.supplier)
+        wizard = self.env['account.move.line.reconcile'].with_context(
+            active_ids=[x.id for x in aml_recs]).create({})
+        wizard.trans_rec_reconcile_full()
+        self.assertEqual(sale_order.third_party_customer_out_residual, 0.0)
+        self.assertEqual(sale_order.third_party_customer_out_state, 'paid')

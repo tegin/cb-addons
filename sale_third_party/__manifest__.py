@@ -20,6 +20,7 @@
         'views/sale_order_views.xml',
         'views/res_company_views.xml',
         'views/partner_views.xml',
+        'views/account_payment_views.xml',
         'wizard/cash_third_party_sale_view.xml',
     ],
     'installable': True,
