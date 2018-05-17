@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class SaleOrder(models.Model):
@@ -81,24 +82,34 @@ class SaleOrder(models.Model):
                 ('company_id', '=', self.company_id.id),
                 ('type', '=', 'general')
             ], limit=1)
+        third_party_customer_account = self.partner_id.with_context(
+            force_company=self.company_id.id
+        ).property_third_party_customer_account_id
+        third_party_supplier_account = \
+            self.third_party_partner_id.with_context(
+                force_company=self.company_id.id
+            ).property_third_party_supplier_account_id
+        if not third_party_customer_account:
+            raise UserError(_('Please define a third party customer account '
+                              'for %s.' % self.partner_id.name))
+        if not third_party_supplier_account:
+            raise UserError(_('Please define a third party supplier account '
+                              'for %s.' % self.third_party_partner_id.name))
+
         return {
             'journal_id': journal.id,
             'line_ids': [
                 (0, 0, {
                     'name': self.partner_id.name,
                     'partner_id': self.partner_id.id,
-                    'account_id': self.partner_id.with_context(
-                        force_company=self.company_id.id
-                    ).property_third_party_customer_account_id.id,
+                    'account_id': third_party_customer_account.id,
                     'debit': self.amount_total,
                     'credit': 0,
                 }),
                 (0, 0, {
                     'name': self.third_party_partner_id.name,
                     'partner_id': self.third_party_partner_id.id,
-                    'account_id': self.third_party_partner_id.with_context(
-                        force_company=self.company_id.id
-                    ).property_third_party_supplier_account_id.id,
+                    'account_id': third_party_supplier_account.id,
                     'debit': 0,
                     'credit': self.amount_total,
                 }),
