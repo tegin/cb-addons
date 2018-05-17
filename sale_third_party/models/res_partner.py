@@ -18,12 +18,14 @@ class ResPartner(models.Model):
     )
     property_third_party_customer_account_id = fields.Many2one(
         'account.account',
-        domain="[('deprecated', '=', False)]",
+        domain="[('deprecated', '=', False),"
+               "('internal_type', '=', 'receivable')]",
         company_dependent=True,
     )
     property_third_party_supplier_account_id = fields.Many2one(
         'account.account',
-        domain="[('deprecated', '=', False)]",
+        domain="[('deprecated', '=', False),"
+               "('internal_type', '=', 'payable')]",
         company_dependent=True,
     )
 
@@ -73,7 +75,8 @@ class PartnerProperty(models.TransientModel):
         comodel_name='account.account',
         string="Account for customers in third party sales",
         domain="[('deprecated', '=', False),"
-               "('company_id', '=', company_id)]",
+               "('company_id', '=', company_id),"
+               "('internal_type', '=', 'receivable')]",
         compute='_compute_property_fields',
         readonly=False, store=False,
     )
@@ -81,7 +84,8 @@ class PartnerProperty(models.TransientModel):
         comodel_name='account.account',
         string="Account for suppliers in third party sales",
         domain="[('deprecated', '=', False),"
-               "('company_id', '=', company_id)]",
+               "('company_id', '=', company_id),"
+               "('internal_type', '=', 'payable')]",
         compute='_compute_property_fields',
         readonly=False, store=False,
     )
