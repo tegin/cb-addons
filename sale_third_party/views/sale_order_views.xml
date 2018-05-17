@@ -21,17 +21,24 @@
                 <page name="third_party" string="Third party" attrs="{'invisible': [('third_party_order', '=', False)]}">
                     <group>
                         <group>
-                            <field name="third_party_partner_id" context="{'default_supplier': True, 'default_customer': False}"/>
+                            <field name="third_party_partner_id"
+                                   context="{'default_supplier': True, 'default_customer': False}"
+                                   attrs="{'required': [('third_party_order', '=', True)]}"/>
                         </group>
                         <group>
                             <field name="third_party_number"/>
-                            <button type="action" name="third_party_invoice_print"
-                                    string="print" attrs="{'invisible': [('third_party_number','=', False)]}"
-                            />
                             <field name="third_party_move_id"/>
-                            <field name="third_party_customer_state" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
-                            <field name="third_party_customer_amount" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
                         </group>
+                            <group name="incoming_payment" string="Incoming Payment">
+                                <field name="third_party_customer_in_state" string="Status" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
+                                <field name="third_party_customer_in_residual" string="Pending amount" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
+                                <field name="third_party_customer_in_residual_company" string="Pending amount in company currency" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
+                            </group>
+                            <group name="outgoing_payment" string="Outgoing Payment">
+                                <field name="third_party_customer_out_state" string="Status" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
+                                <field name="third_party_customer_out_residual" string="Pending amount" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
+                                <field name="third_party_customer_out_residual_company" string="Pending amount in company currency" attrs="{'invisible': [('third_party_move_id','=', False)]}"/>
+                            </group>
                     </group>
                 </page>
             </notebook>
@@ -49,4 +56,19 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_order_form_button" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_third_party.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="print_quotation" position="after">
+                <button type="action" name="third_party_invoice_print"
+                        class="oe_highlight"
+                        string="Print Third Party Invoice" attrs="{'invisible': [('third_party_number','=', False)]}"
+                />
+            </button>
+        </field>
+    </record>
+
 </odoo>

@@ -1,5 +1,6 @@
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_is_zero
 
 
 class SaleOrder(models.Model):
@@ -36,35 +37,102 @@ class SaleOrder(models.Model):
         string='Third party order #',
         compute='_compute_third_party_order_count',
         readonly=True)
-    third_party_customer_state = fields.Selection([
-        ('pending', 'Pending amount'), ('payed', 'Fully payed')
-    ], compute='_compute_third_party_pending', store=True, index=True)
-    third_party_customer_amount = fields.Monetary(
+    third_party_customer_in_state = fields.Selection([
+        ('pending', 'Pending amount'), ('paid', 'Fully paid')
+    ], compute='_compute_third_party_residual', store=True, index=True)
+    string = 'Incoming payment status',
+    third_party_customer_in_residual = fields.Monetary(
         currency_field='currency_id',
-        compute='_compute_third_party_pending',
+        compute='_compute_third_party_residual',
+        string='Incoming payment residual amount',
     )
-    third_party_customer_move_line_ids = fields.One2many(
-        'account.move.line',
-        inverse_name='third_party_customer_sale_order_id'
+    third_party_customer_in_residual_company = fields.Monetary(
+        currency_field='currency_id',
+        compute='_compute_third_party_residual',
+        string='Incoming payment residual amount in company currency',
+    )
+    third_party_customer_out_state = fields.Selection([
+        ('pending', 'Pending amount'), ('paid', 'Fully paid')
+    ], string='Outgoing payment status',
+        compute='_compute_third_party_residual', store=True, index=True,)
+    third_party_customer_out_residual = fields.Monetary(
+        currency_field='currency_id',
+        string='Outgoing payment residual amount',
+        compute='_compute_third_party_residual',
+    )
+    third_party_customer_out_residual_company = fields.Monetary(
+        currency_field='currency_id',
+        string='Outgoing payment residual amount in company currency',
+        compute='_compute_third_party_residual',
     )
 
     @api.multi
-    @api.depends('third_party_order', 'third_party_customer_move_line_ids',
-                 'amount_total')
-    def _compute_third_party_pending(self):
-        for rec in self.filtered(
-                lambda r: r.third_party_order and r.third_party_move_id
-        ):
-            amount = rec.amount_total
-            amount += sum(rec.third_party_customer_move_line_ids.mapped(
-                'debit'))
-            amount -= sum(
-                rec.third_party_customer_move_line_ids.mapped('credit'))
-            rec.third_party_customer_amount = amount
-            if amount != 0:
-                rec.third_party_customer_state = 'pending'
-            else:
-                rec.third_party_customer_state = 'payed'
+    @api.depends("third_party_order", "third_party_move_id",
+                 "third_party_move_id.line_ids.amount_residual")
+    def _compute_third_party_residual(self):
+        """Computes residual amounts from Journal items."""
+        for rec in self:
+            rec.third_party_customer_in_state = 'pending'
+            rec.third_party_customer_out_state = 'pending'
+            third_party_customer_account = rec.partner_id.with_context(
+                force_company=rec.company_id.id
+            ).property_third_party_customer_account_id
+            third_party_supplier_account = \
+                rec.third_party_partner_id.with_context(
+                    force_company=rec.company_id.id
+                ).property_third_party_supplier_account_id
+            in_residual = 0.0
+            in_residual_company = 0.0
+            out_residual = 0.0
+            out_residual_company = 0.0
+            for line in rec.sudo().third_party_move_id.line_ids:
+                if line.account_id == third_party_customer_account and \
+                        line.partner_id == rec.partner_id:
+                    in_residual_company += line.amount_residual
+                    if line.currency_id == rec.currency_id:
+                        in_residual += line.amount_residual_currency if \
+                            line.currency_id else line.amount_residual
+                    else:
+                        from_currency = (
+                            (line.currency_id and line.currency_id.
+                             with_context(date=line.date)) or
+                            line.company_id.currency_id.
+                            with_context(date=line.date))
+                        in_residual += from_currency.compute(
+                            line.amount_residual,
+                            rec.currency_id)
+                elif line.account_id == third_party_supplier_account and \
+                        line.partner_id == rec.third_party_partner_id:
+                    out_residual_company += line.amount_residual
+                    if line.currency_id == rec.currency_id:
+                        out_residual += line.amount_residual_currency if \
+                            line.currency_id else line.amount_residual
+                    else:
+                        from_currency = (
+                            (line.currency_id and line.currency_id.
+                             with_context(date=line.date)) or
+                            line.company_id.currency_id.
+                            with_context(date=line.date))
+                        out_residual += from_currency.compute(
+                            line.amount_residual,
+                            rec.currency_id)
+            rec.third_party_customer_in_residual_company = abs(
+                in_residual_company)
+            rec.third_party_customer_in_residual = abs(in_residual)
+            rec.third_party_customer_out_residual_company = abs(
+                out_residual_company)
+            rec.third_party_customer_out_residual = abs(out_residual)
+            if (
+                float_is_zero(
+                    rec.third_party_customer_in_residual,
+                    precision_rounding=rec.currency_id.rounding)
+            ):
+                rec.third_party_customer_in_state = 'paid'
+            if (
+                float_is_zero(rec.third_party_customer_out_residual,
+                              precision_rounding=rec.currency_id.rounding)
+            ):
+                rec.third_party_customer_out_state = 'paid'
 
     @api.multi
     def _compute_third_party_order_count(self):
@@ -74,6 +142,7 @@ class SaleOrder(models.Model):
     def create_third_party_move(self):
         self.third_party_move_id = self.env['account.move'].create(
             self._third_party_move_vals())
+        self.third_party_move_id.post()
 
     def _third_party_move_vals(self):
         journal = self.company_id.third_party_journal_id
@@ -143,8 +212,11 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self)._action_confirm()
         for order in self.filtered(lambda o: o.third_party_order):
             if not order.third_party_number:
-                order.third_party_number = order.third_party_partner_id.\
-                    third_party_sequence_id.next_by_id()
+                sequence = order.third_party_partner_id.third_party_sequence_id
+                if not sequence:
+                    raise UserError(_('Please define an invoice '
+                                      'sequence in the third party partner.'))
+                order.third_party_number = sequence.next_by_id()
             order.create_third_party_move()
             order._create_third_party_order()
         return res
@@ -176,6 +248,13 @@ class SaleOrder(models.Model):
             result['views'] = [(res and res.id or False, 'form')]
             result['res_id'] = order_ids[0]
         return result
+
+    @api.constrains('third_party_order', 'third_party_partner_id')
+    def _check_third_party_constrains(self):
+        for rec in self:
+            if rec.third_party_order and not rec.third_party_partner_id:
+                raise ValidationError(
+                    _('Please define a third party partner.'))
 
 
 class SalerOrderLine(models.Model):

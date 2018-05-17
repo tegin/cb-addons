@@ -6,14 +6,16 @@ class ResCompany(models.Model):
 
     default_third_party_customer_account_id = fields.Many2one(
         'account.account',
-        domain="[('deprecated', '=', False),('company_id', '=', active_id)]",
+        domain="[('deprecated', '=', False),('company_id', '=', active_id),"
+               "('internal_type', '=', 'receivable')]",
         compute='_compute_third_party_customer_account',
         inverse='_inverse_third_party_customer_account',
         string="Default Account for customers in third party sales"
     )
     default_third_party_supplier_account_id = fields.Many2one(
         'account.account',
-        domain="[('deprecated', '=', False),('company_id', '=', active_id)]",
+        domain="[('deprecated', '=', False),('company_id', '=', active_id),"
+               "('internal_type', '=', 'payable')]",
         compute='_compute_third_party_supplier_account',
         inverse='_inverse_third_party_supplier_account',
         string="Default Account for suppliers in third party sales",
