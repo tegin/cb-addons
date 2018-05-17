@@ -1,4 +1,5 @@
 from odoo.tests.common import TransactionCase
+from odoo.exceptions import UserError
 
 
 class ThirdParty(TransactionCase):
@@ -117,6 +118,40 @@ class ThirdParty(TransactionCase):
         third_party.third_party_sequence_prefix = "SUP2"
         self.assertEqual(third_party.third_party_sequence_id.prefix, "SUP2")
 
+    def test_raising_error(self):
+        self.company.write({
+            'third_party_journal_id': self.journal.id,
+        })
+        sale_order = self.env['sale.order'].create({
+            'company_id': self.company.id,
+            'partner_id': self.customer.id,
+            'third_party_order': True,
+            'third_party_partner_id': self.supplier.id,
+            'order_line': [(0, 0, {
+                'product_id': self.product.id,
+                'third_party_product_id': self.third_party_product.id,
+                'product_uom': self.product.uom_id.id,
+                'product_uom_qty': 1,
+                'price_unit': 100,
+                'third_party_price': 10,
+                'tax_id': [(6, 0, self.tax.ids)]
+            })]
+        })
+        self.company.write({
+            'default_third_party_customer_account_id': self.customer_acc.id,
+            'default_third_party_supplier_account_id': False,
+        })
+        with self.assertRaises(UserError):
+            # raises: Please define a third party supplier account
+            sale_order.action_confirm()
+        self.company.write({
+            'default_third_party_customer_account_id': False,
+            'default_third_party_supplier_account_id': self.supplier_acc.id,
+        })
+        with self.assertRaises(UserError):
+            # raises: Please define a third party customer account
+            sale_order.action_confirm()
+
     def test_cancel_third_party(self):
         self.company.write({
             'default_third_party_customer_account_id': self.customer_acc.id,
@@ -146,7 +181,6 @@ class ThirdParty(TransactionCase):
         self.assertFalse(sale_order.third_party_move_id)
 
     def test_third_party(self):
-
         self.company.write({
             'default_third_party_customer_account_id': self.customer_acc.id,
             'default_third_party_supplier_account_id': self.supplier_acc.id,
