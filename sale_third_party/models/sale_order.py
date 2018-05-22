@@ -256,6 +256,12 @@ class SaleOrder(models.Model):
                 raise ValidationError(
                     _('Please define a third party partner.'))
 
+    @api.multi
+    def third_party_invoice_print(self):
+        return self.env.ref(
+            'sale_third_party.action_report_saleorder_third_party'
+        ).report_action(self)
+
 
 class SalerOrderLine(models.Model):
     _inherit = 'sale.order.line'
@@ -273,4 +279,5 @@ class SalerOrderLine(models.Model):
     )
     third_party_product_id = fields.Many2one(
         'product.product',
+        domain="[('type', '=', 'service')]"
     )
