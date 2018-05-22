@@ -22,6 +22,8 @@
         'views/partner_views.xml',
         'views/account_payment_views.xml',
         'wizard/cash_third_party_sale_view.xml',
+        'reports/sale_third_party_report_templates.xml',
+        'reports/sale_third_party_report.xml',
     ],
     'installable': True,
     'application': False,
