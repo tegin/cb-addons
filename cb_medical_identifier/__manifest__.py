@@ -3,14 +3,16 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'CB Testing',
+    'name': 'CB Medical sequence configuration',
     'version': '11.0.1.0.0',
     'author': 'Eficent, Creu Blanca, Odoo Community Association (OCA)',
     'depends': [
-        'cb_medical_careplan_sale',
-        'pos_validation',
-        'cb_medical_identifier',
-        'cb_medical_sale_invoice_group_method',
+        'medical_administration_encounter_careplan',
+        'medical_clinical_careplan',
+        'medical_clinical_request_group',
+        'medical_clinical_procedure',
+        'medical_medication_request',
+        'medical_document',
     ],
     'data': [
     ],
