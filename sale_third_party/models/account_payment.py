@@ -35,11 +35,11 @@ class AccountPayment(models.Model):
     @api.multi
     @api.depends('use_third_party_account')
     def _compute_destination_account_id(self):
-        self.ensure_one()
         res = super(AccountPayment, self)._compute_destination_account_id()
-        if self.payment_type != 'transfer' and self.partner_id and \
-                self.use_third_party_account:
-            self.destination_account_id = self.third_party_account_id
+        for rec in self:
+            if rec.payment_type != 'transfer' and rec.partner_id and \
+                    rec.use_third_party_account:
+                rec.destination_account_id = rec.third_party_account_id
         return res
 
     @api.onchange('payment_type')
