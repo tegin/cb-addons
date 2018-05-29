@@ -77,3 +77,8 @@ class TestInterCompanyCashInvoice(common.TestInterCompany):
         statement.check_confirm_bank()
         self.assertEqual(invoice_out.residual, 0.)
         self.assertEqual(invoice_in.residual, 0.)
+        self.assertEqual(len(statement.inter_company_statement_ids), 1)
+        interco_statement = statement.inter_company_statement_ids[0]
+        self.assertEqual(interco_statement.state, 'confirm')
+        self.assertEqual(len(interco_statement.line_ids), 2)
+        self.assertEqual(interco_statement.balance_end_real, 0.0)
