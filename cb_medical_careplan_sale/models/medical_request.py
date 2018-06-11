@@ -31,6 +31,9 @@ class MedicalRequest(models.AbstractModel):
         related='coverage_id.coverage_template_id.payor_id',
     )
 
+    def get_third_party_partner(self):
+        return False
+
     def _compute_sale_order_line_ids(self):
         inverse_field_name = self._get_parent_field_name()
         for rec in self:
@@ -120,3 +123,22 @@ class MedicalRequest(models.AbstractModel):
             for request in requests:
                 if not request.check_is_billable():
                     request.is_billable = True
+
+    @api.multi
+    def cancel(self):
+        models = [self.env[model] for model in self._get_request_models()]
+        fieldname = self._get_parent_field_name()
+        for request in self:
+            if request.state in ['completed', 'entered-in-error', 'cancelled']:
+                raise ValidationError(_(
+                    "Request %s can't be cancelled" % request.display_name
+                ))
+            for model in models:
+                childs = model.search([
+                    (fieldname, '=', request.id),
+                    ('parent_id', '=', request.id),
+                    ('parent_model', '=', request._name),
+                    ('state', '!=', 'cancelled')
+                ])
+                childs.cancel()
+        return super().cancel()

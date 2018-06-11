@@ -1,6 +1,8 @@
 medical-fhir https://github.com/eficent/medical-fhir 11.0-dev
 commission
+multicompany-fixes https://github.com/eficent/multicompany-fixes 11.0
 partner-contact
 pos
+report-print-send https://github.com/etobella/report-print-send 11.0-add-label_zpl2
 sale-workflow
 stock-logistics-warehouse

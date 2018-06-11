@@ -11,9 +11,8 @@
     'sequence': 30,
     'category': 'Accounting',
     'depends': [
-        'account',
         'account_cash_invoice',
-        'account_journal_inter_company'
+        'account_journal_inter_company',
     ],
     'license': 'LGPL-3',
     'data': [
