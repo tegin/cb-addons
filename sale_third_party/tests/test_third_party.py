@@ -1,6 +1,6 @@
 import time
 from odoo.tests.common import TransactionCase
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class ThirdParty(TransactionCase):
@@ -51,6 +51,10 @@ class ThirdParty(TransactionCase):
             'name': 'supplier',
             'supplier': True,
             'third_party_sequence_prefix': 'SUP',
+        })
+        self.supplier_2 = self.env['res.partner'].create({
+            'name': 'supplier 2',
+            'supplier': True,
         })
         self.customer = self.env['res.partner'].create({
             'name': 'Customer',
@@ -135,7 +139,7 @@ class ThirdParty(TransactionCase):
             'company_id': self.company.id,
             'partner_id': self.customer.id,
             'third_party_order': True,
-            'third_party_partner_id': self.supplier.id,
+            'third_party_partner_id': self.supplier_2.id,
             'order_line': [(0, 0, {
                 'product_id': self.product.id,
                 'third_party_product_id': self.third_party_product.id,
@@ -146,6 +150,10 @@ class ThirdParty(TransactionCase):
                 'tax_id': [(6, 0, self.tax.ids)]
             })]
         })
+        with self.assertRaises(UserError):
+            # raises: Please a Third Party sequence
+            sale_order.action_confirm()
+        self.supplier_2.write({'third_party_sequence_prefix': 'SUP', })
         self.company.write({
             'default_third_party_customer_account_id': self.customer_acc.id,
             'default_third_party_supplier_account_id': False,
@@ -188,6 +196,27 @@ class ThirdParty(TransactionCase):
         self.assertTrue(sale_order.third_party_move_id)
         sale_order.action_cancel()
         self.assertFalse(sale_order.third_party_move_id)
+
+    def test_third_party_raises(self):
+        self.company.write({
+            'default_third_party_customer_account_id': self.customer_acc.id,
+            'default_third_party_supplier_account_id': self.supplier_acc.id,
+        })
+        with self.assertRaises(ValidationError):
+            self.env['sale.order'].create({
+                'company_id': self.company.id,
+                'partner_id': self.customer.id,
+                'third_party_order': True,
+                'order_line': [(0, 0, {
+                    'product_id': self.product.id,
+                    'third_party_product_id': self.third_party_product.id,
+                    'product_uom': self.product.uom_id.id,
+                    'product_uom_qty': 1,
+                    'price_unit': 100,
+                    'third_party_price': 10,
+                    'tax_id': [(6, 0, self.tax.ids)]
+                })]
+            })
 
     def test_third_party(self):
         self.company.write({
@@ -296,3 +325,12 @@ class ThirdParty(TransactionCase):
         wizard.trans_rec_reconcile_full()
         self.assertEqual(sale_order.third_party_customer_out_residual, 0.0)
         self.assertEqual(sale_order.third_party_customer_out_state, 'paid')
+
+    def test_onchange_payment(self):
+        payment = self.env['account.payment'].new({
+            'payment_type': 'outbound',
+            'use_third_party_account': True,
+        })
+        payment.payment_type = 'transfer'
+        payment._onchange_payment_type()
+        self.assertFalse(payment.use_third_party_account)
