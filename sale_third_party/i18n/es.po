@@ -1,0 +1,517 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_third_party
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-13 09:49+0000\n"
+"PO-Revision-Date: 2018-07-13 09:49+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "&amp;bull;"
+msgstr "&amp;bull;"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
+msgstr "&amp;nbsp;<span>en</span>&amp;nbsp;"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<span>Invoice # </span>"
+msgstr "<span>Invoice # </span>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Date Ordered:</strong>"
+msgstr "<strong>Fecha ordenada:</strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Expiration Date:</strong>"
+msgstr "<strong>Fecha de caducidad:</strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Fiscal Position Remark:</strong>"
+msgstr "<strong>Posición Fiscal:</strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Payment Terms:</strong>"
+msgstr "<strong>Términos de Pago:</strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Quotation Date:</strong>"
+msgstr "<strong>Fecha del presupuesto:</strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Salesperson:</strong>"
+msgstr "<strong>Vendedor:</strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Shipping address:</strong>"
+msgstr "<strong>Dirección de envío</strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Subtotal: </strong>"
+msgstr "<strong>Subtotal: </strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Subtotal</strong>"
+msgstr "<strong>Subtotal</strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Total</strong>"
+msgstr "<strong>Total</strong>"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "<strong>Your Reference:</strong>"
+msgstr "<strong>Su referencia:</strong>"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_res_partner_property_property_third_party_customer_account_id
+msgid "Account for customers in third party sales"
+msgstr "Account for customers in third party sales"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_res_partner_property_property_third_party_supplier_account_id
+msgid "Account for suppliers in third party sales"
+msgstr "Account for suppliers in third party sales"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_amount
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "Amount"
+msgstr "Importe"
+
+#. module: sale_third_party
+#: model:ir.model,name:sale_third_party.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Línea de extracto bancario"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.cash_third_party_sale_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sale_third_party
+#: model:ir.actions.act_window,name:sale_third_party.action_cash_third_party_sale_from_statement
+msgid "Collect Payment from Third Party Sale"
+msgstr "Collect Payment from Third Party Sale"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.cash_third_party_sale_form
+msgid "Collect payment from customer invoice or supplier refund"
+msgstr "Collect payment from customer invoice or supplier refund"
+
+#. module: sale_third_party
+#: model:ir.model,name:sale_third_party.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: sale_third_party
+#: model:ir.model,name:sale_third_party.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_res_company_default_third_party_customer_account_id
+msgid "Default Account for customers in third party sales"
+msgstr "Default Account for customers in third party sales"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_res_company_default_third_party_supplier_account_id
+msgid "Default Account for suppliers in third party sales"
+msgstr "Default Account for suppliers in third party sales"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "Description"
+msgstr "Descripción"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "Disc.(%)"
+msgstr "Desc.(%)"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.sale_third_party_layout_standard
+msgid "Email:"
+msgstr "Correo electrónico:"
+
+#. module: sale_third_party
+#: selection:sale.order,third_party_customer_in_state:0
+#: selection:sale.order,third_party_customer_out_state:0
+msgid "Fully paid"
+msgstr "Fully paid"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.view_order_form
+msgid "Incoming Payment"
+msgstr "Incoming Payment"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_in_residual
+msgid "Incoming payment residual amount"
+msgstr "Incoming payment residual amount"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_in_residual_company
+msgid "Incoming payment residual amount in company currency"
+msgstr "Incoming payment residual amount in company currency"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "Invoicing address:"
+msgstr "Dirección de facturación:"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "Invoicing and shipping address:"
+msgstr "Dirección de facturación y de envío:"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_journal_id
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_journal_ids
+msgid "Journal"
+msgstr "Diario"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_journal_count
+msgid "Journal Count"
+msgstr "Journal Count"
+
+#. module: sale_third_party
+#: model:ir.model,name:sale_third_party.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.view_order_form
+msgid "Outgoing Payment"
+msgstr "Outgoing Payment"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_out_residual
+msgid "Outgoing payment residual amount"
+msgstr "Outgoing payment residual amount"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_out_residual_company
+msgid "Outgoing payment residual amount in company currency"
+msgstr "Outgoing payment residual amount in company currency"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_out_state
+msgid "Outgoing payment status"
+msgstr "Outgoing payment status"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.sale_third_party_layout_standard
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr "Página: <span class=\"page\"/>/<span class=\"topage\"/>"
+
+#. module: sale_third_party
+#: model:ir.model,name:sale_third_party.model_account_payment
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.view_order_form
+#: selection:sale.order,third_party_customer_in_state:0
+#: selection:sale.order,third_party_customer_out_state:0
+msgid "Pending amount"
+msgstr "Pending amount"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.view_order_form
+msgid "Pending amount in company currency"
+msgstr "Pending amount in company currency"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.sale_third_party_layout_standard
+msgid "Phone:"
+msgstr "Teléfono:"
+
+#. module: sale_third_party
+#: code:addons/sale_third_party/models/sale_order.py:162
+#, python-format
+msgid "Please define a third party customer account for %s."
+msgstr "Please define a third party customer account for %s."
+
+#. module: sale_third_party
+#: code:addons/sale_third_party/models/sale_order.py:257
+#, python-format
+msgid "Please define a third party partner."
+msgstr "Please define a third party partner."
+
+#. module: sale_third_party
+#: code:addons/sale_third_party/models/sale_order.py:165
+#, python-format
+msgid "Please define a third party supplier account for %s."
+msgstr "Please define a third party supplier account for %s."
+
+#. module: sale_third_party
+#: code:addons/sale_third_party/models/sale_order.py:217
+#, python-format
+msgid "Please define an invoice sequence in the third party partner."
+msgstr "Please define an invoice sequence in the third party partner."
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_medical_patient_third_party_sequence_prefix
+#: model:ir.model.fields,field_description:sale_third_party.field_res_partner_third_party_sequence_prefix
+#: model:ir.model.fields,field_description:sale_third_party.field_res_users_third_party_sequence_prefix
+msgid "Prefix for Third Party Invoices"
+msgstr "Prefix for Third Party Invoices"
+
+#. module: sale_third_party
+#: model:ir.model.fields,help:sale_third_party.field_medical_patient_third_party_sequence_prefix
+#: model:ir.model.fields,help:sale_third_party.field_res_partner_third_party_sequence_prefix
+#: model:ir.model.fields,help:sale_third_party.field_res_users_third_party_sequence_prefix
+msgid "Prefix used to generate the internal reference for products created with this category. If blank the default sequence will be used."
+msgstr "Prefix used to generate the internal reference for products created with this category. If blank the default sequence will be used."
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.view_order_form_button
+msgid "Print Third Party Invoice"
+msgstr "Print Third Party Invoice"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_medical_patient_property_third_party_customer_account_id
+#: model:ir.model.fields,field_description:sale_third_party.field_res_partner_property_third_party_customer_account_id
+#: model:ir.model.fields,field_description:sale_third_party.field_res_users_property_third_party_customer_account_id
+msgid "Property Third Party Customer Account"
+msgstr "Property Third Party Customer Account"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_medical_patient_property_third_party_supplier_account_id
+#: model:ir.model.fields,field_description:sale_third_party.field_res_partner_property_third_party_supplier_account_id
+#: model:ir.model.fields,field_description:sale_third_party.field_res_users_property_third_party_supplier_account_id
+msgid "Property Third Party Supplier Account"
+msgstr "Property Third Party Supplier Account"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: sale_third_party
+#: model:ir.model,name:sale_third_party.model_sale_order
+msgid "Quotation"
+msgstr "Presupuesto"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_name
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.cash_third_party_sale_form
+msgid "Register"
+msgstr "Register"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_sale_order_id
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sale_third_party
+#: model:ir.model,name:sale_third_party.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de orden de ventas"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_medical_patient_third_party_sequence_id
+#: model:ir.model.fields,field_description:sale_third_party.field_res_partner_third_party_sequence_id
+#: model:ir.model.fields,field_description:sale_third_party.field_res_users_third_party_sequence_id
+msgid "Sequence for Third Party Invoices"
+msgstr "Sequence for Third Party Invoices"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.view_order_form
+msgid "Status"
+msgstr "Estado"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_in_state
+msgid "Third Party Customer In State"
+msgstr "Third Party Customer In State"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_account_move_line_third_party_customer_sale_order_id
+msgid "Third Party Customer Sale Order"
+msgstr "Third Party Customer Sale Order"
+
+#. module: sale_third_party
+#: model:ir.actions.report,name:sale_third_party.action_report_saleorder_third_party
+msgid "Third Party Invoice"
+msgstr "Third Party Invoice"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_res_company_third_party_journal_id
+msgid "Third Party Journal"
+msgstr "Third Party Journal"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_number
+msgid "Third Party Number"
+msgstr "Third Party Number"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_order
+msgid "Third Party Order"
+msgstr "Third Party Order"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_partner_id
+msgid "Third Party Partner"
+msgstr "Third Party Partner"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_line_third_party_price
+msgid "Third Party Price"
+msgstr "Third Party Price"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_line_third_party_product_id
+msgid "Third Party Product"
+msgstr "Third Party Product"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.view_order_form
+msgid "Third party"
+msgstr "Third party"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_account_payment_third_party_account_id
+msgid "Third party account"
+msgstr "Third party account"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_move_id
+msgid "Third party move"
+msgstr "Third party move"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_source_third_party_order_id
+msgid "Third party order"
+msgstr "Third party order"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_order_count
+msgid "Third party order #"
+msgstr "Third party order #"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_order_ids
+#: model:ir.ui.view,arch_db:sale_third_party.view_order_form
+msgid "Third party orders"
+msgstr "Third party orders"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "Total Price"
+msgstr "Precio total"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_account_payment_use_third_party_account
+msgid "Use Third Party Account"
+msgstr "Use Third Party Account"
+
+#. module: sale_third_party
+#: model:ir.ui.view,arch_db:sale_third_party.sale_third_party_layout_standard
+msgid "Web:"
+msgstr "Web:"
+
+#. module: sale_third_party
+#: model:ir.model.fields,help:sale_third_party.field_account_payment_use_third_party_account
+msgid "When you set this flag the payment will be recorded to the third party account defined for this partner."
+msgstr "When you set this flag the payment will be recorded to the third party account defined for this partner."
+
+#. module: sale_third_party
+#: model:ir.model,name:sale_third_party.model_cash_third_party_sale
+msgid "cash.third.party.sale"
+msgstr "cash.third.party.sale"
+
+#. module: sale_third_party
+#: model:ir.model,name:sale_third_party.model_res_partner_property
+msgid "res.partner.property"
+msgstr "res.partner.property"
+
+#. module: sale_third_party
+#: model:ir.model.fields,field_description:sale_third_party.field_account_bank_statement_line_third_party_sale_order_id
+msgid "third party sale order"
+msgstr "third party sale order"
+
