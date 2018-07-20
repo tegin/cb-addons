@@ -10,11 +10,14 @@
     'category': 'Medical',
     'depends': [
         'sale_commission_formula',
+        'sale_commission_cancel',
+        'cb_medical_sale_invoice',
         'cb_medical_careplan_sale',
         'cb_medical_sale_invoice_group_method',
     ],
     'data': [
         'data/sale_commission_formula.xml',
+        'views/account_invoice_view.xml',
         'views/res_partner_views.xml',
         'views/product_template_view.xml',
         'views/medical_procedure_request_view.xml',

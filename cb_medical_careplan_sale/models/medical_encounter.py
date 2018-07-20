@@ -11,6 +11,15 @@ class MedicalEncounter(models.Model):
         readonly=True,
     )
 
+    sale_order_count = fields.Integer(
+        compute='_compute_sale_order_count'
+    )
+
+    @api.depends('sale_order_ids')
+    def _compute_sale_order_count(self):
+        for record in self:
+            record.sale_order_count = len(record.sale_order_ids)
+
     def _get_sale_order_vals(
         self, partner, cov, agreement, third_party_partner, is_insurance
     ):
@@ -60,9 +69,10 @@ class MedicalEncounter(models.Model):
         order.ensure_one()
         for order_line in order_lines:
             order_line['order_id'] = order.id
-            self.env['sale.order.line'].with_context(
+            line = self.env['sale.order.line'].with_context(
                 force_company=order.company_id.id
             ).create(order_line)
+            line.change_company_id()
         return order
 
     def get_patient_partner(self):
@@ -103,6 +113,7 @@ class MedicalEncounter(models.Model):
                         request.get_sale_order_line_vals(is_insurance))
         return values
 
+    @api.multi
     def create_sale_order(self):
         self.ensure_one()
         values = self.get_sale_order_lines()

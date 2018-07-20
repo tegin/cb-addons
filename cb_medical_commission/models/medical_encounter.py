@@ -11,9 +11,16 @@ class MedicalEncounter(models.AbstractModel):
     @api.multi
     def recompute_commissions(self):
         for rec in self:
-            for pr in rec.careplan_ids.mapped('procedure_request_ids'):
-                for procedure in pr.procedure_ids:
-                    procedure.sale_order_line_ids = False
-                    procedure.compute_commission(pr)
-            for sale_order in rec.sale_order_ids:
-                sale_order.recompute_lines_agents()
+            rec._compute_commissions()
+
+    @api.multi
+    def create_sale_order(self):
+        res = super().create_sale_order()
+        self._compute_commissions()
+        return res
+
+    def _compute_commissions(self):
+        self.ensure_one()
+        for pr in self.careplan_ids.mapped('procedure_request_ids'):
+            for procedure in pr.procedure_ids:
+                procedure.compute_commission(pr)

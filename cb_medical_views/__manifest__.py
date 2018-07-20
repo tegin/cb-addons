@@ -10,6 +10,7 @@
         'medical_workflow',
         'medical_administration_encounter',
         'barcode_action',
+        'medical_clinical_procedure',
     ],
     'data': [
         'views/medical_encounter.xml',

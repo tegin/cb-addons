@@ -93,7 +93,7 @@ class SafeBoxMoveLine(models.Model):
     )
     currency_id = fields.Many2one(
         comodel_name='res.currency',
-        compute='_compute_currency',
+        related='safe_box_group_id.currency_id',
         readonly=True,
     )
     amount = fields.Monetary(
@@ -101,8 +101,3 @@ class SafeBoxMoveLine(models.Model):
         default=0,
         currency_field='currency_id',
     )
-
-    @api.depends('safe_box_group_id')
-    def _compute_currency(self):
-        for record in self:
-            record.currency_id = record.safe_box_group_id.currency_id

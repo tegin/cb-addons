@@ -18,8 +18,11 @@
         'barcode_action',
         'cb_medical_commission',
         'pos_session_pay_invoice',
+        'cb_medical_sale_invoice',
+        'web_flagbox',
     ],
     'data': [
+        'security/security.xml',
         'views/medical_encounter_view.xml',
         'views/administration_menu.xml',
         'views/pos_session_views.xml',

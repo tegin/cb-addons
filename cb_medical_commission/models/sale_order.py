@@ -8,21 +8,10 @@ from odoo import api, models
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.model
-    def _prepare_line_agents_data(self, line):
-        if (
-            line.product_id.medical_commission and
-            not line.order_id.third_party_order
-        ):
-            agent_lines = {}
-            procedures = line.compute_procedure()
-            for procedure in procedures:
-                if procedure.commission_agent_id.id not in agent_lines:
-                    agent_lines[procedure.commission_agent_id.id] = []
-                agent_lines[procedure.commission_agent_id.id] = \
-                    procedure.commission_agent_id.commission.id
-            return [{
-                'agent': x,
-                'commission': agent_lines[x],
-            } for x in agent_lines]
-        return super(SaleOrder, self)._prepare_line_agents_data(line)
+    @api.multi
+    def recompute_lines_agents(self):
+        # Commission on medical sale orders will not be managed by the
+        # recompute function
+        return super(
+            SaleOrder, self.filtered(lambda r: not r.encounter_id)
+        ).recompute_lines_agents()
