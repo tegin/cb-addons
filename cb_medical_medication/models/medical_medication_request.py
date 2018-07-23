@@ -7,3 +7,11 @@ from odoo import models
 
 class MedicalMedicationRequest(models.Model):
     _inherit = 'medical.medication.request'
+
+    def _get_event_values(self):
+        res = super()._get_event_values()
+        if self._context.get('product_id', False):
+            res['product_id'] = self._context.get('product_id')
+            res['product_uom_id'] = self._context.get('product_uom_id')
+            res['qty'] = self._context.get('qty', 1)
+        return res
