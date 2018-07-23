@@ -31,7 +31,9 @@ class TestInterCompany(SavepointCase):
                         self.chart_template_id.transfer_account_id.id,
                     'code_digits': 6,
                     'sale_tax_rate': 15.0,
+                    'sale_tax_id': False,
                     'purchase_tax_rate': 15.0,
+                    'purchase_tax_id': False,
                     'complete_tax_set':
                         self.chart_template_id.complete_tax_set,
                     'currency_id': company.currency_id.id,
