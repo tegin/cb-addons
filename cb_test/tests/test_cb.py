@@ -1301,7 +1301,7 @@ class TestMedicalCareplanSale(TransactionCase):
         self.assertEqual(100, payments.amount)
         self.assertEqual(sale_order.amount_total, 100)
 
-    def test_01_medication_process(self):
+    def test_medication_process(self):
         encounter = self.env['medical.encounter'].create({
             'patient_id': self.patient_01.id,
             'center_id': self.center.id,
