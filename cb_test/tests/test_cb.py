@@ -429,6 +429,7 @@ class TestMedicalCareplanSale(TransactionCase):
             'careplan_id': careplan.id,
             'agreement_line_id': agreement_line.id,
         })
+        self.assertIn(self.agreement, wizard.agreement_ids)
         self.action.is_billable = False
         wizard.run()
         group = self.env['medical.request.group'].search([
@@ -1301,7 +1302,7 @@ class TestMedicalCareplanSale(TransactionCase):
         self.assertEqual(100, payments.amount)
         self.assertEqual(sale_order.amount_total, 100)
 
-    def test_medication_process(self):
+    def test_01_medication_process(self):
         encounter = self.env['medical.encounter'].create({
             'patient_id': self.patient_01.id,
             'center_id': self.center.id,
