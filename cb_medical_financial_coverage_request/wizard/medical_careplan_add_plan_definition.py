@@ -77,13 +77,6 @@ class MedicalCareplanAddPlanDefinition(models.TransientModel):
         ] = self.agreement_line_id.coverage_agreement_id.id
         values['plan_definition_id'] = self.plan_definition_id.id
         values['center_id'] = self.center_id.id
-        if (
-            self.authorization_method_id.authorization_required and
-            not self.authorization_format_id.check_value(
-                self.authorization_number
-            )
-        ):
-            raise ValidationError(_('Authorization number is not valid'))
         return values
 
     @api.multi
