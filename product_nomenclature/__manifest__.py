@@ -15,7 +15,6 @@
         'security/ir.model.access.csv',
         'views/product_nomenclature_product_views.xml',
         'views/product_nomenclature_views.xml',
-        'views/product_views.xml',
     ],
     'website': 'https://github.com/Eficent/cb-addons',
     'license': 'LGPL-3',
