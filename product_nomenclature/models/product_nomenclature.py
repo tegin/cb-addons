@@ -36,9 +36,10 @@ class ProductNomenclatureProduct(models.Model):
     code = fields.Char(required=True)
     name = fields.Char(required=True)
 
-    _sql_constraints = [('product_nomenclature_unique',
-         'unique(product_id, nomenclature_id)',
-         _('Product must be unique in a nomenclature'))
+    _sql_constraints = [(
+        'product_nomenclature_unique',
+        'unique(product_id, nomenclature_id)',
+        _('Product must be unique in a nomenclature'))
     ]
 
     @api.onchange('product_id')
