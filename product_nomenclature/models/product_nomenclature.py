@@ -43,7 +43,7 @@ class ProductNomenclatureProduct(models.Model):
     ]
 
     @api.onchange('product_id')
-    def _onchange_product_template(self):
+    def _onchange_product(self):
         if not self.name:
             self.name = self.product_id.name
         if not self.code:

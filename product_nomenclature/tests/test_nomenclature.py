@@ -16,9 +16,9 @@ class TestNomenclature(TransactionCase):
     def test_onchange(self):
         item = self.env['product.nomenclature.product'].new({
             'nomenclature_id': self.nomenclature.id,
-            'product_template_id': self.product.id,
+            'product_id': self.product.id,
         })
-        item._onchange_product_template()
+        item._onchange_product()
         self.assertEqual(self.product.name, item.name)
         self.assertEqual(self.product.default_code, item.code)
 
