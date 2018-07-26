@@ -1,10 +1,10 @@
 from odoo import fields, models
 
 
-class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+class ProductProduct(models.Model):
+    _inherit = 'product.product'
 
     nomenclature_ids = fields.One2many(
         'product.nomenclature.product',
-        inverse_name='product_template_id'
+        inverse_name='product_id'
     )

@@ -8,7 +8,7 @@ class TestNomenclature(TransactionCase):
             'name': 'Nomenclature',
             'code': 'nomenclature',
         })
-        self.product = self.env['product.template'].create({
+        self.product = self.env['product.product'].create({
             'name': 'Product',
             'default_code': 'prd',
         })
@@ -16,9 +16,9 @@ class TestNomenclature(TransactionCase):
     def test_onchange(self):
         item = self.env['product.nomenclature.product'].new({
             'nomenclature_id': self.nomenclature.id,
-            'product_template_id': self.product.id,
+            'product_id': self.product.id,
         })
-        item._onchange_product_template()
+        item._onchange_product()
         self.assertEqual(self.product.name, item.name)
         self.assertEqual(self.product.default_code, item.code)
 
@@ -27,7 +27,7 @@ class TestNomenclature(TransactionCase):
             'nomenclature_id': self.nomenclature.id,
             'name': 'TESt',
             'code': 'tests',
-            'product_template_id': self.product.id,
+            'product_id': self.product.id,
         })
         action = self.nomenclature.action_view_items()
         items = self.env['product.nomenclature.product'].search(
