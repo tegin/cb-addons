@@ -8,7 +8,7 @@
                 <sheet>
                     <group>
                         <field name="nomenclature_id"/>
-                        <field name="product_template_id"/>
+                        <field name="product_id"/>
                         <field name="code"/>
                         <field name="name"/>
                     </group>
@@ -23,7 +23,7 @@
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="nomenclature_id" invisible="1"/>
-                <field name="product_template_id" options="{'no_create': True}"/>
+                <field name="product_id" options="{'no_create': True}"/>
                 <field name="code"/>
                 <field name="name"/>
             </tree>
@@ -35,7 +35,7 @@
         <field name="model">product.nomenclature.product</field>
         <field name="arch" type="xml">
             <search string="Product Nomenclatures">
-                <field name="product_template_id"/>
+                <field name="product_id"/>
                 <field name="code"/>
                 <field name="name"/>
             </search>
