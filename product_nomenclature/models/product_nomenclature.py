@@ -29,21 +29,21 @@ class ProductNomenclatureProduct(models.Model):
         'product.nomenclature',
         required=True,
     )
-    product_template_id = fields.Many2one(
-        'product.template',
+    product_id = fields.Many2one(
+        'product.product',
         required=True
     )
     code = fields.Char(required=True)
     name = fields.Char(required=True)
 
     _sql_constraints = [('product_nomenclature_unique',
-         'unique(product_template_id, nomenclature_id)',
+         'unique(product_id, nomenclature_id)',
          _('Product must be unique in a nomenclature'))
     ]
 
-    @api.onchange('product_template_id')
+    @api.onchange('product_id')
     def _onchange_product_template(self):
         if not self.name:
-            self.name = self.product_template_id.name
+            self.name = self.product_id.name
         if not self.code:
-            self.code = self.product_template_id.default_code
+            self.code = self.product_id.default_code
