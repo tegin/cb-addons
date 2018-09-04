@@ -1247,12 +1247,20 @@ class TestMedicalCareplanSale(TransactionCase):
         encounter, careplan, group = self.create_careplan_and_group(
             self.agreement_line3
         )
-        self.env['wizard.medical.encounter.add.amount'].create({
+        invoice = self.env['wizard.medical.encounter.add.amount'].create({
             'encounter_id': encounter.id,
             'pos_session_id': self.session.id,
             'journal_id': self.journal_1[0].id,
-            'amount': 100
+            'amount': 200
         }).run()
+        self.assertEqual(invoice.type, 'out_invoice')
+        invoice = self.env['wizard.medical.encounter.add.amount'].create({
+            'encounter_id': encounter.id,
+            'pos_session_id': self.session.id,
+            'journal_id': self.journal_1[0].id,
+            'amount': -100
+        })._run()
+        self.assertEqual(invoice.type, 'out_refund')
         self.env['wizard.medical.encounter.close'].create({
             'encounter_id': encounter.id,
             'pos_session_id': self.session.id,

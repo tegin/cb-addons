@@ -90,8 +90,6 @@ class WizardMedicalEncounterAddAmount(models.TransientModel):
 
     def _run(self):
         self.ensure_one()
-        if self.amount <= 0:
-            raise ValidationError(_('Amount must be greater than 0'))
         if not self.encounter_id.company_id:
             self.encounter_id.company_id = self.company_id
         order = self.env['sale.order'].create(self.sale_order_vals())
