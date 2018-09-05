@@ -27,9 +27,45 @@ class MedicalRequest(models.AbstractModel):
         })
         return vals
 
+    @api.multi
+    def check_cancellable(self):
+        if self.filtered(
+            lambda r: r.state in ['completed', 'entered-in-error', 'cancelled']
+        ):
+            return False
+        result = True
+        models = [self.env[model] for model in self._get_request_models()]
+        fieldname = self._get_parent_field_name()
+        for model in models:
+            childs = model.search([
+                (fieldname, 'in', self.ids),
+                ('parent_id', 'in', self.ids),
+                ('parent_model', '=', self._name),
+            ] + model.cancellation_domain())
+            if childs:
+                result = result and childs.check_cancellable()
+        return result
+
+    @api.model
+    def cancellation_domain(self):
+        return [('state', '!=', 'cancelled')]
+
+    @api.multi
     def cancel(self):
+        if not self.check_cancellable():
+            raise ValidationError(_('It is not cancelable'))
+        models = [self.env[model] for model in self._get_request_models()]
+        fieldname = self._get_parent_field_name()
+        for model in models:
+            childs = model.search([
+                (fieldname, 'in', self.ids),
+                ('parent_id', 'in', self.ids),
+                ('parent_model', '=', self._name),
+            ] + model.cancellation_domain())
+            if childs:
+                childs.with_context(cancel_child=True).cancel()
         res = super().cancel()
         cancel_reason = self.env.context.get('cancel_reason', False)
-        if cancel_reason:
+        if not self.env.context.get('cancel_child', False) and cancel_reason:
             self.message_post(subtype=False, body=cancel_reason)
         return res

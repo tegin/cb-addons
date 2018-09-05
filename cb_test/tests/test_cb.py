@@ -472,6 +472,22 @@ class TestMedicalCareplanSale(TransactionCase):
         self.assertEqual(careplan.state, 'cancelled')
         self.assertIn(encounter.state, ['onleave', 'finished'])
 
+    def test_cancel_encounter_failure(self):
+        self.plan_definition.is_breakdown = True
+        self.plan_definition.is_billable = True
+        encounter, careplan, group = self.create_careplan_and_group(
+            self.agreement_line3
+        )
+        careplan.draft2active()
+        careplan.active2completed()
+        with self.assertRaises(ValidationError):
+            self.env['medical.encounter.cancel'].create({
+                'encounter_id': encounter.id,
+                'cancel_reason_id': self.reason.id,
+                'cancel_reason': 'testing purposes',
+                'pos_session_id': self.session.id,
+            }).run()
+
     def test_discount(self):
         method = self.browse_ref(
             'cb_medical_sale_invoice_group_method.no_invoice')

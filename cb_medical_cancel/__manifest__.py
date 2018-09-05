@@ -9,6 +9,7 @@
     'category': 'Medical',
     'depends': [
         'cb_medical_pos',
+        'medical_document',
     ],
     'data': [
         'security/medical_security.xml',
