@@ -8,5 +8,3 @@ class MedicalCareplanCancel(models.TransientModel):
     request_id = fields.Many2one(
         'medical.careplan',
     )
-
-
