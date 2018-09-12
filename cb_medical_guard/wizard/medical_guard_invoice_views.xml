@@ -12,7 +12,7 @@
         <field name="name">medical.guard.invoice.form</field>
         <field name="model">medical.guard.invoice</field>
         <field name="arch" type="xml">
-            <form string="Apply Guard plans">
+            <form string="Invoice guards">
                 <group>
                     <group>
                     <field name="date_from"/>
@@ -39,7 +39,7 @@
     </record>
 
     <act_window id="medical_guard_invoice_action"
-                name="Apply Guard plans"
+                name="Invoice guards"
                 res_model="medical.guard.invoice"
                 view_mode="form"
                 view_type="form"
