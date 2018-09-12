@@ -34,6 +34,11 @@
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="internal_identifier"/>
+                        </h1>
+                    </div>
                     <group>
                         <group>
                             <field name="date"/>

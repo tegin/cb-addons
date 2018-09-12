@@ -92,4 +92,3 @@ class TestMedicalGuard(TransactionCase):
         guard.refresh()
         self.assertTrue(guard.invoice_line_ids)
         self.assertEqual(guard.invoice_line_ids.invoice_id.amount_total, 100)
-
