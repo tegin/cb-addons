@@ -31,7 +31,7 @@ class MedicalGuard(models.Model):
     )
     location_id = fields.Many2one(
         'res.partner',
-        domain=[('is_location', '=', True), ('guard_journal_id', '!=', False)],
+        domain=[('is_center', '=', True), ('guard_journal_id', '!=', False)],
         track_visibility='onchange',
         readonly=True,
         states={'draft': [('readonly', False)]},
