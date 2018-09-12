@@ -1,5 +1,5 @@
 from datetime import timedelta
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.fields import Date, Datetime
 from odoo.tests.common import TransactionCase
 
@@ -26,6 +26,55 @@ class TestMedicalGuard(TransactionCase):
             'is_practitioner': True,
             'is_medical': True,
         })
+
+    def test_complex_plan(self):
+        plan = self.env['medical.guard.plan'].create({
+            'location_id': self.center.id,
+            'product_id': self.product.id,
+            'start_time': 0,
+            'end_time': 1,
+            'weekday': '*',
+            'monthday': '*',
+            'month': '*'
+        })
+        self.assertFalse(self.env['medical.guard'].search([
+            ('plan_guard_id', '=', plan.id)
+        ]))
+        plan.monthday = '1-40'
+        date = Date.from_string(Date.today()).replace(day=1)
+        with self.assertRaises(UserError):
+            self.env['medical.guard.plan.apply'].create({
+                'start_date': Date.to_string(date),
+                'end_date': Date.to_string(date + timedelta(days=1)),
+            }).run()
+        plan.monthday = '1%'
+        with self.assertRaises(UserError):
+            self.env['medical.guard.plan.apply'].create({
+                'start_date': Date.to_string(date),
+                'end_date': Date.to_string(date + timedelta(days=1)),
+            }).run()
+        plan.monthday = 'AB/2'
+        with self.assertRaises(UserError):
+            self.env['medical.guard.plan.apply'].create({
+                'start_date': Date.to_string(date),
+                'end_date': Date.to_string(date + timedelta(days=1)),
+            }).run()
+        plan.monthday = '*/2'
+        self.env['medical.guard.plan.apply'].create({
+            'start_date': Date.to_string(date),
+            'end_date': Date.to_string(date),
+        }).run()
+        self.assertFalse(self.env['medical.guard'].search([
+            ('plan_guard_id', '=', plan.id)
+        ]))
+        plan.monthday = '15-5'
+        self.env['medical.guard.plan.apply'].create({
+            'start_date': Date.to_string(date),
+            'end_date': Date.to_string(date + timedelta(days=1)),
+        }).run()
+        self.assertTrue(self.env['medical.guard'].search([
+            ('plan_guard_id', '=', plan.id)
+        ]))
 
     def check_apply_plan(self, key, value, modulus, difference):
         plan = self.env['medical.guard.plan'].create({
