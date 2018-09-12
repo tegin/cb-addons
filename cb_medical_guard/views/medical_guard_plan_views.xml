@@ -42,8 +42,8 @@
                             <field name="end_time" widget="float_time"/>
                         </group>
                         <group>
-                            <field name="location_id"/>
-                            <field name="product_id"/>
+                            <field name="location_id" options="{'no_create': True}"/>
+                            <field name="product_id" options="{'no_create': True}"/>
                         </group>
                         <group>
                             <field name="monthday"/>

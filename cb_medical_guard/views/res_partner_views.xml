@@ -15,7 +15,7 @@
                ref="cb_medical_identifier.res_partner_view_form"/>
         <field name="arch" type="xml">
             <field name="center_alias" position="after">
-                <field name="guard_journal_id"/>
+                <field name="guard_journal_id" options="{'no_create': True}"/>
             </field>
         </field>
     </record>
