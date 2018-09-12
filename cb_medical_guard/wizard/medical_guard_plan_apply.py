@@ -22,7 +22,7 @@ class MedicalGuardPlanApply(models.TransientModel):
         plans = self.env['medical.guard.plan'].search([])
         start = fields.Date.from_string(self.start_date)
         end = fields.Date.from_string(self.end_date)
-        for i in range(0, (end-start).days):
-            date = start + timedelta(days=i)
+        for i in range(0, (end-start).days + 1):
+            date = fields.Date.to_string(start + timedelta(days=i))
             for plan in plans.filtered(lambda r: r.check_date(date)):
                 plan.apply_plan(date)

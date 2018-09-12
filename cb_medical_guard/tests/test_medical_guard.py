@@ -61,8 +61,16 @@ class TestMedicalGuard(TransactionCase):
             }).run()
         plan.monthday = '*/2'
         self.env['medical.guard.plan.apply'].create({
+            'start_date': Date.to_string(date + timedelta(days=1)),
+            'end_date': Date.to_string(date + timedelta(days=1)),
+        }).run()
+        self.assertFalse(self.env['medical.guard'].search([
+            ('plan_guard_id', '=', plan.id)
+        ]))
+        plan.monthday = '15-20'
+        self.env['medical.guard.plan.apply'].create({
             'start_date': Date.to_string(date),
-            'end_date': Date.to_string(date),
+            'end_date': Date.to_string(date + timedelta(days=1)),
         }).run()
         self.assertFalse(self.env['medical.guard'].search([
             ('plan_guard_id', '=', plan.id)
@@ -93,7 +101,7 @@ class TestMedicalGuard(TransactionCase):
         self.env['medical.guard.plan.apply'].create({
             'start_date': Date.today(),
             'end_date': Date.to_string(
-                Date.from_string(Date.today()) + timedelta(days=1)),
+                Date.from_string(Date.today())),
         }).run()
         self.assertFalse(self.env['medical.guard'].search([
             ('plan_guard_id', '=', plan.id)
@@ -102,7 +110,7 @@ class TestMedicalGuard(TransactionCase):
         self.env['medical.guard.plan.apply'].create({
             'start_date': Date.today(),
             'end_date': Date.to_string(
-                Date.from_string(Date.today()) + timedelta(days=1)),
+                Date.from_string(Date.today())),
         }).run()
         self.assertTrue(self.env['medical.guard'].search([
             ('plan_guard_id', '=', plan.id)
