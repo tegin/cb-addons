@@ -104,11 +104,13 @@ class MedicalGuard(models.Model):
         return invoice_line_vals
 
     def get_invoice(self):
+        journal = self.location_id.guard_journal_id
         inv = self.env['account.invoice'].search([
             ('partner_id', '=', self.practitioner_id.id),
-            ('type', '=', 'in_invoice'),
+            ('type', '=', ('in_invoice' if journal.type == 'purchase' else
+                           'in_refund')),
             ('state', '=', 'draft'),
-            ('journal_id', '=', self.location_id.guard_journal_id.id)
+            ('journal_id', '=', journal.id)
         ])
         if not inv:
             inv = inv.create(self._get_invoice_vals())
