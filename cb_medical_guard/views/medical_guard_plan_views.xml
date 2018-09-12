@@ -28,9 +28,6 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <form>
-                <header>
-                    <button name="complete" states="draft" string="Complete" class="oe_highlight"/>
-                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="toggle_active" type="object"
@@ -84,5 +81,7 @@
               parent="cb_medical_guard.medical_guard_root"
               action="medical_guard_plan_action"
               groups="cb_medical_guard.group_medical_guard_manager"
-              name="Medical Guard Plans"/>
+              name="Medical Guard Plans"
+              sequence="90"
+    />
 </odoo>

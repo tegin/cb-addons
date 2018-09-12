@@ -31,6 +31,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="complete" states="draft" string="Complete" class="oe_highlight"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -94,5 +95,7 @@
     <menuitem id="medical_guard_menu"
               parent="cb_medical_guard.medical_guard_root"
               action="medical_guard_action"
-              name="Medical Guards"/>
+              name="Medical Guards"
+              sequence="10"
+    />
 </odoo>

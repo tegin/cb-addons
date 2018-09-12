@@ -12,7 +12,7 @@ def parse_atom(parse, minmax):
     elif parse.isdigit():
         # A single number still needs to be returned as a set
         value = int(parse)
-        if value >= minmax[0] and value <= minmax[1]:
+        if minmax[0] <= value <= minmax[1]:
             return set((value,))
         else:
             raise UserError(_("\"%s\" is not within valid range.") % parse)
@@ -67,15 +67,20 @@ class MedicalGuardPlan(models.Model):
     )
     weekday = fields.Char(
         required=True,
-        default='*'
+        default='*',
+        help="Use it in order to filter the weekdays, where 0 is monday "
+             "and 6 sunday. You could use 0-4 in order to select Monday to "
+             "Friday. Use * for all.",
     )
     monthday = fields.Char(
         required=True,
-        default='*'
+        default='*',
+        help="Use it in order to filter the day of the month. Use * for all.",
     )
     month = fields.Char(
         required=True,
-        default='*'
+        default='*',
+        help="Use it in order to filter the month. Use * for all.",
     )
 
     def _check(self, value, expr_vals, minmax):

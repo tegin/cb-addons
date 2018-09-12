@@ -48,6 +48,8 @@
     <menuitem id="medical_guard_invoice_menu"
               parent="cb_medical_guard.medical_guard_root"
               groups="cb_medical_guard.group_medical_guard_manager"
-              action="medical_guard_invoice_action"/>
+              action="medical_guard_invoice_action"
+              sequence="40"
+    />
 
 </odoo>
