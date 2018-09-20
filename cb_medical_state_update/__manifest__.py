@@ -3,23 +3,22 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'CB Testing',
+    'name': 'Medical Update State of requests',
     'version': '11.0.1.0.0',
     'author': 'Eficent, Creu Blanca, Odoo Community Association (OCA)',
+    'category': 'Medical',
     'depends': [
+        'medical_workflow',
+        'medical_administration_encounter_careplan',
+        'medical_clinical_procedure',
+        'medical_clinical_request_group',
+        'medical_document',
+        'medical_medication_request',
         'cb_medical_careplan_sale',
-        'medical_document_zpl2',
-        'pos_validation',
-        'cb_medical_views',
-        'cb_medical_identifier',
-        'cb_medical_sale_invoice_group_method',
-        'cb_medical_medication',
-        'cb_medical_cancel',
-        'cb_medical_state_update',
     ],
     'data': [
     ],
-    'website': 'https://github.com/OCA/vertical-medical',
+    'website': 'https://github.com/eficent/cb-addons',
     'license': 'LGPL-3',
     'installable': True,
     'auto_install': False,
