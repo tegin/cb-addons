@@ -3,18 +3,23 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Medical Workflow Triggers',
+    'name': 'Medical documents',
     'version': '11.0.1.0.0',
     'author': 'Eficent, Creu Blanca, Odoo Community Association (OCA)',
     'depends': [
-        'cb_medical_workflow_plandefinition',
+        'medical_workflow',
+        'medical_clinical',
     ],
     'data': [
         'security/medical_security.xml',
         'security/ir.model.access.csv',
-        'views/workflow_plan_definition_action.xml',
+        'data/ir_sequence_data.xml',
+        'data/medical_workflow.xml',
+        'views/medical_request_views.xml',
+        'views/medical_laboratory_event_view.xml',
+        'views/medical_laboratory_request_view.xml',
     ],
-    'website': 'https://github.com/OCA/vertical-medical',
+    'website': 'https://github.com/OCA/cb-addons',
     'license': 'LGPL-3',
     'installable': True,
     'auto_install': False,
