@@ -12,7 +12,6 @@
     ],
     'data': [
         'views/medical_laboratory_event_view.xml',
-        'views/medical_laboratory_request_view.xml',
     ],
     'website': 'https://github.com/OCA/cb-addons',
     'license': 'LGPL-3',
