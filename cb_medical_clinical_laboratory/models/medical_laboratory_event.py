@@ -11,4 +11,3 @@ class MedicalLaboratoryEvent(models.Model):
     delay = fields.Integer(
         help='Number of days until it will be finished'
     )
-    cost = fields.Monetary(required=True, default=0)
