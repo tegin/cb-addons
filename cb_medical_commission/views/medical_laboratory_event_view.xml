@@ -12,10 +12,10 @@
         <field name="name">medical.laboratory.event.view.form</field>
         <field name="model">medical.laboratory.event</field>
         <field name="mode">primary</field>
-        <field name="inherit_id" ref="medical_clinical_laboratory.medical_laboratory_event_view_form"/>
+        <field name="inherit_id" ref="cb_medical_careplan_sale.medical_laboratory_event_view_form"/>
         <field name="arch" type="xml">
-            <field name="performer_id" position="after">
-                <field name="delay"/>
+            <field name="private_amount" position="after">
+                <field name="cost"/>
             </field>
         </field>
     </record>

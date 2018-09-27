@@ -15,7 +15,8 @@
         <field name="inherit_id" ref="medical_clinical_laboratory.medical_laboratory_event_view_form"/>
         <field name="arch" type="xml">
             <field name="performer_id" position="after">
-                <field name="delay"/>
+                <field name="coverage_amount"/>
+                <field name="private_amount"/>
             </field>
         </field>
     </record>
