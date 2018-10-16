@@ -11,7 +11,7 @@ class MedicalDocumentReference(models.Model):
     # (https://www.hl7.org/fhir/documentreference.html)
     _name = 'medical.document.reference'
     _description = 'Medical Document Reference'
-    _inherit = 'medical.request'
+    _inherit = ['medical.request', 'medical.document.language']
 
     internal_identifier = fields.Char(
         string="Document reference"
@@ -25,10 +25,13 @@ class MedicalDocumentReference(models.Model):
     document_type_id = fields.Many2one(
         'medical.document.type',
         required=True,
+        readonly=True,
+        states={'draft': [('readonly', False)]},
         ondelete='restrict',
     )
     document_type = fields.Selection(
-        related='document_type_id.document_type'
+        related='document_type_id.document_type',
+        readonly=True,
     )
     document_template_id = fields.Many2one(
         'medical.document.template',
@@ -43,6 +46,13 @@ class MedicalDocumentReference(models.Model):
         readonly=True,
         sanitize=True
     )
+    lang = fields.Selection(
+        required=False, readonly=True,
+        states={'draft': [('readonly', False)]},
+    )
+
+    def _get_language(self):
+        return self.lang or self.patient_id.lang
 
     def check_is_billable(self):
         return self.is_billable
@@ -84,7 +94,9 @@ class MedicalDocumentReference(models.Model):
         return action()
 
     def _render(self):
-        return self.document_type_id.report_action_id.render(self.id)
+        return self.with_context(
+            lang=self.lang
+        ).document_type_id.report_action_id.render(self.id)
 
     def render_report(self):
         return base64.b64encode(self._render()[0])
@@ -99,9 +111,12 @@ class MedicalDocumentReference(models.Model):
 
     def print_action(self):
         content, mime = self._render()
-        printer = self.remote.with_context(
+        behaviour = self.remote.with_context(
             printer_usage=self._get_printer_usage()
-        ).get_printer_behaviour().pop('printer')
+        ).get_printer_behaviour()
+        if 'printer' not in behaviour:
+            return False
+        printer = behaviour.pop('printer')
         return printer.print_document(
             report=self.document_type_id.report_action_id,
             content=content, doc_format=mime
@@ -118,17 +133,34 @@ class MedicalDocumentReference(models.Model):
     def draft2current_values(self):
         template_id = self.document_type_id.current_template_id.id
         return {
-            'state': 'current',
+            'lang': self._get_language(),
             'document_template_id': template_id,
-            'text': self.with_context(template_id=template_id).render_text()
+            'text': self.with_context(
+                template_id=template_id,
+                render_language=self._get_language()
+            ).render_text()
         }
+
+    @api.multi
+    def change_lang(self, lang):
+        text = self.with_context(
+            template_id=self.document_template_id.id,
+            render_language=lang
+        ).render_text()
+        return self.write({
+            'lang': lang,
+            'text': text,
+        })
 
     def _draft2current(self, action):
         self.ensure_one()
         if self.state != 'draft':
             raise ValidationError(_('State must be draft'))
         self.write(self.draft2current_values())
-        return action()
+        res = action()
+        if res:
+            self.write({'state': 'current'})
+        return res
 
     def render_text(self):
         if self.document_type == 'action':
