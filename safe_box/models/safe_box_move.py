@@ -35,7 +35,7 @@ class SafeBoxMove(models.Model):
 
     def validate(self):
         amount = sum(self.line_ids.mapped('amount'))
-        amount -= sum(self.account_move_ids.line_ids.filtered(
+        amount -= sum(self.account_move_ids.mapped('line_ids').filtered(
             lambda r: r.account_id.id in self.safe_box_group_id.account_ids.ids
         ).mapped('balance'))
         if float_compare(amount, 0, precision_digits=6):
