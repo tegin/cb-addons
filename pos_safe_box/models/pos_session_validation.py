@@ -42,12 +42,12 @@ class PosSessionValidation(models.Model):
     ])
     statement_ids = fields.One2many(
         comodel_name='account.bank.statement',
-        related='pos_session_ids.statement_ids',
+        compute='_compute_statement_ids',
         readonly=True,
     )
     statement_line_ids = fields.One2many(
         comodel_name='account.bank.statement.line',
-        related='pos_session_ids.statement_ids.line_ids',
+        compute='_compute_statement_ids',
         readonly=True,
     )
     issue_statement_line_ids = fields.One2many(
@@ -82,6 +82,13 @@ class PosSessionValidation(models.Model):
         readonly=True,
     )
     approve_date = fields.Datetime(readonly=True,)
+
+    @api.depends('pos_session_ids')
+    def _compute_statement_ids(self):
+        for record in self:
+            record.statement_ids = record.pos_session_ids.mapped(
+                'statement_ids')
+            record.statement_line_ids = record.statement_ids.mapped('line_ids')
 
     @api.depends('line_ids')
     def _compute_amount(self):
