@@ -14,9 +14,13 @@ class IrSequence(models.Model):
             else:
                 number_next = _update_nogap(self, self.number_increment)
             prefix, suffix = self._get_prefix_suffix()
+            code = self.get_next_char(number_next)
+            dc = ''
+            formula = self.check_digit_formula
+            if formula and formula != 'none':
+                dc = code[-1:]
             return (
-                prefix, number_next, suffix,
-                self.get_next_char(number_next))
+                prefix, number_next, suffix, dc, code)
         return super()._next_do()
 
 
@@ -33,7 +37,11 @@ class IrSequenceDateRange(models.Model):
                 number_next = _update_nogap(
                     self, self.sequence_id.number_increment)
             prefix, suffix = self.sequence_id._get_prefix_suffix()
+            code = self.sequence_id.get_next_char(number_next)
+            dc = ''
+            formula = self.sequence_id.check_digit_formula
+            if formula and formula != 'none':
+                dc = code[-1:]
             return (
-                prefix, number_next, suffix,
-                self.sequence_id.get_next_char(number_next))
+                prefix, number_next, suffix, dc, code)
         return super()._next()
