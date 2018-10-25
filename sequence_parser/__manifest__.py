@@ -12,6 +12,7 @@
     'category': 'Sale',
     'depends': [
         'base',
+        'sequence_check_digit',
     ],
     'license': 'LGPL-3',
     'data': [
