@@ -42,13 +42,18 @@ class TestCB(TransactionCase):
             'always_authorized': False,
             'authorization_format': '^[0-9]*$'
         })
+        self.method = self.env['medical.authorization.method'].create({
+            'name': 'Testing method',
+            'code': 'testing',
+            'check_required': True,
+            'always_authorized': True,
+        })
         self.agreement = self.env['medical.coverage.agreement'].create({
             'name': 'Agreement',
             'center_ids': [(4, self.center.id)],
             'coverage_template_ids': [(4, self.coverage_template.id)],
             'company_id': self.company.id,
-            'authorization_method_id': self.browse_ref(
-                'cb_medical_financial_coverage_request.only_number').id,
+            'authorization_method_id': self.method.id,
             'authorization_format_id': self.format.id,
         })
         self.patient_01 = self.create_patient('Patient 01')
@@ -79,14 +84,12 @@ class TestCB(TransactionCase):
         })
         self.agreement_line = self.env[
             'medical.coverage.agreement.item'
-        ].create({
+        ].with_context(
+            default_coverage_agreement_id=self.agreement.id
+        ).create({
             'product_id': self.product_01.id,
-            'coverage_agreement_id': self.agreement.id,
             'plan_definition_id': self.plan_definition.id,
             'total_price': 100,
-            'authorization_method_id': self.browse_ref(
-                'cb_medical_financial_coverage_request.only_number').id,
-            'authorization_format_id': self.format.id,
         })
 
     def create_patient(self, name):
@@ -134,8 +137,7 @@ class TestCB(TransactionCase):
     def test_check_authorization(self):
         self.plan_definition.is_breakdown = False
         self.plan_definition.is_billable = True
-        number = 'AAA'
-        encounter, careplan, group = self.create_careplan_and_group(number)
+        encounter, careplan, group = self.create_careplan_and_group()
         self.assertEqual(group.authorization_status, 'pending')
         self.env['medical.request.group.check.authorization'].with_context(
             default_request_group_id=group.id
@@ -143,7 +145,7 @@ class TestCB(TransactionCase):
             'authorization_number': '1234',
         }).run()
         group.refresh()
-        self.assertEqual(group.authorization_status, 'authorized')
+        self.assertEqual(group.authorization_status, 'pending')
         self.env['medical.request.group.check.authorization'].with_context(
             default_request_group_id=group.id
         ).create({
@@ -151,21 +153,17 @@ class TestCB(TransactionCase):
         }).run()
         group.refresh()
         self.assertEqual(group.authorization_status, 'pending')
-
-    def test_check_authorization_without(self):
-        self.plan_definition.is_breakdown = False
-        self.plan_definition.is_billable = True
-        self.agreement_line.write({
-            'authorization_method_id': self.browse_ref(
-                'cb_medical_financial_coverage_request.without').id,
-        })
-        number = 'AAA'
-        encounter, careplan, group = self.create_careplan_and_group(number)
+        self.env['medical.request.group.check.authorization'].with_context(
+            default_request_group_id=group.id
+        ).create({
+            'authorization_checked': True
+        }).run()
+        group.refresh()
         self.assertEqual(group.authorization_status, 'authorized')
-
-    def test_check_authorization_correct(self):
-        self.plan_definition.is_breakdown = False
-        self.plan_definition.is_billable = True
-        number = '1234'
-        encounter, careplan, group = self.create_careplan_and_group(number)
-        self.assertEqual(group.authorization_status, 'authorized')
+        self.env['medical.request.group.check.authorization'].with_context(
+            default_request_group_id=group.id
+        ).create({
+            'authorization_checked': False
+        }).run()
+        group.refresh()
+        self.assertEqual(group.authorization_status, 'pending')
