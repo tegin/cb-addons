@@ -10,8 +10,10 @@ class AccountBankStatementLine(models.Model):
 
     pos_session_id = fields.Many2one(
         'pos.session',
-        related='statement_id.pos_session_id'
+        related='statement_id.pos_session_id',
+        readonly=True,
     )
     pos_session_state = fields.Selection(
-        related='statement_id.pos_session_id.state'
+        related='statement_id.pos_session_id.state',
+        readonly=True,
     )
