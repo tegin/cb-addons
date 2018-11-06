@@ -10,5 +10,6 @@ class CashInvoiceIn(models.TransientModel):
 
     inter_company_ids = fields.Many2many(
         'res.company',
-        related='company_id.related_company_ids'
+        related='company_id.related_company_ids',
+        readonly=True,
     )
