@@ -6,9 +6,7 @@ multicompany-fixes https://github.com/eficent/multicompany-fixes 11.0
 partner-contact
 pos
 report-print-send
-report-print-send_remote https://github.com/etobella/report-print-send 11.0-add-remote_report_to_printer
 sale-workflow
 stock-logistics-warehouse
 server-tools
 server-ux
-server-ux-barcode https://github.com/etobella/server-ux 11.0-add-barcodes_action
