@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-13 09:49+0000\n"
-"PO-Revision-Date: 2018-07-13 09:49+0000\n"
+"POT-Creation-Date: 2018-11-07 10:19+0000\n"
+"PO-Revision-Date: 2018-11-07 10:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: pos_safe_box
-#: code:addons/pos_safe_box/models/pos_session_validation.py:121
+#: code:addons/pos_safe_box/models/pos_session_validation.py:128
 #, python-format
 msgid "Account cannot be found for this company"
 msgstr "Account cannot be found for this company"
@@ -46,11 +46,6 @@ msgstr "Approve move"
 #: selection:pos.session.validation,state:0
 msgid "Approved"
 msgstr "Approved"
-
-#. module: pos_safe_box
-#: model:ir.model.fields,field_description:pos_safe_box.field_pos_session_validation_statement_ids
-msgid "Bank Statement"
-msgstr "Extracto bancario"
 
 #. module: pos_safe_box
 #: model:ir.model.fields,field_description:pos_safe_box.field_pos_session_validation_cash_amount
@@ -94,7 +89,7 @@ msgid "Coins"
 msgstr "Coins"
 
 #. module: pos_safe_box
-#: code:addons/pos_safe_box/models/pos_session_validation.py:149
+#: code:addons/pos_safe_box/models/pos_session_validation.py:156
 #, python-format
 msgid "Coins and Notes must match cash value"
 msgstr "Coins and Notes must match cash value"
@@ -152,13 +147,13 @@ msgstr "Issues"
 #: model:ir.model.fields,field_description:pos_safe_box.field_pos_session_validation___last_update
 #: model:ir.model.fields,field_description:pos_safe_box.field_pos_session_validation_line___last_update
 msgid "Last Modified on"
-msgstr "Última modificación en"
+msgstr "Última modificación el"
 
 #. module: pos_safe_box
 #: model:ir.model.fields,field_description:pos_safe_box.field_pos_session_validation_line_write_uid
 #: model:ir.model.fields,field_description:pos_safe_box.field_pos_session_validation_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización de"
+msgstr "Última actualización por"
 
 #. module: pos_safe_box
 #: model:ir.model.fields,field_description:pos_safe_box.field_pos_session_validation_line_write_date
@@ -245,7 +240,7 @@ msgid "Safe box where notes are stored on closure"
 msgstr "Safe box where notes are stored on closure"
 
 #. module: pos_safe_box
-#: code:addons/pos_safe_box/models/pos_session_validation.py:164
+#: code:addons/pos_safe_box/models/pos_session_validation.py:171
 #, python-format
 msgid "Safe boxes are not configured"
 msgstr "Safe boxes are not configured"
@@ -278,9 +273,14 @@ msgid "State"
 msgstr "Estado"
 
 #. module: pos_safe_box
+#: model:ir.model.fields,field_description:pos_safe_box.field_pos_session_validation_statement_ids
+msgid "Statement"
+msgstr "Extracto"
+
+#. module: pos_safe_box
 #: model:ir.model.fields,field_description:pos_safe_box.field_pos_session_validation_statement_line_ids
-msgid "Statement lines"
-msgstr "Líneas de extracto"
+msgid "Statement Line"
+msgstr "Statement Line"
 
 #. module: pos_safe_box
 #: model:ir.ui.view,arch_db:pos_safe_box.view_pos_session_validation_form
@@ -290,7 +290,7 @@ msgstr "Extractos"
 #. module: pos_safe_box
 #: model:ir.ui.view,arch_db:pos_safe_box.view_pos_session_validation_line_tree
 msgid "Total amount"
-msgstr "Total amount"
+msgstr "Importe total"
 
 #. module: pos_safe_box
 #: model:ir.model.fields,field_description:pos_safe_box.field_safe_box_coin_type
