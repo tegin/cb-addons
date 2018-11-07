@@ -11,7 +11,7 @@ class MedicalEncounter(models.Model):
         ('draft', 'Draft'),
         ('in_progress', 'In progress'),
         ('finished', 'Finished')
-    ], default='none', required=True, readonly=True,)
+    ], default='none', readonly=True,)
     sale_order_line_ids = fields.One2many(
         'sale.order.line',
         inverse_name='encounter_id',
@@ -101,6 +101,9 @@ class MedicalEncounter(models.Model):
                 'The subscriber id is required'
             ))
 
+    def _admin_validation_values(self):
+        return {'validation_status': 'finished'}
+
     @api.multi
     def admin_validate(self):
         self.ensure_one()
@@ -116,7 +119,7 @@ class MedicalEncounter(models.Model):
             lambda r: r.invoice_group_method_id == by_patient
         ):
             self.create_invoice(sale_order)
-        self.write({'validation_status': 'finished'})
+        self.write(self._admin_validation_values())
         if not self.pos_session_id.encounter_ids.filtered(
             lambda r: r.validation_status == 'in_progress'
         ):

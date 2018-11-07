@@ -3,6 +3,8 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+from odoo.tools import float_compare
 
 
 class MedicalCoverageAgreementItem(models.Model):
@@ -46,6 +48,10 @@ class MedicalCoverageAgreementItem(models.Model):
         index=True,
         ondelete='cascade',
     )
+    template_id = fields.Many2one(
+        'medical.coverage.agreement', readonly=True,
+        related='coverage_agreement_id.template_id',
+    )
     currency_id = fields.Many2one(
         related='coverage_agreement_id.currency_id',
     )
@@ -68,6 +74,23 @@ class MedicalCoverageAgreementItem(models.Model):
         default=True
     )
 
+    @api.onchange('product_id')
+    def _onchange_product(self):
+        related = self.template_id.item_ids.filtered(
+            lambda r: r.product_id == self.product_id
+        )
+        if related:
+            self._update_by_related(related)
+
+    def _update_by_related(self, related):
+        rounding = self.currency_id.rounding
+        if not self.plan_definition_id:
+            self.plan_definition_id = related.plan_definition_id
+        if not float_compare(
+            self.total_price, 0, precision_rounding=rounding
+        ):
+            self.total_price = related.total_price
+
     @api.multi
     def _compute_price(self):
         for rec in self:
@@ -76,7 +99,23 @@ class MedicalCoverageAgreementItem(models.Model):
             rec.private_price = \
                 ((100 - rec.coverage_percentage) * rec.total_price) / 100
 
-    _sql_constraints = [
-        ('product_id_agreement_id_unique',
-         'unique(product_id, coverage_agreement_id)',
-         _('Product has to be unique in each agreement!'))]
+    @api.constrains('product_id', 'coverage_agreement_id', 'active')
+    def _check_product(self):
+        for rec in self.filtered(lambda r: r.active):
+            if self.search([
+                ('id', '!=', rec.id),
+                ('coverage_agreement_id', '=', rec.coverage_agreement_id.id),
+                ('product_id', '=', rec.product_id.id),
+                ('active', '=', True),
+            ], limit=1):
+                raise ValidationError(_(
+                    'Product must be unique for an agreement'
+                ))
+
+    def _copy_agreement_vals(self, agreement):
+        return {
+            'coverage_agreement_id': agreement.id,
+            'plan_definition_id': self.plan_definition_id.id or False,
+            'product_id': self.product_id.id,
+            'total_price': self.total_price,
+        }

@@ -80,6 +80,7 @@ class MedicalDocumentType(models.Model):
         )
         self.message_post(
             body=_('Added template with sequence %s') % template.sequence)
+        return True
 
     def unpost(self):
         if self.current_template_id:
@@ -93,6 +94,7 @@ class MedicalDocumentType(models.Model):
         for record in self:
             record.post()
             record.write(self.draft2current_values())
+        return True
 
     def current2superseded_values(self):
         return {'state': 'superseded'}
@@ -132,3 +134,9 @@ class MedicalDocumentTypeLang(models.Model):
             'text': self.text,
             'lang': self.lang,
         }
+
+    @api.multi
+    def preview(self):
+        return self.env.ref(
+            'medical_document.action_report_document_report_type'
+        ).report_action(self)

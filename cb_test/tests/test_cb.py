@@ -320,6 +320,21 @@ class TestMedicalCareplanSale(TransactionCase):
             'authorization_format_id': self.browse_ref(
                 'cb_medical_financial_coverage_request.format_anything').id,
         })
+        self.method = self.browse_ref(
+            'cb_medical_financial_coverage_request.only_number'
+        )
+        self.format = self.env['medical.authorization.format'].create({
+            'name': 'Number',
+            'code': 'testing_number',
+            'always_authorized': False,
+            'authorization_format': '^[0-9]*$'
+        })
+        self.format_letter = self.env['medical.authorization.format'].create({
+            'name': 'Number',
+            'code': 'testing_number',
+            'always_authorized': False,
+            'authorization_format': '^[a-zA-Z]*$'
+        })
         self.agreement_line2 = self.env[
             'medical.coverage.agreement.item'
         ].create({
@@ -709,19 +724,20 @@ class TestMedicalCareplanSale(TransactionCase):
         careplan._onchange_encounter()
         careplan = careplan.create(careplan._convert_to_write(careplan._cache))
         self.assertEqual(careplan.center_id, encounter.center_id)
-        self.env['wizard.medical.encounter.add.amount'].create({
+        invoice = self.env['wizard.medical.encounter.add.amount'].create({
             'encounter_id': encounter.id,
             'amount': 10,
             'pos_session_id': self.session.id,
             'journal_id': self.session.journal_ids[0].id,
-        }).run()
+        })._run()
+        for line in invoice.invoice_line_ids:
+            self.assertNotEqual(line.name, '/')
         wizard = self.env['medical.careplan.add.plan.definition'].create({
             'careplan_id': careplan.id,
             'agreement_line_id': self.agreement_line.id,
         })
         self.action.is_billable = False
         wizard.run()
-
         self.assertTrue(self.session.action_view_sale_orders()['res_id'])
         groups = self.env['medical.request.group'].search([
             ('careplan_id', '=', careplan.id)])
@@ -762,14 +778,19 @@ class TestMedicalCareplanSale(TransactionCase):
                          encounter.id)
         journal = self.session.statement_ids.mapped('journal_id')[0]
         self.assertTrue(journal)
+        self.assertGreater(encounter.pending_private_amount, 0)
         lines = len(self.session.statement_ids.filtered(
             lambda r: r.journal_id == journal).mapped('line_ids'))
-        self.assertGreater(encounter.pending_private_amount, 0)
         self.env['wizard.medical.encounter.finish'].create({
             'encounter_id': encounter.id,
             'pos_session_id': self.session.id,
             'journal_id': journal.id,
         }).run()
+        invoice = encounter.sale_order_ids.filtered(
+            lambda r: not r.coverage_agreement_id and not r.is_down_payment
+        ).mapped('invoice_ids')
+        for line in invoice.invoice_line_ids:
+            self.assertNotEqual(line.name, '/')
         self.assertGreater(len(self.session.statement_ids.filtered(
             lambda r: r.journal_id == journal).mapped('line_ids')), lines)
         self.assertEqual(encounter.pending_private_amount, 0)
@@ -1218,19 +1239,36 @@ class TestMedicalCareplanSale(TransactionCase):
             encounter.admin_validate()
         line.write({
             'subscriber_id': '123',
-            'authorization_status': 'not-authorized',
+        })
+        self.agreement_line3.write({
+            'authorization_format_id': self.format.id,
+            'authorization_method_id': self.method.id,
+        })
+        action = self.env[
+            'medical.request.group.check.authorization'
+        ].with_context(
+            line.check_authorization_action()['context']
+        ).create({'authorization_number': '1234A'})
+        action.run()
+        self.assertNotEqual(line.authorization_status, 'authorized')
+        self.assertEqual(line.authorization_number, '1234A')
+        with self.assertRaises(ValidationError):
+            encounter.admin_validate()
+        action = self.env[
+            'medical.request.group.check.authorization'
+        ].with_context(
+            line.check_authorization_action()['context']
+        ).create({'authorization_number': '1234'})
+        action.run()
+        self.assertEqual(line.authorization_status, 'authorized')
+        self.assertEqual(line.authorization_number, '1234')
+        self.agreement_line3.write({
+            'authorization_format_id': self.format_letter.id,
         })
         with self.assertRaises(ValidationError):
             encounter.admin_validate()
-        line.write({
-            'authorization_status': 'authorized',
-            'authorization_number': '222'
-        })
-        self.agreement_line3.authorization_format_id = self.format
-        with self.assertRaises(ValidationError):
-            encounter.admin_validate()
-        line.write({
-            'authorization_number': '1234',
+        self.agreement_line3.write({
+            'authorization_format_id': self.format.id,
         })
         encounter.admin_validate()
 
@@ -1732,3 +1770,80 @@ class TestMedicalCareplanSale(TransactionCase):
             'pos_session_id': self.session.id,
         }).run()
         self.assertIn(encounter.state, ['onleave', 'finished'])
+
+    def test_practitioner_conditions(self):
+        self.plan_definition2.write({
+            'third_party_bill': False,
+        })
+        self.plan_definition2.action_ids.write({
+            'variable_fee': 0,
+            'fixed_fee': 10,
+        })
+        self.assertNotEqual(
+            self.plan_definition2.action_ids.activity_definition_id.service_id,
+            self.agreement_line3.product_id
+        )
+        encounter, careplan, group = self.create_careplan_and_group(
+            self.agreement_line3
+        )
+        self.env['medical.practitioner.condition'].create({
+            'practitioner_id': self.practitioner_02.id,
+            'variable_fee': 10,
+            'fixed_fee': 0,
+            'procedure_service_id': self.agreement_line3.product_id.id,
+        })
+        self.assertEqual(self.agreement_line3.product_id, group.service_id)
+        for request in group.procedure_request_ids:
+            request.draft2active()
+            procedure = request.generate_event()
+            self.assertEqual(request.state, 'active')
+            procedure.performer_id = self.practitioner_01
+            procedure.commission_agent_id = self.practitioner_01
+            procedure.performer_id = self.practitioner_02
+            procedure._onchange_performer_id()
+            procedure._onchange_check_condition()
+            self.assertEqual(
+                procedure.commission_agent_id, self.practitioner_02)
+            self.assertFalse(procedure.practitioner_condition_id)
+            self.assertEqual(request.variable_fee, 0)
+            self.assertEqual(request.fixed_fee, 10)
+            general_cond = self.env['medical.practitioner.condition'].create({
+                'practitioner_id': self.practitioner_02.id,
+                'variable_fee': 10,
+                'fixed_fee': 0,
+            })
+            procedure._onchange_check_condition()
+            self.assertEqual(procedure.practitioner_condition_id, general_cond)
+            self.assertEqual(procedure.variable_fee, 10)
+            self.assertEqual(procedure.fixed_fee, 0)
+            proc_cond = self.env['medical.practitioner.condition'].create({
+                'practitioner_id': self.practitioner_02.id,
+                'variable_fee': 0,
+                'fixed_fee': 5,
+                'procedure_service_id': self.product_02.id,
+            })
+            procedure._onchange_check_condition()
+            self.assertEqual(procedure.practitioner_condition_id, proc_cond)
+            self.assertEqual(procedure.variable_fee, 0)
+            self.assertEqual(procedure.fixed_fee, 5)
+            group_cond = self.env['medical.practitioner.condition'].create({
+                'practitioner_id': self.practitioner_02.id,
+                'variable_fee': 0,
+                'fixed_fee': 15,
+                'service_id': self.product_04.id,
+            })
+            procedure._onchange_check_condition()
+            self.assertEqual(procedure.practitioner_condition_id, group_cond)
+            self.assertEqual(procedure.variable_fee, 0)
+            self.assertEqual(procedure.fixed_fee, 15)
+            cond = self.env['medical.practitioner.condition'].create({
+                'practitioner_id': self.practitioner_02.id,
+                'variable_fee': 0,
+                'fixed_fee': 0,
+                'service_id': self.product_04.id,
+                'procedure_service_id': self.product_02.id,
+            })
+            procedure._onchange_check_condition()
+            self.assertEqual(procedure.practitioner_condition_id, cond)
+            self.assertEqual(procedure.variable_fee, 0)
+            self.assertEqual(procedure.fixed_fee, 0)

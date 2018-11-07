@@ -16,9 +16,21 @@ class TestSequence(TransactionCase):
         self.assertTrue(isinstance(sequence.next_by_id(), str))
         result = sequence.with_context(sequence_tuple=True).next_by_id()
         self.assertTrue(isinstance(result, tuple))
-        prefix, value, suffix, seq = result
+        prefix, value, suffix, dc, seq = result
         self.assertEqual(prefix, 'P')
         self.assertEqual(suffix, 'S')
+        self.assertTrue(isinstance(value, int))
+
+    def test_standard_dc(self):
+        sequence = self.create_sequence('P', 'S')
+        sequence.write({'check_digit_formula': 'ISO7064_37_36'})
+        self.assertTrue(isinstance(sequence.next_by_id(), str))
+        result = sequence.with_context(sequence_tuple=True).next_by_id()
+        self.assertTrue(isinstance(result, tuple))
+        prefix, value, suffix, dc, seq = result
+        self.assertEqual(prefix, 'P')
+        self.assertEqual(suffix, 'S')
+        self.assertNotEqual(dc, '')
         self.assertTrue(isinstance(value, int))
 
     def test_no_gap(self):
@@ -27,7 +39,7 @@ class TestSequence(TransactionCase):
         self.assertTrue(isinstance(sequence.next_by_id(), str))
         result = sequence.with_context(sequence_tuple=True).next_by_id()
         self.assertTrue(isinstance(result, tuple))
-        prefix, value, suffix, seq = result
+        prefix, value, suffix, dc, seq = result
         self.assertEqual(prefix, 'P')
         self.assertEqual(suffix, 'S')
         self.assertTrue(isinstance(value, int))
@@ -38,9 +50,25 @@ class TestSequence(TransactionCase):
         self.assertTrue(isinstance(sequence.next_by_id(), str))
         result = sequence.with_context(sequence_tuple=True).next_by_id()
         self.assertTrue(isinstance(result, tuple))
-        prefix, value, suffix, seq = result
+        prefix, value, suffix, dc, seq = result
         self.assertEqual(prefix, 'P')
         self.assertEqual(suffix, 'S')
+        self.assertEqual(dc, '')
+        self.assertTrue(isinstance(value, int))
+
+    def test_standard_date_dc(self):
+        sequence = self.create_sequence('P', 'S')
+        sequence.write({
+            'use_date_range': True,
+            'check_digit_formula': 'ISO7064_37_36'
+        })
+        self.assertTrue(isinstance(sequence.next_by_id(), str))
+        result = sequence.with_context(sequence_tuple=True).next_by_id()
+        self.assertTrue(isinstance(result, tuple))
+        prefix, value, suffix, dc, seq = result
+        self.assertEqual(prefix, 'P')
+        self.assertEqual(suffix, 'S')
+        self.assertNotEqual(dc, '')
         self.assertTrue(isinstance(value, int))
 
     def test_no_gap_date(self):
@@ -49,7 +77,8 @@ class TestSequence(TransactionCase):
         self.assertTrue(isinstance(sequence.next_by_id(), str))
         result = sequence.with_context(sequence_tuple=True).next_by_id()
         self.assertTrue(isinstance(result, tuple))
-        prefix, value, suffix, seq = result
+        prefix, value, suffix, dc, seq = result
         self.assertEqual(prefix, 'P')
         self.assertEqual(suffix, 'S')
+        self.assertEqual(dc, '')
         self.assertTrue(isinstance(value, int))
