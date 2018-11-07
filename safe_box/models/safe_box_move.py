@@ -84,12 +84,14 @@ class SafeBoxMoveLine(models.Model):
         delete='restrict'
     )
     state = fields.Selection(
-        related='safe_box_move_id.state'
+        related='safe_box_move_id.state',
+        readonly=True,
     )
     safe_box_group_id = fields.Many2one(
         comodel_name='safe.box.group',
         string='Safe box group',
         related='safe_box_move_id.safe_box_group_id',
+        readonly=True,
     )
     currency_id = fields.Many2one(
         comodel_name='res.currency',

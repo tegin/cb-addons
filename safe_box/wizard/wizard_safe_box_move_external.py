@@ -23,11 +23,13 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
     )
     company_id = fields.Many2one(
         'res.company',
-        related='journal_id.company_id'
+        related='journal_id.company_id',
+        readonly=True,
     )
     account_ids = fields.One2many(
         'account.account',
-        related='safe_box_group_id.account_ids'
+        related='safe_box_group_id.account_ids',
+        readonly=True,
     )
     account_id = fields.Many2one(
         'account.account',
@@ -38,6 +40,7 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
     currency_id = fields.Many2one(
         comodel_name='res.currency',
         related='safe_box_group_id.currency_id',
+        readonly=True,
     )
     amount = fields.Monetary(currency_field='currency_id', required=True)
 
