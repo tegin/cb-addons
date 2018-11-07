@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-13 09:49+0000\n"
-"PO-Revision-Date: 2018-07-13 09:49+0000\n"
+"POT-Creation-Date: 2018-11-07 10:19+0000\n"
+"PO-Revision-Date: 2018-11-07 10:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -149,7 +149,7 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: pos_close_approval
-#: model:ir.model.fields,field_description:pos_close_approval.field_account_bank_statement_line_account_id_6981
+#: model:ir.model.fields,field_description:pos_close_approval.field_account_bank_statement_line_account_id_9966
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_in_id
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_out_id
 msgid "ID"
@@ -174,14 +174,14 @@ msgstr "Journal Count"
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_in___last_update
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_out___last_update
 msgid "Last Modified on"
-msgstr "Última modificación en"
+msgstr "Última modificación el"
 
 #. module: pos_close_approval
 #: model:ir.model.fields,field_description:pos_close_approval.field_account_bank_statement_line_account_write_uid
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_in_write_uid
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_out_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización de"
+msgstr "Última actualización por"
 
 #. module: pos_close_approval
 #: model:ir.model.fields,field_description:pos_close_approval.field_account_bank_statement_line_account_write_date
