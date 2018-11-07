@@ -27,6 +27,7 @@ class WizardSafeBoxCount(models.TransientModel):
     safe_box_coin_ids = fields.Many2many(
         'safe.box.coin',
         related='safe_box_id.coin_ids',
+        readonly=True,
     )
     state = fields.Selection([
         ('equal', 'Equal'),
