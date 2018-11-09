@@ -52,7 +52,7 @@ install:
   - pip install requests
 
 script:
-  - travis_wait 40 travis_run_tests
+  - travis_wait 50 travis_run_tests
 
 after_success:
   - travis_after_tests_success
