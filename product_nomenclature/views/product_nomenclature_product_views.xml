@@ -8,7 +8,7 @@
                 <sheet>
                     <group>
                         <field name="nomenclature_id"/>
-                        <field name="product_id"/>
+                        <field name="product_id" options="{'no_create': True}"/>
                         <field name="code"/>
                         <field name="name"/>
                     </group>
