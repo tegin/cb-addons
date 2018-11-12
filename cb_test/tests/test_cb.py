@@ -5,12 +5,12 @@ from dateutil.relativedelta import relativedelta
 import base64
 from datetime import timedelta
 from odoo import fields
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 from odoo.exceptions import UserError, ValidationError
 from mock import patch
 
 
-class TestMedicalCareplanSale(TransactionCase):
+class TestMedicalCareplanSale(SavepointCase):
     def setUp(self):
         super().setUp()
         name = 'testing_remote_server'
