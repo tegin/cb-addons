@@ -8,5 +8,5 @@ class MedicalLaboratoryRequest(models.Model):
     def generate_event(self, vals=False):
         res = super().generate_event(vals=vals)
         for r in res:
-            r.compute_commission(r)
+            r.compute_commission()
         return res
