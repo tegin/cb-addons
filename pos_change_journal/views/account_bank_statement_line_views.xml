@@ -6,7 +6,7 @@
         <field name="inherit_id"
                ref="pos_close_approval.view_bank_statement_line_form"/>
         <field name="arch" type="xml">
-            <header position="inside">
+            <field name="statement_id" position="after">
                 <button name="%(action_statement_change_journal)d"
                         type="action"
                         string="Change Journal"
@@ -14,7 +14,7 @@
                         class="oe_highlight"
                         attrs="{'invisible':[('pos_session_state', '!=', 'pending_approval')]}"
                 />
-            </header>
+            </field>
         </field>
     </record>
 </odoo>
