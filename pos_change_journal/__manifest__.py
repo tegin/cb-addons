@@ -17,6 +17,7 @@
         'pos_close_approval',
     ],
     'data': [
-        'wizard/account_bank_statement_line_change_journal.xml'
+        'wizard/account_bank_statement_line_change_journal.xml',
+        'views/account_bank_statement_line_views.xml',
     ]
 }
