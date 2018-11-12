@@ -1,24 +1,26 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_third_party
+# 	* sale_third_party
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07 10:19+0000\n"
-"PO-Revision-Date: 2018-11-07 10:19+0000\n"
+"POT-Creation-Date: 2018-11-07 10:28+0000\n"
+"PO-Revision-Date: 2018-11-08 12:50+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2\n"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
 msgid "&amp;bull;"
-msgstr "&amp;bull;"
+msgstr "&amperio;toro;"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -28,12 +30,12 @@ msgstr "&amp;nbsp;<span>en</span>&amp;nbsp;"
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
 msgid "<span>Invoice # </span>"
-msgstr "<span>Invoice # </span>"
+msgstr "<span>factura # </span>"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
 msgid "<strong>Date Ordered:</strong>"
-msgstr "<strong>Fecha ordenada:</strong>"
+msgstr "<strong>Fecha de pedido:</strong>"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -48,7 +50,7 @@ msgstr "<strong>Posición Fiscal:</strong>"
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
 msgid "<strong>Payment Terms:</strong>"
-msgstr "<strong>Términos de Pago:</strong>"
+msgstr "<strong>Plazo de pago:</strong>"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -58,7 +60,7 @@ msgstr "<strong>Fecha del presupuesto:</strong>"
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
 msgid "<strong>Salesperson:</strong>"
-msgstr "<strong>Vendedor:</strong>"
+msgstr "<strong>Comercial</strong>"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -88,12 +90,12 @@ msgstr "<strong>Su referencia:</strong>"
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_res_partner_property_property_third_party_customer_account_id
 msgid "Account for customers in third party sales"
-msgstr "Account for customers in third party sales"
+msgstr "Cuenta para clientes en ventas de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_res_partner_property_property_third_party_supplier_account_id
 msgid "Account for suppliers in third party sales"
-msgstr "Account for suppliers in third party sales"
+msgstr "Cuenta para proveedores en ventas a terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_amount
@@ -114,12 +116,12 @@ msgstr "Cancelar"
 #. module: sale_third_party
 #: model:ir.actions.act_window,name:sale_third_party.action_cash_third_party_sale_from_statement
 msgid "Collect Payment from Third Party Sale"
-msgstr "Collect Payment from Third Party Sale"
+msgstr "Recoger pago de la venta de terceros"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.cash_third_party_sale_form
 msgid "Collect payment from customer invoice or supplier refund"
-msgstr "Collect payment from customer invoice or supplier refund"
+msgstr "Recoger el pago de la factura del cliente o reembolso del proveedor"
 
 #. module: sale_third_party
 #: model:ir.model,name:sale_third_party.model_res_company
@@ -154,12 +156,12 @@ msgstr "Moneda"
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_res_company_default_third_party_customer_account_id
 msgid "Default Account for customers in third party sales"
-msgstr "Default Account for customers in third party sales"
+msgstr "Cuenta predeterminada para clientes en ventas de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_res_company_default_third_party_supplier_account_id
 msgid "Default Account for suppliers in third party sales"
-msgstr "Default Account for suppliers in third party sales"
+msgstr "Cuenta por defecto para proveedores en ventas a terceros"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -185,27 +187,27 @@ msgstr "Correo electrónico:"
 #: selection:sale.order,third_party_customer_in_state:0
 #: selection:sale.order,third_party_customer_out_state:0
 msgid "Fully paid"
-msgstr "Fully paid"
+msgstr "Totalmente pagado"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_id
 msgid "ID"
-msgstr "ID (identificación)"
+msgstr "ID"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.view_order_form
 msgid "Incoming Payment"
-msgstr "Incoming Payment"
+msgstr "Pago recibido"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_in_residual
 msgid "Incoming payment residual amount"
-msgstr "Incoming payment residual amount"
+msgstr "Importe residual de pago entrante"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_in_residual_company
 msgid "Incoming payment residual amount in company currency"
-msgstr "Incoming payment residual amount in company currency"
+msgstr "Importe residual de pago recibido en moneda de la empresa"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -226,7 +228,7 @@ msgstr "Diario"
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_journal_count
 msgid "Journal Count"
-msgstr "Journal Count"
+msgstr "Recuento diario"
 
 #. module: sale_third_party
 #: model:ir.model,name:sale_third_party.model_account_move_line
@@ -236,12 +238,12 @@ msgstr "Apunte contable"
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale___last_update
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr "Última modificación en"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr "Última actualización de"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_write_date
@@ -251,22 +253,22 @@ msgstr "Última actualización en"
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.view_order_form
 msgid "Outgoing Payment"
-msgstr "Outgoing Payment"
+msgstr "Pago saliente"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_out_residual
 msgid "Outgoing payment residual amount"
-msgstr "Outgoing payment residual amount"
+msgstr "Importe residual importe saliente"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_out_residual_company
 msgid "Outgoing payment residual amount in company currency"
-msgstr "Outgoing payment residual amount in company currency"
+msgstr "Importe residual de pago saliente en moneda de la empresa"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_out_state
 msgid "Outgoing payment status"
-msgstr "Outgoing payment status"
+msgstr "Estado de pago saliente"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.sale_third_party_layout_standard
@@ -283,12 +285,12 @@ msgstr "Pagos"
 #: selection:sale.order,third_party_customer_in_state:0
 #: selection:sale.order,third_party_customer_out_state:0
 msgid "Pending amount"
-msgstr "Pending amount"
+msgstr "Importe pendiente"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.view_order_form
 msgid "Pending amount in company currency"
-msgstr "Pending amount in company currency"
+msgstr "Importe pendiente de moneda de la empresa"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.sale_third_party_layout_standard
@@ -299,58 +301,58 @@ msgstr "Teléfono:"
 #: code:addons/sale_third_party/models/sale_order.py:162
 #, python-format
 msgid "Please define a third party customer account for %s."
-msgstr "Please define a third party customer account for %s."
+msgstr "Por favor, defina una cuenta de cliente de terceros para %s."
 
 #. module: sale_third_party
 #: code:addons/sale_third_party/models/sale_order.py:257
 #, python-format
 msgid "Please define a third party partner."
-msgstr "Please define a third party partner."
+msgstr "Por favor, defina un socio tercero."
 
 #. module: sale_third_party
 #: code:addons/sale_third_party/models/sale_order.py:165
 #, python-format
 msgid "Please define a third party supplier account for %s."
-msgstr "Please define a third party supplier account for %s."
+msgstr "Por favor, defina una cuenta de proveedor externo para%s."
 
 #. module: sale_third_party
 #: code:addons/sale_third_party/models/sale_order.py:217
 #, python-format
 msgid "Please define an invoice sequence in the third party partner."
-msgstr "Please define an invoice sequence in the third party partner."
+msgstr "Por favor, defina una secuencia de factura en el tercero asociado."
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_medical_patient_third_party_sequence_prefix
 #: model:ir.model.fields,field_description:sale_third_party.field_res_partner_third_party_sequence_prefix
 #: model:ir.model.fields,field_description:sale_third_party.field_res_users_third_party_sequence_prefix
 msgid "Prefix for Third Party Invoices"
-msgstr "Prefix for Third Party Invoices"
+msgstr "Prefijo para facturas de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,help:sale_third_party.field_medical_patient_third_party_sequence_prefix
 #: model:ir.model.fields,help:sale_third_party.field_res_partner_third_party_sequence_prefix
 #: model:ir.model.fields,help:sale_third_party.field_res_users_third_party_sequence_prefix
 msgid "Prefix used to generate the internal reference for products created with this category. If blank the default sequence will be used."
-msgstr "Prefix used to generate the internal reference for products created with this category. If blank the default sequence will be used."
+msgstr "Prefijo utilizado para generar la referencia interna para los productos creados con esta categoría. Si está en blanco se utilizará la secuencia por defecto."
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.view_order_form_button
 msgid "Print Third Party Invoice"
-msgstr "Print Third Party Invoice"
+msgstr "Imprimir factura de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_medical_patient_property_third_party_customer_account_id
 #: model:ir.model.fields,field_description:sale_third_party.field_res_partner_property_third_party_customer_account_id
 #: model:ir.model.fields,field_description:sale_third_party.field_res_users_property_third_party_customer_account_id
 msgid "Property Third Party Customer Account"
-msgstr "Property Third Party Customer Account"
+msgstr "Propiedad de cuenta de cliente de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_medical_patient_property_third_party_supplier_account_id
 #: model:ir.model.fields,field_description:sale_third_party.field_res_partner_property_third_party_supplier_account_id
 #: model:ir.model.fields,field_description:sale_third_party.field_res_users_property_third_party_supplier_account_id
 msgid "Property Third Party Supplier Account"
-msgstr "Property Third Party Supplier Account"
+msgstr "Propiedad de cuenta de proveedor de terceros"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -370,7 +372,7 @@ msgstr "Motivo"
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.cash_third_party_sale_form
 msgid "Register"
-msgstr "Register"
+msgstr "Registro"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_sale_order_id
@@ -387,7 +389,7 @@ msgstr "Línea de orden de ventas"
 #: model:ir.model.fields,field_description:sale_third_party.field_res_partner_third_party_sequence_id
 #: model:ir.model.fields,field_description:sale_third_party.field_res_users_third_party_sequence_id
 msgid "Sequence for Third Party Invoices"
-msgstr "Sequence for Third Party Invoices"
+msgstr "Secuencia para facturas de terceros"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.view_order_form
@@ -402,78 +404,78 @@ msgstr "Impuestos"
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_customer_in_state
 msgid "Third Party Customer In State"
-msgstr "Third Party Customer In State"
+msgstr "Estado cliente de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_account_move_line_third_party_customer_sale_order_id
 msgid "Third Party Customer Sale Order"
-msgstr "Third Party Customer Sale Order"
+msgstr "Pedido de venta de terceros"
 
 #. module: sale_third_party
 #: model:ir.actions.report,name:sale_third_party.action_report_saleorder_third_party
 msgid "Third Party Invoice"
-msgstr "Third Party Invoice"
+msgstr "Factura de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_res_company_third_party_journal_id
 msgid "Third Party Journal"
-msgstr "Third Party Journal"
+msgstr "Diario de Terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_number
 msgid "Third Party Number"
-msgstr "Third Party Number"
+msgstr "Número de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_order
 msgid "Third Party Order"
-msgstr "Third Party Order"
+msgstr "Orden de Terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_partner_id
 msgid "Third Party Partner"
-msgstr "Third Party Partner"
+msgstr "Socio de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_line_third_party_price
 msgid "Third Party Price"
-msgstr "Third Party Price"
+msgstr "Precio de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_line_third_party_product_id
 msgid "Third Party Product"
-msgstr "Third Party Product"
+msgstr "Producto de terceros"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.view_order_form
 msgid "Third party"
-msgstr "Third party"
+msgstr "Tercero"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_account_payment_third_party_account_id
 msgid "Third party account"
-msgstr "Third party account"
+msgstr "Cuenta de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_move_id
 msgid "Third party move"
-msgstr "Third party move"
+msgstr "Movimiento de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_source_third_party_order_id
 msgid "Third party order"
-msgstr "Third party order"
+msgstr "Orden de terceros"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_order_count
 msgid "Third party order #"
-msgstr "Third party order #"
+msgstr "Orden de terceros#"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_sale_order_third_party_order_ids
 #: model:ir.ui.view,arch_db:sale_third_party.view_order_form
 msgid "Third party orders"
-msgstr "Third party orders"
+msgstr "Pedidos de terceros"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -483,12 +485,12 @@ msgstr "Precio total"
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
 msgid "Unit Price"
-msgstr "Precio Unitario"
+msgstr "Precio unitario"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_account_payment_use_third_party_account
 msgid "Use Third Party Account"
-msgstr "Use Third Party Account"
+msgstr "Utilizar cuenta de terceros"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.sale_third_party_layout_standard
@@ -498,7 +500,7 @@ msgstr "Web:"
 #. module: sale_third_party
 #: model:ir.model.fields,help:sale_third_party.field_account_payment_use_third_party_account
 msgid "When you set this flag the payment will be recorded to the third party account defined for this partner."
-msgstr "When you set this flag the payment will be recorded to the third party account defined for this partner."
+msgstr "Cuando establezca este indicador, el pago se registrará en la cuenta definida para este socio."
 
 #. module: sale_third_party
 #: model:ir.model,name:sale_third_party.model_cash_third_party_sale
@@ -513,5 +515,4 @@ msgstr "res.partner.property"
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_account_bank_statement_line_third_party_sale_order_id
 msgid "third party sale order"
-msgstr "third party sale order"
-
+msgstr "orden de venta de terceros"

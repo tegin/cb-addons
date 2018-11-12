@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_commission_cancel
+# 	* sale_commission_cancel
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07 10:19+0000\n"
-"PO-Revision-Date: 2018-11-07 10:19+0000\n"
+"POT-Creation-Date: 2018-11-07 10:28+0000\n"
+"PO-Revision-Date: 2018-11-09 12:17+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2\n"
 
 #. module: sale_commission_cancel
 #: model:ir.model.fields,field_description:sale_commission_cancel.field_account_invoice_agent_change_agent
@@ -40,22 +42,22 @@ msgstr "Cancelar"
 #: code:addons/sale_commission_cancel/models/account_invoice.py:42
 #, python-format
 msgid "Cancelled lines must have a parent."
-msgstr "Cancelled lines must have a parent."
+msgstr "Las líneas canceladas deben tener un padre."
 
 #. module: sale_commission_cancel
 #: model:ir.actions.act_window,name:sale_commission_cancel.account_invoice_agent_change_action
 msgid "Change Agent"
-msgstr "Change Agent"
+msgstr "Cambio de Agente"
 
 #. module: sale_commission_cancel
 #: model:ir.ui.view,arch_db:sale_commission_cancel.account_invoice_agent_change_form
 msgid "Change agent"
-msgstr "Change agent"
+msgstr "Cambio de Agente"
 
 #. module: sale_commission_cancel
 #: model:ir.model.fields,field_description:sale_commission_cancel.field_account_invoice_line_agent_child_agent_line_ids
 msgid "Child Agent Line"
-msgstr "Child Agent Line"
+msgstr "Línea de agente infantil"
 
 #. module: sale_commission_cancel
 #: model:ir.model.fields,field_description:sale_commission_cancel.field_account_invoice_agent_change_create_uid
@@ -75,22 +77,22 @@ msgstr "Nombre mostrado"
 #. module: sale_commission_cancel
 #: model:ir.model.fields,field_description:sale_commission_cancel.field_account_invoice_agent_change_id
 msgid "ID"
-msgstr "ID (identificación)"
+msgstr "ID"
 
 #. module: sale_commission_cancel
 #: model:ir.model.fields,field_description:sale_commission_cancel.field_account_invoice_line_agent_is_cancel
 msgid "Is Cancel"
-msgstr "Is Cancel"
+msgstr "Es cancelar"
 
 #. module: sale_commission_cancel
 #: model:ir.model.fields,field_description:sale_commission_cancel.field_account_invoice_agent_change___last_update
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr "Última modificación en"
 
 #. module: sale_commission_cancel
 #: model:ir.model.fields,field_description:sale_commission_cancel.field_account_invoice_agent_change_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr "Última actualización de"
 
 #. module: sale_commission_cancel
 #: model:ir.model.fields,field_description:sale_commission_cancel.field_account_invoice_agent_change_write_date
@@ -100,12 +102,12 @@ msgstr "Última actualización en"
 #. module: sale_commission_cancel
 #: model:ir.model.fields,field_description:sale_commission_cancel.field_account_invoice_line_agent_parent_agent_line_id
 msgid "Parent Agent Line"
-msgstr "Parent Agent Line"
+msgstr "Línea Agente Principal"
 
 #. module: sale_commission_cancel
 #: model:ir.ui.view,arch_db:sale_commission_cancel.account_invoice_agent_change_form
 msgid "Register"
-msgstr "Register"
+msgstr "Registro"
 
 #. module: sale_commission_cancel
 #: sql_constraint:account.invoice.line.agent:0
@@ -121,4 +123,3 @@ msgstr "account.invoice.agent.change"
 #: model:ir.model,name:sale_commission_cancel.model_account_invoice_line_agent
 msgid "account.invoice.line.agent"
 msgstr "account.invoice.line.agent"
-
