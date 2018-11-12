@@ -12,17 +12,21 @@
             </field>
             <field name="account_id" position="attributes">
                 <attribute name="attrs">
-                {'invisible':[('pos_session_state', '!=', 'pending_approval'),('journal_entry_ids','!=', False)]}
+                    {'invisible':[('pos_session_state', '!=',
+                    'pending_approval'),('journal_entry_ids','!=', False)]}
                 </attribute>
             </field>
-            <field name="account_id" position="after">
-                <button name="%(action_statement_change_account)d"
+            <group position="inside">
+                <group name="actions">
+                    <button name="%(action_statement_change_account)d"
                             type="action"
                             string="Change account"
                             class="oe_highlight"
                             attrs="{'invisible':[('pos_session_state', '!=', 'pending_approval')]}"
-                />
-            </field>
+                    />
+                </group>
+            </group>
+
         </field>
     </record>
 </odoo>
