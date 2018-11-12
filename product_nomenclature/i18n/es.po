@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* product_nomenclature
+# 	* product_nomenclature
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07 10:19+0000\n"
-"PO-Revision-Date: 2018-11-07 10:19+0000\n"
+"POT-Creation-Date: 2018-11-07 10:28+0000\n"
+"PO-Revision-Date: 2018-11-07 16:59+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2\n"
 
 #. module: product_nomenclature
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_active
@@ -28,12 +30,12 @@ msgstr "Archivado"
 #. module: product_nomenclature
 #: model:ir.actions.act_window,help:product_nomenclature.product_nomenclature_product_action
 msgid "Click to create a nomenclature item."
-msgstr "Click to create a nomenclature item."
+msgstr "Haga clic para crear un elemento de nomenclatura."
 
 #. module: product_nomenclature
 #: model:ir.actions.act_window,help:product_nomenclature.product_nomenclature_action
 msgid "Click to create a nomenclature."
-msgstr "Click to create a nomenclature."
+msgstr "Haga clic para crear una nomenclatura."
 
 #. module: product_nomenclature
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_code
@@ -63,7 +65,7 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_id
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_product_id
 msgid "ID"
-msgstr "ID (identificación)"
+msgstr "ID"
 
 #. module: product_nomenclature
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_item_ids
@@ -79,13 +81,13 @@ msgstr "Elementos"
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature___last_update
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_product___last_update
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr "Última modificación en"
 
 #. module: product_nomenclature
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_product_write_uid
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr "Última actualización de"
 
 #. module: product_nomenclature
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_product_write_date
@@ -103,18 +105,18 @@ msgstr "Nombre"
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_nomenclature_product_nomenclature_id
 #: model:ir.model.fields,field_description:product_nomenclature.field_product_product_nomenclature_ids
 msgid "Nomenclature"
-msgstr "Nomenclature"
+msgstr "Nomenclatura"
 
 #. module: product_nomenclature
 #: model:ir.actions.act_window,name:product_nomenclature.product_nomenclature_product_action
 msgid "Nomenclature Items"
-msgstr "Nomenclature Items"
+msgstr "Articulos de nomenclatura"
 
 #. module: product_nomenclature
 #: model:ir.actions.act_window,name:product_nomenclature.product_nomenclature_action
 #: model:ir.ui.view,arch_db:product_nomenclature.product_nomenclature_search
 msgid "Nomenclatures"
-msgstr "Nomenclatures"
+msgstr "Nomenclaturas"
 
 #. module: product_nomenclature
 #: model:ir.model,name:product_nomenclature.model_product_product
@@ -125,14 +127,14 @@ msgstr "Producto"
 #. module: product_nomenclature
 #: model:ir.ui.view,arch_db:product_nomenclature.product_nomenclature_product_search
 msgid "Product Nomenclatures"
-msgstr "Product Nomenclatures"
+msgstr "Nomenclaturas de producto"
 
 #. module: product_nomenclature
 #: code:addons/product_nomenclature/models/product_nomenclature.py:42
 #: sql_constraint:product.nomenclature.product:0
 #, python-format
 msgid "Product must be unique in a nomenclature"
-msgstr "Product must be unique in a nomenclature"
+msgstr "El producto debe ser único en una nomenclatura"
 
 #. module: product_nomenclature
 #: model:ir.model,name:product_nomenclature.model_product_nomenclature
@@ -143,4 +145,3 @@ msgstr "product.nomenclature"
 #: model:ir.model,name:product_nomenclature.model_product_nomenclature_product
 msgid "product.nomenclature.product"
 msgstr "product.nomenclature.product"
-
