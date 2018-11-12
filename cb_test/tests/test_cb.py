@@ -230,63 +230,72 @@ class TestMedicalCareplanSale(TransactionCase):
             'name': 'Plan',
             'type_id': self.type.id,
             'is_billable': True,
-        }).activate()
+        })
+        self.plan_definition.activate()
         self.plan_definition2 = self.env['workflow.plan.definition'].create({
             'name': 'Plan2',
             'type_id': self.type.id,
             'is_billable': True,
             'is_breakdown': False,
             'third_party_bill': True,
-        }).activate()
+        })
+        self.plan_definition2.activate()
         self.plan_definition3 = self.env['workflow.plan.definition'].create({
             'name': 'Plan2',
             'type_id': self.type.id,
             'is_billable': True,
             'is_breakdown': False,
             'third_party_bill': False,
-        }).activate()
+        })
+        self.plan_definition3.activate()
         self.activity = self.env['workflow.activity.definition'].create({
             'name': 'Activity',
             'service_id': self.product_02.id,
             'model_id': self.browse_ref('medical_clinical_procedure.'
                                         'model_medical_procedure_request').id,
             'type_id': self.type.id,
-        }).activate()
+        })
+        self.activity.activate()
         self.activity2 = self.env['workflow.activity.definition'].create({
             'name': 'Activity2',
             'service_id': self.service.id,
             'model_id': self.browse_ref('medical_medication_request.'
                                         'model_medical_medication_request').id,
             'type_id': self.type.id,
-        }).activate()
+        })
+        self.activity2.activate()
         self.activity3 = self.env['workflow.activity.definition'].create({
             'name': 'Activity3',
             'model_id': self.browse_ref(
                 'medical_document.model_medical_document_reference').id,
             'document_type_id': self.document_type.id,
             'type_id': self.type.id,
-        }).activate()
+        })
+        self.activity3.activate()
         self.activity4 = self.env['workflow.activity.definition'].create({
             'name': 'Activity4',
             'model_id': self.browse_ref(
                 'medical_document.model_medical_document_reference').id,
             'document_type_id': self.document_type_label.id,
             'type_id': self.type.id,
-        }).activate()
+        })
+        self.activity4.activate()
         self.activity5 = self.env['workflow.activity.definition'].create({
             'name': 'Activity 5',
             'service_id': self.product_02.id,
             'model_id': self.browse_ref('medical_clinical_procedure.'
                                         'model_medical_procedure_request').id,
             'type_id': self.type.id,
-        }).activate()
+        })
+        self.activity5.activate()
         self.lab_activity = self.env['workflow.activity.definition'].create({
             'name': 'Laboratory activity',
             'service_id': self.product_02.id,
             'model_id': self.browse_ref('medical_clinical_laboratory.'
                                         'model_medical_laboratory_request').id,
             'type_id': self.type.id,
-        }).activate()
+        })
+        self.lab_activity.activate()
         self.env['workflow.plan.definition.action'].create({
             'activity_definition_id': self.activity.id,
             'direct_plan_definition_id': self.plan_definition2.id,
