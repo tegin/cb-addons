@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* safe_box
+# 	* safe_box
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07 10:19+0000\n"
-"PO-Revision-Date: 2018-11-07 10:19+0000\n"
+"POT-Creation-Date: 2018-11-07 10:28+0000\n"
+"PO-Revision-Date: 2018-11-07 16:54+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2\n"
 
 #. module: safe_box
 #: model:ir.model,name:safe_box.model_account_account
@@ -42,7 +44,7 @@ msgstr "Cuentas"
 #: code:addons/safe_box/models/account_move.py:34
 #, python-format
 msgid "Accounts with a related safe box must be under safe box moves"
-msgstr "Accounts with a related safe box must be under safe box moves"
+msgstr "Las cuentas con una caja de seguridad relacionada deben estar bajo movimientos de caja de seguridad"
 
 #. module: safe_box
 #: model:ir.ui.view,arch_db:safe_box.safe_box_group_form
@@ -105,7 +107,7 @@ msgstr "Código"
 #. module: safe_box
 #: model:ir.model.fields,field_description:safe_box.field_wizard_safe_box_count_coin_safe_box_coin_id
 msgid "Coin"
-msgstr "Coin"
+msgstr "Moneda"
 
 #. module: safe_box
 #: model:ir.model.fields,field_description:safe_box.field_safe_box_group_coin_ids
@@ -240,7 +242,7 @@ msgstr "Generar movimiento"
 #: model:ir.model.fields,field_description:safe_box.field_wizard_safe_box_move_external_id
 #: model:ir.model.fields,field_description:safe_box.field_wizard_safe_box_move_id
 msgid "ID"
-msgstr "ID (identificación)"
+msgstr "ID"
 
 #. module: safe_box
 #: model:ir.model.fields,field_description:safe_box.field_wizard_safe_box_move_initial_safe_box_id
@@ -263,7 +265,7 @@ msgstr "Diario"
 #: model:ir.model.fields,field_description:safe_box.field_wizard_safe_box_move___last_update
 #: model:ir.model.fields,field_description:safe_box.field_wizard_safe_box_move_external___last_update
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr "Última modificación en"
 
 #. module: safe_box
 #: model:ir.model.fields,field_description:safe_box.field_safe_box_coin_write_uid
@@ -276,7 +278,7 @@ msgstr "Última modificación el"
 #: model:ir.model.fields,field_description:safe_box.field_wizard_safe_box_move_external_write_uid
 #: model:ir.model.fields,field_description:safe_box.field_wizard_safe_box_move_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr "Última actualización de"
 
 #. module: safe_box
 #: model:ir.model.fields,field_description:safe_box.field_safe_box_coin_write_date
@@ -378,7 +380,7 @@ msgstr "La Caja fuerte no puede tener valor negativo"
 #. module: safe_box
 #: model:ir.model,name:safe_box.model_safe_box_coin
 msgid "Safe box coin"
-msgstr "Safe box coin"
+msgstr "Moneda Caja Fuerte"
 
 #. module: safe_box
 #: model:ir.model,name:safe_box.model_safe_box_group
@@ -485,4 +487,3 @@ msgstr "wizard.safe.box.move"
 #: model:ir.model,name:safe_box.model_wizard_safe_box_move_external
 msgid "wizard.safe.box.move.external"
 msgstr "wizard.safe.box.move.external"
-
