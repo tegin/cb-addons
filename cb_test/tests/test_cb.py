@@ -114,9 +114,6 @@ class TestMedicalCareplanSale(TransactionCase):
             'is_medical': True,
             'is_center': True,
             'encounter_sequence_prefix': 'S',
-            'stock_location_id': self.browse_ref('stock.warehouse0').id,
-            'stock_picking_type_id': self.env['stock.picking.type'].search(
-                [], limit=1).id
         })
         self.location = self.env['res.partner'].create({
             'name': 'Location',
