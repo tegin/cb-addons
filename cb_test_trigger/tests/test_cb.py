@@ -87,5 +87,3 @@ class TestCBTrigger(TestCB):
             'pos_session_id': self.session.id,
         }).run()
         self.assertIn(encounter.state, ['onleave', 'finished'])
-
-
