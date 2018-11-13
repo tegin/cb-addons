@@ -1,13 +1,7 @@
 # Copyright 2017 Creu Blanca
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from dateutil.relativedelta import relativedelta
-import base64
-from datetime import timedelta
-from odoo import fields
 from odoo.tests.common import SavepointCase
-from odoo.exceptions import UserError, ValidationError
-from mock import patch
 
 
 class TestCB(SavepointCase):
