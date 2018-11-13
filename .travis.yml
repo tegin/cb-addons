@@ -35,8 +35,8 @@ env:
   matrix:
   - LINT_CHECK="1"
   - TRANSIFEX="1"
-  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="cb_medical_guard,cb_test"
-  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="cb_medical_guard,cb_test"
+  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="cb_medical_guard,cb_test,cb_test_constrains,cb_test_document,cb_test_invoicing,cb_test_laboratory,cb_test_payment,cb_test_practitioner,cb_test_sale,cb_test_trigger"
+  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="cb_medical_guard,cb_test,cb_test_constrains,cb_test_document,cb_test_invoicing,cb_test_laboratory,cb_test_payment,cb_test_practitioner,cb_test_sale,cb_test_trigger"
   - TESTS="1" ODOO_REPO="OCA/OCB" INCLUDE="cb_medical_guard"
   - TESTS="1" ODOO_REPO="odoo/odoo" INCLUDE="cb_medical_guard"
   - TESTS="1" ODOO_REPO="odoo/odoo" INCLUDE="cb_test_constrains"
