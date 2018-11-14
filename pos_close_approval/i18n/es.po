@@ -1,38 +1,32 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* pos_close_approval
+#	* pos_close_approval
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07 10:27+0000\n"
-"PO-Revision-Date: 2018-11-09 12:41+0100\n"
+"POT-Creation-Date: 2018-11-14 08:31+0000\n"
+"PO-Revision-Date: 2018-11-14 08:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: es\n"
-"X-Generator: Poedit 2.2\n"
 
 #. module: pos_close_approval
 #: model:ir.ui.view,arch_db:pos_close_approval.view_pos_session_form
-msgid ""
-"<span class=\"o_stat_text\">Put</span>\n"
+msgid "<span class=\"o_stat_text\">Put</span>\n"
 "                        <span class=\"o_stat_text\">Money In</span>"
-msgstr ""
-"<span class=\"o_stat_text\">Put</span>\n"
+msgstr "<span class=\"o_stat_text\">Put</span>\n"
 "                        <span class=\"o_stat_text\">Money In</span>"
 
 #. module: pos_close_approval
 #: model:ir.ui.view,arch_db:pos_close_approval.view_pos_session_form
-msgid ""
-"<span class=\"o_stat_text\">Take</span>\n"
+msgid "<span class=\"o_stat_text\">Take</span>\n"
 "                        <span class=\"o_stat_text\">Money Out</span>"
-msgstr ""
-"<span class=\"o_stat_text\">Take</span>\n"
+msgstr "<span class=\"o_stat_text\">Take</span>\n"
 "                        <span class=\"o_stat_text\">Money Out</span>"
 
 #. module: pos_close_approval
@@ -118,7 +112,7 @@ msgstr "Cambiar cuenta"
 #: model:ir.ui.view,arch_db:pos_close_approval.account_bank_statement_line_account_form
 #: model:ir.ui.view,arch_db:pos_close_approval.cash_box_journal_in_form
 msgid "Collect payment from customer invoice or supplier refund"
-msgstr "Recoger el pago de la factura del cliente o el reembolso del proveedor"
+msgstr "Recoger el pago de la factura del cliente o reembolso del proveedor"
 
 #. module: pos_close_approval
 #: model:ir.model.fields,field_description:pos_close_approval.field_account_bank_statement_line_account_company_id
@@ -155,7 +149,7 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: pos_close_approval
-#: model:ir.model.fields,field_description:pos_close_approval.field_account_bank_statement_line_account_id_9966
+#: model:ir.model.fields,field_description:pos_close_approval.field_account_bank_statement_line_account_id_8565
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_in_id
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_out_id
 msgid "ID"
@@ -180,21 +174,21 @@ msgstr "Recuento diario"
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_in___last_update
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_out___last_update
 msgid "Last Modified on"
-msgstr "Última modificación en"
+msgstr "Última modificación el"
 
 #. module: pos_close_approval
 #: model:ir.model.fields,field_description:pos_close_approval.field_account_bank_statement_line_account_write_uid
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_in_write_uid
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_out_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización de"
+msgstr "Última actualización por"
 
 #. module: pos_close_approval
 #: model:ir.model.fields,field_description:pos_close_approval.field_account_bank_statement_line_account_write_date
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_in_write_date
 #: model:ir.model.fields,field_description:pos_close_approval.field_cash_box_journal_out_write_date
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr "Última actualización el"
 
 #. module: pos_close_approval
 #: model:ir.ui.view,arch_db:pos_close_approval.cash_box_journal_out
@@ -277,3 +271,4 @@ msgstr "pos.config"
 #: model:ir.model,name:pos_close_approval.model_pos_session
 msgid "pos.session"
 msgstr "pos.session"
+
