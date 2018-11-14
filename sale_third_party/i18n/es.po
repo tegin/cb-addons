@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* sale_third_party
+#	* sale_third_party
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07 10:28+0000\n"
-"PO-Revision-Date: 2018-11-08 12:50+0100\n"
+"POT-Creation-Date: 2018-11-14 08:31+0000\n"
+"PO-Revision-Date: 2018-11-14 08:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: es\n"
-"X-Generator: Poedit 2.2\n"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -35,7 +33,7 @@ msgstr "<span>factura # </span>"
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
 msgid "<strong>Date Ordered:</strong>"
-msgstr "<strong>Fecha de pedido:</strong>"
+msgstr "<strong>Fecha ordenada:</strong>"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -50,7 +48,7 @@ msgstr "<strong>Posición Fiscal:</strong>"
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
 msgid "<strong>Payment Terms:</strong>"
-msgstr "<strong>Plazo de pago:</strong>"
+msgstr "<strong>Términos de Pago:</strong>"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.report_saleorder_third_party_document
@@ -238,17 +236,17 @@ msgstr "Apunte contable"
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale___last_update
 msgid "Last Modified on"
-msgstr "Última modificación en"
+msgstr "Última modificación el"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización de"
+msgstr "Última actualización por"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_cash_third_party_sale_write_date
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr "Última actualización el"
 
 #. module: sale_third_party
 #: model:ir.ui.view,arch_db:sale_third_party.view_order_form
@@ -382,7 +380,7 @@ msgstr "Pedido de venta"
 #. module: sale_third_party
 #: model:ir.model,name:sale_third_party.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de orden de ventas"
+msgstr "Línea de pedido de ventas"
 
 #. module: sale_third_party
 #: model:ir.model.fields,field_description:sale_third_party.field_medical_patient_third_party_sequence_id
@@ -516,3 +514,4 @@ msgstr "res.partner.property"
 #: model:ir.model.fields,field_description:sale_third_party.field_account_bank_statement_line_third_party_sale_order_id
 msgid "third party sale order"
 msgstr "orden de venta de terceros"
+
