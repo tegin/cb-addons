@@ -217,7 +217,7 @@ class TestCB(SavepointCase):
         self.type = self.browse_ref('medical_workflow.medical_workflow')
         self.type.model_ids = [(4, self.browse_ref(
             'medical_medication_request.model_medical_medication_request').id)]
-        self.plan_definition = self.env['workflow.plan.definition'].create({
+        self.plan_definition = self.env['wo rkflow.plan.definition'].create({
             'name': 'Plan',
             'type_id': self.type.id,
             'is_billable': True,
