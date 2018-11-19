@@ -211,7 +211,9 @@ class SaleOrder(models.Model):
     def _action_confirm(self):
         res = super(SaleOrder, self)._action_confirm()
         for order in self.filtered(lambda o: o.third_party_order):
-            if not order.third_party_number:
+            if not order.third_party_number and not self.env.context.get(
+                'no_third_party_number', False
+            ):
                 sequence = order.third_party_partner_id.third_party_sequence_id
                 if not sequence:
                     raise UserError(_('Please define an invoice '
