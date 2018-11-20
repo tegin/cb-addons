@@ -31,7 +31,7 @@ if line._name == 'account.invoice.line':
         fixed_fee = sum(procedures.mapped('fixed_fee'))
         result += (variable_fee/100 * line.price_subtotal) + fixed_fee
     if events:
-        result += sum(events.mapped('coverage_cost' if line.order_id.coverage_agreement_id else 'private_cost'))
+        result += sum(events.mapped('coverage_cost' if line.sale_line_ids.order_id.coverage_agreement_id else 'private_cost'))
             </field>
         </record>
 
