@@ -24,7 +24,7 @@
                                 <span t-field="location.name"/>
                             </h3>
                             <t t-set="items"
-                               t-value="o.medication_item_ids.filtered(lambda r: r.location_id == location)"/>
+                               t-value="o.medication_item_ids.filtered(lambda r: r.location_id == location and not r.is_phantom)"/>
                             <t t-foreach="items.mapped('categ_id')"
                                t-as="categ">
                                 <h4>
