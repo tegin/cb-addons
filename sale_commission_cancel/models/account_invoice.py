@@ -19,11 +19,22 @@ class AccountInvoiceLineAgent(models.Model):
         compute='_compute_can_cancel', store=True,
     )
 
-    _sql_constraints = [
-        ('unique_agent',
-         'UNIQUE(invoice_line, agent, parent_agent_line_id, is_cancel)',
-         'You can only add one time each agent.')
-    ]
+    @classmethod
+    def _build_model_attributes(cls, pool):
+        res = super()._build_model_attributes(pool)
+        constraints = []
+        for (key, definition, message) in cls._sql_constraints:
+            if key in ['unique_agent']:
+                constraints.append((
+                    key,
+                    'UNIQUE(invoice_line, agent, parent_agent_line_id, '
+                    'is_cancel)',
+                    message
+                ))
+            else:
+                constraints.append((key, definition, message))
+        cls._sql_constraints = constraints
+        return res
 
     @api.depends('child_agent_line_ids', 'is_cancel',
                  'invoice_line.invoice_id.state')
