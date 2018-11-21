@@ -2,8 +2,11 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, tools, _
 from odoo.exceptions import ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrderLine(models.Model):
@@ -86,22 +89,21 @@ class SaleOrderLineAgent(models.Model):
         copy=False
     )
 
-    @api.model_cr_context
-    def _auto_init(self):
+    @classmethod
+    def _build_model_attributes(cls, pool):
+        res = super()._build_model_attributes(pool)
         constraints = []
-        for (key, definition, message) in self._sql_constraints:
-            if key == 'unique_agent':
+        for (key, definition, message) in cls._sql_constraints:
+            if key in ['unique_agent']:
                 constraints.append((
-                    'unique_agent_procedure',
+                    key,
                     'UNIQUE(sale_line, agent, parent_agent_line_id, '
                     'is_cancel, procedure_id)',
-                    'You can only add one time each agent.'
+                    message
                 ))
             else:
                 constraints.append((key, definition, message))
-        self._sql_constraints = constraints
-        res = super()._auto_init()
-        self._add_sql_constraints()
+        cls._sql_constraints = constraints
         return res
 
     @api.depends('agent_sale_line', 'agent_sale_line.settlement.state',

@@ -1,5 +1,7 @@
-from odoo import api, fields, models, _
+from odoo import api, fields, models, tools, _
 from odoo.exceptions import ValidationError
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class AccountInvoiceLineAgent(models.Model):
@@ -19,25 +21,21 @@ class AccountInvoiceLineAgent(models.Model):
         compute='_compute_can_cancel', store=True,
     )
 
-    @api.model_cr_context
-    def _auto_init(self):
+    @classmethod
+    def _build_model_attributes(cls, pool):
+        res = super()._build_model_attributes(pool)
         constraints = []
-        for (key, definition, message) in self._sql_constraints:
-            if key == 'unique_agent':
-                # If we change the name it will not be overwritten if we
-                # change it on other modules
+        for (key, definition, message) in cls._sql_constraints:
+            if key in ['unique_agent']:
                 constraints.append((
-                    'unique_agent_cancel',
+                    key,
                     'UNIQUE(invoice_line, agent, parent_agent_line_id, '
                     'is_cancel)',
-                    'You can only add one time each agent.'
+                    message
                 ))
             else:
                 constraints.append((key, definition, message))
-
-        self._sql_constraints = constraints
-        res = super()._auto_init()
-        self._add_sql_constraints()
+        cls._sql_constraints = constraints
         return res
 
     @api.depends('child_agent_line_ids', 'is_cancel',
