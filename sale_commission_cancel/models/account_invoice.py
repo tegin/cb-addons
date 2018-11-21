@@ -19,11 +19,24 @@ class AccountInvoiceLineAgent(models.Model):
         compute='_compute_can_cancel', store=True,
     )
 
-    _sql_constraints = [
-        ('unique_agent',
-         'UNIQUE(invoice_line, agent, parent_agent_line_id, is_cancel)',
-         'You can only add one time each agent.')
-    ]
+    @api.model_cr_context
+    def _auto_init(self):
+        constraints = []
+        for (key, definition, _) in self._sql_constraints:
+            if key == 'unique_agent':
+                # If we change the name it will not be overwritten if we
+                # change it on other modules
+                constraints.append((
+                    'unique_agent_cancel',
+                    'UNIQUE(invoice_line, agent, parent_agent_line_id, '
+                    'is_cancel)',
+                    'You can only add one time each agent.'
+                ))
+            else:
+                constraints.append((key, definition, _))
+
+        self._sql_constraints = constraints
+        return super()._auto_init()
 
     @api.depends('child_agent_line_ids', 'is_cancel',
                  'invoice_line.invoice_id.state')

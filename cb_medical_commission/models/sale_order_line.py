@@ -85,12 +85,22 @@ class SaleOrderLineAgent(models.Model):
         readonly=True,
         copy=False
     )
-    _sql_constraints = [
-        ('unique_agent',
-         'UNIQUE(sale_line, agent, parent_agent_line_id, is_cancel, '
-         'procedure_id)',
-         'You can only add one time each agent.')
-    ]
+
+    @api.model_cr_context
+    def _auto_init(self):
+        constraints = []
+        for (key, definition, _) in self._sql_constraints:
+            if key == 'unique_agent':
+                constraints.append((
+                    'unique_agent_procedure',
+                    'UNIQUE(sale_line, agent, parent_agent_line_id, '
+                    'is_cancel, procedure_id)',
+                    'You can only add one time each agent.'
+                ))
+            else:
+                constraints.append((key, definition, _))
+        self._sql_constraints = constraints
+        return super()._auto_init()
 
     @api.depends('agent_sale_line', 'agent_sale_line.settlement.state',
                  'invoice_group_method_id', 'sale_line.order_id.state')
