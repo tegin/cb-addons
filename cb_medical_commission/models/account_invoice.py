@@ -2,10 +2,7 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models, tools
-import logging
-
-_logger = logging.getLogger(__name__)
+from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
