@@ -84,7 +84,7 @@ class MedicalEncounter(models.Model):
         for careplan in self.careplan_ids:
             query = careplan.get_sale_order_query()
             for el in query:
-                key, partner, cov, group, is_ins, third_party, request = el
+                key, partner, cov, grp, is_ins, third_party, request = el
                 if not values.get(key, False):
                     values[key] = {}
                 if not values[key].get(partner, False):
@@ -93,9 +93,9 @@ class MedicalEncounter(models.Model):
                     values[key][partner][cov] = {}
                 if not values[key][partner][cov].get(third_party, False):
                     values[key][partner][cov][third_party] = {}
-                if not values[key][partner][cov][third_party].get(group, False):
-                    values[key][partner][cov][third_party][group] = []
-                values[key][partner][cov][third_party][group].append(
+                if not values[key][partner][cov][third_party].get(grp, False):
+                    values[key][partner][cov][third_party][grp] = []
+                values[key][partner][cov][third_party][grp].append(
                     request.get_sale_order_line_vals(is_ins))
         return values
 
