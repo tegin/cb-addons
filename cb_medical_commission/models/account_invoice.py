@@ -32,7 +32,7 @@ class AccountInvoiceLineAgent(models.Model):
     @api.model_cr_context
     def _auto_init(self):
         constraints = []
-        for (key, definition, _) in self._sql_constraints:
+        for (key, definition, message) in self._sql_constraints:
             if key == 'unique_agent':
                 constraints.append((
                     'unique_agent_procedure',
@@ -41,7 +41,7 @@ class AccountInvoiceLineAgent(models.Model):
                     'You can only add one time each agent.'
                 ))
             else:
-                constraints.append((key, definition, _))
+                constraints.append((key, definition, message))
         self._sql_constraints = constraints
         res = super()._auto_init()
         self._add_sql_constraints()
