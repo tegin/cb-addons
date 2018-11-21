@@ -83,7 +83,8 @@ class MedicalEncounter(models.Model):
         values = dict()
         for careplan in self.careplan_ids:
             query = careplan.get_sale_order_query()
-            for key, partner, cov, group, is_insurance, third_party, request in query:
+            for el in query:
+                key, partner, cov, group, is_ins, third_party, request = el
                 if not values.get(key, False):
                     values[key] = {}
                 if not values[key].get(partner, False):
@@ -95,7 +96,7 @@ class MedicalEncounter(models.Model):
                 if not values[key][partner][cov][third_party].get(group, False):
                     values[key][partner][cov][third_party][group] = []
                 values[key][partner][cov][third_party][group].append(
-                    request.get_sale_order_line_vals(is_insurance))
+                    request.get_sale_order_line_vals(is_ins))
         return values
 
     @api.multi
@@ -106,14 +107,17 @@ class MedicalEncounter(models.Model):
             for partner in values[key]:
                 for cov in values[key][partner]:
                     for third_party_partner in values[key][partner][cov]:
-                        for group in values[key][partner][cov][third_party_partner]:
+                        for group in values[key][partner][cov][
+                            third_party_partner
+                        ]:
                             self._generate_sale_order(
                                 key,
                                 cov,
                                 partner,
                                 third_party_partner,
                                 group,
-                                values[key][partner][cov][third_party_partner][group]
+                                values[key][partner][cov][
+                                    third_party_partner][group]
                             )
         return self.action_view_sale_order()
 

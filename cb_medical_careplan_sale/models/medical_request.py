@@ -97,7 +97,7 @@ class MedicalRequest(models.AbstractModel):
             return True
         # Agreement is researched if it is not billable
         self.coverage_agreement_item_id = self.env[
-                'medical.coverage.agreement.item'
+            'medical.coverage.agreement.item'
         ].search([
             (
                 'coverage_template_ids', '=',

@@ -5,7 +5,7 @@ class MedicalEncounter(models.Model):
     _inherit = 'medical.encounter'
 
     def _get_sale_order_vals(
-            self, partner, cov, agreement, third_party_partner, is_insurance, group
+        self, partner, cov, agreement, third_party_partner, is_insurance, group
     ):
         vals = super()._get_sale_order_vals(
             partner, cov, agreement, third_party_partner, is_insurance, group)
