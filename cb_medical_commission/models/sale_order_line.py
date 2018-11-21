@@ -100,7 +100,9 @@ class SaleOrderLineAgent(models.Model):
             else:
                 constraints.append((key, definition, _))
         self._sql_constraints = constraints
-        return super()._auto_init()
+        res = super()._auto_init()
+        self._add_sql_constraints()
+        return res
 
     @api.depends('agent_sale_line', 'agent_sale_line.settlement.state',
                  'invoice_group_method_id', 'sale_line.order_id.state')

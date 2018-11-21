@@ -36,7 +36,9 @@ class AccountInvoiceLineAgent(models.Model):
                 constraints.append((key, definition, _))
 
         self._sql_constraints = constraints
-        return super()._auto_init()
+        res = super()._auto_init()
+        self._add_sql_constraints()
+        return res
 
     @api.depends('child_agent_line_ids', 'is_cancel',
                  'invoice_line.invoice_id.state')

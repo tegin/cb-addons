@@ -43,7 +43,9 @@ class AccountInvoiceLineAgent(models.Model):
             else:
                 constraints.append((key, definition, _))
         self._sql_constraints = constraints
-        return super()._auto_init()
+        res = super()._auto_init()
+        self._add_sql_constraints()
+        return res
 
     def get_commission_cancel_vals(self, agent=False):
         res = super().get_commission_cancel_vals(agent)
