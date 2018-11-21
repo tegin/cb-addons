@@ -41,7 +41,6 @@ class MedicalRequestGroupCheckAuthorization(models.TransientModel):
     authorization_number = fields.Char()
     authorization_method_id = fields.Many2one(
         'medical.authorization.method',
-        readonly=True,
         default=_default_method,
         domain="[('id', 'in', authorization_method_ids)]",
     )
