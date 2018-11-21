@@ -27,7 +27,7 @@ class SaleOrder(models.Model):
                 order.state not in ['draft', 'cancel']
             ):
                 if all(
-                    line.preinvoice_group_id for line in 
+                    line.preinvoice_group_id for line in
                     order.order_line.filtered(
                         lambda r: r.invoice_group_method_id in preinvoicing)
                 ):

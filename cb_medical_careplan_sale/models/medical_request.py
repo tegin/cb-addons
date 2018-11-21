@@ -87,7 +87,7 @@ class MedicalRequest(models.AbstractModel):
 
     def get_sale_order_line_vals(self, is_insurance):
         return {
-            'invoice_group_method_id':self.invoice_group_method_id.id,
+            'invoice_group_method_id': self.invoice_group_method_id.id,
             'product_id': self.service_id.id,
             'name': self.service_id.name or self.name,
             self._get_parent_field_name(): self.id,
