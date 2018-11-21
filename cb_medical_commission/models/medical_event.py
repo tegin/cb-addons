@@ -71,9 +71,13 @@ class MedicalEvent(models.AbstractModel):
                     self._get_sale_order_line_agent_vals(line)
                 )
             for inv_line in line.invoice_lines:
-                if not inv_line.agents.filtered(
-                    lambda r: self.check_agents(r)
-                ) and self.commission_agent_id and self.commission_agent_id.agent:
+                if (
+                    not inv_line.agents.filtered(
+                        lambda r: self.check_agents(r)
+                    ) and
+                    self.commission_agent_id and
+                    self.commission_agent_id.agent
+                ):
                     self.env['account.invoice.line.agent'].create(
                         self._get_invoice_line_agent_vals(inv_line)
                     )

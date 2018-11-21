@@ -139,7 +139,8 @@ class MedicalRequest(models.AbstractModel):
                     request.coverage_agreement_id.id,
                     request.careplan_id.get_payor(),
                     request.coverage_id.id,
-                    request.invoice_group_method_id.id or request.coverage_agreement_id.invoice_group_method_id.id,
+                    request.invoice_group_method_id.id or
+                    request.coverage_agreement_id.invoice_group_method_id.id,
                     True,
                     request.get_third_party_partner()
                     if request.third_party_bill else 0,

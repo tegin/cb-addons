@@ -59,7 +59,7 @@ class MedicalEncounter(models.Model):
             )
 
     def _get_sale_order_vals(
-            self, partner, cov, agreement, third_party_partner, is_insurance, group
+        self, partner, cov, agreement, third_party_partner, is_insurance, group
     ):
         vals = super()._get_sale_order_vals(
             partner, cov, agreement, third_party_partner, is_insurance, group)
@@ -179,7 +179,9 @@ class MedicalEncounter(models.Model):
             if 0 not in values[0][self.get_patient_partner()]:
                 values[0][self.get_patient_partner()][0] = {}
             if 0 not in values[0][self.get_patient_partner()][0]:
-                values[0][self.get_patient_partner()][0][0] = []
+                values[0][self.get_patient_partner()][0][0] = {}
+            if 0 not in values[0][self.get_patient_partner()][0][0]:
+                values[0][self.get_patient_partner()][0][0][0] = []
         return values
 
     def _generate_sale_order(

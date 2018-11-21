@@ -65,7 +65,8 @@ class MedicalEncounter(models.Model):
         )
         if not order:
             order = self.env['sale.order'].create(self._get_sale_order_vals(
-                partner, cov, agreement, third_party_partner, is_insurance, group))
+                partner, cov, agreement,
+                third_party_partner, is_insurance, group))
         order.ensure_one()
         for order_line in order_lines:
             order_line['order_id'] = order.id
