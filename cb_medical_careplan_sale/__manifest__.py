@@ -21,6 +21,7 @@
         'cb_medical_coverage_magnetic_str',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'data/medical_invoice_group.xml',
         'data/medical_sub_payor_sequence.xml',
         'security/medical_security.xml',
