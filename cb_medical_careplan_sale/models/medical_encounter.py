@@ -68,7 +68,7 @@ class MedicalEncounter(models.Model):
             order = self.env['sale.order'].create(self._get_sale_order_vals(
                 partner, cov, agreement,
                 third_party_partner, is_insurance))
-            order.ensure_one(
+        order.ensure_one()
         for order_line in order_lines:
             order_line['order_id'] = order.id
             line = self.env['sale.order.line'].with_context(
