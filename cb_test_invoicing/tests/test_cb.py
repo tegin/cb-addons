@@ -392,6 +392,7 @@ class TestCBSale(TestCB):
         self.assertFalse(action.get('res_id', False))
         action = self.env['invoice.sales.by.group'].create({
             'invoice_group_method_id': method.id,
+            'customer_ids': [(4, self.payor.id)],
             'date_to': fields.Date.to_string(
                 fields.Date.from_string(fields.Date.today()) +
                 timedelta(days=1)
@@ -490,7 +491,7 @@ class TestCBSale(TestCB):
             encounter_aux.admin_validate()
             self.assertTrue(encounter.sale_order_ids.filtered(
                 lambda r:
-                r.invoice_status == 'to preinvoice' and
+                r.preinvoice_status == 'to preinvoice' and
                 r.invoice_group_method_id == method))
         self.env['wizard.sale.preinvoice.group'].create({
             'company_ids': [(6, 0, self.company.ids)],

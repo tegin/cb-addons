@@ -129,6 +129,7 @@ class MedicalEncounter(models.Model):
             sale_order.with_context(
                 invoice_group_method_id=self.env.ref(
                     'cb_medical_careplan_sale.by_patient').id,
+                no_check_lines=True,
             ).action_invoice_create())
         if invoice:
             invoice.action_invoice_open()

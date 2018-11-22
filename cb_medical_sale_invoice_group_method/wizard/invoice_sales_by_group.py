@@ -48,11 +48,13 @@ class InvoiceSalesByGroup(models.TransientModel):
         if self.company_ids:
             domain.append(('company_id', 'in', self.company_ids.ids))
         sales = self.env['sale.order'].search(domain)
-        invoices = []
-        for sale in sales:
-            invoices.append(sale.with_context(
-                invoice_group_method_id=self.invoice_group_method_id.id,
-            ).action_invoice_create())
+        invoices = sales.with_context(
+            customers=self.customer_ids.ids,
+            companies=self.company_ids.ids,
+            invoice_group_method_id=self.invoice_group_method_id.id,
+            no_check_lines=True,
+            merge_draft_invoice=self.merge_draft_invoice
+        ).action_invoice_create()
         # view
         action = self.env.ref('account.action_invoice_tree1')
         result = action.read()[0]
