@@ -65,7 +65,6 @@ class MedicalEncounter(models.Model):
                 'journal_id': final_inv.journal_id.id,
                 'type': 'out_refund',
                 'currency_id': final_inv.currency_id.id,
-                'encounter_final_invoice': True,
             })
             invoice_refund._onchange_partner_id()
             vals = invoice_refund._convert_to_write(
