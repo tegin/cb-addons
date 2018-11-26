@@ -123,6 +123,10 @@ class MedicalEncounter(models.Model):
                 'Cannot change the Partner of third party invoices for '
                 '%s' % so.name
             ))
+        if partner not in self.patient_id.related_partner_ids:
+            self.patient_id.write({
+                'related_partner_ids':  [(4, partner.id)],
+            })
         return inv_res, sos_res
 
     @api.model
