@@ -188,17 +188,12 @@ class SaleOrder(models.Model):
     @api.model
     def _prepare_third_party_order(self):
         lines = self.order_line.filtered(lambda l: l.third_party_product_id)
-        so_lines = [(0, 0, {
-            'name': l.product_id.name,
-            'product_id': l.third_party_product_id.id,
-            'product_uom_qty': l.product_uom_qty,
-            'product_uom': l.product_uom.id,
-            'price_unit': l.third_party_price,
-        }) for l in lines]
+        so_lines = [(0, 0, l._prepare_third_party_order_line()) for l in lines]
 
         return {
             'partner_id': self.third_party_partner_id.id,
             'order_line': so_lines,
+            'company_id': self.company_id.id,
             'source_third_party_order_id': self.id,
         }
 
@@ -283,3 +278,12 @@ class SalerOrderLine(models.Model):
         'product.product',
         domain="[('type', '=', 'service')]"
     )
+
+    def _prepare_third_party_order_line(self):
+        return {
+            'name': self.product_id.name,
+            'product_id': self.third_party_product_id.id,
+            'product_uom_qty': self.product_uom_qty,
+            'product_uom': self.product_uom.id,
+            'price_unit': self.third_party_price,
+        }
