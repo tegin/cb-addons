@@ -27,7 +27,7 @@ class AccountInvoiceLineAgent(models.Model):
             if key in ['unique_agent']:
                 constraints.append((
                     key,
-                    'UNIQUE(invoice_line, agent, parent_agent_line_id, '
+                    'UNIQUE(object_id, agent, parent_agent_line_id, '
                     'is_cancel)',
                     message
                 ))
@@ -37,13 +37,13 @@ class AccountInvoiceLineAgent(models.Model):
         return res
 
     @api.depends('child_agent_line_ids', 'is_cancel',
-                 'invoice_line.invoice_id.state')
+                 'object_id.invoice_id.state')
     def _compute_can_cancel(self):
         for rec in self:
             rec.can_cancel = (
                 not rec.child_agent_line_ids and
                 not rec.is_cancel and
-                rec.invoice_line.invoice_id.state != 'draft'
+                rec.object_id.invoice_id.state != 'draft'
             )
 
     @api.constrains('parent_agent_line_id', 'is_cancel')
@@ -52,7 +52,8 @@ class AccountInvoiceLineAgent(models.Model):
             if record.is_cancel and not record.parent_agent_line_id:
                 raise ValidationError(_('Cancelled lines must have a parent.'))
 
-    @api.depends('invoice_line.price_subtotal')
+    @api.depends('object_id.price_subtotal', 'is_cancel',
+                 'parent_agent_line_id.amount')
     def _compute_amount(self):
         res = super(AccountInvoiceLineAgent, self.filtered(
             lambda r: not r.is_cancel))._compute_amount()
@@ -63,7 +64,7 @@ class AccountInvoiceLineAgent(models.Model):
     def get_commission_cancel_vals(self, agent=False):
         return {
             'parent_agent_line_id': self.id,
-            'invoice_line': self.invoice_line.id,
+            'object_id': self.object_id.id,
             'commission': self.commission.id,
             'agent_line': False,
             'agent': agent.id if agent else self.agent.id,
