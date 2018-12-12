@@ -4,6 +4,7 @@
 
 from odoo import api, fields, models
 from odoo.modules.registry import Registry
+import threading
 
 
 class IrSequence(models.Model):
@@ -16,7 +17,11 @@ class IrSequence(models.Model):
     )
 
     def _next(self):
-        if self.env.context.get('ignore_safe', not self.safe):
+        if getattr(
+            threading.currentThread(), 'testing', False
+        ) or self.env.context.get('install_mode') or self.env.context.get(
+            'ignore_safe', not self.safe
+        ):
             return super()._next()
         new_cr = Registry(self.env.cr.dbname).cursor()
         try:
