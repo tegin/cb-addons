@@ -25,7 +25,7 @@ class SaleOrder(models.Model):
                 if all(
                     line.preinvoice_group_id for line in
                     order.order_line.filtered(
-                        lambda r: 
+                        lambda r:
                         r.invoice_group_method_id.invoice_by_preinvoice)
                 ):
                     order.preinvoice_status = 'preinvoiced'
