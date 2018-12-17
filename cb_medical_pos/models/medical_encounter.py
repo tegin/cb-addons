@@ -88,15 +88,16 @@ class MedicalEncounter(models.Model):
     @api.multi
     def inprogress2onleave(self):
         if self.laboratory_request_ids.filtered(
-            lambda r: not r.laboratory_event_ids
+            lambda r: not r.laboratory_event_ids and r.state != 'cancelled'
         ):
             raise ValidationError(_(
                 'Laboratory requests are not fulfilled.'))
         self.create_sale_order()
         res = super().inprogress2onleave()
-        if not self.sale_order_ids.filtered(
-                lambda r: not r.coverage_agreement_id and not r.is_down_payment
-        ):
+        so = self.sale_order_ids.filtered(
+            lambda r: not r.coverage_agreement_id and not r.is_down_payment
+        )
+        if not so or so.amount_total == 0:
             self.onleave2finished()
         return res
 
