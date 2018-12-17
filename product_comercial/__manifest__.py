@@ -3,11 +3,11 @@
 
 {
     'name': 'Product Comercial',
-    'description': """
-        Add Comercial field onto product""",
+    'summary': """
+        Add Comercial field to product""",
     'version': '11.0.1.0.0',
     'license': 'AGPL-3',
-    'author': 'Creu Blanca',
+    'author': 'Creu Blanca,Odoo Community Association (OCA)',
     'website': 'www.creublanca.es',
     'depends': [
         'product',
