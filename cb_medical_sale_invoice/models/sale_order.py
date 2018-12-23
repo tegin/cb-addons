@@ -79,8 +79,8 @@ class SaleOrderLine(models.Model):
             res['encounter_id'] = self.encounter_id.id
             res['authorization_number'] = self.authorization_number
             if (
-                self.sale_order_id.coverage_agreement_id and
-                self.sale_order_id.coverage_agreement_id.file_reference
+                self.order_id.coverage_agreement_id and
+                self.order_id.coverage_agreement_id.file_reference
             ):
                 res[
                     'file_reference'
