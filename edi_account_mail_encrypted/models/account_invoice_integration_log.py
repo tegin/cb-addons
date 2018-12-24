@@ -2,8 +2,13 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import models, _
 from odoo.exceptions import UserError
-from PyPDF2 import PdfFileReader, PdfFileWriter
+import logging
 from io import BytesIO
+_logger = logging.getLogger(__name__)
+try:
+    from PyPDF2 import PdfFileReader, PdfFileWriter
+except ImportError as err:
+    _logger.debug(err)
 
 
 class AccountInvoiceIntegrationLog(models.Model):
@@ -30,4 +35,3 @@ class AccountInvoiceIntegrationLog(models.Model):
             else:
                 raise UserError(_('Only PDFs are allowed'))
         return result
-
