@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import base64
 from email.utils import formataddr
-from odoo import api, fields, models, tools, _
+from odoo import models, tools
 import logging
 import traceback
 from io import StringIO
@@ -25,10 +25,13 @@ class AccountInvoiceIntegrationLog(models.Model):
             attach = self.integration_id.attachment_id.sudo().read(
                 ['datas_fname', 'datas', 'mimetype'])[0]
             result += [(
-                attach['datas_fname'], base64.b64decode(attach['datas']), attach['mimetype'])]
-        result += [(a['datas_fname'], base64.b64decode(a['datas']), a['mimetype'])
-            for a in self.integration_id.attachment_ids.sudo().read(
-                ['datas_fname', 'datas', 'mimetype'])]
+                attach['datas_fname'], 
+                base64.b64decode(attach['datas']), attach['mimetype'])]
+        result += [(
+            a['datas_fname'], 
+            base64.b64decode(a['datas']), a['mimetype']
+        )for a in self.integration_id.attachment_ids.sudo().read(
+            ['datas_fname', 'datas', 'mimetype'])]
         return result
 
     def send_email(self):
