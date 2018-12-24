@@ -18,6 +18,11 @@
         'wizards/res_encrypt_value.xml',
         'views/res_partner_view.xml',
     ],
+    'external_dependencies': {
+        'python': [
+            'PyPDF2',
+        ],
+    },
     'demo': [
     ],
 }
