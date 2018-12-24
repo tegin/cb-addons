@@ -25,10 +25,10 @@ class AccountInvoiceIntegrationLog(models.Model):
             attach = self.integration_id.attachment_id.sudo().read(
                 ['datas_fname', 'datas', 'mimetype'])[0]
             result += [(
-                attach['datas_fname'], 
+                attach['datas_fname'],
                 base64.b64decode(attach['datas']), attach['mimetype'])]
         result += [(
-            a['datas_fname'], 
+            a['datas_fname'],
             base64.b64decode(a['datas']), a['mimetype']
         )for a in self.integration_id.attachment_ids.sudo().read(
             ['datas_fname', 'datas', 'mimetype'])]
