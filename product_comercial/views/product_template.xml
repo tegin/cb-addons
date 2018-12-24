@@ -7,12 +7,12 @@
     <record model="ir.ui.view" id="product_template_form_view">
         <field name="name">product.template.form (in product_comercial)</field>
         <field name="model">product.template</field>
-	<field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
-	    <xpath expr="//field[@name='name']/.." position="after">
-		 <field name="comercial"
+            <xpath expr="//field[@name='name']/.." position="after">
+                <field name="comercial"
                        placeholder="Trade name"/>
-	    </xpath>
+            </xpath>
         </field>
     </record>
 
