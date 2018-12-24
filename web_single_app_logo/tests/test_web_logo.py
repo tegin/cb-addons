@@ -4,7 +4,7 @@ from mock import patch
 from odoo import tools
 from odoo.http import Response
 from odoo.tests.common import HttpCase, post_install, at_install
-from odoo.addons.web_single_app_logo.controllers.main import MulticompanyLogo
+from ..controllers.main import MulticompanyLogo
 
 
 class FakeRequest(object):
