@@ -125,7 +125,7 @@ class SaleOrderLineAgent(models.Model):
         # being included in settlements
         for line in self:
             line.settled = (
-                line.third_party_order or
+                line.object_id.order_id.third_party_order or
                 not line.invoice_group_method_id.no_invoice or
                 line.object_id.order_id.state not in ('sale', 'done') or
                 any(x.settlement.state != 'cancel'
