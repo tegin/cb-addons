@@ -2,7 +2,7 @@ from odoo import api, fields, models
 
 
 class MedicalCommissionAction(models.AbstractModel):
-    _inherit = 'medical.commission.action'
+    _name = 'medical.commission.action'
 
     commission_agent_id = fields.Many2one(
         string='Commission Agent',
