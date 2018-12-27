@@ -11,3 +11,4 @@ stock-logistics-warehouse
 stock-logistics-workflow
 server-tools
 server-ux
+account-invoice-reporting
