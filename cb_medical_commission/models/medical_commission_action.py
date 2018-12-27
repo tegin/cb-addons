@@ -4,6 +4,11 @@ from odoo import api, fields, models
 class MedicalCommissionAction(models.AbstractModel):
     _name = 'medical.commission.action'
 
+    performer_id = fields.Many2one(
+        string='Performer',
+        comodel_name='res.partner',
+        domain=[('is_practitioner', '=', True)],
+    )
     commission_agent_id = fields.Many2one(
         string='Commission Agent',
         comodel_name='res.partner',
