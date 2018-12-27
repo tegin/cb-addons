@@ -21,6 +21,12 @@ class SaleOrderLine(models.Model):
         column1='sale_order_line_id',
         column2='laboratory_event_id',
     )
+    laboratory_request_ids = fields.Many2many(
+        'medical.laboratory.event',
+        relation='sale_order_line_commission_medical_laboratory_request',
+        column1='sale_order_line_id',
+        column2='laboratory_request_id',
+    )
 
     @api.multi
     def _prepare_invoice_line(self, qty):
@@ -29,7 +35,11 @@ class SaleOrderLine(models.Model):
             vals['agents'] = [
                 (0, 0, {'agent': x.agent.id,
                         'commission': x.commission.id,
-                        'procedure_id': x.procedure_id.id,
+                        'procedure_id': x.procedure_id.id or False,
+                        'laboratory_request_id':
+                            x.laboratory_request_id.id or False,
+                        'laboratory_event_id':
+                            x.laboratory_event_id.id or False,
                         }) for x in self.agents]
         return vals
 
@@ -42,6 +52,10 @@ class SaleOrderLineAgent(models.Model):
         string='Procedure',
     )
     laboratory_event_id = fields.Many2one(
+        'medical.laboratory.event',
+        string='Laboratory Event',
+    )
+    laboratory_request_id = fields.Many2one(
         'medical.laboratory.event',
         string='Laboratory Event',
     )
@@ -95,7 +109,8 @@ class SaleOrderLineAgent(models.Model):
                 constraints.append((
                     key,
                     'UNIQUE(object_id, agent, parent_agent_line_id, '
-                    'is_cancel, procedure_id)',
+                    'is_cancel, procedure_id, laboratory_event_id, '
+                    'laboratory_request_id)',
                     message
                 ))
             else:
@@ -149,6 +164,8 @@ class SaleOrderLineAgent(models.Model):
             'agent_sale_line': False,
             'agent': agent.id if agent else self.agent.id,
             'procedure_id': self.procedure_id.id or False,
+            'laboratory_event_id': self.laboratory_event_id.id or False,
+            'laboratory_request_id': self.laboratory_request_id.id or False,
             'is_cancel': self.is_cancel if agent else not self.is_cancel,
         }
 
