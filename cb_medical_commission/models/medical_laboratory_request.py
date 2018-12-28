@@ -51,8 +51,6 @@ class MedicalLaboratoryRequest(models.Model):
             'commission_agent_id':
                 self.commission_agent_id and self.commission_agent_id.id,
             'service_id': self.service_id.id,
-            'variable_fee': self.variable_fee,
-            'fixed_fee': self.fixed_fee,
         })
         conditions = self.performer_id.practitioner_condition_ids
         practitioner_condition_id = conditions.get_condition(
