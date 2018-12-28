@@ -48,8 +48,8 @@ class MedicalLaboratoryRequest(models.Model):
         if len(valid_performer_ids) == 1:
             self.commission_agent_id = valid_performer_ids[0]
         res.update({
-            'commission_agent_id': self.commission_agent_id and
-                                   self.commission_agent_id.id,
+            'commission_agent_id':
+                self.commission_agent_id and self.commission_agent_id.id,
             'service_id': self.service_id.id,
             'variable_fee': self.variable_fee,
             'fixed_fee': self.fixed_fee,
