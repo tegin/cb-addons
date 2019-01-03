@@ -59,10 +59,14 @@ class MedicalEncounter(models.Model):
 
     @api.multi
     def inprogress2onleave(self):
+        data = {}
         for item in self.medication_item_ids.filtered(
             lambda r: not r.is_phantom
         ):
-            item._to_medication_request()
+            product, loc_type, request = item._to_medication_request(data)
+            if not data.get(product, False):
+                data[product] = {}
+            data[product][loc_type] = request
         return super().inprogress2onleave()
 
     @api.multi
