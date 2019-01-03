@@ -34,5 +34,7 @@ class MedicalMedicationRequest(models.Model):
         ).generate_event()
         administration.location_id = item.location_id
         administration.preparation2in_progress()
-        administration.in_progress2completed()
+        if not self.env.context('no_complete_administration', False):
+            administration.with_context(
+                no_post_move=True).in_progress2completed()
         return administration

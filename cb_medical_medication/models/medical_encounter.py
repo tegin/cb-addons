@@ -73,11 +73,12 @@ class MedicalEncounter(models.Model):
                     req.draft2active()
                 if req.state == 'active':
                     req.active2completed()
-        self.picking_ids.filtered(
-            lambda r: r.state == 'draft').action_confirm()
-        moves = self.picking_ids.mapped('move_lines').filtered(
-            lambda move: move.state not in ('draft', 'cancel', 'done'))
-        if moves:
-            moves._action_assign()
-        self.picking_ids.action_pack_operation_auto_fill()
+        if not self.env.context('no_complete_administration', False):
+            self.picking_ids.filtered(
+                lambda r: r.state == 'draft').action_confirm()
+            moves = self.picking_ids.mapped('move_lines').filtered(
+                lambda move: move.state not in ('draft', 'cancel', 'done'))
+            if moves:
+                moves._action_assign()
+            self.picking_ids.action_pack_operation_auto_fill()
         return super().onleave2finished()
