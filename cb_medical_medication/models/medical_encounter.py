@@ -74,12 +74,7 @@ class MedicalEncounter(models.Model):
                 if req.state == 'active':
                     req.active2completed()
         if not self.env.context.get('no_complete_administration', False):
-            self.picking_ids.filtered(
-                lambda r: r.state == 'draft').action_confirm()
-            for picking in self.picking_ids:
-                if picking.state == 'draft':
-                    picking.action_confirm()
-                    if picking.state != 'assigned':
-                        picking.action_assign()
-            self.picking_ids.action_pack_operation_auto_fill()
+            self.env['stock.immediate.transfer'].create({
+                'pick_ids': [(6, 0, self.picking_ids.ids})]
+            })
         return super().onleave2finished()
