@@ -74,7 +74,10 @@ class MedicalEncounter(models.Model):
                 if req.state == 'active':
                     req.active2completed()
         if not self.env.context.get('no_complete_administration', False):
-            self.env['stock.immediate.transfer'].create({
-                'pick_ids': [(6, 0, self.picking_ids.ids)]
-            }).process()
+            self.process_medication_request()
         return super().onleave2finished()
+
+    def process_medication_request(self):
+        self.env['stock.immediate.transfer'].create({
+            'pick_ids': [(6, 0, self.picking_ids.ids)]
+        }).process()
