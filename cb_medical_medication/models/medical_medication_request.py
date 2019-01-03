@@ -33,7 +33,8 @@ class MedicalMedicationRequest(models.Model):
             product_uom_id=item.product_id.uom_id.id,
             qty=item.qty,
             amount=item.price * item.qty,
-            location_id=item.location_id.id
+            location_id=item.location_id.id,
+            tracking_disable=True,
         ).generate_event()
         administration.preparation2in_progress()
         if not self.env.context.get('no_complete_administration', False):
