@@ -73,7 +73,7 @@ class MedicalEncounter(models.Model):
                     req.draft2active()
                 if req.state == 'active':
                     req.active2completed()
-        if not self.env.context('no_complete_administration', False):
+        if not self.env.context.get('no_complete_administration', False):
             self.picking_ids.filtered(
                 lambda r: r.state == 'draft').action_confirm()
             moves = self.picking_ids.mapped('move_lines').filtered(
