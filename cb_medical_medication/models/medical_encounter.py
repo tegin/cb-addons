@@ -75,6 +75,6 @@ class MedicalEncounter(models.Model):
                     req.active2completed()
         if not self.env.context.get('no_complete_administration', False):
             self.env['stock.immediate.transfer'].create({
-                'pick_ids': [(6, 0, self.picking_ids.ids})]
+                'pick_ids': [(6, 0, self.picking_ids.ids)]
             })
         return super().onleave2finished()
