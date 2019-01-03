@@ -21,6 +21,8 @@ class MedicalMedicationRequest(models.Model):
             res['product_uom_id'] = self.env.context.get('product_uom_id')
             res['qty'] = self.env.context.get('qty', 1)
             res['amount'] = self.env.context.get('amount', 0)
+        if self.env.context.get('location_id', False):
+            res['location_id'] = self.env.context.get('location_id')
         return res
 
     def _add_medication_item(self, item):
@@ -30,9 +32,9 @@ class MedicalMedicationRequest(models.Model):
             product_id=item.product_id.id,
             product_uom_id=item.product_id.uom_id.id,
             qty=item.qty,
-            amount=item.price * item.qty
+            amount=item.price * item.qty,
+            location_id=item.location_id.id
         ).generate_event()
-        administration.location_id = item.location_id
         administration.preparation2in_progress()
         if not self.env.context.get('no_complete_administration', False):
             administration.with_context(
