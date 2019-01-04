@@ -135,7 +135,8 @@ class MedicalEncounter(models.Model):
         if cash_vals['amount'] != 0:
             if not self._context.get('journal_id', False):
                 raise ValidationError(_(
-                    'Payment journal is necessary in order to finish sale orders'))
+                    'Payment journal is necessary in order to '
+                    'finish sale orders'))
             journal_id = self._context.get('journal_id', False)
             pos_session_id = self._context.get('pos_session_id', False)
             cash_vals['journal_id'] = journal_id
