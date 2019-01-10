@@ -75,9 +75,8 @@ class PosSessionAddOrder(models.TransientModel):
                 price, rec.session_id.config_id.company_id.currency_id,
                 rec.qty, product=rec.product_id,
                 partner=rec.partner_id or False
-            )['taxes']
-            rec.amount_total = price*self.qty + sum(
-                tax.get('amount', 0.0) for tax in taxes)
+            )
+            rec.amount_total = taxes['total_included']
 
     @api.multi
     def run(self):
