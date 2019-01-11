@@ -14,7 +14,6 @@ class AccountBankStatementLineChangeJournal(models.TransientModel):
     line_id = fields.Many2one(
         'account.bank.statement.line',
         required=True,
-        readonly=True,
     )
     journal_id = fields.Many2one(
         'account.journal',
@@ -24,13 +23,11 @@ class AccountBankStatementLineChangeJournal(models.TransientModel):
     journal_ids = fields.Many2many(
         'account.journal',
         required=True,
-        readonly=True,
         default=_default_journal
     )
     session_id = fields.Many2one(
         'pos.session',
         required=True,
-        readonly=True,
     )
 
     @api.multi
