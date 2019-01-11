@@ -37,10 +37,13 @@ class AccountBankStatementLineAccount(models.TransientModel):
         default=_default_statement_line
     )
 
+    def _statement_line_vals(self):
+        return {
+            'account_id': self.account_id.id
+        }
+
     @api.multi
     def run(self):
         for record in self:
-            record.statement_line_id.write({
-                'account_id': record.account_id.id
-            })
+            record.statement_line_id.write(record._statement_line_vals())
         return {}
