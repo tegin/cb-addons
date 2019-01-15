@@ -32,7 +32,7 @@
 </template>
 
 <template id="report_saleorder_third_party_document">
-    <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang, 'not_display_company': True})" />
+    <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang,not_display_company=True)" />
     <t t-set="third_party" t-value="doc.third_party_partner_id" />
     <t t-call="sale_third_party.sale_third_party_layout_standard">
         <div class="page">
