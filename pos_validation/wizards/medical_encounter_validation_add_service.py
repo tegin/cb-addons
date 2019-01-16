@@ -85,7 +85,7 @@ class MedicalEncounterValidationAddService(models.TransientModel):
             'medical.encounter.add.careplan'
         ].with_context(
             on_validation=True,
-        ).new({
+        ).create({
             'patient_id': self.patient_id.id,
             'encounter_id': self.encounter_id.id,
             'center_id': self.encounter_id.center_id.id,
