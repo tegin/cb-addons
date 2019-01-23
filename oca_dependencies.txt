@@ -6,9 +6,10 @@ multicompany-fixes https://github.com/eficent/multicompany-fixes 11.0
 partner-contact
 pos
 report-print-send
-sale-workflow https://github.com/etobella/sale-workflow 11.0-imp-hook
+sale-workflow
 stock-logistics-warehouse
 stock-logistics-workflow
+server-auth https://github.com/etobella/server-auth 11.0-imp-timeout
 server-tools
 server-ux
 account-invoice-reporting
