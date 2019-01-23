@@ -8,6 +8,7 @@
         <field name="name">res.users.sessions.wizard.form (in web_session_management)</field>
         <field name="model">res.users.sessions.wizard</field>
         <field name="inherit_id" ref ="http_session_wizard_form_view"/>
+        <field name="mode">primary</field>
         <field name="arch" type="xml">
                 <group name="fields" position="inside">
                     <field name="user_ids" options="{'no_create': True}" widget="many2many_tags"/>
