@@ -12,6 +12,7 @@
         'base_sparse_field'
     ],
     'data': [
+        'wizards/http_session_wizard.xml',
         'wizards/res_users_sessions_wizard.xml',
         'views/http_session_user.xml',
     ],
