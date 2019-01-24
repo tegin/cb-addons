@@ -1,10 +1,6 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from datetime import datetime
-import os
-from odoo import api, fields, models, http
-from odoo.http import request
-from werkzeug.contrib.sessions import FilesystemSessionStore
+from odoo import fields, models
 
 
 class ResUsersSessionsWizard(models.TransientModel):

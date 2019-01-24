@@ -27,7 +27,6 @@
         <field name="arch" type="xml">
             <search>
                 <field name="user_id"/>
-                <field name="date"/>
             </search>
         </field>
     </record>
