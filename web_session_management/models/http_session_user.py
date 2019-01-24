@@ -16,6 +16,7 @@ class HttpSessionUser(models.TransientModel):
     date = fields.Datetime()
     ctx = fields.Serialized(readonly=True)
     geoip = fields.Serialized(readonly=True)
+    update_time = fields.Datetime(readonly=True)
 
     @api.multi
     def kill(self):

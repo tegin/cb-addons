@@ -3,7 +3,7 @@
 import os
 from datetime import datetime
 from werkzeug.contrib.sessions import FilesystemSessionStore
-from odoo import api, http, models
+from odoo import api, fields, http, models
 from odoo.http import request
 
 
@@ -31,6 +31,8 @@ class HttpSessionWizard(models.TransientModel):
                     'current_session': session.sid == current.sid,
                     'session_token': session.session_token,
                     'session_id': sid,
+                    'update_time': fields.Datetime.to_string(
+                        datetime.fromtimestamp(session.update_time)),
                     'date': self.get_store_date(store, session)
                 })
         result = self.env['http.session.user']
@@ -53,3 +55,12 @@ class HttpSessionWizard(models.TransientModel):
         result = action.read()[0]
         result['domain'] = [('id', 'in', sessions.ids)]
         return result
+
+    @api.model
+    def clean_sessions(self):
+
+        store = http.root.session_store
+        for sid in store.list():
+            session = store.get(sid)
+            if not session.uid:
+                date = self.get_store_date(store, session)

@@ -9,7 +9,8 @@
     'license': 'AGPL-3',
     'author': 'Creu Blanca',
     'depends': [
-        'base_sparse_field'
+        'base_sparse_field',
+        'auth_session_timeout',
     ],
     'data': [
         'wizards/http_session_wizard.xml',

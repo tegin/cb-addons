@@ -9,7 +9,7 @@
         </field>
         <field name="model">http.session.user</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree delete="0" create="0">
                 <field name="current_session" invisible="1"/>
                 <field name="user_id"/>
                 <field name="session_id"/>
@@ -19,6 +19,16 @@
                         attrs="{'invisible': [('current_session', '=', True)]}"
                         confirm="Are you sure you want kill this session?"/>
             </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="http_session_user_search_view">
+        <field name="name">http.session.user.search</field>
+        <field name="model">http.session.user</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="date"/>
+            </search>
         </field>
     </record>
 
