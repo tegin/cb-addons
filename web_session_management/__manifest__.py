@@ -3,8 +3,6 @@
 
 {
     'name': 'Web Session Management',
-    'description': """
-        Session management""",
     'version': '11.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'Creu Blanca',
