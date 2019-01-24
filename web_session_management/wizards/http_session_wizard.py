@@ -51,9 +51,14 @@ class HttpSessionWizard(models.TransientModel):
         store = http.root.session_store
         for sid in store.list():
             session = store.get(sid)
-            if not session.uid:
-                date = session.update_time
+            if session.uid:
+                date = session.update_time or 0
                 delay = self.env[
                     'res.users']._auth_timeout_deadline_calculate()
                 if delay and date < delay:
-                    store.delete(session)
+                    session.logout()
+                    store.save(session)
+            if self.env.context.get(
+                'clean_unlogged', False
+            ) and not session.uid:
+                store.delete(session)
