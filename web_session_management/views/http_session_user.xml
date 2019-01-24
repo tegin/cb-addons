@@ -14,7 +14,7 @@
                 <field name="user_id"/>
                 <field name="session_id"/>
                 <field name="session_token"/>
-                <field name="date"/>
+                <field name="update_time"/>
                 <button name="kill" type="object" icon="fa-skull"
                         attrs="{'invisible': [('current_session', '=', True)]}"
                         confirm="Are you sure you want kill this session?"/>

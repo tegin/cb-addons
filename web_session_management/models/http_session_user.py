@@ -13,7 +13,6 @@ class HttpSessionUser(models.TransientModel):
     current_session = fields.Boolean(readonly=True)
     session_id = fields.Char(readonly=True)
     session_token = fields.Char(readonly=True)
-    date = fields.Datetime()
     ctx = fields.Serialized(readonly=True)
     geoip = fields.Serialized(readonly=True)
     update_time = fields.Datetime(readonly=True)

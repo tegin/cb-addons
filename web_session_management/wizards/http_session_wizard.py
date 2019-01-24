@@ -33,19 +33,11 @@ class HttpSessionWizard(models.TransientModel):
                     'session_id': sid,
                     'update_time': fields.Datetime.to_string(
                         datetime.fromtimestamp(session.update_time)),
-                    'date': self.get_store_date(store, session)
                 })
         result = self.env['http.session.user']
         for vals in mvals:
             result |= self.env['http.session.user'].create(vals)
         return result
-
-    @api.model
-    def get_store_date(self, store, session):
-        if isinstance(store, FilesystemSessionStore):
-            return datetime.fromtimestamp(os.path.getmtime(
-                store.get_session_filename(session.sid)))
-        return False
 
     @api.multi
     def doit(self):
@@ -58,9 +50,12 @@ class HttpSessionWizard(models.TransientModel):
 
     @api.model
     def clean_sessions(self):
-
         store = http.root.session_store
         for sid in store.list():
             session = store.get(sid)
             if not session.uid:
-                date = self.get_store_date(store, session)
+                date = session.update_time
+                delay = self.env[
+                    'res.users']._auth_timeout_deadline_calculate()
+                if delay and date < delay:
+                    store.delete(session)
