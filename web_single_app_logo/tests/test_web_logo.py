@@ -47,6 +47,4 @@ class TestWebSingleAppLogo(HttpCase):
         with patch('odoo.http.request', new=FakeRequest(self.env)):
             with patch('odoo.http.send_file', new=fake_response):
                 data = MulticompanyLogo.app_logo(self)
-        import logging
-        logging.info(data)
         self.assertEqual(data.data, image)
