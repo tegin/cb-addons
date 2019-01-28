@@ -126,7 +126,7 @@
                             <field name="authorization_number"/>
                             <button name="check_authorization_action"
                                     type="object" icon="fa-cogs"
-                                    attrs="{'invisible': ['|', ('is_private', '=', True), ('validation_status', 'not in', ['draft', 'in_progress'])]}c"
+                                    attrs="{'invisible': ['|', ('is_private', '=', True), ('validation_status', 'not in', ['draft', 'in_progress'])]}"
                             />
                             <field name="authorization_status"/>
                             <field name="state" invisible="1"/>
