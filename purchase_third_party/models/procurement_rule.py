@@ -21,8 +21,8 @@ class ProcurementRule(models.Model):
         if not suppliers:
             msg = _(
                 'There is no vendor associated to the product %s. '
-                'Please define a vendor for this product.') % (
-                  product_id.display_name,)
+                'Please define a vendor for this product.'
+            ) % product_id.display_name
             raise UserError(msg)
         supplier = self._make_po_select_supplier(values, suppliers)
         domain = self._make_po_get_domain_supplier(values, supplier)
