@@ -1,0 +1,76 @@
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
+
+
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'
+
+    third_party_order = fields.Boolean(
+        default=False,
+        states=Purchase.READONLY_STATES,
+    )
+    third_party_partner_id = fields.Many2one(
+        'res.partner',
+        states=Purchase.READONLY_STATES
+    )
+
+    @api.multi
+    def action_rfq_send(self):
+        res = super().action_rfq_send()
+        if self.env.context.get('third_party_send'):
+            ctx = res.get('context')
+            ir_model_data = self.env['ir.model.data']
+            try:
+                if self.env.context.get('send_rfq', False):
+                    template_id = ir_model_data.get_object_reference(
+                        'purchase_third_party',
+                        'email_template_edi_purchase')[1]
+                else:
+                    template_id = ir_model_data.get_object_reference(
+                        'purchase_third_party',
+                        'email_template_edi_purchase_done')[1]
+            except ValueError:
+                template_id = False
+            ctx.update({
+                'default_use_template': bool(template_id),
+                'default_template_id': template_id,
+                'tpl_partners_only': False,
+                'custom_layout':
+                    'purchase_third_party.'
+                    'mail_template_data_notification_email_purchase_order',
+                'not_display_company': True,
+            })
+            res.update({'context': ctx})
+        return res
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = 'purchase.order.line'
+
+    third_party_price_unit = fields.Float()
+
+    @api.onchange('product_qty', 'product_uom')
+    def _onchange_quantity(self):
+        res = super()._onchange_quantity()
+        if not self.product_id:
+            return res
+        seller = self.product_id._select_seller(
+            partner_id=self.partner_id,
+            quantity=self.product_qty,
+            date=self.order_id.date_order and self.order_id.date_order[:10],
+            uom_id=self.product_uom)
+        if not seller or not self.order_id.third_party_order:
+            self.third_party_price_unit = 0
+            return res
+        partner = self.order_id.third_party_partner_id
+        if partner != seller.third_party_partner_id:
+            raise ValidationError(_(
+                'Third party partner must be the same'
+            ))
+        self.third_party_price_unit = self.env[
+            'account.tax'
+        ]._fix_tax_included_price_company(
+            seller.third_party_price, self.product_id.supplier_taxes_id,
+            self.taxes_id, self.company_id) if seller else 0.0
+        return res
