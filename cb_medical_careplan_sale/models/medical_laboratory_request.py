@@ -8,14 +8,6 @@ from odoo import models
 class LaboratoryRequest(models.Model):
     _inherit = 'medical.laboratory.request'
 
-    def compute_price(self, is_insurance):
-        events = self.laboratory_event_ids.filtered(
-            lambda r: r.state != 'aborted'
-        )
-        if is_insurance:
-            return sum(e.coverage_amount for e in events)
-        return sum(e.private_amount for e in events)
-
     def get_sale_order_query(self):
         query = super().get_sale_order_query()
         query += self.mapped('laboratory_event_ids').get_sale_order_query()
