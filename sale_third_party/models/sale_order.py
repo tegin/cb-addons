@@ -285,9 +285,9 @@ class SalerOrderLine(models.Model):
     )
 
     def _prepare_third_party_order_line(self):
-        product = self.third_party_product_id.id
+        product = self.third_party_product_id
         return {
-            'name': self.product_id.name,
+            'name': product.name,
             'product_id': product.id,
             'product_uom_qty': self.product_uom_qty,
             'product_uom': self.product_uom.id,
