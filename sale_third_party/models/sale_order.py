@@ -192,6 +192,9 @@ class SaleOrder(models.Model):
 
         return {
             'partner_id': self.third_party_partner_id.id,
+            'fiscal_position_id': self.third_party_partner_id.with_context(
+                force_company=self.company_id.id
+            ).property_account_position_id.id or False,
             'order_line': so_lines,
             'company_id': self.company_id.id,
             'source_third_party_order_id': self.id,
@@ -200,7 +203,9 @@ class SaleOrder(models.Model):
     @api.model
     def _create_third_party_order(self):
         vals = self._prepare_third_party_order()
-        return self.env['sale.order'].create(vals)
+        order = self.env['sale.order'].create(vals)
+        order._compute_tax_id()
+        return order
 
     @api.multi
     def _action_confirm(self):
@@ -280,9 +285,10 @@ class SalerOrderLine(models.Model):
     )
 
     def _prepare_third_party_order_line(self):
+        product = self.third_party_product_id.id
         return {
             'name': self.product_id.name,
-            'product_id': self.third_party_product_id.id,
+            'product_id': product.id,
             'product_uom_qty': self.product_uom_qty,
             'product_uom': self.product_uom.id,
             'price_unit': self.third_party_price,
