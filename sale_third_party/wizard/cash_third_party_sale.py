@@ -40,7 +40,7 @@ class CashInvoiceOut(models.TransientModel):
         required=True
     )
     name = fields.Char(
-        related='sale_order_id.name'
+        related='sale_order_id.name', readonly=True,
     )
     company_id = fields.Many2one(
         'res.company',
