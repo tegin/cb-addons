@@ -56,7 +56,7 @@ class PosSessionValidation(models.Model):
     )
     currency_id = fields.Many2one(
         'res.currency',
-        related='safe_box_group_id.currency_id'
+        related='safe_box_group_id.currency_id', readonly=True,
     )
     amount = fields.Monetary(
         currency_field='currency_id',
