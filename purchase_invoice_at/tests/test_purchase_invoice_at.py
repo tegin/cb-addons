@@ -33,9 +33,9 @@ class TestPurchaseExternal(TransactionCase):
 
     def test_order_company_constrain(self):
         company = self.env['res.company'].create({'name': 'Company'})
-        self.po.partner_to_invoice_id = self.payor
+        self.payor.company_id = company
         with self.assertRaises(ValidationError):
-            self.po.company_id = company
+            self.po.partner_to_invoice_id = self.payor
 
     def test_order_company_onchange_no_company(self):
         company = self.env['res.company'].create({'name': 'Company'})
