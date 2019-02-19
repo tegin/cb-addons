@@ -9,6 +9,10 @@ from odoo.exceptions import ValidationError
 class TestSafeBox(TransactionCase):
     def setUp(self):
         super(TestSafeBox, self).setUp()
+        self.partner = self.env['res.partner'].create({
+            'name': 'Partner',
+            'company_id': False,
+        })
         self.user = self.env['res.users'].create({
             'name': 'User',
             'login': 'user_safe_box',
@@ -120,6 +124,7 @@ class TestSafeBox(TransactionCase):
             'safe_box_id': self.safe_box_01.id,
             'journal_id': self.journal_02.id,
             'account_id': self.account_04.id,
+            'partner_id': self.partner.id,
             'amount': 100
         }).run()
         self.safe_box_group.recompute_amount()
