@@ -21,6 +21,9 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
         'account.journal',
         required=True,
     )
+    partner_id = fields.Many2one(
+        'res.partner',
+    )
     company_id = fields.Many2one(
         'res.company',
         related='journal_id.company_id',
@@ -72,11 +75,14 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
         else:
             account = self.account_id
             amount = -self.amount
-        return {
+        vals = {
             'account_id': account.id,
             'debit': amount > 0 and amount or 0,
             'credit': amount < 0 and -amount or 0,
         }
+        if not is_safe_box and self.partner_id:
+            vals['partner_id'] = self.partner_id.id
+        return vals
 
     @api.multi
     def run(self):
