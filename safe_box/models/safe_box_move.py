@@ -33,11 +33,13 @@ class SafeBoxMove(models.Model):
         ('cancelled', 'Cancelled')
     ], required=True, readonly=True, default='draft')
 
-    def validate(self):
-        amount = sum(self.line_ids.mapped('amount'))
-        amount -= sum(self.account_move_ids.mapped('line_ids').filtered(
+    def _validate(self):
+        amount = sum([l.amount for l in self.line_ids])
+        amount -= sum([l.balance for l in self.account_move_ids.mapped(
+            'line_ids'
+        ).filtered(
             lambda r: r.account_id.id in self.safe_box_group_id.account_ids.ids
-        ).mapped('balance'))
+        )])
         if float_compare(amount, 0, precision_digits=6):
             raise ValidationError(_('Move must be balanced'))
         for safe_box in self.line_ids.mapped('safe_box_id'):
@@ -50,17 +52,17 @@ class SafeBoxMove(models.Model):
                     % safe_box.name
                 )
             safe_box.sudo().recompute_amount()
-            if float_compare(safe_box.amount + sum(
-                    self.line_ids.filtered(
+            if float_compare(safe_box.amount + sum([
+                    l.amount for l in self.line_ids.filtered(
                         lambda r: r.safe_box_id == safe_box
-                    ).mapped('amount')), 0, precision_digits=6) < 0:
+                    )]), 0, precision_digits=6) < 0:
                 raise ValidationError(_(
                     'Safe box cannot have a negative value'))
 
     @api.multi
     def close(self):
         self.ensure_one()
-        self.validate()
+        self._validate()
         self.write({
             'state': 'closed',
             'name': self.safe_box_group_id.sequence_id.next_by_id(),
