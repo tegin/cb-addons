@@ -17,8 +17,9 @@
                     <field name="safe_box_group_id" invisible="1"/>
                     <field name="account_ids" invisible="1"/>
                     <field name="safe_box_id"/>
-                    <field name="journal_id"/>
+                    <field name="journal_id" domain="[('type', '=', 'general')]"/>
                     <field name="account_id"/>
+                    <field name="partner_id"/>
                     <field name="company_id" readonly="1"/>
                     <field name="amount"/>
                     <field name="currency_id" invisible="1"/>
