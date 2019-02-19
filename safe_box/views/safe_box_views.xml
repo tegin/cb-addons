@@ -8,7 +8,8 @@
             <form>
                 <group>
                     <field name="name"/>
-                    <field name="coin_ids" widget="many2many_tags"/>
+                    <field name="safe_box_group_id" invisible="1"/>
+                    <field name="coin_ids" widget="many2many_tags" domain="[('safe_box_group_id', '=', safe_box_group_id)]"/>
                     <field name="user_ids" widget="many2many_tags"/>
                 </group>
             </form>
