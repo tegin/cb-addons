@@ -15,6 +15,32 @@ class PurchaseOrder(models.Model):
         states=Purchase.READONLY_STATES
     )
 
+    tp_amount_untaxed = fields.Monetary(string='Untaxed Amount',
+                                        store=True, readonly=True,
+                                        compute='_amount_all_tp',
+                                        track_visibility='always')
+    tp_amount_tax = fields.Monetary(string='Taxes',
+                                    store=True, readonly=True,
+                                    compute='_amount_all_tp')
+    tp_amount_total = fields.Monetary(string='Total', store=True,
+                                      readonly=True,
+                                      compute='_amount_all_tp')
+
+    @api.depends('order_line.third_party_price_total')
+    def _amount_all_tp(self):
+        for order in self:
+            tp_amount_untaxed = tp_amount_tax = 0.0
+            for line in order.order_line:
+                tp_amount_untaxed += line.third_party_price_subtotal
+                tp_amount_tax += line.third_party_price_tax
+            order.update({
+                'tp_amount_untaxed':
+                    order.currency_id.round(tp_amount_untaxed),
+                'tp_amount_tax':
+                    order.currency_id.round(tp_amount_tax),
+                'tp_amount_total': tp_amount_untaxed + tp_amount_tax,
+            })
+
     @api.multi
     def action_rfq_send(self):
         res = super().action_rfq_send()
@@ -49,6 +75,29 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     third_party_price_unit = fields.Float()
+
+    third_party_price_subtotal = fields.Monetary(
+        compute='_compute_amount_third_party',
+        string='Subtotal', store=True)
+    third_party_price_total = fields.Monetary(
+        compute='_compute_amount_third_party', string='Total', store=True)
+    third_party_price_tax = fields.Float(
+        compute='_compute_amount_third_party', string='Tax', store=True)
+
+    @api.depends('product_qty', 'third_party_price_unit', 'taxes_id')
+    def _compute_amount_third_party(self):
+        for line in self:
+            taxes = line.taxes_id.compute_all(line.third_party_price_unit,
+                                              line.order_id.currency_id,
+                                              line.product_qty,
+                                              product=line.product_id,
+                                              partner=line.order_id.partner_id)
+            line.update({
+                'third_party_price_tax': sum(
+                    t.get('amount', 0.0) for t in taxes.get('taxes', [])),
+                'third_party_price_total': taxes['total_included'],
+                'third_party_price_subtotal': taxes['total_excluded'],
+            })
 
     @api.onchange('product_qty', 'product_uom')
     def _onchange_quantity(self):
