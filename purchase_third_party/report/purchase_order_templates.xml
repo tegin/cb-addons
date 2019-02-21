@@ -17,6 +17,21 @@
                position="attributes">
             <attribute name="t-field">o.third_party_partner_id.vat</attribute>
         </xpath>
+        <xpath expr="//span[@t-field = 'line.price_unit']" position="attributes">
+            <attribute name="t-field">line.third_party_price_unit</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field = 'line.price_subtotal']" position="attributes">
+            <attribute name="t-field">line.third_party_price_subtotal</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field = 'o.amount_untaxed']" position="attributes">
+            <attribute name="t-field">o.tp_amount_untaxed</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field = 'o.amount_tax']" position="attributes">
+            <attribute name="t-field">o.tp_amount_tax</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field = 'o.amount_total']" position="attributes">
+            <attribute name="t-field">o.tp_amount_total</attribute>
+        </xpath>
     </template>
 
     <template id="report_purchaseorder_third_party">
