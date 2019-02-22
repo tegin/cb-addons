@@ -21,4 +21,16 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_partner_bank_search">
+        <field name="name">res.partner.bank.search</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter string="Archived" name="active" domain="[('active', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+
 </odoo>
