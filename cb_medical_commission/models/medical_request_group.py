@@ -25,6 +25,7 @@ class RequestGroup(models.Model):
                     'No Procedure was found for Request %s' %
                     request.internal_identifier))
             procedure.ensure_one()
-            if procedure.performer_id.third_party_sequence_id:
-                return procedure.performer_id.id
+            partner = procedure.commission_agent_id or procedure.performer_id
+            if partner.third_party_sequence_id:
+                return partner.id
         return super().get_third_party_partner()
