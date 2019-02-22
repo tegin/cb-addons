@@ -17,17 +17,17 @@ class PurchaseOrder(models.Model):
 
     tp_amount_untaxed = fields.Monetary(string='Untaxed Amount',
                                         store=True, readonly=True,
-                                        compute='_amount_all_tp',
+                                        compute='_compute_amount_all_tp',
                                         track_visibility='always')
     tp_amount_tax = fields.Monetary(string='Taxes',
                                     store=True, readonly=True,
-                                    compute='_amount_all_tp')
+                                    compute='_compute_amount_all_tp')
     tp_amount_total = fields.Monetary(string='Total', store=True,
                                       readonly=True,
-                                      compute='_amount_all_tp')
+                                      compute='_compute_amount_all_tp')
 
     @api.depends('order_line.third_party_price_total')
-    def _amount_all_tp(self):
+    def _compute_amount_all_tp(self):
         for order in self:
             tp_amount_untaxed = tp_amount_tax = 0.0
             for line in order.order_line:
