@@ -2,12 +2,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import fields, models
+from odoo.addons.base_sparse_field.models.fields import Serialized
 
 
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
-    facturae_fields = fields.Serialized()
+    facturae_fields = Serialized()
     receiver_contract_reference = fields.Char(
         sparse="facturae_fields"
     )
