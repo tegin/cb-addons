@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class ResPartnerBank(models.Model):
-
     _inherit = 'res.partner.bank'
 
-    active = fields.Boolean()
+    active = fields.Boolean(default=True)
