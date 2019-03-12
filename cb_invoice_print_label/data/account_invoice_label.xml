@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_invoice_print_label" model="printing.label.zpl2">
+        <field name="name">Account Invoice Label</field>
+        <field name="model_id"
+               ref="cb_invoice_print_label.model_account_invoice"/>
+        <field name="origin_x">30</field>
+    </record>
+
+    <record id="account_invoice_print_label_qr"
+            model="printing.label.zpl2.component">
+        <field name="sequence">1</field>
+        <field name="name">QR</field>
+        <field name="component_type">zpl2_raw</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="data">'^BY2,3.0^FO10,5^BQN,2,4,H,7^FDQA,%s^FS' % object.get_hash_search().name
+        </field>
+        <field name="origin_y">0</field>
+    </record>
+
+    <record id="account_invoice_print_label_origin"
+            model="printing.label.zpl2.component">
+        <field name="sequence">2</field>
+        <field name="name">Origin</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="component_type">text</field>
+        <field name="font">D</field>
+        <field name="data">object.origin</field>
+        <field name="origin_x">150</field>
+        <field name="origin_y">110</field>
+        <field name="in_block" eval="True"/>
+        <field name="block_width">330</field>
+        <field name="block_lines">4</field>
+    </record>
+
+    <record id="account_invoice_print_label_reference"
+            model="printing.label.zpl2.component">
+        <field name="sequence">3</field>
+        <field name="name">Reference</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="component_type">text</field>
+        <field name="font">D</field>
+        <field name="data">object.reference</field>
+        <field name="in_block" eval="True"/>
+        <field name="block_width">410</field>
+        <field name="block_lines">2</field>
+        <field name="origin_x">130</field>
+        <field name="origin_y">40</field>
+    </record>
+
+    <record id="account_invoice_print_label_company"
+            model="printing.label.zpl2.component">
+        <field name="sequence">4</field>
+        <field name="name">Company</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="component_type">text</field>
+        <field name="font">D</field>
+        <field name="data">object.company_id.partner_id.ref</field>
+        <field name="origin_x">250</field>
+        <field name="origin_y">5</field>
+        <field name="height">28</field>
+        <field name="width">15</field>
+        <field name="in_block" eval="True"/>
+        <field name="block_width">150</field>
+        <field name="block_lines">1</field>
+        <field name="block_spaces">0</field>
+        <field name="block_justify">R</field>
+        <field name="block_left_margin">0</field>
+    </record>
+
+    <record id="account_invoice_print_label_untaxed"
+            model="printing.label.zpl2.component">
+        <field name="sequence">5</field>
+        <field name="name">Untaxed</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="component_type">text</field>
+        <field name="font">D</field>
+        <field name="data">object.env['res.lang'].search([('code', '=',
+            object.env.user.lang or object.env.context.get('lang') or
+            'es_ES')]).format('%.2f', object.amount_untaxed, monetary=True,
+            grouping=True)
+        </field>
+        <field name="origin_x">0</field>
+        <field name="origin_y">135</field>
+        <field name="height">15</field>
+        <field name="width">9</field>
+        <field name="in_block" eval="True"/>
+        <field name="block_width">145</field>
+        <field name="block_lines">1</field>
+        <field name="block_spaces">0</field>
+        <field name="block_justify">R</field>
+        <field name="block_left_margin">0</field>
+    </record>
+
+    <record id="account_invoice_print_label_tax"
+            model="printing.label.zpl2.component">
+        <field name="sequence">6</field>
+        <field name="name">tax</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="component_type">text</field>
+        <field name="font">D</field>
+        <field name="data">object.env['res.lang'].search([('code', '=',
+            object.env.user.lang or object.env.context.get('lang') or
+            'es_ES')]).format('%.2f', object.amount_tax, monetary=True,
+            grouping=True)
+        </field>
+        <field name="origin_x">0</field>
+        <field name="origin_y">155</field>
+        <field name="height">15</field>
+        <field name="width">9</field>
+        <field name="in_block" eval="True"/>
+        <field name="block_width">145</field>
+        <field name="block_lines">1</field>
+        <field name="block_spaces">0</field>
+        <field name="block_justify">R</field>
+        <field name="block_left_margin">0</field>
+    </record>
+
+    <record id="account_invoice_print_label_total"
+            model="printing.label.zpl2.component">
+        <field name="sequence">7</field>
+        <field name="name">total</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="component_type">text</field>
+        <field name="font">D</field>
+        <field name="data">object.env['res.lang'].search([('code', '=',
+            object.env.user.lang or object.env.context.get('lang') or
+            'es_ES')]).format('%.2f', object.amount_total, monetary=True,
+            grouping=True)
+        </field>
+        <field name="origin_x">0</field>
+        <field name="origin_y">175</field>
+        <field name="height">15</field>
+        <field name="width">9</field>
+        <field name="in_block" eval="True"/>
+        <field name="block_width">145</field>
+        <field name="block_lines">1</field>
+        <field name="block_spaces">0</field>
+        <field name="block_justify">R</field>
+        <field name="block_left_margin">0</field>
+    </record>
+
+    <record id="account_invoice_print_label_partner"
+            model="printing.label.zpl2.component">
+        <field name="sequence">8</field>
+        <field name="name">Partner</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="component_type">text</field>
+        <field name="font">D</field>
+        <field name="data">object.partner_id.name[:20]</field>
+        <field name="origin_x">130</field>
+        <field name="origin_y">10</field>
+    </record>
+
+    <record id="account_invoice_print_label_date_invoice"
+            model="printing.label.zpl2.component">
+        <field name="sequence">9</field>
+        <field name="name">date_invoice</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="component_type">text</field>
+        <field name="font">D</field>
+        <field name="data">object.date_invoice</field>
+        <field name="origin_x">150</field>
+        <field name="origin_y">85</field>
+    </record>
+
+    <record id="account_invoice_print_label_date_due"
+            model="printing.label.zpl2.component">
+        <field name="sequence">10</field>
+        <field name="name">date_due</field>
+        <field name="label_id" ref="account_invoice_print_label"/>
+        <field name="component_type">text</field>
+        <field name="font">D</field>
+        <field name="data">object.date_due</field>
+        <field name="origin_x">290</field>
+        <field name="origin_y">85</field>
+    </record>
+
+</odoo>
