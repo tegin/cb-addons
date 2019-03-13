@@ -48,7 +48,8 @@ class HashSearch(models.Model):
             result['context'] = json.dumps(context)
             return result
         res = self.env[hash.model].browse(hash.res_id)
-        # TODO: Check that the user can access the element
+        res.check_access_rights('read')
+
         result = {
             "type": "ir.actions.act_window",
             "res_model": hash.model,
