@@ -13,7 +13,7 @@
         'account',
         'remote_report_to_printer_label',
         'printer_zpl2',
-        'hash_search',
+        'hash_search_document_attacher',
     ],
     'data': [
         'data/account_invoice_label.xml',
