@@ -13,8 +13,6 @@ class AccountInvoice(models.Model):
             'cb_invoice_print_label.account_invoice_print_label'
         )
         content = label_action.render_label(self)
-        import logging
-        logging.info(content)
         behaviour = self.remote.with_context(
             printer_usage='label'
         ).get_printer_behaviour()

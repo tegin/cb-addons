@@ -5,6 +5,7 @@
         <field name="model_id"
                ref="cb_invoice_print_label.model_account_invoice"/>
         <field name="origin_x">30</field>
+        <field name="origin_y">1</field>
     </record>
 
     <record id="account_invoice_print_label_qr"
