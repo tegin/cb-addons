@@ -13,8 +13,12 @@
         'barcode_action',
     ],
     'data': [
+        'views/assets_backend.xml',
         'wizards/barcode_action.xml',
     ],
     'demo': [
     ],
+    'qweb': [
+        'static/src/xml/hash_search_launcher.xml'
+    ]
 }

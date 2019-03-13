@@ -16,8 +16,10 @@ class HashSearch(models.Model):
     name = fields.Char(required=True)
 
     _sql_constraints = [
-        #unique name,
-        # unique res_id, model
+        ('name_uniq', 'unique(name)',
+         'name must be unique'),
+        ('res_id_model_unique', 'unique(res_id, model)',
+         'res_id and model must be unique'),
     ]
 
     @api.model
@@ -52,6 +54,6 @@ class HashSearch(models.Model):
             "res_model": hash.model,
             "views": [[res.get_formview_id(), "form"]],
             "res_id": hash.res_id,
-            "target": "current",
+            "target": "main",
         }
         return result
