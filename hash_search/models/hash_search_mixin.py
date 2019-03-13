@@ -19,8 +19,7 @@ class HashSearchMixin(models.AbstractModel):
 
     def _hash_values(self):
         return {
-            'res_id': self.id,
-            'model': self._name,
+            'object_id': '%s,%s' % (self._name, self.id)
         }
 
     @api.multi
