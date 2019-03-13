@@ -11,8 +11,8 @@
     'website': 'www.creublanca.es',
     'depends': [
         'account',
-        'cb_remote_report_to_printer',
-        'medical_document_zpl2',
+        'remote_report_to_printer',
+        'printer_zpl2',
         'hash_search',
     ],
     'data': [
