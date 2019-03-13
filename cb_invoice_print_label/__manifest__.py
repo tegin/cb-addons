@@ -13,7 +13,7 @@
         'account',
         'cb_remote_report_to_printer',
         'medical_document_zpl2',
-        'hash_search'
+        'hash_search',
     ],
     'data': [
         'data/account_invoice_label.xml',

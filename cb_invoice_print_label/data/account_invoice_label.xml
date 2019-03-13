@@ -13,8 +13,7 @@
         <field name="name">QR</field>
         <field name="component_type">zpl2_raw</field>
         <field name="label_id" ref="account_invoice_print_label"/>
-        <field name="data">'^BY2,3.0^FO10,5^BQN,2,4,H,7^FDQA,%s^FS' %
-            (object.get_hash_search().name)
+        <field name="data">'^BY2,3.0^FO10,5^BQN,2,4,H,7^FDQA,%s^FS' % object.get_hash_search().name
         </field>
         <field name="origin_y">0</field>
     </record>
