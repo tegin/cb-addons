@@ -11,22 +11,35 @@ class HashSearch(models.Model):
     _name = 'hash.search'
     _description = 'Hash Search'
 
-    res_id = fields.Integer(required=True)
-    model = fields.Char(required=True)
+    @api.model
+    def hash_search_models(self):
+        return []
+
+    object_id = fields.Reference(
+        selection=hash_search_models,
+        required=True,
+    )
+    model = fields.Char(compute='_compute_object', store=True)
+    res_id = fields.Integer(compute='_compute_object', store=True)
     name = fields.Char(required=True)
 
     _sql_constraints = [
         ('name_uniq', 'unique(name)',
          'name must be unique'),
-        ('res_id_model_unique', 'unique(res_id, model)',
-         'res_id and model must be unique'),
+        ('object_id_unique', 'unique(object_id)',
+         'object_id must be unique'),
     ]
+
+    @api.depends('object_id')
+    def _compute_object(self):
+        for record in self:
+            record.res_id = record.object_id.id
+            record.model = record.object_id._name
 
     @api.model
     def get_hash_name(self, vals):
         return base64.b64encode(
-            ('%s;%s' % (vals['model'], vals['res_id'])).encode('utf-8')
-        ).decode('utf-8')
+            vals['object_id'].encode('utf-8')).decode('utf-8')
 
     @api.model
     def create(self, vals):
