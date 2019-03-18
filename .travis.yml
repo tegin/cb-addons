@@ -25,6 +25,7 @@ addons:
       - python-yaml
       - cups
       - libcups2-dev
+      - libzbar-dev
 
 env:
   global:
