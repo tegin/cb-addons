@@ -1,1 +1,1 @@
-from . import printing_label_zpl2
+from . import res_remote_printer
