@@ -2,22 +2,18 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Qr Document Attacher',
+    'name': 'Hash Search Account Invoice',
     'summary': """
-        Attach documents directly using QR""",
+        Allow to use hash search with invoices""",
     'version': '11.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'Creu Blanca,Odoo Community Association (OCA)',
     'website': 'www.creublanca.es',
     'depends': [
+        'account',
         'hash_search',
-        'document',
     ],
     'data': [
-        'wizards/hash_missing_document_assign.xml',
-        'views/hash_missing_document.xml',
-        'data/config_parameter.xml',
-    ],
-    'demo': [
+        'data/account_invoice_label.xml',
     ],
 }
