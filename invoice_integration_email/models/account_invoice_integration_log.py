@@ -83,5 +83,7 @@ class AccountInvoiceIntegrationLog(models.Model):
         return self.invoice_id.company_id.email
 
     def _get_email(self, partner):
-        return [formataddr(
-                (partner.name or 'False', partner.email or 'False'))]
+        return [formataddr((
+            partner.name or 'False',
+            partner.email_integration or partner.email or 'False'
+        ))]
