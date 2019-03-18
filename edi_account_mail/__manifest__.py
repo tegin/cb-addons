@@ -14,6 +14,7 @@
     ],
     'data': [
         'data/method_data.xml',
+        'views/res_partner_view.xml',
     ],
     'demo': [
     ],
