@@ -2,6 +2,8 @@ account-payment
 medical-fhir https://github.com/eficent/medical-fhir 11.0-dev
 commission
 l10n-spain
+connector
+queue
 multicompany-fixes https://github.com/eficent/multicompany-fixes 11.0
 partner-contact
 pos

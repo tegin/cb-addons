@@ -6,16 +6,16 @@
 
     <record model="ir.ui.view" id="hash_missing_document_form_view">
         <field name="name">hash.missing.document.form (in
-            hash_search_document_attacher)
+            hash_search_document_scanner)
         </field>
         <field name="model">hash.missing.document</field>
         <field name="arch" type="xml">
             <form create="false" edit="false">
                 <header>
-                    <button name="%(hash_search_document_attacher.hash_missing_document_assign_act_window)s"
+                    <button name="%(hash_search_document_scanner.hash_missing_document_assign_act_window)s"
                             type="action" class="primary" string="Assign"
                             states="pending"/>
-                    <button name="" type="object" string="Reject"
+                    <button name="reject_assign_document" type="object" string="Reject"
                             states="pending"/>
                     <field name="state" widget="statusbar"/>
                 </header>
@@ -32,7 +32,7 @@
 
     <record model="ir.ui.view" id="hash_missing_document_tree_view">
         <field name="name">hash.missing.document.tree (in
-            hash_search_document_attacher)
+            hash_search_document_scanner)
         </field>
         <field name="model">hash.missing.document</field>
         <field name="arch" type="xml">
@@ -56,10 +56,10 @@
               name="Missing documents"
               sequence="10"
               action="hash_missing_document_act_window"
+              groups="hash_search_document_scanner.group_scanner_user"
     />
     <!-- TODO:
-            groups="hash_search_document_attacher.group_document_attacher"
-            web_icon="hash_search_document_attacher,static/description/icon.png"
+            web_icon="hash_search_document_scanner,static/description/icon.png"
        -->
 
 </odoo>
