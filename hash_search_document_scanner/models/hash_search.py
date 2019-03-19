@@ -28,10 +28,10 @@ class HashSearch(models.Model):
     _inherit = 'hash.search'
 
     @api.model
-    def cron_attach_documents(self, limit=False, path=False):
+    def cron_scan_documents(self, limit=False, path=False):
         if not path:
             path = self.env['ir.config_parameter'].sudo().get_param(
-                'hash_search_document_attacher.path', default=False)
+                'hash_search_document_scanner.path', default=False)
         if not path:
             return False
         elements = [os.path.join(
@@ -40,19 +40,19 @@ class HashSearch(models.Model):
         if limit:
             elements = elements[:limit]
         for element in elements:
-            try:
-                self.process_document(element)
-            except OCRException:
-                _logger.warning('Element %s was corrupted' % element)
-                os.unlink(element)
+            self.process_document(element)
         return True
 
     @api.model
     def process_document(self, element):
-        result = self._search_document(element)
-        return self._postprocess_document(element, result)
+        try:
+            result = self._search_document(element)
+            return self._postprocess_document(element, result)
+        except OCRException:
+            _logger.warning('Element %s was corrupted' % element)
+            os.unlink(element)
 
-    def _attach_document(self, filename, datas):
+    def _scan_document(self, filename, datas):
         self.env['ir.attachment'].create({
             'name': filename,
             'datas': datas,
@@ -68,12 +68,12 @@ class HashSearch(models.Model):
         datas = base64.b64encode(open(path, 'rb').read())
         if results:
             for result in results:
-                result._attach_document(filename, datas)
+                result._scan_document(filename, datas)
             new_path = self.env['ir.config_parameter'].sudo().get_param(
-                'hash_search_document_attacher.ok_path', default=False)
+                'hash_search_document_scanner.ok_path', default=False)
         else:
             new_path = self.env['ir.config_parameter'].sudo().get_param(
-                'hash_search_document_attacher.failure_path', default=False)
+                'hash_search_document_scanner.failure_path', default=False)
             self.env['hash.missing.document'].create({
                 'name': filename,
                 'data': datas,

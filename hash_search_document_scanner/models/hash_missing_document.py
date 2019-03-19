@@ -6,14 +6,14 @@ from odoo import api, fields, models
 
 class HashMissingDocument(models.Model):
     _name = 'hash.missing.document'
-    _description = 'Missing Document'  # TODO
+    _description = 'Missing Document'
 
     name = fields.Char(required=True, readonly=True)
     data = fields.Binary(attachment=True, required=True, readonly=True)
     state = fields.Selection([
         ('pending', 'Pending'),
         ('processed', 'Processed'),
-        ('deleted', 'Deleted')
+        ('deleted', 'Rejected')
     ], default='pending')
     hash_search_id = fields.Many2one(
         'hash.search',
@@ -42,11 +42,11 @@ class HashMissingDocument(models.Model):
     def assign_hash(self, hsh):
         records = self.filtered(lambda r: r.state == 'pending')
         for record in records:
-            hsh._attach_document(record.name, record.data)
+            hsh._scan_document(record.name, record.data)
         records.write(self._processed_values(hsh))
 
     @api.multi
-    def delete_missing_image(self):
+    def reject_assign_document(self):
         self.filtered(lambda r: r.state == 'pending').write(
             self._deleted_values()
         )

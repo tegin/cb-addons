@@ -6,12 +6,15 @@
 -->
 
 <odoo noupdate="1">
+    <record id="hash_search_document_scanner.process_documents" model="ir.cron">
+        <field name="active" eval="False"/>
+    </record>
     <record id="process_documents" model="ir.cron">
-        <field name="name">Process documents</field>
+        <field name="name">Process documents by Queue</field>
         <field name="active" eval="True"/>
         <field name="model_id" ref="hash_search.model_hash_search"/>
         <field name="state">code</field>
-        <field name="code">model.cron_scan_documents()</field>
+        <field name="code">model.cron_move_documents()</field>
         <field name="interval_number">15</field>
         <field name="interval_type">minutes</field>
         <field name="numbercall">-1</field>

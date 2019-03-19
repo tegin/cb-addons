@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-====================
-Qr Document Attacher
-====================
+===================
+Qr Document Scanner
+===================
 
 Attach documents directly using QR
 

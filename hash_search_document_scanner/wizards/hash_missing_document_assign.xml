@@ -6,7 +6,7 @@
 
     <record model="ir.ui.view" id="hash_missing_document_assign_form_view">
         <field name="name">hash.missing.document.assign.form (in
-            hash_search_document_attacher)
+            hash_search_document_scanner)
         </field>
         <field name="model">hash.missing.document.assign</field>
         <field name="arch" type="xml">
