@@ -6,4 +6,4 @@ from odoo import fields, models
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    email_integration = fields.Char(readonly=True)
+    email_integration = fields.Char()
