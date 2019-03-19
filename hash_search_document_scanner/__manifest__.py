@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Qr Document Attacher',
+    'name': 'Qr Document Scanner',
     'summary': """
         Attach documents directly using QR""",
     'version': '11.0.1.0.0',
@@ -14,6 +14,7 @@
         'document',
     ],
     'data': [
+        'data/cron_data.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
         'wizards/hash_missing_document_assign.xml',
