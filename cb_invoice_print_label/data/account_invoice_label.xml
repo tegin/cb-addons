@@ -37,6 +37,20 @@
             <field name="origin_y">40</field>
         </record>
 
+        <record id="account_invoice_print_label_box_company"
+                model="printing.label.zpl2.component">
+            <field name="sequence">3</field>
+            <field name="name">Company Box</field>
+            <field name="label_id" ref="hash_search_account_invoice.account_invoice_hash_print_label"/>
+            <field name="component_type">rectangle</field>
+            <field name="origin_x">364</field>
+            <field name="origin_y">3</field>
+            <field name="height">34</field>
+            <field name="width">52</field>
+            <field name="thickness">30</field>
+            <field name="color">B</field>
+        </record>
+
         <record id="account_invoice_print_label_company"
                 model="printing.label.zpl2.component">
             <field name="sequence">4</field>
@@ -45,15 +59,15 @@
             <field name="component_type">text</field>
             <field name="font">D</field>
             <field name="data">object.company_id.partner_id.ref</field>
-            <field name="origin_x">250</field>
+            <field name="origin_x">365</field>
             <field name="origin_y">5</field>
             <field name="height">28</field>
             <field name="width">15</field>
             <field name="in_block" eval="True"/>
-            <field name="block_width">150</field>
+            <field name="block_width">50</field>
             <field name="block_lines">1</field>
             <field name="block_spaces">0</field>
-            <field name="block_justify">R</field>
+            <field name="block_justify">C</field>
             <field name="block_left_margin">0</field>
         </record>
 
