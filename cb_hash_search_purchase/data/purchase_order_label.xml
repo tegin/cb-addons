@@ -4,7 +4,7 @@
 
         <record id="hash_search_purchase.purchase_order_print_label_qr"
                 model="printing.label.zpl2.component">
-            <field name="origin_x">320</field>
+            <field name="origin_x">300</field>
             <field name="origin_y">5</field>
             <field name="magnification_factor">4</field>
         </record>
@@ -26,24 +26,26 @@
 
         <record id="purchase_order_print_label_name"
                 model="printing.label.zpl2.component">
-            <field name="sequence">3</field>
+            <field name="sequence">5</field>
             <field name="name">Name</field>
             <field name="label_id" ref="hash_search_purchase.purchase_order_hash_print_label"/>
             <field name="component_type">text</field>
             <field name="font">D</field>
             <field name="data">object.name</field>
+            <field name="height">28</field>
+            <field name="width">15</field>
             <field name="in_block" eval="True"/>
             <field name="block_width">295</field>
             <field name="block_lines">2</field>
-            <field name="origin_x">15</field>
-            <field name="origin_y">40</field>
+            <field name="origin_x">70</field>
+            <field name="origin_y">15</field>
         </record>
 
 
 
         <record id="purchase_order_print_label_reference"
                 model="printing.label.zpl2.component">
-            <field name="sequence">3</field>
+            <field name="sequence">5</field>
             <field name="name">Reference</field>
             <field name="label_id" ref="hash_search_purchase.purchase_order_hash_print_label"/>
             <field name="component_type">text</field>
@@ -56,6 +58,20 @@
             <field name="origin_y">65</field>
         </record>
 
+        <record id="purchase_order_print_label_box_company"
+                model="printing.label.zpl2.component">
+            <field name="sequence">3</field>
+            <field name="name">Company Box</field>
+            <field name="label_id" ref="hash_search_purchase.purchase_order_hash_print_label"/>
+            <field name="component_type">rectangle</field>
+            <field name="origin_x">5</field>
+            <field name="origin_y">3</field>
+            <field name="height">34</field>
+            <field name="width">52</field>
+            <field name="thickness">30</field>
+            <field name="color">B</field>
+        </record>
+
         <record id="purchase_order_print_label_company"
                 model="printing.label.zpl2.component">
             <field name="sequence">4</field>
@@ -64,15 +80,16 @@
             <field name="component_type">text</field>
             <field name="font">D</field>
             <field name="data">object.company_id.partner_id.ref</field>
-            <field name="origin_x">0</field>
+            <field name="origin_x">6</field>
             <field name="origin_y">5</field>
             <field name="height">28</field>
-            <field name="width">295</field>
+            <field name="reverse_print" eval="True"/>
+            <field name="width">15</field>
             <field name="in_block" eval="True"/>
-            <field name="block_width">15</field>
+            <field name="block_width">50</field>
             <field name="block_lines">1</field>
             <field name="block_spaces">0</field>
-            <field name="block_justify">R</field>
+            <field name="block_justify">C</field>
             <field name="block_left_margin">0</field>
         </record>
 
@@ -157,7 +174,7 @@
             <field name="font">D</field>
             <field name="data">object.partner_id.name[:20]</field>
             <field name="origin_x">15</field>
-            <field name="origin_y">10</field>
+            <field name="origin_y">40</field>
         </record>
 
     </data>
