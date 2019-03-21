@@ -10,6 +10,6 @@ class HashMissingDocumentAssign(models.TransientModel):
     @api.onchange('object_id')
     def _onchange_object_set_domain(self):
         res = super()._onchange_object_set_domain()
-        if self.object_id._name == 'account.invoice':
+        if self.object_id and self.object_id._name == 'account.invoice':
             res['domain']['object_id'].append(
                 ('type', 'in', ['in_invoice', 'in_refund']))

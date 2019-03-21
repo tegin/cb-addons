@@ -71,7 +71,8 @@ class HashSearch(models.Model):
                     new_element)
                 new_cr.commit()
             except Exception:
-                os.unlink(new_element)
+                if os.path.exists(new_element):
+                    os.unlink(new_element)
                 new_cr.rollback()  # error, rollback everything atomically
                 raise
             finally:
