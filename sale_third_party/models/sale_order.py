@@ -185,7 +185,6 @@ class SaleOrder(models.Model):
             ]
         }
 
-    @api.model
     def _prepare_third_party_order(self):
         lines = self.order_line.filtered(lambda l: l.third_party_product_id)
         so_lines = [(0, 0, l._prepare_third_party_order_line()) for l in lines]
