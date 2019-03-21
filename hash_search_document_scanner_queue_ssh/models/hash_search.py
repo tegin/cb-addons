@@ -78,6 +78,8 @@ class HashSearch(models.Model):
             finally:
                 new_cr.close()
             sftp.remove(element.filename)
+        sftp.close()
+        connection.close()
         return True
 
     @api.model
