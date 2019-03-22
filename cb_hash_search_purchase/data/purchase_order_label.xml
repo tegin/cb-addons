@@ -35,10 +35,11 @@
             <field name="height">28</field>
             <field name="width">15</field>
             <field name="in_block" eval="True"/>
+            <field name="reverse_print" eval="True"/>
             <field name="block_width">295</field>
             <field name="block_lines">2</field>
             <field name="origin_x">70</field>
-            <field name="origin_y">15</field>
+            <field name="origin_y">5</field>
         </record>
 
 
@@ -61,13 +62,13 @@
         <record id="purchase_order_print_label_box_company"
                 model="printing.label.zpl2.component">
             <field name="sequence">3</field>
-            <field name="name">Company Box</field>
+            <field name="name">Purchase Order Box</field>
             <field name="label_id" ref="hash_search_purchase.purchase_order_hash_print_label"/>
             <field name="component_type">rectangle</field>
-            <field name="origin_x">5</field>
-            <field name="origin_y">3</field>
-            <field name="height">34</field>
-            <field name="width">52</field>
+            <field name="origin_x">60</field>
+            <field name="origin_y">4</field>
+            <field name="height">32</field>
+            <field name="width">185</field>
             <field name="thickness">30</field>
             <field name="color">B</field>
         </record>
@@ -83,7 +84,6 @@
             <field name="origin_x">6</field>
             <field name="origin_y">5</field>
             <field name="height">28</field>
-            <field name="reverse_print" eval="True"/>
             <field name="width">15</field>
             <field name="in_block" eval="True"/>
             <field name="block_width">50</field>
