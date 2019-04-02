@@ -10,8 +10,5 @@ class AccountBankingMandate(models.Model):
     @api.model
     def _get_hash_button(self):
         button = super()._get_hash_button()
-        import logging
-        logging.info(button)
-        logging.info(button.attrib)
         button.attrib['invisible'] = "1"
         return button
