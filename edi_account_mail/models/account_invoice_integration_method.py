@@ -16,7 +16,7 @@ class AccountInvoiceIntegrationMethod(models.Model):
         return res
 
     def get_email_integration_action(self, invoice):
-        return self.env.ref(
+        return invoice.invoice_report_email_id or self.env.ref(
             'account.account_invoices'
         )
 

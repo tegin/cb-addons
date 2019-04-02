@@ -7,3 +7,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     email_integration = fields.Char()
+    invoice_report_email_id = fields.Many2one(
+        'ir.actions.report',
+        domain=[('model', '=', 'account.invoice')]
+    )
