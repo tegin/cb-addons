@@ -1,3 +1,4 @@
+account-invoicing
 account-payment
 medical-fhir https://github.com/eficent/medical-fhir 11.0-dev
 commission
@@ -15,3 +16,5 @@ server-auth https://github.com/etobella/server-auth 11.0-imp-timeout
 server-tools
 server-ux https://github.com/etobella/server-ux 11.0-add-hash_search
 account-invoice-reporting
+web
+web_qr https://github.com/etobella/web 11.0-add-web_qr
