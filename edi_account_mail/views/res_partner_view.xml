@@ -9,6 +9,7 @@
         <field name="arch" type="xml">
             <field name="organo_proponente" position="after">
                 <field name="email_integration" widget="email"/>
+                <field name="invoice_report_email_id"/>
             </field>
         </field>
     </record>
