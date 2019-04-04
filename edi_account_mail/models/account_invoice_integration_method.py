@@ -26,12 +26,24 @@ class AccountInvoiceIntegrationMethod(models.Model):
         attachment = action.retrieve_attachment(invoice)
         if not attachment:
             fname = _('Invoice %s') % invoice.number
+            mimetype = False
+            if content_type == 'pdf':
+                mimetype = 'application/pdf'
+            if content_type == 'xls':
+                mimetype = 'application/vnd.ms-excel'
+            if content_type == 'xlsx':
+                mimetype = 'application/vnd.openxmlformats-officedocument.' \
+                           'spreadsheetml.sheet'
+            if content_type == 'csv':
+                mimetype = 'text/csv'
+            if content_type == 'xml':
+                mimetype = 'application/xml'
             attachment = self.env['ir.attachment'].create({
                 'name': fname,
                 'datas': base64.b64encode(content),
                 'datas_fname': fname,
                 'res_model': 'account.invoice',
                 'res_id': invoice.id,
-                'mimetype': 'application/pdf'
+                'mimetype': mimetype
             })
         return {'attachment_id': attachment.id}
