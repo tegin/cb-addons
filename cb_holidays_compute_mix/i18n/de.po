@@ -1,0 +1,124 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * hr_holidays_compute_days
+#
+# Translators:
+# Niki Waibel <niki.waibel@gmail.com>, 2017
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-28 01:43+0000\n"
+"PO-Revision-Date: 2018-12-19 13:58+0000\n"
+"Last-Translator: Maria Sparenberg <maria.sparenberg@gmx.net>\n"
+"Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.3\n"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,field_description:hr_holidays_compute_days.field_hr_holidays_number_of_days_temp_related
+msgid "Allocation"
+msgstr "Reservierung"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,field_description:hr_holidays_compute_days.field_hr_holidays_status_compute_full_days
+msgid "Compute Full Days"
+msgstr "volle Tage berechnen"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,field_description:hr_holidays_compute_days.field_hr_holidays_date_from_full
+msgid "Date From Full"
+msgstr "Startdatum"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,field_description:hr_holidays_compute_days.field_hr_holidays_date_to_full
+msgid "Date To Full"
+msgstr "Enddatum"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model,name:hr_holidays_compute_days.model_hr_employee
+msgid "Employee"
+msgstr "Angestellte(r)"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,field_description:hr_holidays_compute_days.field_hr_holidays_status_exclude_rest_days
+msgid "Exclude Rest Days"
+msgstr "Ruhetage ausschließen"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,field_description:hr_holidays_compute_days.field_hr_holidays_from_full_day
+msgid "From Full Day"
+msgstr "Startdatum (ganztags)"
+
+#. module: hr_holidays_compute_days
+#: model:ir.ui.view,arch_db:hr_holidays_compute_days.edit_holiday_new
+msgid "Full day"
+msgstr "ganztags"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,help:hr_holidays_compute_days.field_hr_holidays_status_exclude_rest_days
+msgid ""
+"If enabled, the employee's day off is skipped in leave days calculation."
+msgstr ""
+"Wenn der Haken gesetzt ist, wird der Urlaubstag des Mitarbeiters in der "
+"Urlaubstageberechnung übersprungen."
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,help:hr_holidays_compute_days.field_hr_holidays_status_compute_full_days
+msgid ""
+"If enabled, the number of days computed will be always for the full days in "
+"the interval"
+msgstr ""
+"Wenn der Haken gesetzt ist, bezieht sich die Anzahl der Tage auf ganze Tage"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model,name:hr_holidays_compute_days.model_hr_holidays
+msgid "Leave"
+msgstr "Urlaub"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model,name:hr_holidays_compute_days.model_hr_holidays_status
+msgid "Leave Type"
+msgstr "Urlaubsart"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,help:hr_holidays_compute_days.field_hr_holidays_number_of_days_temp_related
+msgid "Number of days of the leave request according to your working schedule."
+msgstr "Anzahl der Tage des Urlaubsantrags gemäß des Arbeitszeitplans."
+
+#. module: hr_holidays_compute_days
+#: model:ir.model,name:hr_holidays_compute_days.model_resource_calendar
+msgid "Resource Calendar"
+msgstr "Ressourcenkalender"
+
+#. module: hr_holidays_compute_days
+#: model:ir.model.fields,field_description:hr_holidays_compute_days.field_hr_holidays_to_full_day
+msgid "To Full Day"
+msgstr "Enddatum (ganztags)"
+
+#~ msgid "Exclude Public Holidays"
+#~ msgstr "Feiertage ausschließen"
+
+#~ msgid "If enabled, public holidays are skipped in leave days calculation."
+#~ msgstr ""
+#~ "Wenn diese Option aktiviert ist, werden die Feiertage in der "
+#~ "Urlaubstageberechnung übersprungen."
+
+#~ msgid ""
+#~ "You cannot schedule the end date on a public holiday or employee's rest "
+#~ "day"
+#~ msgstr ""
+#~ "Sie können das Enddatum nicht auf einen Feiertag oder einen Mitarbeiter "
+#~ "Ruhetag legen."
+
+#~ msgid ""
+#~ "You cannot schedule the start date on a public holiday or employee's rest "
+#~ "day"
+#~ msgstr ""
+#~ "Sie können das Anfangsdatum nicht auf einen Feiertag oder einen "
+#~ "Mitarbeiter Ruhetag legen."
