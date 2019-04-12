@@ -15,5 +15,6 @@
     ],
     'data': [
         'data/account_invoice_label.xml',
+        'report/report_invoice.xml',
     ],
 }
