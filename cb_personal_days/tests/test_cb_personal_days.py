@@ -12,7 +12,6 @@ class TestPersonalDays(common.TransactionCase):
         self.employee1 = Employee.create({
             'name': 'Employee 1',
         })
-
         self.status = HolidaysStatus.create({
             'name': 'Festivo Abril',
             'cb_personal_day': True,
