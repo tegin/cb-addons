@@ -11,7 +11,6 @@ class HrHolidaysStatus(models.Model):
 
     exclude_rest_days = fields.Boolean(
         string='Exclude Rest Days',
-        default=True,
         help="If enabled, the employee's day off is skipped in leave days "
              "calculation.",
     )

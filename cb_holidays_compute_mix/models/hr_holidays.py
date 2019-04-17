@@ -9,9 +9,13 @@ from dateutil import tz
 class HrHolidays(models.Model):
     _inherit = 'hr.holidays'
 
+    _order = 'create_date desc'
+
     def _default_employee(self):
         return self.env['hr.employee'].search(
             [('user_id', '=', self.env.user.id)], limit=1)
+
+    employee_id = fields.Many2one(required=True)
 
     time_description = fields.Char(
         string='Time',
@@ -122,7 +126,8 @@ class HrHolidays(models.Model):
             dt = dt.replace(tzinfo=tz.gettz(tz_name), second=0, microsecond=0)
             record.date_from = fields.Datetime.to_string(dt)
             record.date_to = fields.Datetime.to_string(dt)
-            self._set_number_of_hours_temp()
+            if record.employee_id:
+                record._set_number_of_hours_temp()
 
     @api.onchange('date_from_full')
     def _onchange_date_from_full(self):
@@ -138,19 +143,11 @@ class HrHolidays(models.Model):
     # Compute methods
     ####################################################
 
-    @api.depends('holiday_status_id', 'number_of_days_temp',
-                 'number_of_hours_temp')
-    def _compute_time_description(self):
-        for record in self:
-            if record.count_in_hours:
-                record.time_description = "%.2f hour(s)" % \
-                                          record.number_of_hours_temp
-            else:
-                record.time_description = "%.2f day(s)" %\
-                                          record.number_of_days_temp
-
-    @api.onchange('employee_id', 'holiday_status_id')
+    @api.onchange('employee_id', 'holiday_status_id', 'date_from', 'date_to')
     def _recompute_number_of_days(self):
+        # Check in context what form is open: add or remove
+        if self.env.context.get('default_type', '') == 'add':
+            return
         self._onchange_date_to()
         self.department_id = None
         self.number_of_hours_temp = 0.0
@@ -162,36 +159,16 @@ class HrHolidays(models.Model):
         """If we dont exclude rest days, the holiday time is just the time
         difference between the start and the end.
         """
-        if self.holiday_status_id.exclude_rest_days:
-            return super(HrHolidays, self)._get_number_of_days(
+        if not self.holiday_status_id.exclude_rest_days:
+            employee_id = None
+        return super(HrHolidays, self)._get_number_of_days(
                 date_from, date_to, employee_id,
-            )
-        date_from = fields.Date.from_string(date_from)
-        date_to = fields.Date.from_string(date_to)
-        if date_to < date_from:
-            return 0
-        delta = date_to - date_from
-        return delta.days
-
-    @api.onchange('date_from', 'date_to')
-    def onchange_date(self):
-        # Check in context what form is open: add or remove
-        if self.env.context.get('default_type', '') == 'add':
-            return
-        self._check_employee()
-        self._set_number_of_hours_temp()
+        )
 
     @api.multi
     def _set_number_of_hours_temp(self):
         self.ensure_one()
         self.number_of_hours_temp = self._compute_work_hours()
-
-    @api.multi
-    def _check_employee(self):
-        self.ensure_one()
-        employee = self.employee_id
-        if not employee and (self.date_to or self.date_from):
-            raise UserError(_('Set an employee first!'))
 
     @api.multi
     def _compute_work_hours(self):
@@ -255,6 +232,17 @@ class HrHolidays(models.Model):
                 raise ValidationError(
                     _('Hours of a leave request cannot be a negative number.')
                 )
+
+    @api.depends('holiday_status_id', 'number_of_days_temp',
+                 'number_of_hours_temp')
+    def _compute_time_description(self):
+        for record in self:
+            if record.count_in_hours:
+                record.time_description = "%.2f hour(s)" % \
+                                          record.number_of_hours_temp
+            else:
+                record.time_description = "%.2f day(s)" %\
+                                          record.number_of_days_temp
 
     @api.multi
     def name_get(self):

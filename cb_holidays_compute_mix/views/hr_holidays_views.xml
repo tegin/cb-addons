@@ -8,9 +8,9 @@
         <field name="model">hr.holidays</field>
         <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
         <field name="arch" type="xml">
-            <!-- <field name="employee_id" position="attributes">
+            <field name="department_id" position="attributes">
                 <attribute name="readonly">1</attribute>
-            </field> -->
+            </field>
             <field name="date_from" position="before">
                 <field name="count_in_hours" invisible="1"/>
                 <field name="date_from_full"
@@ -49,8 +49,13 @@
                     hours
                 </div>
             </xpath>
+            <field name="holiday_type" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
         </field>
     </record>
+
+    <!-- Time description changes-->
 
     <record id="view_holiday" model="ir.ui.view">
         <field name="name">hr.holidays.report_tree</field>

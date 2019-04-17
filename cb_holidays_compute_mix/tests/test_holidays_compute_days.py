@@ -81,29 +81,19 @@ class TestHolidaysComputeDays(common.TransactionCase):
         self.assertEqual(holidays.date_to_full, '1946-12-21')
         self.assertEqual(
             holidays._get_number_of_days(
-                '1946-12-20 08:10:00', '1946-12-02 05:10:00', self.employee.id
+                '1946-12-20 08:10:00', '1946-12-20 05:10:00', self.employee.id
             ), 0)
-
-    def test_number_days_excluding_full_day_employee(self):
-        holidays = self.HrHolidays.new({
-            'date_from': '1946-12-20 23:00:00',  # Saturday
-            'date_to': '1946-12-27 23:59:59',  # Friday
-            'holiday_status_id': self.holiday_type.id,
-            'employee_id': self.employee.id,
-        })
-        holidays._onchange_date_to()
-        self.assertEqual(holidays.number_of_days_temp, 5.0)
 
     def test_number_days_not_excluding(self):
         holidays = self.HrHolidays.new({
-            'date_from': '1946-12-22 23:00:00',  # Monday
+            'date_from': '1946-12-22 00:00:00',  # Monday
             'date_to': '1946-12-29 23:59:59',  # Sunday
             'holiday_status_id': self.holiday_type_no_excludes.id,
             'employee_id': self.employee.id,
         })
         holidays._onchange_date_from_full()
         holidays._onchange_date_to_full()
-        self.assertEqual(holidays.number_of_days_temp, 7.0)
+        self.assertEqual(holidays.number_of_days_temp, 8.0)
 
     def test_others(self):
         holidays = self.HrHolidays.new({
@@ -118,11 +108,11 @@ class TestHolidaysComputeDays(common.TransactionCase):
         holidays._compute_time_description()
         self.assertEqual(holidays.time_description, '3.00 hour(s)')
         holidays = self.HrHolidays.new({
-            'date_from': '1946-12-22 23:00:00',  # Monday
+            'date_from': '1946-12-22 00:00:00',  # Monday
             'date_to': '1946-12-24 23:59:59',  # Sunday
             'holiday_status_id': self.holiday_type_no_excludes.id,
             'employee_id': self.employee.id,
         })
         holidays._onchange_date_to()
         holidays._compute_time_description()
-        self.assertEqual(holidays.time_description, '2.00 day(s)')
+        self.assertEqual(holidays.time_description, '3.00 day(s)')

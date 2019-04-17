@@ -5,7 +5,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo.tests import common
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DF
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 
 
 class TestLeaveHours(common.TransactionCase):
@@ -182,31 +182,6 @@ class TestLeaveHours(common.TransactionCase):
 
         for test in test_list:
             test_onchange(test['leave'], test['employee'], test['allocation'])
-
-    def test_02_onchange_fail(self):
-        field_onchange = self.leave_1._onchange_spec()
-        values = {
-            'date_from': self.holiday_end.strftime(DF),
-            'date_to': self.holiday_start.strftime(DF),
-        }
-
-        with self.assertRaises(UserError):
-            self.leave_1.onchange(values, 'date_from', field_onchange)
-        with self.assertRaises(UserError):
-            self.leave_1.onchange(values, 'date_to', field_onchange)
-
-        values.update({
-            'employee_id': None,
-            'date_from': self.holiday_start.strftime(DF),
-            'date_to': self.holiday_end.strftime(DF),
-        })
-
-        self.leave_1.onchange(values, 'employee_id', field_onchange)
-
-        with self.assertRaises(UserError):
-            self.leave_1.onchange(values, 'date_from', field_onchange)
-        with self.assertRaises(UserError):
-            self.leave_1.onchange(values, 'date_to', field_onchange)
 
     def test_03_creation_fail(self):
         with self.assertRaises(ValidationError):

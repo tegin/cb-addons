@@ -18,9 +18,12 @@
         'hr_holidays',
     ],
     'data': [
+        'wizards/hr_holidays_allocation_wizard.xml',
         'security/holidays_security.xml',
         'views/hr_holidays_status_views.xml',
         'views/hr_holidays_views.xml',
+        'views/hr_module_views.xml',
     ],
     'installable': True,
+    'post_init_hook': 'post_init_hook',
 }
