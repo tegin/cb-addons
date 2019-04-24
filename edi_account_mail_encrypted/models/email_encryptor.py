@@ -17,8 +17,6 @@ class EmailEncryptor(models.AbstractModel):
 
     @api.model
     def _encrypt_value(self, value):
-        cipher = self._get_chipher()
-        _logger.info(cipher)
         return self._get_chipher().encrypt(value.encode())
 
     @api.model
