@@ -23,11 +23,9 @@ class ResPartner(models.Model):
                     'ssh_folder', 'ssh_report_id',
                     'invoice_integration_method_ids')
     def sftp_parameters_constrains(self):
-        import logging
-        logging.info([method.name for method in
-                      self.invoice_integration_method_ids])
-        if 'SFTP' in [method.name for method in
-                      self.invoice_integration_method_ids]:
+        if self.env.ref(
+            'l10n_es_facturae_sftp.integration_sftp'
+        ) in self.invoice_integration_method_ids:
             if not (self.ssh_server and self.ssh_port and self.ssh_name and
                     self.ssh_pass and self.ssh_folder and self.ssh_report_id):
                 raise ValidationError(_(
