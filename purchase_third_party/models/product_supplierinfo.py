@@ -1,3 +1,4 @@
+from odoo.addons import decimal_precision as dp
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
@@ -8,7 +9,9 @@ class SupplierInfo(models.Model):
     third_party_partner_id = fields.Many2one(
         'res.partner',
     )
-    third_party_price = fields.Float()
+    third_party_price = fields.Float(
+        digits=dp.get_precision('Product Price'),
+    )
 
     @api.onchange('third_party_partner_id')
     def _onchange_third_party_partner(self):
