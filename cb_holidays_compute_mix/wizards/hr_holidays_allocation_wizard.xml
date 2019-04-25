@@ -29,7 +29,9 @@
                         <field name="category_id"/>
                     </group>
                 </group>
-                <button name="populate" string="Populate" type="object" class="btn-primary oe_center"/>
+                <div class="text-left">
+                   <button name="populate" string="Populate" type="object" class="btn-primary"/>
+                </div>
                 <notebook>
                     <page string="Employees">
                         <field name="employee_ids"/>

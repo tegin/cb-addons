@@ -4,7 +4,7 @@
 from odoo import api, fields, models, _
 
 
-class AccountInvoiceRefund(models.TransientModel):
+class HrHolidaysAllocationWizard(models.TransientModel):
 
     _name = "hr.holidays.allocation.wizard"
 
@@ -76,5 +76,3 @@ class AccountInvoiceRefund(models.TransientModel):
                     allocation.action_approve()
                     if form.second_validation:
                         allocation.action_validate()
-                import logging
-                logging.info('creadaa')

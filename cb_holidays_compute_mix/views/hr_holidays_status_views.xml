@@ -15,4 +15,40 @@
         </field>
     </record>
 
+    <record id="leaves_left_holidays_status_kanban" model="ir.ui.view">
+        <field name="name">hr.holidays.status.leaves.left.kanban</field>
+        <field name="model">hr.holidays.status</field>
+        <field name="arch" type="xml">
+            <kanban create="false" delete="false">
+                <field name="name"/>
+                <field name="hours_taken"/>
+                <field name="remaining_hours"/>
+                <field name="remaining_leaves"/>
+                <field name="leaves_taken"/>
+                <field name="count_in_hours"/>
+                <field name="limit"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <div><strong><field name="name"/></strong></div>
+                            <div>
+                                <t t-if="record.limit.raw_value">
+                                    <span>No limit</span>
+                                </t>
+                                <t t-elif="record.count_in_hours.raw_value">
+                                    <span>Remaining hours: <field name="remaining_hours"/></span>
+                                    <span class="pull-right">Hours Taken: <field name="hours_taken"/></span>
+                                </t>
+                                <t t-else="">
+                                    <span>Remaining days: <field name="remaining_leaves"/></span>
+                                    <span class="pull-right">Days Taken: <field name="leaves_taken"/></span>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
 </odoo>

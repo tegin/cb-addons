@@ -118,6 +118,10 @@
         <field name="target">new</field>
     </record>
 
+    <record id="hr_holidays_public.action_create_next_year_public_holidays" model="ir.actions.act_window">
+        <field name="res_model">hr.holidays.next.year.public.holidays</field>
+    </record>
+
     <menuitem id="menu_open_allocation"
               name="Allocations"
               parent="hr_holidays.menu_hr_holidays_root"

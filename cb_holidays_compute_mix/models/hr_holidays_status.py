@@ -1,6 +1,7 @@
 # Copyright 2015 iDT LABS (http://www.@idtlabs.sl)
 # Copyright 2017-2018 Tecnativa - Pedro M. Baeza
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2019 Creu Blanca
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, _
 from odoo.tools import float_round

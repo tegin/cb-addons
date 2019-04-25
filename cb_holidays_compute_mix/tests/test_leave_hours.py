@@ -1,5 +1,6 @@
 # Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# Copyright 2019 Creu Blanca
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta

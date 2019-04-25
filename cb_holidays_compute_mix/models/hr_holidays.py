@@ -1,8 +1,9 @@
 # Copyright 2017-2018 Tecnativa - Pedro M. Baeza
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2019 Creu Blanca
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 from dateutil import tz
 
 
@@ -162,7 +163,7 @@ class HrHolidays(models.Model):
         if not self.holiday_status_id.exclude_rest_days:
             employee_id = None
         return super(HrHolidays, self)._get_number_of_days(
-                date_from, date_to, employee_id,
+            date_from, date_to, employee_id,
         )
 
     @api.multi
