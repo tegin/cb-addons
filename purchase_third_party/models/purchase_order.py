@@ -1,3 +1,4 @@
+from odoo.addons import decimal_precision as dp
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
@@ -74,7 +75,9 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    third_party_price_unit = fields.Float()
+    third_party_price_unit = fields.Float(
+        digits=dp.get_precision('Product Price'),
+    )
 
     third_party_price_subtotal = fields.Monetary(
         compute='_compute_amount_third_party',
