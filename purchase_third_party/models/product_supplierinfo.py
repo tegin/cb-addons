@@ -38,6 +38,7 @@ class SupplierInfo(models.Model):
     def _check_third_party(self):
         for rec in self.filtered(lambda r: r.third_party_partner_id):
             if self.search([
+                ('id', '!=', rec.id),
                 ('product_id', '=', rec.product_id.id),
                 ('name', '=', rec.name.id),
                 ('third_party_partner_id', '!=', rec.third_party_partner_id.id)
