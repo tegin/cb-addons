@@ -57,26 +57,36 @@ class HashSearch(models.Model):
             sftp.chdir(ssh_path)
         elements = sftp.listdir_attr('.')
         min_time = int(time.time()) - 60
+        single_commit = self.env.context.get('scanner_single_commit', False)
         for element in elements:
-            if element.st_atime > min_time:
+            if element.st_atime > min_time and not self.env.context.get(
+                'scanner_ignore_time', False
+            ):
                 continue
             filename = element.filename
             new_element = os.path.join(dest_path, filename)
-
-            new_cr = Registry(self.env.cr.dbname).cursor()
+            if not single_commit:
+                new_cr = Registry(self.env.cr.dbname).cursor()
             try:
-                env = api.Environment(new_cr, self.env.uid, self.env.context)
                 sftp.get(filename, new_element)
-                env[self._name].browse().with_delay().process_document(
-                    new_element)
-                new_cr.commit()
+                if single_commit:
+                    obj = self.env[self._name].browse()
+                else:
+                    obj = api.Environment(
+                        new_cr, self.env.uid, self.env.context
+                    )[self._name].browse().with_delay()
+                obj.process_document(new_element)
+                if not single_commit:
+                    new_cr.commit()
             except Exception:
                 if os.path.exists(new_element):
                     os.unlink(new_element)
-                new_cr.rollback()  # error, rollback everything atomically
+                if not single_commit:
+                    new_cr.rollback()  # error, rollback everything atomically
                 raise
             finally:
-                new_cr.close()
+                if not single_commit:
+                    new_cr.close()
             sftp.remove(element.filename)
         sftp.close()
         connection.close()
