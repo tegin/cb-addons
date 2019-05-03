@@ -46,6 +46,23 @@ class TestPurchaseThirdParty(TransactionCase):
                 'price': 7
             })]})
 
+    def test_check_third_party_tmpl(self):
+        self.env['product.supplierinfo'].create({
+            'name': self.supplier.id,
+            'third_party_partner_id': self.tp_partner.id,
+            'third_party_price': 5,
+            'price': 7,
+            'product_tmpl_id': self.mto_product.product_tmpl_id.id,
+        })
+        with self.assertRaises(ValidationError):
+            self.env['product.supplierinfo'].create({
+                'name': self.supplier.id,
+                'third_party_partner_id': self.supplier.id,
+                'third_party_price': 5,
+                'price': 7,
+                'product_tmpl_id': self.mto_product.product_tmpl_id.id,
+            })
+
     def test_check_third_party(self):
         self.env['product.supplierinfo'].create({
             'name': self.supplier.id,
