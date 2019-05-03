@@ -23,10 +23,9 @@ class HrOrgChartController(http.Controller):
                 type='json',
                 auth='user')
     def get_org_chart(self, department_id):
-        if not department_id:  # to check
-            return {}
+        if not department_id:
+            return{}
         department_id = int(department_id)
-
         Department = request.env['hr.department']
         # check and raise
         if not Department.check_access_rights('read', raise_exception=False):
