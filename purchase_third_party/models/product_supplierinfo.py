@@ -37,9 +37,19 @@ class SupplierInfo(models.Model):
     @api.constrains('third_party_partner_id', 'name', 'product_id')
     def _check_third_party(self):
         for rec in self.filtered(lambda r: r.third_party_partner_id):
-            if self.search([
+            if rec.product_id and self.search([
                 ('id', '!=', rec.id),
                 ('product_id', '=', rec.product_id.id),
+                ('name', '=', rec.name.id),
+                ('third_party_partner_id', '!=', rec.third_party_partner_id.id)
+            ], limit=1):
+                raise ValidationError(_(
+                    'The product cannot be defined with different third party '
+                    'configuration.'
+                ))
+            elif self.search([
+                ('id', '!=', rec.id),
+                ('product_tmpl_id', '=', rec.product_tmpl_id.id),
                 ('name', '=', rec.name.id),
                 ('third_party_partner_id', '!=', rec.third_party_partner_id.id)
             ], limit=1):
