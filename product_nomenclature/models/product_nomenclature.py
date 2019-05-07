@@ -35,6 +35,7 @@ class ProductNomenclatureProduct(models.Model):
     )
     code = fields.Char(required=True)
     name = fields.Char(required=True)
+    active = fields.Boolean(default=True)
 
     _sql_constraints = [(
         'product_nomenclature_unique',
