@@ -5,6 +5,9 @@
         <field name="model">hr.department</field>
         <field name="inherit_id" ref="hr.view_department_form"/>
         <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
             <div name="button_box" position="after">
                 <div id="o_department_container">
                     <div id="o_department_main">
