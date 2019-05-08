@@ -31,7 +31,9 @@ class Department(models.Model):
         compute='_compute_image_medium',
         help="Medium-sized photo of the employee. It is automatically "
              "resized as a 128x128px image, with aspect ratio preserved. "
-             "Use this field in form views or some kanban views.")
+             "Use this field in form views or some kanban views.",
+        store=True
+    )
 
     @api.depends('child_ids.child_all_count')
     def _compute_child_all_count(self):
