@@ -5,7 +5,7 @@
 {
     'name': 'Sequence parser',
     'version': '11.0.1.0.0',
-    'author': 'Eficent, Creu Blanca, Odoo Community Association (OCA)',
+    'author': 'Eficent, Creu Blanca',
     'website': 'http://github.com/eficent/cb-addons',
     'summary': 'Returns the sequence on a tuple',
     'sequence': 30,
