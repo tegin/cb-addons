@@ -5,7 +5,7 @@
 {
     'name': 'Cash payments between intercompanies',
     'version': '11.0.1.0.0',
-    'author': 'Eficent, Creu Blanca, Odoo Community Association (OCA)',
+    'author': 'Eficent, Creu Blanca',
     'website': 'http://github.com/eficent/cb-addons',
     'summary': 'Payment of invoices to another company',
     'sequence': 30,
