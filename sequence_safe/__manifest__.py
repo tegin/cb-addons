@@ -6,8 +6,7 @@
     "version": "11.0.1.0.0",
     "category": "Reporting",
     "website": "https://github.com/OCA/server-tools",
-    "author": "Creu Blanca, "
-              "Odoo Community Association (OCA)",
+    "author": "Creu Blanca",
     "license": "LGPL-3",
     "installable": True,
     "application": False,
