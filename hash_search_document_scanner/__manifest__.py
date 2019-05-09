@@ -7,7 +7,7 @@
         Attach documents directly using QR""",
     'version': '11.0.1.0.0',
     'license': 'AGPL-3',
-    'author': 'Creu Blanca,Odoo Community Association (OCA)',
+    'author': 'Creu Blanca',
     'website': 'www.creublanca.es',
     'depends': [
         'hash_search',
