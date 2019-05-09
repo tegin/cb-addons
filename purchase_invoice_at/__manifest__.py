@@ -4,7 +4,7 @@
 {
     'name': "Purchase invoice at",
     'summary': "Short subtitle phrase",
-    'author': "Creu Blanca, Odoo Community Association (OCA)",
+    'author': "Creu Blanca",
     'license': "AGPL-3",
     'website': "www.creublanca.es",
     'category': 'Uncategorized',
