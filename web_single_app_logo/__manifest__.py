@@ -4,8 +4,7 @@
 {
     "name": "Web Single App Logo",
     "version": "11.0.1.0.0",
-    "author": "Creu Blanca, "
-              "Odoo Community Association (OCA)",
+    "author": "Creu Blanca",
     "license": "AGPL-3",
     "category": "Website",
     "summary": "Allows to define a single app logo",
