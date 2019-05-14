@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_open_related_partner" model="ir.actions.act_window">
+        <field name="name">Related Partner</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">form</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <record id="view_employee_tree" model="ir.ui.view">
+        <field name="name">CB HR views hr.employee.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_kanban_view_employees" model="ir.ui.view">
+        <field name="name">CB HR views hr.employee.kanban</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">CB HR views hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+            </xpath>
+            <xpath expr="//h1//field[@name='name']/.." position="after">
+                    <div class="oe_edit_only">
+                        <group>
+                            <field name="lastname" attrs="{'required': [('firstname', '=', False), ('lastname2', '=', False)]}"/>
+                            <field name="lastname2" attrs="{'required': [('firstname', '=', False), ('lastname', '=', False)]}"/>
+                            <field name="firstname"  attrs="{'required': [('lastname2', '=', False), ('lastname', '=', False)]}"/>
+                        </group>
+                    </div>
+                </xpath>
+
+            <xpath expr="//field[@name='country_id']/.." position="attributes">
+                <attribute name="string">Citizenship</attribute>
+            </xpath>
+            <field name="manager" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="passport_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="address_home_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="address_home_id" position="after">
+                <field name="partner_id" context="{'show_address': 1}" string="Private Address" options='{"always_reload": True, "highlight_first_line": True}'/>
+            </field>
+            <field name="bank_account_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="identification_id" position="after">
+                <field name="identification_id_expiration"/>
+            </field>
+            <field name="coach_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//button[@name='toggle_active']" position="before">
+                <field name="partner_id" invisible="1"/>
+                <button name="action_open_related_partner" type="object"
+                        class="oe_stat_button" icon="fa-user-tie"
+                        attrs="{'invisible': ['|', ('partner_id', '=', False), ('show_info', '=', False)]}">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Related</span>
+                        <span class="o_stat_text">Partner</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='address_home_id']/.." position="inside">
+                <field name="personal_email" widget="email"/>
+                <field name="personal_phone"/>
+                <field name="personal_mobile"/>
+            </xpath>
+            <xpath expr="//field[@name='company_id']/.." position="after">
+                <group string="Bank Account">
+                    <field name="bank_account_id" context="{'default_partner_id': partner_id}"/>
+                </group>
+            </xpath>
+
+            <!-- Remove officer group and show depending on 'show_info' -->
+            <page name="personal_information" position="before">
+                <field name="show_info" invisible="1"/>
+            </page>
+            <page name="personal_information" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+                <attribute name="attrs">{'invisible': [('show_info', '=', False)]}</attribute>
+            </page>
+            <page name="hr_settings" position="attributes">
+                <attribute name="groups">hr.group_hr_manager</attribute>
+            </page>
+
+            <field name="visa_no" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="permit_no" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <field name="visa_expire" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="visa_expire" position="after">
+                <field string="Social Security Number" name="ssnid"/>
+                <field string="Social Insurance Number" name="sinid"/>
+            </field>
+            <field name="user_id" position="after">
+                <field name="personal_identifier"/>
+            </field>
+            <field name="resource_calendar_id" position="before">
+                <field name="working_hours_type" attrs="{'invisible': [('show_info', '=', False)]}"/>
+                <label for="percentage_of_reduction" string="Percentage of reduction"/>
+                <div attrs="{'invisible': ['|', ('show_info', '=', False), ('working_hours_type','!=','reduced')]}">
+                    <field name="percentage_of_reduction"/>
+                    %
+                </div>
+            </field>
+            <field name="medic_exam" position="before">
+                <field name="contract_id"/>
+            </field>
+            <field name="work_phone" position="after">
+                <field name="locker" attrs="{'invisible': [('show_info', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_employee_filter" model="ir.ui.view">
+        <field name="name">CB HR views hr.employee.filter</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <field name="job_id" position="after">
+               <filter name="id_expired" string="ID Expired" domain="[('identification_id_expiration', '&lt;=', datetime.date.today().strftime('%Y-%m-%d'))]" />
+               <separator/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_attendance.view_employee_form_inherit_hr_attendance" model="ir.ui.view">
+        <field name="groups_id" eval="[(4,ref('hr_attendance.group_hr_attendance'))]"/>
+    </record>
+
+    <record id="view_employee_form_inherit_hr_attendance" model="ir.ui.view">
+        <field name="name">CB HR Views hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_attendance.view_employee_form_inherit_hr_attendance"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[1]" position="before">
+                <field name="show_info" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[1]" position="attributes">
+                <attribute name="attrs">{'invisible': [('show_info', '=', False)]}</attribute>
+            </xpath>
+            <field name="barcode" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <field name="pin" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="manual_attendance" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_employee_view_form_family" model="ir.ui.view">
+        <field name="name">	hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_family.hr_employee_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[4]" position="before">
+                <field name="show_info" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[4]" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+                <attribute name="attrs">{'invisible': [('show_info', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
