@@ -21,7 +21,9 @@ class AccountInvoiceIntegrationMethod(models.Model):
     def sftp_integration_values(self, invoice):
         action = self.get_sftp_integration_action(invoice)
         content, content_type = action.render(invoice.ids)
-        attachment = action.retrieve_attachment(invoice)
+        attachment = False
+        if action.attachment:
+            attachment = action.retrieve_attachment(invoice)
         if not attachment:
             fname = _('Invoice %s') % invoice.number
             attachment = self.env['ir.attachment'].create({
