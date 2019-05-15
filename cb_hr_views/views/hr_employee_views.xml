@@ -48,8 +48,8 @@
                             <field name="firstname"  attrs="{'required': [('lastname2', '=', False), ('lastname', '=', False)]}"/>
                         </group>
                     </div>
-                </xpath>
-
+                    <strong attrs="{'invisible': [('show_info', '=', False)]}"><field name="today_schedule" nolabel="1"/></strong>
+            </xpath>
             <xpath expr="//field[@name='country_id']/.." position="attributes">
                 <attribute name="string">Citizenship</attribute>
             </xpath>
@@ -127,7 +127,7 @@
             </field>
             <field name="resource_calendar_id" position="before">
                 <field name="working_hours_type" attrs="{'invisible': [('show_info', '=', False)]}"/>
-                <label for="percentage_of_reduction" string="Percentage of reduction"/>
+                <label for="percentage_of_reduction" string="Percentage of reduction" attrs="{'invisible': ['|', ('show_info', '=', False), ('working_hours_type','!=','reduced')]}"/>
                 <div attrs="{'invisible': ['|', ('show_info', '=', False), ('working_hours_type','!=','reduced')]}">
                     <field name="percentage_of_reduction"/>
                     %
@@ -139,6 +139,22 @@
             <field name="work_phone" position="after">
                 <field name="locker" attrs="{'invisible': [('show_info', '=', False)]}"/>
             </field>
+            <xpath expr="//div[hasclass('oe_chatter')]" position="replace"/>
+        </field>
+    </record>
+
+    <record id="view_employee_form_manager" model="ir.ui.view">
+        <field name="name">CB HR views hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="view_employee_form"/>
+        <field name="groups_id" eval="[(4, ref('hr.group_hr_manager'))]"/>
+        <field name="arch" type="xml">
+            <sheet position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </sheet>
         </field>
     </record>
 
@@ -196,4 +212,16 @@
             </xpath>
         </field>
     </record>
+
+    <record id="hr_employee_calendar_planning" model="ir.ui.view">
+        <field name="name">	hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_employee_calendar_planning.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="calendar_ids" position="attributes">
+                <attribute name="attrs">{'invisible': [('show_info', '=', False)]}</attribute>
+            </field>
+        </field>
+    </record>
+
 </odoo>
