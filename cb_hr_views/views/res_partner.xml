@@ -18,7 +18,7 @@
         <field name="arch" type="xml">
             <xpath expr='//div[@name="button_box"]' position='inside'>
                 <field name="can_create_employee" invisible="1"/>
-                <button name="create_employee" string="Create employee" icon="fa-user" type="object"
+                <button name="create_employee" string="Create employee" icon="fa-user-tie" type="object"
                         attrs="{'invisible': [('can_create_employee', '=', False)]}"/>
                 <field name="has_employee" invisible="1"/>
                 <button name="action_open_related_employee" string="Related employee" icon="fa-user-tie" type="object"

@@ -17,7 +17,7 @@
             </field>
             <field name="resource_calendar_id" position="after">
                 <field name="working_hours_type"/>
-                <label for="percentage_of_reduction" string="Percentage of reduction"/>
+                <label for="percentage_of_reduction" string="Percentage of reduction" attrs="{'invisible': [('working_hours_type','!=','reduced')]}"/>
                 <div attrs="{'invisible': [('working_hours_type','!=','reduced')]}">
                     <field name="percentage_of_reduction"/>
                     %
@@ -35,5 +35,12 @@
                 <field name="substitute_contract"/>
             </field>
         </field>
+    </record>
+
+    <record id="hr_contract.action_hr_contract" model="ir.actions.act_window">
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="hr_contract.act_hr_employee_2_hr_contract" model="ir.actions.act_window">
+        <field name="domain">[('employee_id', '=', active_id)]</field>
     </record>
 </odoo>

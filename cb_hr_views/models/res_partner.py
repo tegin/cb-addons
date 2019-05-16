@@ -70,7 +70,13 @@ class ResPartner(models.Model):
 
     @api.multi
     def create_employee(self):
-        self.env['hr.employee'].create(self._employee_vals())
+        employee = self.env['hr.employee'].create(self._employee_vals())
+        employee.regenerate_calendar()
+        action = self.env.ref('cb_hr_views.action_open_related_employee')
+        result = action.read()[0]
+        result['views'] = [(False, 'form')]
+        result['res_id'] = employee.id
+        return result
 
     @api.multi
     def action_open_related_employee(self):

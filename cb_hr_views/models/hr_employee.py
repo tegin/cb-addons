@@ -2,6 +2,7 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from random import choice
 from string import digits
+from odoo.addons.resource.models.resource import float_to_time
 
 
 class HrEmployee(models.Model):
@@ -107,22 +108,88 @@ class HrEmployee(models.Model):
         store=True
     )
 
+    today_schedule = fields.Char(compute='_compute_today_schedule',
+                                 readonly=True)
+
     @api.multi
-    def toggle_active(self):
+    def _compute_today_schedule(self):
+        public_holidays = self.env['hr.holidays.public']
+        today = fields.Date.today()
+        day_date = fields.Date.from_string(today)
+        now = fields.Datetime.now()
         for record in self:
-            record.active = not record.active
-            if record.partner_id:
-                record.partner_id.write({'active': record.active})
+            domain = [
+                ('date_from', '<=', now),
+                ('date_to', '>=', now),
+                ('employee_id', '=', record.id),
+                ('type', '=', 'remove'),
+                ('state', '=', 'validate'),
+            ]
+            personal_holidays = self.env['hr.holidays'].search(domain, limit=1)
+            if personal_holidays:
+                date_from = fields.Date.context_today(
+                    self, fields.Datetime.from_string(
+                        personal_holidays.date_from)
+                )
+                record.today_schedule = _('Absent because of %s since %s' % (
+                    personal_holidays.holiday_status_id.name,
+                    date_from
+                ))
+                continue
+            if public_holidays.is_public_holiday(today, record.id):
+                record.today_schedule = _('Absent today because '
+                                          'of public holidays.')
+                continue
+
+            attendances = record.resource_calendar_id._get_day_attendances(
+                day_date, False, False
+            )
+            if not attendances:
+                record.today_schedule = _(
+                    'This employee doesn\'t work on %s') % (
+                    day_date.strftime("%A")
+                )
+            elif len(attendances) == 1:
+                record.today_schedule = _('Working from %s to %s') % (
+                    float_to_time(attendances.hour_from).strftime("%H:%M"),
+                    float_to_time(attendances.hour_to).strftime("%H:%M")
+                )
+            else:
+                message = record.today_schedule = _(
+                    'Working from %s to %s') % (
+                    float_to_time(attendances[0].hour_from).strftime("%H:%M"),
+                    float_to_time(attendances[0].hour_to).strftime("%H:%M")
+                )
+                attendances = attendances[1:]
+                for att in attendances[:-1]:
+                    message = message + _(', from %s to %s') % (
+                        float_to_time(att.hour_from).strftime("%H:%M"),
+                        float_to_time(att.hour_to).strftime("%H:%M")
+                    )
+                record.today_schedule = message + _(' and from %s to %s') % (
+                    float_to_time(attendances[-1].hour_from).strftime("%H:%M"),
+                    float_to_time(attendances[-1].hour_to).strftime("%H:%M")
+                )
 
     @api.depends('fam_children_ids')
     def _compute_children_count(self):
         for record in self:
             record.children = len(record.fam_children_ids)
 
-    @api.depends('partner_id.user_ids')
+    @api.depends('partner_id')
     def _compute_user(self):
         for record in self:
-            record.user_id = record.partner_id.user_ids[1:]
+            user = False
+            if record.partner_id.user_ids:
+                user = record.partner_id.user_ids[0]
+            record.user_id = user
+
+    @api.multi
+    def toggle_active(self):
+        for record in self:
+            record.active = not record.active
+            if record.partner_id:
+                record.partner_id.write({'active': record.active})
 
     @api.multi
     def action_open_related_partner(self):
@@ -157,10 +224,15 @@ class HrEmployee(models.Model):
         for record in self:
             record.manager = record.id in managers.ids
 
-    @api.constrains('partner_id.is_practitioner')
+    @api.constrains('partner_id')
     def _check_practitioner(self):
         for record in self:
             if record.partner_id.is_practitioner:
                 raise ValidationError(_(
                     'All employees must be practitioners'
                 ))
+
+
+class HrEmployeeCalendar(models.Model):
+    _inherit = 'hr.employee.calendar'
+    _order = 'date_start asc'
