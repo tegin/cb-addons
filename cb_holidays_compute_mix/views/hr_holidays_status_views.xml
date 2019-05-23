@@ -6,6 +6,9 @@
         <field name="model">hr.holidays.status</field>
         <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form" />
         <field name="arch" type="xml">
+            <field name="company_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
             <field name="name" position="after">
                 <field name="count_in_hours" />
             </field>

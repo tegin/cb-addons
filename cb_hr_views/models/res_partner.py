@@ -34,11 +34,15 @@ class ResPartner(models.Model):
     @api.depends('employee_ids', 'is_practitioner')
     def _compute_can_create_employee(self):
         for record in self:
+            employees = self.env['hr.employee'].search([
+                '|', ('active', '=', True), ('active', '=', False),
+                ('partner_id', '=', record.id)
+            ])
             record.can_create_employee = (
-                not record.employee_ids and record.is_practitioner
+                not employees and record.is_practitioner
             )
             record.has_employee = (
-                len(record.employee_ids) > 0 and record.is_practitioner
+                len(employees) > 0 and record.is_practitioner
             )
 
     @api.constrains('employee_ids', 'is_practitioner')
@@ -52,14 +56,6 @@ class ResPartner(models.Model):
             if len(record.employee_ids) > 1:
                 raise ValidationError(_(
                     'Only one employee for a partner is allowed'
-                ))
-
-    @api.constrains('user_ids')
-    def _check_user(self):
-        for record in self:
-            if len(record.user_ids) > 1:
-                raise ValidationError(_(
-                    'Only one user for a partner is allowed'
                 ))
 
     def _employee_vals(self):

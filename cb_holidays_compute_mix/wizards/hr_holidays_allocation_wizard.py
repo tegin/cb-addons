@@ -76,3 +76,8 @@ class HrHolidaysAllocationWizard(models.TransientModel):
                     allocation.action_approve()
                     if form.second_validation:
                         allocation.action_validate()
+        action = self.env.ref(
+            'cb_holidays_compute_mix.action_open_all_allocations')
+        result = action.read()[0]
+        result['views'] = [(False, 'tree')]
+        return result
