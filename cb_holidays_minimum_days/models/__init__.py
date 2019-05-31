@@ -1,2 +1,2 @@
-from . import hr_holidays
-from . import hr_holidays_status
+from . import hr_leave
+from . import hr_leave_type
