@@ -8,12 +8,11 @@
     'license': "AGPL-3",
     'website': "www.creublanca.es",
     'category': 'Uncategorized',
-    'version': '11.0.1.0.0',
-    'depends': ['purchase'],
+    'version': '12.0.1.0.0',
+    'depends': ['purchase_stock'],
     'data': [
         'views/purchase_order_views.xml',
         'views/purchase_order_report.xml',
         'views/res_partner_views.xml',
     ],
-    'demo': [],
 }
