@@ -13,7 +13,7 @@ sale-workflow
 stock-logistics-warehouse
 stock-logistics-workflow
 server-auth
-server-tools
+server-tools https://github.com/etobella/server-tools 12.0-fontawesome
 server-ux
 account-invoice-reporting
 web
