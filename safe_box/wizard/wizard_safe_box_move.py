@@ -7,6 +7,7 @@ from odoo import api, fields, models
 
 class WizardSafeBoxMove(models.TransientModel):
     _name = 'wizard.safe.box.move'
+    _description = 'wizard.safe.box.move'
 
     safe_box_group_id = fields.Many2one(
         'safe.box.group',

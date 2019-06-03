@@ -60,7 +60,7 @@
     </record>
 
     <menuitem id="safe_box_move_menu"
-              name="Safe Box move"
+              name="Safe Box Move"
               parent="safe_box_menu"
               action="safe_box_move_action"
               sequence="1"/>
