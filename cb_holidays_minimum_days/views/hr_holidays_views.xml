@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="edit_holiday_status_form" model="ir.ui.view">
+        <field name="name">hr.holidays.status.form (cb_holidays_minimum_days)</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <field name="request_unit" position="after">
+                <label for="minimum_time" string="Minimum time"/>
+                <div>
+                    <field name="minimum_time" nolabel="1" class="oe_inline"/>
+                    <span class="ml8" attrs="{'invisible': [('request_unit', '=', 'hour')]}">Days</span>
+                    <span class="ml8" attrs="{'invisible': [('request_unit', '!=', 'hour')]}">Hours</span>
+                </div>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_leave_view_form" model="ir.ui.view">
+        <field name="name">Leave Request</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+            <header position="after">
+                <div class="alert alert-warning"
+                     aria-label="Warning"
+                     title="Warning"
+                     role="alert"
+                     attrs="{'invisible': [('warning_minimum', '=', False)]}">
+                    <p><i class="fa fa-fw fa-info-circle"/>
+                        <field name="warning_minimum"/>
+                    </p>
+                </div>
+            </header>
+        </field>
+    </record>
+
+</odoo>
