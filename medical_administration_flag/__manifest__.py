@@ -4,8 +4,9 @@
 
 {
     'name': 'Medical Patient Flag',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'author': 'Eficent, Creu Blanca',
+    'summary': 'Medical Patient Flag',
     'depends': [
         'medical_administration',
     ],
@@ -16,8 +17,6 @@
         'views/medical_patient_views.xml',
         'views/medical_flag_views.xml',
         'views/medical_flag_category_views.xml',
-    ],
-    'demo': [
     ],
     'website': 'https://github.com/OCA/cb-addons',
     'license': 'LGPL-3',
