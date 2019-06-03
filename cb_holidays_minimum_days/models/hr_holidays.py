@@ -13,10 +13,9 @@ class HrHolidays(models.Model):
     def _compute_warning_minimum(self):
         for rec in self:
             rec.warning = False
-            min_days = rec.holiday_status_id.minimum_days
+            min_days = rec.holiday_status_id.minimum_time
             days_asking = rec.number_of_days_temp
-            if (rec.type == 'remove' and
-                    rec.holiday_status_id.minimum_days and days_asking):
+            if rec.type == 'remove' and rec.holiday_status_id.minimum_time:
                 if days_asking < min_days:
                     rec.warning_minimum = _(
                         'Warning: The number of days is less than the minimum'

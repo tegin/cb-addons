@@ -10,7 +10,7 @@
         <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form" />
         <field name="arch" type="xml">
             <field name="limit" position="after">
-                <field name="minimum_days"/>
+                <field name="minimum_time"/>
             </field>
         </field>
     </record>

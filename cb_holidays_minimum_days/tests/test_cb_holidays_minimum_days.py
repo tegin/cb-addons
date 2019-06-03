@@ -13,7 +13,7 @@ class TestCbHolidaysMinimumDays(TransactionCase):
         })
         self.holiday_type = self.env['hr.holidays.status'].create({
             'name': 'Leave Type Test',
-            'minimum_days': 7,
+            'minimum_time': 7,
         })
         self.allocation = self.env['hr.holidays'].create({
             'name': 'Test',
