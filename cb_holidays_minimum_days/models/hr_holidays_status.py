@@ -8,4 +8,4 @@ class HrHolidaysStatus(models.Model):
 
     _inherit = 'hr.holidays.status'
 
-    minimum_days = fields.Integer(string='Minimum Days')
+    minimum_time = fields.Integer(string='Minimum Days')
