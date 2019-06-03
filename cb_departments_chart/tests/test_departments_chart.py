@@ -57,7 +57,7 @@ class TestCBDepartmentsChartHttp(HttpCase):
     def test_departments_chart_controller(self, r):
         data = {
             'params': {
-                'department_id': self.department_1.id
+                'department_id': self.department_2.id
             }
         }
         url = '/cb_departments_chart/get_org_chart'
@@ -67,7 +67,7 @@ class TestCBDepartmentsChartHttp(HttpCase):
         response = self.opener.post(
             url, data=data, headers=headers, timeout=10)
         json_data = json.loads(response.text)
-        self.assertEqual(json_data['result']['self']['name'], 'Dep1')
+        self.assertEqual(json_data['result']['self']['name'], 'Dep2')
         self.assertEqual(json_data['result']['self']['direct_sub_count'], 1)
-        self.assertEqual(json_data['result']['self']['indirect_sub_count'], 2)
-        self.assertEqual(json_data['result']['children'][0]['name'], 'Dep2')
+        self.assertEqual(json_data['result']['self']['indirect_sub_count'], 1)
+        self.assertEqual(json_data['result']['children'][0]['name'], 'Dep3')

@@ -2,8 +2,7 @@
 
 {
     'name': 'HR Org Chart',
-    'category': 'Hidden',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'Creu Blanca',
     'summary': """Departments Chart
