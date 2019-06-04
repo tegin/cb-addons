@@ -267,6 +267,7 @@ class TestMedicalCoverageAgreement(TransactionCase):
         wiz = self.env['medical.agreement.change.prices'].create({
             'difference': 50.0})
         wiz.with_context(active_ids=[coverage_agreement.id]).change_prices()
+        item_1.refresh()
         self.assertEquals(item_1.coverage_price, 150)
         self.assertEquals(item_1.private_price, 150)
 
@@ -276,25 +277,25 @@ class TestMedicalCoverageAgreement(TransactionCase):
             'name': 'test coverage agreement',
             'center_ids': [(6, 0, [self.center_1.id])],
             'company_id': self.ref('base.main_company'),
-            'date_from': (datetime.today() + relativedelta(days=5))
+            'date_from': (datetime.today() + relativedelta(days=5)).date()
         }
         coverage_agreement = self.coverage_agreement_model.create(
             coverage_agreement_vals)
         coverage_agreement._onchange_date_range()
         self.assertEquals(coverage_agreement.active, False)
         # case 2
-        coverage_agreement.date_from = datetime.today() - \
-            relativedelta(days=10)
+        coverage_agreement.date_from = (
+            datetime.today() - relativedelta(days=10)).date()
         coverage_agreement._onchange_date_range()
         self.assertEquals(coverage_agreement.active, True)
         # case 3
-        coverage_agreement.date_to = datetime.today() + relativedelta(
-            days=100)
+        coverage_agreement.date_to = (datetime.today() + relativedelta(
+            days=100)).date()
         coverage_agreement._onchange_date_range()
         self.assertEquals(coverage_agreement.active, True)
         # case 4
-        coverage_agreement.date_to = datetime.today() - relativedelta(
-            days=5)
+        coverage_agreement.date_to = (datetime.today() - relativedelta(
+            days=5)).date()
         coverage_agreement._onchange_date_range()
         self.assertEquals(coverage_agreement.active, False)
 
