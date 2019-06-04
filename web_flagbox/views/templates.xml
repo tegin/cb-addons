@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_backend" name="web_widget_image_url assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/web_flagbox/static/src/js/form_renderer.js" />
+        <link rel="stylesheet" type="text/scss" href="/web_flagbox/static/src/scss/flag_box.scss"/>
+        </xpath>
+    </template>
+</odoo>
