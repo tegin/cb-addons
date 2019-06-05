@@ -24,7 +24,7 @@
                         </div>
                         <div class="content-group">
                             <div class="mt16 row">
-                                <label string=""
+                                <label string="" for="single_app_logo"
                                        class="col-xs-3 col-md-3 o_light_label"/>
                                 <field name="single_app_logo"
                                        required="1" widget="image"/>
