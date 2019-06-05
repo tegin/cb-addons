@@ -14,6 +14,6 @@ stock-logistics-warehouse
 stock-logistics-workflow
 server-auth
 server-tools
-server-ux
+server-ux https://github.com/tegin/server-ux 12.0-mig-sequence_check_digit
 account-invoice-reporting
 web
