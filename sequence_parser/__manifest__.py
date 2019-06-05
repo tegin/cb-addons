@@ -4,7 +4,7 @@
 
 {
     'name': 'Sequence parser',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'author': 'Eficent, Creu Blanca',
     'website': 'http://github.com/eficent/cb-addons',
     'summary': 'Returns the sequence on a tuple',
@@ -15,8 +15,6 @@
         'sequence_check_digit',
     ],
     'license': 'LGPL-3',
-    'data': [
-    ],
     'installable': True,
     'application': False,
     'auto_install': False,
