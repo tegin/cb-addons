@@ -21,7 +21,7 @@ class TestSequence(TransactionCase):
             'name': 'Product',
             'type': 'consu',
         })
-        self.uom_unit = self.env.ref('product.product_uom_unit')
+        self.uom_unit = self.env.ref('uom.product_uom_unit')
 
     def check_model(self, model, vals):
         values = vals.copy()
