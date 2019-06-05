@@ -8,12 +8,12 @@ queue
 multicompany-fixes https://github.com/eficent/multicompany-fixes 12.0
 partner-contact
 pos
-report-print-send
+report-print-send https://github.com/tegin/report-print-send 12.0-mig-remote_report_to_printer
 sale-workflow
 stock-logistics-warehouse
 stock-logistics-workflow
 server-auth
-server-tools
 server-ux https://github.com/tegin/server-ux 12.0-mig-sequence_check_digit
+server-tools https://github.com/tegin/server-tools 12.0-mig-base-report
 account-invoice-reporting
 web

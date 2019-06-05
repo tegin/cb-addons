@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class MedicalDocumentTypeAddLanguage(models.TransientModel):
     _name = 'medical.document.type.add.language'
+    _description = 'Wizard medical document type add language'
 
     document_type_id = fields.Many2one(
         'medical.document.type',

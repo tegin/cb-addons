@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class MedicalDocumentLanguage(models.AbstractModel):
     _name = 'medical.document.language'
+    _description = 'Medical document language'
 
     @api.model
     def _get_languages(self):
