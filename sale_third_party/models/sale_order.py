@@ -98,9 +98,9 @@ class SaleOrder(models.Model):
                              with_context(date=line.date)) or
                             line.company_id.currency_id.
                             with_context(date=line.date))
-                        in_residual += from_currency.compute(
+                        in_residual += from_currency._convert(
                             line.amount_residual,
-                            rec.currency_id)
+                            rec.currency_id, line.company_id, line.date)
                 elif line.account_id == third_party_supplier_account and \
                         line.partner_id == rec.third_party_partner_id:
                     out_residual_company += line.amount_residual
@@ -113,9 +113,9 @@ class SaleOrder(models.Model):
                              with_context(date=line.date)) or
                             line.company_id.currency_id.
                             with_context(date=line.date))
-                        out_residual += from_currency.compute(
+                        out_residual += from_currency._convert(
                             line.amount_residual,
-                            rec.currency_id)
+                            rec.currency_id, line.company_id, line.date)
             rec.third_party_customer_in_residual_company = abs(
                 in_residual_company)
             rec.third_party_customer_in_residual = abs(in_residual)

@@ -94,6 +94,7 @@ class ThirdParty(TransactionCase):
             'default_third_party_customer_account_id': self.customer_acc.id,
             'default_third_party_supplier_account_id': self.supplier_acc.id,
         })
+        self.company.refresh()
         self.assertEqual(
             self.company.default_third_party_customer_account_id,
             self.customer.property_third_party_customer_account_id)
@@ -320,9 +321,7 @@ class ThirdParty(TransactionCase):
             lambda l: l.account_id == supplier_acc)
         aml_recs += sale_order.third_party_move_id.line_ids.filtered(
             lambda l: l.partner_id == self.supplier)
-        wizard = self.env['account.move.line.reconcile'].with_context(
-            active_ids=[x.id for x in aml_recs]).create({})
-        wizard.trans_rec_reconcile_full()
+        aml_recs.reconcile()
         self.assertEqual(sale_order.third_party_customer_out_residual, 0.0)
         self.assertEqual(sale_order.third_party_customer_out_state, 'paid')
 
