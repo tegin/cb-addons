@@ -14,6 +14,7 @@ class TestCbHolidaysMinimumDays(TransactionCase):
         self.holiday_type = self.env['hr.leave.type'].sudo().create({
             'name': 'Leave Type Test',
             'minimum_time': 7,
+            'validity_start': False,
         })
         self.allocation = self.env['hr.leave.allocation'].sudo().create({
             'holiday_type': 'employee',
