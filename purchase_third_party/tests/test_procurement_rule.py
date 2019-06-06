@@ -14,7 +14,7 @@ class TestPurchaseThirdParty(TransactionCase):
         self.supplier = self.env['res.partner'].create(
             {'name': 'Test supplier'})
 
-        self.uom_id = self.env.ref('product.product_uom_unit').id
+        self.uom_id = self.env.ref('uom.product_uom_unit').id
         self.mto_product = self.env['product.product'].create(
             {'name': 'Test buy product',
              'type': 'product',
@@ -28,8 +28,8 @@ class TestPurchaseThirdParty(TransactionCase):
              })]})
 
     def test_procurement_third_party(self):
-        route = self.env.ref('purchase.route_warehouse0_buy')
-        rule = self.env['procurement.rule'].search(
+        route = self.env.ref('purchase_stock.route_warehouse0_buy')
+        rule = self.env['stock.rule'].search(
             [('route_id', '=', route.id)], limit=1)
         rule._run_buy(
             product_id=self.mto_product,
