@@ -16,21 +16,21 @@ class TestHrContractState(TransactionCase):
             'name': 'Contract',
             'employee_id': self.employee.id,
             'wage': 1000,
-            'date_start': '2019-06-06',
+            'date_start': '2100-06-06',
         })
         self.company = self.env.user.company_id
 
     def test_hr_contract_state(self):
         with patch('odoo.fields.Date.today') as p:
-            p.return_value = '2019-06-15'
+            p.return_value = '2100-06-15'
             self.assertEqual(self.contract.state, 'draft')
 
-            self.contract.update({'date_start': '2019-06-06'})
+            self.contract.update({'date_start': '2100-06-06'})
             self.env['hr.contract'].with_context(
                 execute_old_update=True).update_state()
             self.assertEqual(self.contract.state, 'open')
 
-            self.contract.write({'date_end': '2019-06-25'})
+            self.contract.write({'date_end': '2100-06-25'})
             self.assertEqual(self.contract.state, 'pending')
 
             self.contract.pending2to_expire()
@@ -42,5 +42,5 @@ class TestHrContractState(TransactionCase):
             self.assertTrue(renewed_contract)
             self.assertEqual(self.contract.state, 'renewed')
 
-            self.contract.write({'date_end': '2019-06-14'})
+            self.contract.write({'date_end': '2100-06-14'})
             self.assertEqual(self.contract.state, 'close')

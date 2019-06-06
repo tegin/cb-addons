@@ -10,7 +10,7 @@ class ResCompany(models.Model):
 
     days_to_expire = fields.Integer(
         string="Days to set contracts to Renew",
-        default="30",
+        default=30,
         help="Is the remaining time of a contract is less "
              "than this field its state will be set to 'To renew'.",
     )
