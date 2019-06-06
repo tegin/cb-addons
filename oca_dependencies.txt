@@ -15,7 +15,8 @@ stock-logistics-warehouse
 stock-logistics-workflow
 server-auth https://github.com/etobella/server-auth 11.0-imp-timeout
 server-tools
-server-ux https://github.com/etobella/server-ux 11.0-add-hash_search
+server-ux https://github.com/etobella/server-ux 11.0-add-document_quick_access
+server-ux-hash https://github.com/etobella/server-ux 11.0-add-hash_search
 account-invoice-reporting
 web
 web_qr https://github.com/etobella/web 11.0-add-web_qr
