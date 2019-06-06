@@ -6,4 +6,4 @@
 Web Session Management
 ======================
 
-Allow to kill user sessions
+Allow to kill user sessions.

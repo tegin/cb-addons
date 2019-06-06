@@ -15,7 +15,7 @@
                 <field name="session_id"/>
                 <field name="session_token"/>
                 <field name="update_time"/>
-                <button name="kill" type="object" icon="fa-skull"
+                <button name="kill" type="object" icon="fa fa-skull" aria-label="Kill" title="Kill"
                         attrs="{'invisible': [('current_session', '=', True)]}"
                         confirm="Are you sure you want kill this session?"/>
             </tree>

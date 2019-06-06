@@ -12,7 +12,7 @@ report-print-send https://github.com/tegin/report-print-send 12.0-mig-remote_rep
 sale-workflow
 stock-logistics-warehouse
 stock-logistics-workflow
-server-auth
+server-auth https://github.com/jarroyomorales/server-ux 12.0-mig-auth_session_timeout
 server-tools https://github.com/tegin/server-tools 12.0-mig-base-report
 server-ux https://github.com/tegin/server-ux 12.0-mig-sequence_check_digit
 account-invoice-reporting

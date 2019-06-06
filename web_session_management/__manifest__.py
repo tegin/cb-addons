@@ -15,6 +15,4 @@
         'wizards/res_users_sessions_wizard.xml',
         'views/http_session_user.xml',
     ],
-    'demo': [
-    ],
 }
