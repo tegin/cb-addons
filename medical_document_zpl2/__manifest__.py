@@ -4,7 +4,7 @@
 
 {
     'name': 'Medical documents',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'author': 'Eficent, Creu Blanca',
     'depends': [
         'medical_document',
@@ -14,8 +14,6 @@
     'data': [
         'views/medical_document_type_views.xml',
         'views/medical_document_reference_views.xml',
-    ],
-    'demo': [
     ],
     'website': 'https://github.com/OCA/cb-addons',
     'license': 'LGPL-3',
