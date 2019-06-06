@@ -30,15 +30,16 @@ class HrContract(models.Model):
 
     @api.model
     def update_state(self, identifier=False):
-        id_domain = (1, '=', 1)
+        if self.env.context.get('execute_old_update', False):
+            return super().update_state()
+        id_domain = []
         if identifier:
-            id_domain = ('id', '=', identifier)
+            id_domain = [('id', '=', identifier)]
         today = fields.Date.today()
         self.search([
             ('state', '=', 'draft'),
             ('date_start', '<=', today),
-            id_domain
-        ]).write({'state': 'open'})
+        ] + id_domain).write({'state': 'open'})
         for company in self.env['res.company'].search([]):
             self.search([
                 ('company_id', '=', company.id),
@@ -48,15 +49,11 @@ class HrContract(models.Model):
                     fields.Date.from_string(today) +
                     timedelta(days=company.days_to_expire)
                 )),
-                id_domain
-            ]).write({'state': 'pending'})
+            ] + id_domain).write({'state': 'pending'})
         self.search([
             ('state', 'in', ['renewed', 'to_expire', 'pending']),
             ('date_end', '<', today),
-            id_domain,
-        ]).write({'state': 'close'})
-        if self.env.context.get('execute_old_update', False):
-            return super().update_state()
+        ] + id_domain).write({'state': 'close'})
         return True
 
     @api.multi
