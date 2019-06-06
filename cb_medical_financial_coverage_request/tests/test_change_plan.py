@@ -227,6 +227,7 @@ class TestCB(TransactionCase):
         ).create({
             'agreement_line_id': self.agreement_line3.id
         }).run()
+        group.procedure_request_ids.refresh()
         requests = group.procedure_request_ids.filtered(
             lambda r: r.state == 'draft'
         )
