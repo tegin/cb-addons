@@ -13,7 +13,6 @@
     'application': False,
     'summary': 'Adds integration information',
     'depends': [
-        'point_of_sale',
         'pos_close_approval',
     ],
     'data': [

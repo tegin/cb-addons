@@ -7,7 +7,6 @@
     'version': '11.0.1.0.0',
     'author': 'Eficent, Creu Blanca',
     'depends': [
-        'point_of_sale',
         'safe_box',
         'pos_close_approval',
     ],

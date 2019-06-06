@@ -10,7 +10,6 @@
     'author': 'Creu Blanca',
     'website': 'www.creublanca.es',
     'depends': [
-        'account',
         'remote_report_to_printer_label',
         'printer_zpl2',
         'hash_search_account_invoice',
