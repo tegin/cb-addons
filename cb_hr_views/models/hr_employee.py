@@ -63,7 +63,6 @@ class HrEmployee(models.Model):
     parent_id = fields.Many2one(
         related='department_id.manager_id',
         readonly=True,
-        store=True,
     )
     company_id = fields.Many2one(
         related='contract_id.company_id',
