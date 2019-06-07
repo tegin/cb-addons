@@ -75,7 +75,6 @@ class TestPosSafeBox(TransactionCase):
         session.action_pos_session_closing_control()
         self.assertTrue(session.pos_session_validation_id)
         validation = session.pos_session_validation_id
-        self.assertTrue(validation.line_ids)
         with self.assertRaises(ValidationError):
             validation.close()
         validation.line_ids.filtered(
