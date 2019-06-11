@@ -43,4 +43,9 @@
     <record id="hr_contract.act_hr_employee_2_hr_contract" model="ir.actions.act_window">
         <field name="domain">[('employee_id', '=', active_id)]</field>
     </record>
+
+    <record id="hr_contract.hr_menu_contract" model="ir.ui.menu">
+        <field name="sequence" eval="5"/>
+    </record>
+
 </odoo>

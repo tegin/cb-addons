@@ -68,6 +68,7 @@ class ResPartner(models.Model):
     def create_employee(self):
         employee = self.env['hr.employee'].create(self._employee_vals())
         employee.regenerate_calendar()
+        employee._compute_user()
         action = self.env.ref('cb_hr_views.action_open_related_employee')
         result = action.read()[0]
         result['views'] = [(False, 'form')]

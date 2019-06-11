@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-10 10:35+0000\n"
-"PO-Revision-Date: 2019-05-10 12:36+0200\n"
+"POT-Creation-Date: 2019-06-11 14:41+0000\n"
+"PO-Revision-Date: 2019-06-11 16:44+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,18 @@ msgstr ""
 "Plural-Forms: \n"
 "Language: es\n"
 "X-Generator: Poedit 2.0.6\n"
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:185
+#, python-format
+msgid " and from %s to %s"
+msgstr " y de  %s a %s"
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:181
+#, python-format
+msgid ", from %s to %s"
+msgstr ", de %s a %s"
 
 #. module: cb_hr_views
 #: model:ir.ui.view,arch_db:cb_hr_views.view_employee_form
@@ -32,7 +44,19 @@ msgid "Able to see Private Info"
 msgstr "Con permiso de ver información personal"
 
 #. module: cb_hr_views
-#: code:addons/cb_hr_views/models/hr_employee.py:161
+#: code:addons/cb_hr_views/models/hr_employee.py:151
+#, python-format
+msgid "Absent because of %s since %s"
+msgstr "Ausente a causa de %s hasta %s"
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:157
+#, python-format
+msgid "Absent today because of public holidays"
+msgstr "Ausente hoy por vacaciones públicas"
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:244
 #, python-format
 msgid "All employees must be practitioners"
 msgstr "Todos los empleados deben ser profesionals"
@@ -41,6 +65,11 @@ msgstr "Todos los empleados deben ser profesionals"
 #: model:ir.ui.view,arch_db:cb_hr_views.view_employee_form
 msgid "Bank Account"
 msgstr "Cuenta bancaria"
+
+#. module: cb_hr_views
+#: model:ir.ui.menu,name:cb_hr_views.menu_resource_calendar_tree
+msgid "Calendars"
+msgstr "Calendarios"
 
 #. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_medical_patient_can_create_employee
@@ -98,6 +127,11 @@ msgid "Employee"
 msgstr "Empleado"
 
 #. module: cb_hr_views
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_department_view_kanban
+msgid "Employees"
+msgstr "Empleados"
+
+#. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_firstname
 msgid "First name"
 msgstr "Nombre"
@@ -122,7 +156,7 @@ msgstr "Tiene Empleado"
 #. module: cb_hr_views
 #: model:ir.ui.view,arch_db:cb_hr_views.view_employee_filter
 msgid "ID Expired"
-msgstr "Nº de identificación Caducado"
+msgstr "DNI Caducado"
 
 #. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_identification_id_expiration
@@ -130,7 +164,7 @@ msgid "Identification No Expire Date"
 msgstr "Fecha de caducidad"
 
 #. module: cb_hr_views
-#: code:addons/cb_hr_views/models/res_partner.py:38
+#: code:addons/cb_hr_views/models/res_partner.py:52
 #, python-format
 msgid "In order to be an employee, is required to be a practitioner"
 msgstr "Para ser un empleado, hace falta ser un profesional"
@@ -162,21 +196,15 @@ msgid "Locker"
 msgstr "Taquilla"
 
 #. module: cb_hr_views
-#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_phone
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_mobile
 msgid "Mobile"
 msgstr "Móvil"
 
 #. module: cb_hr_views
-#: code:addons/cb_hr_views/models/res_partner.py:43
+#: code:addons/cb_hr_views/models/res_partner.py:57
 #, python-format
 msgid "Only one employee for a partner is allowed"
 msgstr "Solo se permite un empleado por partner"
-
-#. module: cb_hr_views
-#: code:addons/cb_hr_views/models/res_partner.py:51
-#, python-format
-msgid "Only one user for a partner is allowed"
-msgstr "Solo se permite un usuario por partner"
 
 #. module: cb_hr_views
 #: selection:hr.contract,working_hours_type:0
@@ -201,7 +229,7 @@ msgid "Personal ID"
 msgstr "ID Personal"
 
 #. module: cb_hr_views
-#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_mobile
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_phone
 msgid "Phone"
 msgstr "Teléfono"
 
@@ -236,6 +264,11 @@ msgid "Related partner"
 msgstr "Partner Asociado"
 
 #. module: cb_hr_views
+#: model:ir.model,name:cb_hr_views.model_resource_calendar
+msgid "Resource Calendar"
+msgstr "Calendario de recurso"
+
+#. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_lastname2
 msgid "Second last name"
 msgstr "Segundo apellido"
@@ -262,7 +295,35 @@ msgid "Substituting"
 msgstr "Substituyendo a"
 
 #. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:165
+#, python-format
+msgid "This employee doesn't work today"
+msgstr "Este empleado no trabaja hoy"
+
+#. module: cb_hr_views
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_today_schedule
+msgid "Today Schedule"
+msgstr "Horario de hoy"
+
+#. module: cb_hr_views
+#: model:ir.model,name:cb_hr_views.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_contract_working_hours_type
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_working_hours_type
 msgid "Working Hours Type"
 msgstr "Jornada"
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:169
+#: code:addons/cb_hr_views/models/hr_employee.py:174
+#, python-format
+msgid "Working from %s to %s"
+msgstr "Trabajando de %s a %s"
+
+#. module: cb_hr_views
+#: model:ir.model,name:cb_hr_views.model_hr_employee_calendar
+msgid "hr.employee.calendar"
+msgstr "hr.employee.calendar"
