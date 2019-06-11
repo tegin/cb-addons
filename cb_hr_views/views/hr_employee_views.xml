@@ -53,6 +53,9 @@
             <xpath expr="//field[@name='country_id']/.." position="attributes">
                 <attribute name="string">Citizenship</attribute>
             </xpath>
+            <field name="address_id" position="attributes">
+                <attribute name="domain">[('is_center', '=', True)]</attribute>
+            </field>
             <field name="manager" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>

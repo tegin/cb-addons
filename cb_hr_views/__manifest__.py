@@ -19,6 +19,7 @@
         'hr_employee_calendar_planning',
         'medical_administration_second_lastname',
         'medical_administration_practitioner',
+        'cb_medical_administration_center',
         'cb_departments_chart',
     ],
     'data': [
