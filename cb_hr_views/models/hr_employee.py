@@ -84,11 +84,6 @@ class HrEmployee(models.Model):
     )
 
     locker = fields.Char(string='Locker')
-
-    address_id = fields.Many2one(
-        related='company_id.partner_id',
-        readonly=True
-    )
     manager = fields.Boolean(compute='_compute_is_manager', readonly=True)
 
     # groups
@@ -199,6 +194,12 @@ class HrEmployee(models.Model):
             if record.partner_id.user_ids:
                 user = record.partner_id.user_ids[0]
             record.user_id = user
+
+    @api.onchange('company_id')
+    def _onchange_company(self):
+        if not self.env.context.get('use_old_onchange'):
+            return super()._onchange_company()
+        return {}
 
     @api.multi
     def toggle_active(self):
