@@ -64,4 +64,9 @@
             </tree>
         </field>
     </record>
+
+    <record id="hr.menu_hr_department_tree" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user')])]"/>
+        <field name="sequence" eval="4"/>
+    </record>
 </odoo>
