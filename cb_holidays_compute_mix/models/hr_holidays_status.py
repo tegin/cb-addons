@@ -35,6 +35,8 @@ class HrHolidaysStatus(models.Model):
         compute="_compute_user_left_hours"
     )
 
+    company_id = fields.Many2one(default=False)
+
     @api.multi
     def get_hours(self, employee):
         self.ensure_one()
