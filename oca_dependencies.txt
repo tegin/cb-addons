@@ -1,5 +1,6 @@
 account-invoicing
 account-payment
+account-payment-invoice https://github.com/mamcode/account-payment 12.0-mig-account_cash_invoice
 medical-fhir https://github.com/eficent/medical-fhir 12.0
 commission
 l10n-spain
