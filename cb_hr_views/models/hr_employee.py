@@ -37,7 +37,7 @@ class HrEmployee(models.Model):
     )
 
     identification_id_expiration = fields.Date(
-        string="Identification No Expire Date"
+        string="Expiration Date"
     )
     user_id = fields.Many2one(
         readonly=True,
@@ -45,7 +45,7 @@ class HrEmployee(models.Model):
         store=True,
     )
     personal_identifier = fields.Char(
-        string='Personal ID',
+        string='Work\'s Personal ID',
         default=lambda r: r._default_personal_identifier(),
         readonly=True,
         copy=False
@@ -94,7 +94,12 @@ class HrEmployee(models.Model):
     birthday = fields.Date(groups="base.group_user")
     ssnid = fields.Char(groups="base.group_user")
     sinid = fields.Char(groups="base.group_user")
-    identification_id = fields.Char(groups="base.group_user")
+    identification_id = fields.Char(
+        groups="base.group_user",
+        related='partner_id.vat',
+        readonly=False,
+        string='DNI/NIE',
+    )
     passport_id = fields.Char(groups="base.group_user")
     permit_no = fields.Char(groups="base.group_user")
     visa_no = fields.Char(groups="base.group_user")

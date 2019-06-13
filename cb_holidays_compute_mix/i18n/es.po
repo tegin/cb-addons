@@ -192,8 +192,8 @@ msgid ""
 "                        it is not the same than last year's."
 msgstr ""
 "Los días a revisar son aquellos marcados con fecha variable\n"
-"                        in last year's calendar. Here you can modify the date in case\n"
-"                        it is not the same than last year's."
+"                        en el calendario del año pasado. Aquí puedes modificar la fecha en caso\n"
+"                        que no sea la misma que el año pasado."
 
 #. module: cb_holidays_compute_mix
 #: model:ir.model.fields,field_description:cb_holidays_compute_mix.field_hr_holidays_allocation_wizard_department_id
