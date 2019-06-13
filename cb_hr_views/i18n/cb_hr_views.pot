@@ -121,7 +121,7 @@ msgstr ""
 
 #. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_identification_id_expiration
-msgid "Identification No Expire Date"
+msgid "Expiration Date"
 msgstr ""
 
 #. module: cb_hr_views
@@ -192,7 +192,7 @@ msgstr ""
 
 #. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_identifier
-msgid "Personal ID"
+msgid "Work's Personal ID"
 msgstr ""
 
 #. module: cb_hr_views

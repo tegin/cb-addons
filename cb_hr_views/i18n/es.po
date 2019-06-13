@@ -160,7 +160,7 @@ msgstr "DNI Caducado"
 
 #. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_identification_id_expiration
-msgid "Identification No Expire Date"
+msgid "Expiration Date"
 msgstr "Fecha de caducidad"
 
 #. module: cb_hr_views
@@ -225,8 +225,8 @@ msgstr "Porcentaje de Reducción"
 
 #. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_identifier
-msgid "Personal ID"
-msgstr "ID Personal"
+msgid "Work's Personal ID"
+msgstr "ID Personal del Trabajo"
 
 #. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_phone
