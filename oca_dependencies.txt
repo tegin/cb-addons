@@ -10,7 +10,7 @@ multicompany-fixes https://github.com/eficent/multicompany-fixes 12.0
 partner-contact
 pos
 report-print-send https://github.com/tegin/report-print-send 12.0-mig-remote_report_to_printer
-sale-workflow
+sale-workflow https://github.com/tegin/sale-workflow 12.0-mig-sale_merge_draft_invoice
 stock-logistics-warehouse
 stock-logistics-workflow
 server-auth
