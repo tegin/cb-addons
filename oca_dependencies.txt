@@ -8,7 +8,7 @@ connector
 queue
 multicompany-fixes https://github.com/eficent/multicompany-fixes 12.0
 partner-contact
-pos
+pos https://github.com/tegin/pos 12.0-mig.pos_session_pay_invoice
 report-print-send https://github.com/tegin/report-print-send 12.0-mig-remote_report_to_printer
 sale-workflow https://github.com/tegin/sale-workflow 12.0-mig-sale_merge_draft_invoice
 stock-logistics-warehouse
