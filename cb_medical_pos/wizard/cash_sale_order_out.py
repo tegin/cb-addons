@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 
 class CashSaleOrderOut(models.TransientModel):
     _name = 'cash.sale.order.out'
+    _description = 'cash.sale.order.out'
     _inherit = 'cash.box.in'
 
     def _default_value(self, default_function):
