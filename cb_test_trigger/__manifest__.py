@@ -9,8 +9,6 @@
     'depends': [
         'cb_test',
     ],
-    'data': [
-    ],
     'website': 'https://github.com/OCA/vertical-medical',
     'license': 'LGPL-3',
     'installable': True,
