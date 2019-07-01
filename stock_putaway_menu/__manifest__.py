@@ -10,6 +10,7 @@
     'author': 'Creu Blanca,Odoo Community Association (OCA)',
     'website': 'www.creublanca.es',
     'depends': [
+        'stock',
     ],
     'data': [
         'views/product_putaway.xml',
