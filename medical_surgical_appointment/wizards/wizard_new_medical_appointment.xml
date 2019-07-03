@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="wizard_new_medical_appointment_form_view">
+        <field name="name">wizard.new.medical.appointment.form (in medical_surgical_appointment)</field>
+        <field name="model">wizard.new.medical.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Create New Medical Appointment">
+                <group string="Location and Service">
+                    <field name="location_id" options='{"no_open": True, "no_create": True}'/>
+                    <field name="service_id" options='{"no_open": True, "no_create": True}'/>
+                </group>
+                <group  string="Surgeons">
+                    <field name="surgeon_id" options='{"no_open": True, "no_create": True}'/>
+                    <field name="aux_surgeon_id" options='{"no_open": True, "no_create": True}'/>
+                </group>
+                <group string="Patient">
+                    <h5>Please select a Patient or Skip if it doesn't exist</h5>
+                    <field name="patient_id" nolabel="1" options='{"no_open": True, "no_create": True}'/>
+                </group>
+                <footer>
+                    <button name="doit" string="Select Dates" class="btn-primary" type="object"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="wizard_new_medical_appointment_act_window"
+                name="Create New Medical Appointment"
+                res_model="wizard.new.medical.appointment"
+                src_model="medical.surgical.appointment"
+                view_mode="form"
+                target="new"
+                view_type="form" />
+
+    <record model="ir.ui.menu" id="new_medical_surgical_appointment_menu">
+        <field name="name">New Medical Appointment</field>
+        <field name="parent_id" ref="medical_surgical_appointment.medical_surgical_appointment_menu"/>
+        <field name="action" ref="wizard_new_medical_appointment_act_window"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+</odoo>

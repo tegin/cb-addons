@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="medical_surgical_appointment_form_view">
+        <field name="name">medical.surgical.appointment.form (in
+            medical_surgical_appointment)
+        </field>
+        <field name="model">medical.surgical.appointment</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,arrived"/>
+                    <button string="Confirm" name="waiting2confirm"
+                            states="draft" type="object"
+                            class="btn-primary"/>
+                    <field name="encounter_id" invisible="1"/>
+                    <button string="Generate Encounter"
+                            name="generate_encounter"
+                            type="object"
+                            attrs="{'invisible': ['|', ('encounter_id', '!=', False), ('state', '!=', 'confirmed')]}"
+                            class="btn-primary"/>
+                    <button string="Generated Encounter by Mistake"
+                            name="generated_by_mistake"
+                            type="object"
+                            groups="medical_surgical_appointment.cancel_encounter_group"
+                            attrs="{'invisible': [('encounter_id', '=', False)]}"
+                            class="btn-primary"/>
+                    <button string="Cancel" name="cancel_appointment"
+                            states="draft,confirmed" type="object"
+                            class="btn-primary"/>
+                    <button string="Back to Draft" name="back_to_draft"
+                            states="confirmed"
+                            type="object"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button type="object"
+                                name="view_encounter"
+                                string="Encounter"
+                                icon="fa-medkit"
+                                attrs="{'invisible': [('encounter_id', '=', False)]}"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="internal_identifier"/>
+                        </h1>
+                    </div>
+                    <group string="Patient Information" name="info_group">
+                        <group>
+                            <field name="lastname"/>
+                            <field name="lastname2"/>
+                            <field name="firstname"/>
+                            <field name="vat"/>
+                            <field name="gender"/>
+                            <field name="birth_date"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                            <field name="email" widget="email"/>
+                        </group>
+                    </group>
+
+                    <group string="Surgical Information" name="surgical_group">
+                        <group>
+                            <field name="service_id"
+                                   options='{"no_create": True}'/>
+                            <field name="location_id"
+                                   options='{"no_create": True}'/>
+                            <field name="service_patient_interned"
+                                   invisible="1"/>
+                            <field name="patient_interned"
+                                   attrs="{'readonly': ['|', ('state', '!=', 'draft'), ('service_patient_interned', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="duration" widget="float_time"/>
+                        </group>
+                    </group>
+
+                    <group string="Practitioners">
+                        <group>
+                            <field name="surgeon_id"
+                                   options='{"no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="aux_surgeon_id"
+                                   options='{"no_create": True}'/>
+                        </group>
+                    </group>
+                    <field name="information"/>
+
+                    <notebook>
+                        <page string="Coverage" name="coverage_group">
+                            <group>
+                                <group>
+                                    <field name="payor_id"
+                                           options='{"no_create": True}'/>
+                                    <field name="sub_payor_id"
+                                           domain="[('payor_id', '=', payor_id), ('is_sub_payor', '=', True)]"
+                                           options='{"no_create": True}'/>
+                                </group>
+                                <group>
+                                    <field name="coverage_template_id"
+                                           domain="[('payor_id', '=', payor_id)]"
+                                           options='{"no_create": True}'/>
+                                    <field name="subscriber_id"/>
+                                    <field name="authorization_number"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"
+                           groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="medical_surgical_appointment_search_view">
+        <field name="name">medical.surgical.appointment.search (in
+            medical_surgical_appointment)
+        </field>
+        <field name="model">medical.surgical.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="internal_identifier"/>
+                <field name="patient_id"/>
+                <field name="vat"/>
+                <field name="service_id"/>
+                <field name="start_date"/>
+                <filter name="confirmed" string="Confirmed" domain="[('state', 'not in', ['draft', 'cancelled'])]"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="medical_surgical_appointment_tree_view">
+        <field name="name">medical.surgical.appointment.tree (in
+            medical_surgical_appointment)
+        </field>
+        <field name="model">medical.surgical.appointment</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="internal_identifier"/>
+                <field name="patient_name"/>
+                <field name="vat"/>
+                <field name="service_id"/>
+                <field name="start_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="medical_surgical_appointment_calendar_view" model="ir.ui.view">
+        <field name="name">medical.surgical.appointment.calendar</field>
+        <field name="model">medical.surgical.appointment</field>
+        <field eval="2" name="priority"/>
+        <field name="arch" type="xml">
+            <calendar date_start="start_date" date_delay="duration"
+                      string="Event Tracks" color="location_id"
+                      quick_add="0" mode="week"
+            >
+                <field name="patient_name"/>
+                <field name="service_id"/>
+                <field name="location_id"/>
+                <field name="surgeon_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window"
+            id="medical_surgical_appointment_act_window">
+        <field name="name">Surgical Appointments</field>
+        <field name="res_model">medical.surgical.appointment</field>
+        <field name="view_mode">calendar,tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_confirmed': 1, 'no_create_calendar': 1}</field>
+    </record>
+
+    <record model="ir.ui.menu" id="medical_surgical_appointment_menu">
+        <field name="name">Surgical Appointments</field>
+        <field name="parent_id" ref="medical_base.medical_root_clinical"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+    <record model="ir.ui.menu" id="medical_surgical_appointment_view_all_menu">
+        <field name="name">View Surgical Appointments</field>
+        <field name="parent_id"
+               ref="medical_surgical_appointment.medical_surgical_appointment_menu"/>
+        <field name="action" ref="medical_surgical_appointment_act_window"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo noupdate="1">
+    <record id="seq_medical_surgical_appointment" model="ir.sequence">
+        <field name="name">Medical Surgical Appointment Sequence</field>
+        <field name="code">medical.surgical.appointment</field>
+        <field name="prefix">MSA</field>
+        <field name="padding">8</field>
+    </record>
+</odoo>

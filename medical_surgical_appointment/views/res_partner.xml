@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="view_partner_form_practitioner">
+        <field name="name">res.partner.form (in medical_surgical_appointment)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="medical_administration_practitioner.res_partner_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="surgical_practitioner" string="Surgical" attrs="{'invisible': [('is_practitioner', '=', False)]}">
+                    <group>
+                        <field name="allow_surgical_appointment"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_form_location">
+        <field name="name">res.partner.form (in medical_surgical_appointment)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="medical_administration_location.res_partner_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="surgical_location" string="Surgical" attrs="{'invisible': [('is_location', '=', False)]}">
+                    <group>
+                        <field name="allow_surgical_appointment"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
