@@ -23,6 +23,7 @@
         'cb_departments_chart',
     ],
     'data': [
+        'reports/hr_attendance_theoretical_time_report_views.xml',
         'views/resource_calendar_views.xml',
         'views/res_partner.xml',
         'security/hr_attendance_security.xml',
