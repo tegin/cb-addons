@@ -68,9 +68,9 @@
             <field name="address_home_id" position="after">
                 <field name="partner_id" context="{'show_address': 1}" string="Private Address" options='{"always_reload": True, "highlight_first_line": True}'/>
             </field>
-            <field name="bank_account_id" position="attributes">
+            <xpath expr="//page[@name='personal_information']//field[@name='bank_account_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
-            </field>
+            </xpath>
             <field name="identification_id" position="after">
                 <field name="identification_id_expiration"/>
             </field>
@@ -95,7 +95,10 @@
             </xpath>
             <xpath expr="//field[@name='company_id']/.." position="after">
                 <group string="Bank Account">
-                    <field name="bank_account_id" context="{'default_partner_id': partner_id}"/>
+                    <field name="bank_account_id"
+                           context="{'default_partner_id': partner_id}"
+                           domain="[('partner_id', '=', partner_id)]"
+                    />
                 </group>
             </xpath>
 
@@ -155,6 +158,7 @@
             <sheet position="after">
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
                     <field name="message_ids" widget="mail_thread"/>
                 </div>
             </sheet>
