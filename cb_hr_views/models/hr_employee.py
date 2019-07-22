@@ -6,7 +6,8 @@ from odoo.addons.resource.models.resource import float_to_time
 
 
 class HrEmployee(models.Model):
-    _inherit = 'hr.employee'
+    _name = 'hr.employee'
+    _inherit = ['mail.activity.mixin', 'hr.employee']
 
     def _default_personal_identifier(self):
         pid = None
