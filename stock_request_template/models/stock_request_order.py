@@ -11,8 +11,6 @@ class StockRequestOrder(models.Model):
     def _apply_template(self, template):
         for line in template.template_line_ids:
             vals = self._template_line_vals(template, line)
-            import logging
-            logging.info(vals)
             self.env['stock.request'].create(
                 vals
             )
