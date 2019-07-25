@@ -5,7 +5,7 @@
     'name': 'Invoice Integration Email Encrypted',
     'summary': """
         Send invoices through emails as an integration method""",
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'Creu Blanca',
     'website': 'www.creublanca.es',
@@ -23,6 +23,4 @@
             'PyPDF2',
         ],
     },
-    'demo': [
-    ],
 }

@@ -10,6 +10,7 @@ except ImportError as err:
 
 class EmailEncryptor(models.AbstractModel):
     _name = 'email.encryptor'
+    _description = 'Email Encryptor'
 
     @api.model
     def _get_chipher(self):
