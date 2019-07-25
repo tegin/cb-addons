@@ -15,6 +15,7 @@
         'hr_contract',
         'hr_family',
         'hr_job_category',
+        'hr_course',
         'hr_attendance_report_theoretical_time',
         'hr_employee_calendar_planning',
         'medical_administration_second_lastname',
@@ -34,6 +35,7 @@
         'views/hr_employee_views.xml',
         'views/hr_job_views.xml',
         'views/hr_department_views.xml',
+        'views/hr_course_views.xml',
     ],
     'pre_init_hook': 'pre_init_hook',
 }

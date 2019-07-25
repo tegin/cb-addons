@@ -19,6 +19,19 @@
         </field>
     </record>
 
+    <record id="view_employee_tree_delete" model="ir.ui.view">
+        <field name="name">CB HR views hr.employee.tree.delete</field>
+        <field name="model">hr.employee</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="cb_hr_views.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">true</attribute>
+                <attribute name="delete">true</attribute>
+            </xpath>
+        </field>
+    </record>
+
     <record id="hr_kanban_view_employees" model="ir.ui.view">
         <field name="name">CB HR views hr.employee.kanban</field>
         <field name="model">hr.employee</field>
