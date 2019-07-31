@@ -1,4 +1,5 @@
 account-invoicing
+account-invoice-reporting
 account-payment
 medical-fhir https://github.com/eficent/medical-fhir 11.0-dev
 commission
