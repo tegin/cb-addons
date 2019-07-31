@@ -5,3 +5,4 @@ from . import hr_job
 from . import hr_contract
 from . import resource_calendar
 from . import res_users
+from . import hr_holidays
