@@ -143,6 +143,7 @@
             </field>
             <field name="user_id" position="after">
                 <field name="personal_identifier"/>
+                <field name="prl_date"/>
             </field>
             <field name="resource_calendar_id" position="before">
                 <field name="working_hours_type" attrs="{'invisible': [('show_info', '=', False)]}"/>

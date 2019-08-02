@@ -118,6 +118,11 @@ class HrEmployee(models.Model):
         store=True
     )
 
+    prl_date = fields.Date(
+        string='PRL',
+        help='Date of the last prevention of occupational hazards information'
+    )
+
     @api.depends('contract_ids')
     def _compute_contract_id(self):
         if self.env.context.get('execute_old_update', False):
