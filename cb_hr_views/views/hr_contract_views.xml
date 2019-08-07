@@ -37,6 +37,17 @@
         </field>
     </record>
 
+    <record id="hr_contract_view_tree" model="ir.ui.view">
+        <field name="name">hr.contract.tree (cb_hr_views)</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="resource_calendar_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
     <record id="hr_contract.action_hr_contract" model="ir.actions.act_window">
         <field name="view_mode">tree,form</field>
     </record>
