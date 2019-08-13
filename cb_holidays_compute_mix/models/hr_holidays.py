@@ -27,7 +27,9 @@ class HrHolidays(models.Model):
     )
 
     count_in_hours = fields.Boolean(
-        related="holiday_status_id.count_in_hours", readonly=True
+        related='holiday_status_id.count_in_hours',
+        store=True,
+        readonly=True
     )
 
     date_from_full = fields.Date(

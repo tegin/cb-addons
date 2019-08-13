@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="wizard_holidays_count_form_view">
+        <field name="name">wizard.holidays.count.form (in cb_number_of_holidays_report)</field>
+        <field name="model">wizard.holidays.count</field>
+        <field name="arch" type="xml">
+            <form string="Number of Holidays Count">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <group string="Filters">
+                    <group>
+                        <field name="department_id" options="{'no_open': True, 'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="category_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_open': True, 'no_create': True}"/>
+                    </group>
+                </group>
+                <div class="text-left">
+                   <button name="populate" string="Search" type="object" class="btn-primary"/>
+                </div>
+                <notebook>
+                    <page string="Employees">
+                        <field name="employee_ids"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="print_report"
+                            string="Print"
+                            class="btn-primary"
+                            type="object"/>
+                    <button string="Cancel"
+                            class="btn-default"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="wizard_holidays_count_act_window">
+        <field name="name">Number Holidays Count</field> <!-- TODO -->
+        <field name="res_model">wizard.holidays.count</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record model="ir.ui.menu" id="wizard_holidays_count_menu">
+        <field name="name">Number of Holidays Count</field>
+        <field name="parent_id" ref="hr_holidays.menu_hr_holidays_report"/>
+        <field name="action" ref="wizard_holidays_count_act_window"/>
+        <field name="sequence" eval="16"/>
+    </record>
+</odoo>
