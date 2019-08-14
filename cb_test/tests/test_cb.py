@@ -5,8 +5,10 @@ from odoo.tests.common import SavepointCase
 
 
 class TestCB(SavepointCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        self = cls
         name = 'testing_remote_server'
         self.remote = self.env['res.remote'].search([('name', '=', name)])
         if not self.remote:
@@ -61,7 +63,7 @@ class TestCB(SavepointCase):
             'payor_id': self.payor.id,
             'name': 'Coverage 2',
         })
-        self.company = self.browse_ref('base.main_company')
+        self.company = self.env.ref('base.main_company')
         self.company.patient_journal_id = self.env['account.journal'].create({
             'name': 'Sale Journal',
             'code': 'SALES',
@@ -80,7 +82,7 @@ class TestCB(SavepointCase):
             'company_id': self.company.id,
             'code': 'ThirdPartyCust',
             'name': 'Third party customer account',
-            'user_type_id': self.browse_ref(
+            'user_type_id': self.env.ref(
                 'account.data_account_type_receivable').id,
             'reconcile': True,
         })
@@ -88,7 +90,7 @@ class TestCB(SavepointCase):
             'company_id': self.company.id,
             'code': 'ThirdPartySupp',
             'name': 'Third party supplier account',
-            'user_type_id': self.browse_ref(
+            'user_type_id': self.env.ref(
                 'account.data_account_type_payable').id,
             'reconcile': True,
         })
@@ -114,7 +116,7 @@ class TestCB(SavepointCase):
             'is_medical': True,
             'is_location': True,
             'center_id': self.center.id,
-            'stock_location_id': self.browse_ref(
+            'stock_location_id': self.env.ref(
                 'stock.warehouse0').lot_stock_id.id,
             'stock_picking_type_id': self.env['stock.picking.type'].search(
                 [], limit=1).id
@@ -122,13 +124,13 @@ class TestCB(SavepointCase):
         self.document_type = self.env['medical.document.type'].create({
             'name': 'CI',
             'document_type': 'action',
-            'report_action_id': self.browse_ref(
+            'report_action_id': self.env.ref(
                 'medical_document.action_report_document_report_base').id,
         })
-        self.lang_es = self.browse_ref('base.lang_es')
+        self.lang_es = self.env.ref('base.lang_es')
         if not self.lang_es.active:
             self.lang_es.toggle_active()
-        self.lang_en = self.browse_ref('base.lang_en')
+        self.lang_en = self.env.ref('base.lang_en')
         if not self.lang_en.active:
             self.lang_en.toggle_active()
         self.env['medical.document.type.lang'].create({
@@ -145,7 +147,7 @@ class TestCB(SavepointCase):
         })
         self.label_zpl2 = self.env['printing.label.zpl2'].create({
             'name': 'Label',
-            'model_id': self.browse_ref(
+            'model_id': self.env.ref(
                 'medical_document.model_medical_document_reference').id,
             'component_ids': [(0, 0, {
                 'name': 'text',
@@ -172,11 +174,11 @@ class TestCB(SavepointCase):
             'center_ids': [(4, self.center.id)],
             'coverage_template_ids': [(4, self.coverage_template.id)],
             'company_id': self.company.id,
-            'invoice_group_method_id': self.browse_ref(
+            'invoice_group_method_id': self.env.ref(
                 'cb_medical_careplan_sale.by_preinvoicing').id,
-            'authorization_method_id': self.browse_ref(
+            'authorization_method_id': self.env.ref(
                 'cb_medical_financial_coverage_request.without').id,
-            'authorization_format_id': self.browse_ref(
+            'authorization_format_id': self.env.ref(
                 'cb_medical_financial_coverage_request.format_anything').id,
         })
         self.format = self.env['medical.authorization.format'].create({
@@ -217,8 +219,8 @@ class TestCB(SavepointCase):
         self.product_03.qty_available = 50.0
         self.product_04 = self.create_product('Medical visit')
         self.lab_product = self.create_product('Laboratory Product')
-        self.type = self.browse_ref('medical_workflow.medical_workflow')
-        self.type.model_ids = [(4, self.browse_ref(
+        self.type = self.env.ref('medical_workflow.medical_workflow')
+        self.type.model_ids = [(4, self.env.ref(
             'medical_medication_request.model_medical_medication_request').id)]
         self.plan_definition = self.env['workflow.plan.definition'].create({
             'name': 'Plan',
@@ -245,7 +247,7 @@ class TestCB(SavepointCase):
         self.activity = self.env['workflow.activity.definition'].create({
             'name': 'Activity',
             'service_id': self.product_02.id,
-            'model_id': self.browse_ref('medical_clinical_procedure.'
+            'model_id': self.env.ref('medical_clinical_procedure.'
                                         'model_medical_procedure_request').id,
             'type_id': self.type.id,
         })
@@ -253,14 +255,14 @@ class TestCB(SavepointCase):
         self.activity2 = self.env['workflow.activity.definition'].create({
             'name': 'Activity2',
             'service_id': self.service.id,
-            'model_id': self.browse_ref('medical_medication_request.'
+            'model_id': self.env.ref('medical_medication_request.'
                                         'model_medical_medication_request').id,
             'type_id': self.type.id,
         })
         self.activity2.activate()
         self.activity3 = self.env['workflow.activity.definition'].create({
             'name': 'Activity3',
-            'model_id': self.browse_ref(
+            'model_id': self.env.ref(
                 'medical_document.model_medical_document_reference').id,
             'document_type_id': self.document_type.id,
             'type_id': self.type.id,
@@ -268,7 +270,7 @@ class TestCB(SavepointCase):
         self.activity3.activate()
         self.activity4 = self.env['workflow.activity.definition'].create({
             'name': 'Activity4',
-            'model_id': self.browse_ref(
+            'model_id': self.env.ref(
                 'medical_document.model_medical_document_reference').id,
             'document_type_id': self.document_type_label.id,
             'type_id': self.type.id,
@@ -277,7 +279,7 @@ class TestCB(SavepointCase):
         self.activity5 = self.env['workflow.activity.definition'].create({
             'name': 'Activity 5',
             'service_id': self.product_04.id,
-            'model_id': self.browse_ref('medical_clinical_procedure.'
+            'model_id': self.env.ref('medical_clinical_procedure.'
                                         'model_medical_procedure_request').id,
             'type_id': self.type.id,
         })
@@ -285,7 +287,7 @@ class TestCB(SavepointCase):
         self.lab_activity = self.env['workflow.activity.definition'].create({
             'name': 'Laboratory activity',
             'service_id': self.product_05.id,
-            'model_id': self.browse_ref('medical_clinical_laboratory.'
+            'model_id': self.env.ref('medical_clinical_laboratory.'
                                         'model_medical_laboratory_request').id,
             'type_id': self.type.id,
         })
@@ -328,12 +330,12 @@ class TestCB(SavepointCase):
             'plan_definition_id': self.plan_definition.id,
             'total_price': 100,
             'coverage_percentage': 50,
-            'authorization_method_id': self.browse_ref(
+            'authorization_method_id': self.env.ref(
                 'cb_medical_financial_coverage_request.without').id,
-            'authorization_format_id': self.browse_ref(
+            'authorization_format_id': self.env.ref(
                 'cb_medical_financial_coverage_request.format_anything').id,
         })
-        self.method = self.browse_ref(
+        self.method = self.env.ref(
             'cb_medical_financial_coverage_request.only_number'
         )
         self.format = self.env['medical.authorization.format'].create({
@@ -355,9 +357,9 @@ class TestCB(SavepointCase):
             'coverage_agreement_id': self.agreement.id,
             'total_price': 0.0,
             'coverage_percentage': 100.0,
-            'authorization_method_id': self.browse_ref(
+            'authorization_method_id': self.env.ref(
                 'cb_medical_financial_coverage_request.without').id,
-            'authorization_format_id': self.browse_ref(
+            'authorization_format_id': self.env.ref(
                 'cb_medical_financial_coverage_request.format_anything').id,
         })
         self.agreement_line3 = self.env[
@@ -368,9 +370,9 @@ class TestCB(SavepointCase):
             'plan_definition_id': self.plan_definition2.id,
             'total_price': 100.0,
             'coverage_percentage': 0.0,
-            'authorization_method_id': self.browse_ref(
+            'authorization_method_id': self.env.ref(
                 'cb_medical_financial_coverage_request.without').id,
-            'authorization_format_id': self.browse_ref(
+            'authorization_format_id': self.env.ref(
                 'cb_medical_financial_coverage_request.format_anything').id,
         })
         self.lab_agreement_line = self.env[
@@ -380,9 +382,9 @@ class TestCB(SavepointCase):
             'coverage_agreement_id': self.agreement.id,
             'total_price': 0.0,
             'coverage_percentage': 0.0,
-            'authorization_method_id': self.browse_ref(
+            'authorization_method_id': self.env.ref(
                 'cb_medical_financial_coverage_request.without').id,
-            'authorization_format_id': self.browse_ref(
+            'authorization_format_id': self.env.ref(
                 'cb_medical_financial_coverage_request.format_anything').id,
         })
         self.practitioner_01 = self.create_practitioner('Practitioner 01')
@@ -395,7 +397,7 @@ class TestCB(SavepointCase):
             'code': '5720SBC',
             'company_id': self.company.id,
             'currency_id': self.company.currency_id.id,
-            'user_type_id': self.browse_ref(
+            'user_type_id': self.env.ref(
                 'account.data_account_type_liquidity').id
         })
         self.bank_account = self.env['account.account'].create({
@@ -403,7 +405,7 @@ class TestCB(SavepointCase):
             'code': '5720BNK',
             'company_id': self.company.id,
             'currency_id': self.company.currency_id.id,
-            'user_type_id': self.browse_ref(
+            'user_type_id': self.env.ref(
                 'account.data_account_type_liquidity').id
         })
         self.cash_account = self.env['account.account'].create({
@@ -411,7 +413,7 @@ class TestCB(SavepointCase):
             'code': '572CSH',
             'company_id': self.company.id,
             'currency_id': self.company.currency_id.id,
-            'user_type_id': self.browse_ref(
+            'user_type_id': self.env.ref(
                 'account.data_account_type_liquidity').id
         })
         self.safe_box_group = self.env['safe.box.group'].create({
@@ -491,19 +493,23 @@ class TestCB(SavepointCase):
             'description': 'Cancel reason'
         })
 
-    def create_patient(self, name):
-        return self.env['medical.patient'].create({
+    @classmethod
+    def create_patient(cls, name):
+        return cls.env['medical.patient'].create({
             'name': name
         })
 
-    def create_product(self, name):
-        return self.env['product.product'].create({
+    @classmethod
+    def create_product(cls, name):
+        return cls.env['product.product'].create({
             'type': 'service',
             'name': name,
-            'taxes_id': [(6, 0, self.tax.ids)]
+            'taxes_id': [(6, 0, cls.tax.ids)]
         })
 
-    def create_careplan_and_group(self, agreement_line):
+    @classmethod
+    def create_careplan_and_group(cls, agreement_line):
+        self = cls
         encounter = self.env['medical.encounter'].create({
             'patient_id': self.patient_01.id,
             'center_id': self.center.id,
@@ -536,11 +542,12 @@ class TestCB(SavepointCase):
         self.assertEqual(group.center_id, encounter.center_id)
         return encounter, careplan, group
 
-    def create_practitioner(self, name):
-        return self.env['res.partner'].create({
+    @classmethod
+    def create_practitioner(cls, name):
+        return cls.env['res.partner'].create({
             'name': name,
             'is_practitioner': True,
             'agent': True,
-            'commission': self.browse_ref(
+            'commission': cls.env.ref(
                 'cb_medical_commission.commission_01').id,
         })

@@ -6,8 +6,10 @@ from odoo.exceptions import UserError
 
 
 class TestCBValidation(TestCB):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        self = cls
         self.cancel_reason = self.env['medical.cancel.reason'].create({
             'name': 'Testing cancel reason',
         })

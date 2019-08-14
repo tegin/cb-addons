@@ -7,8 +7,10 @@ from odoo.exceptions import ValidationError
 
 class TestCBSale(TestCB):
 
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        self = cls
         self.coverage_template.laboratory_code = '1'
         self.coverage_template_2.laboratory_code = '2'
         self.lab_service = self.env['medical.laboratory.service'].create({
