@@ -122,6 +122,8 @@ class HrEmployee(models.Model):
         string='PRL',
         help='Date of the last prevention of occupational hazards information'
     )
+    address_id = fields.Many2one(string='Center')
+    work_location = fields.Char(string='Location')
 
     @api.depends('contract_ids')
     def _compute_contract_id(self):
