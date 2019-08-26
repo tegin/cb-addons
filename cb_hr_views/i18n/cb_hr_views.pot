@@ -6,14 +6,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-10 10:35+0000\n"
-"PO-Revision-Date: 2019-05-10 10:35+0000\n"
+"POT-Creation-Date: 2019-08-20 12:35+0000\n"
+"PO-Revision-Date: 2019-08-20 12:35+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:189
+#, python-format
+msgid " and from %s to %s"
+msgstr ""
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:185
+#, python-format
+msgid ", from %s to %s"
+msgstr ""
 
 #. module: cb_hr_views
 #: model:ir.ui.view,arch_db:cb_hr_views.view_employee_form
@@ -27,7 +39,19 @@ msgid "Able to see Private Info"
 msgstr ""
 
 #. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:155
+#, python-format
+msgid "Absent because of %s since %s"
+msgstr ""
+
+#. module: cb_hr_views
 #: code:addons/cb_hr_views/models/hr_employee.py:161
+#, python-format
+msgid "Absent today because of public holidays"
+msgstr ""
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:254
 #, python-format
 msgid "All employees must be practitioners"
 msgstr ""
@@ -35,6 +59,11 @@ msgstr ""
 #. module: cb_hr_views
 #: model:ir.ui.view,arch_db:cb_hr_views.view_employee_form
 msgid "Bank Account"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.ui.menu,name:cb_hr_views.menu_resource_calendar_tree
+msgid "Calendars"
 msgstr ""
 
 #. module: cb_hr_views
@@ -81,6 +110,11 @@ msgid "Create employee"
 msgstr ""
 
 #. module: cb_hr_views
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_attendance_theoretical_time_report_department_id
+msgid "Department"
+msgstr ""
+
+#. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_email
 msgid "Email"
 msgstr ""
@@ -93,8 +127,24 @@ msgid "Employee"
 msgstr ""
 
 #. module: cb_hr_views
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_department_view_kanban
+msgid "Employees"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_identification_id_expiration
+msgid "Expiration Date"
+msgstr ""
+
+#. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_firstname
 msgid "First name"
+msgstr ""
+
+#. module: cb_hr_views
+#: selection:hr.attendance.theoretical.time.report,week_day:0
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_attendance_theoretical_view_filter
+msgid "Friday"
 msgstr ""
 
 #. module: cb_hr_views
@@ -120,19 +170,14 @@ msgid "ID Expired"
 msgstr ""
 
 #. module: cb_hr_views
-#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_identification_id_expiration
-msgid "Expiration Date"
-msgstr ""
-
-#. module: cb_hr_views
-#: code:addons/cb_hr_views/models/res_partner.py:38
+#: code:addons/cb_hr_views/models/res_partner.py:52
 #, python-format
 msgid "In order to be an employee, is required to be a practitioner"
 msgstr ""
 
 #. module: cb_hr_views
-#: model:res.groups,name:cb_hr_views.make_invisible
-msgid "Invisible"
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_attendance_theoretical_time_report_is_public_holiday
+msgid "Is Public Holiday"
 msgstr ""
 
 #. module: cb_hr_views
@@ -152,25 +197,35 @@ msgid "Last name"
 msgstr ""
 
 #. module: cb_hr_views
+#: model:ir.model,name:cb_hr_views.model_hr_holidays
+msgid "Leave"
+msgstr ""
+
+#. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_locker
 msgid "Locker"
 msgstr ""
 
 #. module: cb_hr_views
-#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_phone
+#: model:res.groups,name:cb_hr_views.manual_attendance_group
+msgid "Manual Attendance Menu"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_mobile
 msgid "Mobile"
 msgstr ""
 
 #. module: cb_hr_views
-#: code:addons/cb_hr_views/models/res_partner.py:43
-#, python-format
-msgid "Only one employee for a partner is allowed"
+#: selection:hr.attendance.theoretical.time.report,week_day:0
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_attendance_theoretical_view_filter
+msgid "Monday"
 msgstr ""
 
 #. module: cb_hr_views
-#: code:addons/cb_hr_views/models/res_partner.py:51
+#: code:addons/cb_hr_views/models/res_partner.py:57
 #, python-format
-msgid "Only one user for a partner is allowed"
+msgid "Only one employee for a partner is allowed"
 msgstr ""
 
 #. module: cb_hr_views
@@ -191,18 +246,18 @@ msgid "Percentage of reduction"
 msgstr ""
 
 #. module: cb_hr_views
-#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_identifier
-msgid "Work's Personal ID"
-msgstr ""
-
-#. module: cb_hr_views
-#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_mobile
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_phone
 msgid "Phone"
 msgstr ""
 
 #. module: cb_hr_views
 #: model:ir.ui.view,arch_db:cb_hr_views.view_employee_form
 msgid "Private Address"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_attendance_theoretical_view_filter
+msgid "Public Holiday"
 msgstr ""
 
 #. module: cb_hr_views
@@ -228,6 +283,22 @@ msgstr ""
 #. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_partner_id
 msgid "Related partner"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.model,name:cb_hr_views.model_hr_attendance_theoretical_time_report
+msgid "Report of theoretical time vs attendance time"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.model,name:cb_hr_views.model_resource_calendar
+msgid "Resource Calendar"
+msgstr ""
+
+#. module: cb_hr_views
+#: selection:hr.attendance.theoretical.time.report,week_day:0
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_attendance_theoretical_view_filter
+msgid "Saturday"
 msgstr ""
 
 #. module: cb_hr_views
@@ -257,8 +328,70 @@ msgid "Substituting"
 msgstr ""
 
 #. module: cb_hr_views
+#: selection:hr.attendance.theoretical.time.report,week_day:0
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_attendance_theoretical_view_filter
+msgid "Sunday"
+msgstr ""
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:169
+#, python-format
+msgid "This employee doesn't work today"
+msgstr ""
+
+#. module: cb_hr_views
+#: selection:hr.attendance.theoretical.time.report,week_day:0
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_attendance_theoretical_view_filter
+msgid "Thursday"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_today_schedule
+msgid "Today Schedule"
+msgstr ""
+
+#. module: cb_hr_views
+#: selection:hr.attendance.theoretical.time.report,week_day:0
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_attendance_theoretical_view_filter
+msgid "Tuesday"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.model,name:cb_hr_views.model_res_users
+msgid "Users"
+msgstr ""
+
+#. module: cb_hr_views
+#: selection:hr.attendance.theoretical.time.report,week_day:0
+#: model:ir.ui.view,arch_db:cb_hr_views.hr_attendance_theoretical_view_filter
+msgid "Wednesday"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_attendance_theoretical_time_report_week_day
+msgid "Week Day"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_personal_identifier
+msgid "Work's Personal ID"
+msgstr ""
+
+#. module: cb_hr_views
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_contract_working_hours_type
 #: model:ir.model.fields,field_description:cb_hr_views.field_hr_employee_working_hours_type
 msgid "Working Hours Type"
+msgstr ""
+
+#. module: cb_hr_views
+#: code:addons/cb_hr_views/models/hr_employee.py:173
+#: code:addons/cb_hr_views/models/hr_employee.py:178
+#, python-format
+msgid "Working from %s to %s"
+msgstr ""
+
+#. module: cb_hr_views
+#: model:ir.model,name:cb_hr_views.model_hr_employee_calendar
+msgid "hr.employee.calendar"
 msgstr ""
 

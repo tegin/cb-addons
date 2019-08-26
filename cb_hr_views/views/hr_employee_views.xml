@@ -16,6 +16,9 @@
                 <attribute name="create">false</attribute>
                 <attribute name="delete">false</attribute>
             </xpath>
+            <field name="job_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
         </field>
     </record>
 
@@ -41,7 +44,17 @@
                 <attribute name="create">false</attribute>
                 <attribute name="delete">false</attribute>
             </xpath>
+            <xpath expr="//field[@name='job_id']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='work_location']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
         </field>
+    </record>
+
+    <record id="hr_holidays.hr_kanban_view_employees_kanban" model="ir.ui.view">
+        <field name="active" eval="False"/>
     </record>
 
     <record id="view_employee_form" model="ir.ui.view">
@@ -126,6 +139,10 @@
             <page name="hr_settings" position="attributes">
                 <attribute name="groups">hr.group_hr_manager</attribute>
             </page>
+
+            <field name="job_id" position="attributes">
+                <attribute name="groups">hr.group_hr_manager</attribute>
+            </field>
 
             <field name="visa_no" position="attributes">
                 <attribute name="invisible">1</attribute>
