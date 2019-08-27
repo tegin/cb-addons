@@ -75,6 +75,11 @@ class HrHolidays(models.Model):
         related="number_of_hours_temp", readonly=True,
     )
 
+    description = fields.Text(
+        related='holiday_status_id.description',
+        readonly=True,
+    )
+
     ####################################################
     # Date Swaps methods
     ####################################################

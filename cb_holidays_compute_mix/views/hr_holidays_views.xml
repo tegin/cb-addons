@@ -35,6 +35,9 @@
             <field name="holiday_status_id" position="attributes">
                 <attribute name="options">{'no_create': True, "no_open": True}</attribute>
             </field>
+            <field name="holiday_status_id" position="after">
+                <field name="description" attrs="{'invisible': [('holiday_status_id', '=', False)]}"/>
+            </field>
             <xpath expr="//field[@name='number_of_days_temp']/.."
                    position="before">
                 <field name="count_in_hours" invisible="1"/>
