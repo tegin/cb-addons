@@ -34,7 +34,7 @@ class HrHolidaysAllocationWizard(models.TransientModel):
         if self.category_id:
             res.append(('category_ids', '=', self.category_id.id))
         if self.department_id:
-            res.append(('department_id', '=', self.department_id.id))
+            res.append(('department_id', 'child_of', self.department_id.id))
         return res
 
     @api.multi
