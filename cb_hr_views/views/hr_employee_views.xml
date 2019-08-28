@@ -50,6 +50,9 @@
             <xpath expr="//field[@name='work_location']/.." position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <field name="category_ids" position="attributes">
+                <attribute name="groups">hr.group_hr_manager</attribute>
+            </field>
         </field>
     </record>
 
@@ -144,6 +147,10 @@
                 <attribute name="groups">hr.group_hr_manager</attribute>
             </field>
 
+            <field name="category_ids" position="attributes">
+                <attribute name="groups">hr.group_hr_manager</attribute>
+            </field>
+
             <field name="visa_no" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
@@ -212,6 +219,10 @@
 
     <record id="hr_attendance.view_employee_form_inherit_hr_attendance" model="ir.ui.view">
         <field name="groups_id" eval="[(4,ref('hr_attendance.group_hr_attendance'))]"/>
+    </record>
+
+    <record id="hr.menu_view_employee_category_form" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager')])]"/>
     </record>
 
     <record id="view_employee_form_inherit_hr_attendance" model="ir.ui.view">
