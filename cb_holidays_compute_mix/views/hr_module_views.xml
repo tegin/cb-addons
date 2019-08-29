@@ -3,12 +3,12 @@
     <!-- Hide Calendars and other view changes-->
 
     <record id="hr_holidays.menu_open_employee_leave" model="ir.ui.menu">
-        <field name="groups_id" eval="[(6, 0, [ref('make_invisible')])]"/>
+        <field name="active" eval="False"/>
     </record>
 
     <record id="hr_holidays.menu_hr_available_holidays_report_tree"
             model="ir.ui.menu">
-        <field name="groups_id" eval="[(6, 0, [ref('make_invisible')])]"/>
+        <field name="active" eval="False"/>
     </record>
 
     <record id="hr_holidays.menu_hr_holidays_approvals" model="ir.ui.menu">
@@ -55,6 +55,10 @@
     </record>
 
     <record id="hr_holidays.menu_hr_holidays_dashboard" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('make_invisible')])]"/>
+    </record>
+
+    <record id="hr_holidays.menu_open_ask_holidays_new" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('make_invisible')])]"/>
     </record>
 
