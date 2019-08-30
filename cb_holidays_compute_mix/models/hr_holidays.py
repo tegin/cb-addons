@@ -5,6 +5,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from dateutil import tz
+import pytz
 
 
 class HrHolidays(models.Model):
@@ -164,9 +165,18 @@ class HrHolidays(models.Model):
         """
         if not self.holiday_status_id.exclude_rest_days:
             employee_id = None
-        return super(HrHolidays, self)._get_number_of_days(
-            date_from, date_to, employee_id,
+        utz = tz.gettz(self.env.user.tz)
+        date_to = fields.Datetime.to_string(
+            fields.Datetime.from_string(date_to).replace(
+                tzinfo=pytz.utc
+            ).astimezone(utz).replace(tzinfo=None)
         )
+        date_from = fields.Datetime.to_string(
+            fields.Datetime.from_string(date_from).replace(
+                tzinfo=pytz.utc
+            ).astimezone(utz).replace(tzinfo=None)
+        )
+        return super()._get_number_of_days(date_from, date_to, employee_id)
 
     @api.multi
     def _set_number_of_hours_temp(self):
