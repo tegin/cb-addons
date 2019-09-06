@@ -6,6 +6,7 @@
         <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
         <field name="arch" type="xml">
             <field name="job_id" position="after">
+                <field name="laboral_category_id"/>
                 <field name="company_id"/>
             </field>
             <field name="type_id" position="after">
@@ -23,6 +24,9 @@
                     %
                 </div>
             </field>
+            <page name="information" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </page>
         </field>
     </record>
 

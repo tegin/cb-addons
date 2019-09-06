@@ -161,13 +161,16 @@
             <field name="visa_expire" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
+            <field name="vehicle" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
             <field name="visa_expire" position="after">
                 <field string="Social Security Number" name="ssnid"/>
-                <field string="Social Insurance Number" name="sinid"/>
             </field>
             <field name="user_id" position="after">
                 <field name="personal_identifier"/>
                 <field name="prl_date"/>
+                <field name="locker" attrs="{'invisible': [('show_info', '=', False)]}"/>
             </field>
             <field name="resource_calendar_id" position="before">
                 <field name="working_hours_type" attrs="{'invisible': [('show_info', '=', False)]}"/>
@@ -176,12 +179,6 @@
                     <field name="percentage_of_reduction"/>
                     %
                 </div>
-            </field>
-            <field name="medic_exam" position="before">
-                <field name="contract_id"/>
-            </field>
-            <field name="work_phone" position="after">
-                <field name="locker" attrs="{'invisible': [('show_info', '=', False)]}"/>
             </field>
             <xpath expr="//div[hasclass('oe_chatter')]" position="replace"/>
         </field>
@@ -285,6 +282,11 @@
         <field name="arch" type="xml">
             <field name="medic_exam" position="attributes">
                 <attribute name="invisible">1</attribute>
+            </field>
+            <field name="medic_exam" position="before">
+                <field name="contract_id"/>
+                <field name="contract_type_id"/>
+                <field name="laboral_category_id"/>
             </field>
         </field>
     </record>

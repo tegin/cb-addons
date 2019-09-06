@@ -16,7 +16,7 @@ class HrContract(models.Model):
         default='full',
         track_visibility="onchange",
     )
-    percentage_of_reduction = fields.Integer(
+    percentage_of_reduction = fields.Float(
         'Percentage of Reduction',
         track_visibility="onchange",
     )
@@ -33,6 +33,10 @@ class HrContract(models.Model):
     )
 
     resource_calendar_id = fields.Many2one(required=False, default=False)
+
+    laboral_category_id = fields.Many2one(
+        'hr.laboral.category',
+    )
 
     # Track Visibility
     type_id = fields.Many2one(track_visibility='onchange')

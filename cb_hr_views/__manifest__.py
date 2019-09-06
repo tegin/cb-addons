@@ -24,6 +24,7 @@
         'cb_departments_chart',
     ],
     'data': [
+        'views/hr_laboral_category.xml',
         'views/hr_holidays_views.xml',
         'reports/hr_attendance_theoretical_time_report_views.xml',
         'views/resource_calendar_views.xml',
