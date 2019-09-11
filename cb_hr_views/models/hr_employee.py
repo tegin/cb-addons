@@ -78,9 +78,19 @@ class HrEmployee(models.Model):
         readonly=True
     )
 
-    percentage_of_reduction = fields.Integer(
+    percentage_of_reduction = fields.Float(
         string='Percentage of reduction',
         related='contract_id.percentage_of_reduction',
+        readonly=True
+    )
+    contract_type_id = fields.Many2one(
+        string='Contract Type',
+        related='contract_id.type_id',
+        readonly=True
+    )
+    laboral_category_id = fields.Many2one(
+        'hr.laboral.category',
+        related='contract_id.laboral_category_id',
         readonly=True
     )
 
