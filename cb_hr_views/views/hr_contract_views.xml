@@ -16,6 +16,9 @@
             <field name="resource_calendar_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
+            <field name="job_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
             <field name="resource_calendar_id" position="after">
                 <field name="working_hours_type"/>
                 <label for="percentage_of_reduction" string="Percentage of reduction" attrs="{'invisible': [('working_hours_type','!=','reduced')]}"/>
