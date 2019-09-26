@@ -50,6 +50,8 @@ class TestCbHrViews(TransactionCase):
         self.partner.toggle_active()
         self.assertFalse(self.employee.active)
 
+        self.assertTrue(self.partner.show_info)
+
         with self.assertRaises(ValidationError):
             self.partner.write({'is_practitioner': False})
 
