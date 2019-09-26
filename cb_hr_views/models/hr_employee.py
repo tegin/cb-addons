@@ -246,14 +246,14 @@ class HrEmployee(models.Model):
 
     @api.multi
     def _compute_show_info(self):
-        is_manager = self.env['res.users'].has_group(
+        is_manager = self.env.user.has_group(
             'hr.group_hr_manager')
-        is_officer = self.env['res.users'].has_group(
+        is_officer = self.env.user.has_group(
             'hr.group_hr_user')
         for employee in self:
             employee.show_info = (
-                is_officer and employee.parent_id.user_id == self.env.user
-            ) or is_manager or employee.user_id == self.env.user
+                is_officer and employee.parent_id.user_id.id == self.env.uid
+            ) or is_manager or employee.user_id.id == self.env.uid
 
     @api.multi
     def _compute_is_manager(self):

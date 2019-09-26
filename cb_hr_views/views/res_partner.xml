@@ -24,6 +24,15 @@
                 <button name="action_open_related_employee" string="Related employee" icon="fa-user-tie" type="object"
                         attrs="{'invisible': [('has_employee', '=', False)]}"/>
             </xpath>
+            <xpath expr="//group/group[1]" position="before">
+                <field name="show_info" invisible="1"/>
+            </xpath>
+            <xpath expr="//group/group[1]" position="attributes">
+                <attribute name="attrs">{'invisible': [('show_info', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//group/group[2]" position="attributes">
+                <attribute name="attrs">{'invisible': [('show_info', '=', False)]}</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>

@@ -21,6 +21,16 @@ class ResPartner(models.Model):
         compute='_compute_can_create_employee'
     )
 
+    show_info = fields.Boolean(
+        compute='_compute_show_info'
+    )
+
+    def _compute_show_info(self):
+        is_manager = self.env.user.has_group(
+            'hr.group_hr_manager')
+        for partner in self:
+            partner.show_info = is_manager or not partner.has_employee
+
     @api.multi
     def toggle_active(self):
         for record in self:
