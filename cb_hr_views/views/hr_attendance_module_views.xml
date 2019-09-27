@@ -13,4 +13,16 @@
     <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_view_attendances">
         <field name="groups_id" eval="[(6, 0, [ref('hr_attendance.group_hr_attendance')])]"/>
     </record>
+
+    <record id="hr_attendance_view_filter" model="ir.ui.view">
+        <field name="name">hr.attendance.search</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="arch" type="xml">
+            <field name="department_id" position="after">
+                <field name="center_id"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>

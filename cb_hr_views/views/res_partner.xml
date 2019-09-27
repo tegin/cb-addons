@@ -33,6 +33,9 @@
             <xpath expr="//group/group[2]" position="attributes">
                 <attribute name="attrs">{'invisible': [('show_info', '=', False)]}</attribute>
             </xpath>
+            <xpath expr="//page[@name='sales_purchases']" position="attributes">
+                <attribute name="attrs">{'invisible': [('show_info', '=', False)]}</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>

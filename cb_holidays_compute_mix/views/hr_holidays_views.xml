@@ -58,6 +58,9 @@
             <field name="holiday_type" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
+            <field name="payslip_status">
+                <attribute name="invisible">1</attribute>
+            </field>
         </field>
     </record>
 
