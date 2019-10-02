@@ -3,21 +3,18 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Product nomenclature',
-    'version': '11.0.1.0.0',
-    'author': 'Creu Blanca',
-    'category': 'Product',
-    'depends': [
-        'product',
-        'sales_team',
+    "name": "Product nomenclature",
+    "version": "11.0.1.0.0",
+    "author": "Creu Blanca",
+    "category": "Product",
+    "depends": ["product", "sales_team"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/product_nomenclature_product_views.xml",
+        "views/product_nomenclature_views.xml",
     ],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/product_nomenclature_product_views.xml',
-        'views/product_nomenclature_views.xml',
-    ],
-    'website': 'https://github.com/Eficent/cb-addons',
-    'license': 'LGPL-3',
-    'installable': True,
-    'auto_install': False,
+    "website": "https://github.com/Eficent/cb-addons",
+    "license": "LGPL-3",
+    "installable": True,
+    "auto_install": False,
 }
