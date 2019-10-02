@@ -8,12 +8,8 @@
     "license": "AGPL-3",
     "category": "Website",
     "summary": "Allows to us a flag box with icons / buttons",
-    "depends": [
-        "web",
-    ],
-    "data": [
-        "views/templates.xml",
-    ],
+    "depends": ["web"],
+    "data": ["views/templates.xml"],
     "qweb": ["static/src/xml/*.xml"],
     "installable": True,
 }
