@@ -3,22 +3,20 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Sale Commission Cancel',
-    'version': '11.0.1.0.0',
-    'author': 'Eficent, Creu Blanca',
-    'website': 'http://github.com/eficent/cb-addons',
-    'summary': 'Creates inter company relations',
-    'sequence': 30,
-    'category': 'Sale',
-    'depends': [
-        'sale_commission',
+    "name": "Sale Commission Cancel",
+    "version": "11.0.1.0.0",
+    "author": "Eficent, Creu Blanca",
+    "website": "http://github.com/eficent/cb-addons",
+    "summary": "Creates inter company relations",
+    "sequence": 30,
+    "category": "Sale",
+    "depends": ["sale_commission"],
+    "license": "LGPL-3",
+    "data": [
+        "wizard/account_invoice_agent_change_view.xml",
+        "views/account_invoice_view.xml",
     ],
-    'license': 'LGPL-3',
-    'data': [
-        'wizard/account_invoice_agent_change_view.xml',
-        'views/account_invoice_view.xml',
-    ],
-    'installable': True,
-    'application': False,
-    'auto_install': False,
+    "installable": True,
+    "application": False,
+    "auto_install": False,
 }
