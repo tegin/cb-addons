@@ -4,6 +4,6 @@ from odoo import fields, models
 
 
 class AccountInvoiceIntegration(models.Model):
-    _inherit = 'account.invoice.integration'
+    _inherit = "account.invoice.integration"
 
     email_password = fields.Char()
