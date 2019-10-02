@@ -6,10 +6,8 @@ from odoo import fields, models
 
 
 class CashInvoiceOut(models.TransientModel):
-    _inherit = 'cash.invoice.out'
+    _inherit = "cash.invoice.out"
 
     inter_company_ids = fields.Many2many(
-        'res.company',
-        related='company_id.related_company_ids',
-        readonly=True,
+        "res.company", related="company_id.related_company_ids", readonly=True
     )
