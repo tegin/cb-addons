@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="medical_surgical_appointment_patient_form_view">
+        <field name="name">medical.surgical.appointment.patient.form (in medical_surgical_appointment)</field>
+        <field name="model">medical.surgical.appointment.patient</field>
+        <field name="arch" type="xml">
+            <form string="Medical Surgical Appointment Patient">
+                <h5>Please assign the appointment to a suggested patient,
+                    search for more or select 'New Patient' option to automatically create one</h5>
+                <group>
+                    <field name="appointment_id" invisible="1"/>
+                </group>
+                <field name="patient_ids" options="{'no_open': True}">
+                    <tree>
+                        <field name="internal_identifier"/>
+                        <field name="name"/>
+                        <field name="vat"/>
+                        <field name="birth_date"/>
+                        <button name="assign_surgical_appointment"
+                                type="object" string="Assign"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="generate_encounter_new_patient"
+                            string="New Patient"
+                            class="btn-primary"
+                            type="object"/>
+                    <button string="Cancel"
+                            class="btn-default"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="medical_surgical_appointment_patient_act_window">
+        <field name="name">Medical Surgical Appointment Patient</field> <!-- TODO -->
+        <field name="res_model">medical.surgical.appointment.patient</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>
