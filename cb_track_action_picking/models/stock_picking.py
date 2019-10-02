@@ -6,12 +6,12 @@ from odoo import api, fields, models
 
 class StockPicking(models.Model):
 
-    _inherit = 'stock.picking'
+    _inherit = "stock.picking"
 
     receiver_id = fields.Many2one(
-        comodel_name='res.users',
-        string='Receiver',
-        track_visibility='onchange',
+        comodel_name="res.users",
+        string="Receiver",
+        track_visibility="onchange",
     )
 
     @api.multi
