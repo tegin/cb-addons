@@ -11,10 +11,6 @@
     "installable": True,
     "application": False,
     "summary": "Adds a check digit on sequences",
-    "depends": [
-        "base",
-    ],
-    "data": [
-        'views/sequence_views.xml',
-    ],
+    "depends": ["base"],
+    "data": ["views/sequence_views.xml"],
 }
