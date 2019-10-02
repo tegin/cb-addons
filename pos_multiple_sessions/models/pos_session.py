@@ -6,8 +6,8 @@ from odoo import models, api
 
 
 class PosSession(models.Model):
-    _inherit = 'pos.session'
+    _inherit = "pos.session"
 
-    @api.constrains('user_id', 'state')
+    @api.constrains("user_id", "state")
     def _check_unicity(self):
         return
