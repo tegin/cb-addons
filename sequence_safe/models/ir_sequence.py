@@ -12,14 +12,14 @@ class IrSequence(models.Model):
     safe = fields.Boolean(
         default=False,
         help="When safe is checked, it is opening a new cursor in order to "
-             "create the number. This way, we ensure the unicity of the code."
+        "create the number. This way, we ensure the unicity of the code.",
     )
 
     def _next(self):
-        if getattr(
-            threading.currentThread(), 'testing', False
-        ) or self.env.context.get('install_mode') or self.env.context.get(
-            'ignore_safe', not self.safe
+        if (
+            getattr(threading.currentThread(), "testing", False)
+            or self.env.context.get("install_mode")
+            or self.env.context.get("ignore_safe", not self.safe)
         ):
             return super()._next()
         new_cr = Registry(self.env.cr.dbname).cursor()
