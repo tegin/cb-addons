@@ -6,11 +6,10 @@ from odoo import api, fields, models
 
 
 class PosSession(models.Model):
-    _inherit = 'pos.session'
+    _inherit = "pos.session"
 
     pos_session_validation_id = fields.Many2one(
-        'pos.session.validation',
-        readonly=True,
+        "pos.session.validation", readonly=True
     )
 
     @api.multi
@@ -19,6 +18,7 @@ class PosSession(models.Model):
         for session in self:
             sbg = session.config_id.safe_box_group_id
             if sbg:
-                self.pos_session_validation_id = sbg.\
-                    get_current_session_validation()
+                self.pos_session_validation_id = (
+                    sbg.get_current_session_validation()
+                )
         return res
