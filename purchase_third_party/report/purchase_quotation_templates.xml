@@ -38,4 +38,3 @@
             print_report_name="'Third Party Request for Quotation - %s' % (object.name)"
     />
 </odoo>
-    
