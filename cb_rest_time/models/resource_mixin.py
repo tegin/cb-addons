@@ -6,9 +6,14 @@ from datetime import timedelta
 
 
 class ResourceMixin(models.AbstractModel):
-    _inherit = 'resource.mixin'
+    _inherit = "resource.mixin"
 
     def _get_work_hours(self, interval):
-        return (interval[1] - interval[0]) - timedelta(hours=sum([
-            attendance.rest_time for attendance in interval[2]['attendances']
-        ]))
+        return (interval[1] - interval[0]) - timedelta(
+            hours=sum(
+                [
+                    attendance.rest_time
+                    for attendance in interval[2]["attendances"]
+                ]
+            )
+        )

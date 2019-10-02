@@ -6,6 +6,6 @@ from odoo import fields, models
 
 class HrHolidaysStatus(models.Model):
 
-    _inherit = 'hr.holidays.status'
+    _inherit = "hr.holidays.status"
 
-    minimum_time = fields.Integer(string='Minimum Days')
+    minimum_time = fields.Integer(string="Minimum Days")

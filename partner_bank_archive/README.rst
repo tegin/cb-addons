@@ -23,7 +23,7 @@ Partner Bank Archive
     :target: https://runbot.odoo-community.org/runbot/143/11.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This model allows to archive and restore partner bank accounts.
 

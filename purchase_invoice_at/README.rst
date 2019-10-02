@@ -17,7 +17,7 @@ Purchase invoice at
     :target: https://github.com/tegin/cb-addons/tree/11.0/purchase_invoice_at
     :alt: tegin/cb-addons
 
-|badge1| |badge2| |badge3| 
+|badge1| |badge2| |badge3|
 
 This module introduces the following feature:
 

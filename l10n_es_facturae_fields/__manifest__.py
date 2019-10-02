@@ -12,12 +12,7 @@
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/l10n-spain",
     "license": "AGPL-3",
-    "depends": [
-        "l10n_es_facturae",
-        "base_sparse_field",
-    ],
-    "data": [
-        "views/report_facturae.xml",
-    ],
+    "depends": ["l10n_es_facturae", "base_sparse_field"],
+    "data": ["views/report_facturae.xml"],
     "installable": True,
 }

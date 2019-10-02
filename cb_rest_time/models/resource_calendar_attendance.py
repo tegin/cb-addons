@@ -6,6 +6,6 @@ from odoo import fields, models
 
 class ResourceCalendarAttendance(models.Model):
 
-    _inherit = 'resource.calendar.attendance'
+    _inherit = "resource.calendar.attendance"
 
-    rest_time = fields.Float(string='Rest Time')
+    rest_time = fields.Float(string="Rest Time")

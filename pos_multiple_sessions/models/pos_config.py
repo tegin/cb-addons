@@ -6,12 +6,12 @@ from odoo import api, models
 
 
 class PosConfig(models.Model):
-    _inherit = 'pos.config'
+    _inherit = "pos.config"
 
     def closed_states(self):
-        return ['closed']
+        return ["closed"]
 
-    @api.depends('session_ids')
+    @api.depends("session_ids")
     def _compute_current_session(self):
         for pos_config in self:
             session = pos_config.session_ids.filtered(

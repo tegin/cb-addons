@@ -6,10 +6,10 @@ from odoo.exceptions import UserError
 
 
 class HttpSessionUser(models.TransientModel):
-    _name = 'http.session.user'
-    _description = 'User sessions'
+    _name = "http.session.user"
+    _description = "User sessions"
 
-    user_id = fields.Many2one('res.users', readonly=True)
+    user_id = fields.Many2one("res.users", readonly=True)
     current_session = fields.Boolean(readonly=True)
     session_id = fields.Char(readonly=True)
     session_token = fields.Char(readonly=True)
@@ -21,7 +21,7 @@ class HttpSessionUser(models.TransientModel):
     def kill(self):
         self.ensure_one()
         if self.current_session:
-            raise UserError(_('Current session cannot be killed'))
+            raise UserError(_("Current session cannot be killed"))
         store = http.root.session_store
         session = store.get(self.session_id)
         session.logout(keep_db=True)

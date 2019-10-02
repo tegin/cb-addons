@@ -6,6 +6,6 @@ from odoo import fields, models
 
 class ResourceCalendar(models.Model):
 
-    _inherit = 'resource.calendar'
+    _inherit = "resource.calendar"
 
     company_id = fields.Many2one(default=False)

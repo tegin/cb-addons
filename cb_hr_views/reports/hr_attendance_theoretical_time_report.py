@@ -8,12 +8,19 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
     _inherit = "hr.attendance.theoretical.time.report"
 
     department_id = fields.Many2one(
-        'hr.department', related='employee_id.department_id',
+        "hr.department", related="employee_id.department_id"
     )
-    week_day = fields.Selection([
-        (0, 'Sunday'), (1, 'Monday'), (2, 'Tuesday'), (3, 'Wednesday'),
-        (4, 'Thursday'), (5, 'Friday'), (6, 'Saturday'),
-    ])
+    week_day = fields.Selection(
+        [
+            (0, "Sunday"),
+            (1, "Monday"),
+            (2, "Tuesday"),
+            (3, "Wednesday"),
+            (4, "Thursday"),
+            (5, "Friday"),
+            (6, "Saturday"),
+        ]
+    )
     is_public_holiday = fields.Boolean()
 
     def _select(self):
@@ -23,12 +30,12 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
 
     def _select_sub1(self):
         result = super()._select_sub1()
-        result += ', line is not null as is_public_holiday'
+        result += ", line is not null as is_public_holiday"
         return result
 
     def _select_sub2(self):
         result = super()._select_sub2()
-        result += ', line is not null as is_public_holiday'
+        result += ", line is not null as is_public_holiday"
         return result
 
     def _from_sub1(self):
@@ -69,5 +76,5 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
 
     def _group_by(self):
         result = super()._group_by()
-        result += ', is_public_holiday '
+        result += ", is_public_holiday "
         return result

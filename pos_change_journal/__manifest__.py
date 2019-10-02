@@ -3,20 +3,18 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'PoS Change Journal',
-    'version': '11.0.1.0.0',
-    'category': 'Reporting',
-    'website': 'https://github.com/eficent/cb-addons',
-    'author': 'Creu Blanca, Eficent',
-    'license': 'AGPL-3',
-    'installable': True,
-    'application': False,
-    'summary': 'Adds integration information',
-    'depends': [
-        'pos_close_approval',
+    "name": "PoS Change Journal",
+    "version": "11.0.1.0.0",
+    "category": "Reporting",
+    "website": "https://github.com/eficent/cb-addons",
+    "author": "Creu Blanca, Eficent",
+    "license": "AGPL-3",
+    "installable": True,
+    "application": False,
+    "summary": "Adds integration information",
+    "depends": ["pos_close_approval"],
+    "data": [
+        "wizard/account_bank_statement_line_change_journal.xml",
+        "views/account_bank_statement_line_views.xml",
     ],
-    'data': [
-        'wizard/account_bank_statement_line_change_journal.xml',
-        'views/account_bank_statement_line_views.xml',
-    ]
 }

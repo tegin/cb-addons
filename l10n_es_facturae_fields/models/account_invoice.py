@@ -9,33 +9,13 @@ class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
     facturae_fields = Serialized()
-    receiver_contract_reference = fields.Char(
-        sparse="facturae_fields"
-    )
-    receiver_contract_date = fields.Date(
-        sparse="facturae_fields"
-    )
-    receiver_transaction_reference = fields.Char(
-        sparse="facturae_fields"
-    )
-    receiver_transaction_date = fields.Date(
-        sparse="facturae_fields"
-    )
-    issuer_contract_reference = fields.Char(
-        sparse="facturae_fields"
-    )
-    issuer_contract_date = fields.Date(
-        sparse="facturae_fields"
-    )
-    issuer_transaction_reference = fields.Char(
-        sparse="facturae_fields"
-    )
-    issuer_transaction_date = fields.Date(
-        sparse="facturae_fields"
-    )
-    file_reference = fields.Char(
-        sparse="facturae_fields"
-    )
-    file_date = fields.Date(
-        sparse="facturae_fields"
-    )
+    receiver_contract_reference = fields.Char(sparse="facturae_fields")
+    receiver_contract_date = fields.Date(sparse="facturae_fields")
+    receiver_transaction_reference = fields.Char(sparse="facturae_fields")
+    receiver_transaction_date = fields.Date(sparse="facturae_fields")
+    issuer_contract_reference = fields.Char(sparse="facturae_fields")
+    issuer_contract_date = fields.Date(sparse="facturae_fields")
+    issuer_transaction_reference = fields.Char(sparse="facturae_fields")
+    issuer_transaction_date = fields.Date(sparse="facturae_fields")
+    file_reference = fields.Char(sparse="facturae_fields")
+    file_date = fields.Date(sparse="facturae_fields")

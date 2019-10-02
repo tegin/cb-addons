@@ -6,6 +6,6 @@ from odoo import fields, models
 
 class HrDepartment(models.Model):
 
-    _inherit = 'hr.department'
+    _inherit = "hr.department"
 
     company_id = fields.Many2one(default=False)

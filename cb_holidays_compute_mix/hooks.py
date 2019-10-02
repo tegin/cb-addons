@@ -8,6 +8,6 @@ def post_init_hook(cr, registry):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
         try:
-            env.ref('hr_holidays.action_open_ask_holidays_calendar').unlink()
+            env.ref("hr_holidays.action_open_ask_holidays_calendar").unlink()
         except ValueError:
             pass

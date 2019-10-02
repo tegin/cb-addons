@@ -16,19 +16,24 @@ def pre_init_hook(cr):
     if not sql.column_exists(cr, table, column):
         sql.create_column(cr, table, columnname=column, columntype=field_type)
     cr.execute(
-        "SELECT id FROM %s WHERE %s is null", (AsIs(table), AsIs(column)))
+        "SELECT id FROM %s WHERE %s is null", (AsIs(table), AsIs(column))
+    )
     employee_ids = []
     for row in cr.fetchall():
         employee_ids.append(row[0])
     env = api.Environment(cr, SUPERUSER_ID, {})
-    for employee in env['hr.employee'].browse(employee_ids):
-        partner = env['res.partner'].create({
-            'name': employee.name,
-            'is_practitioner': True,
-            'active': employee.active
-        })
-        cr.execute("UPDATE %s SET %s = %s WHERE id = %s", (
-            AsIs(table), AsIs(column), partner.id, employee.id
-        ))
+    for employee in env["hr.employee"].browse(employee_ids):
+        partner = env["res.partner"].create(
+            {
+                "name": employee.name,
+                "is_practitioner": True,
+                "active": employee.active,
+            }
+        )
+        cr.execute(
+            "UPDATE %s SET %s = %s WHERE id = %s",
+            (AsIs(table), AsIs(column), partner.id, employee.id),
+        )
     cr.execute(
-        "SELECT id FROM %s WHERE %s is null", (AsIs(table), AsIs(column)))
+        "SELECT id FROM %s WHERE %s is null", (AsIs(table), AsIs(column))
+    )
