@@ -6,9 +6,9 @@ from odoo import models
 
 class AccountInvoice(models.Model):
 
-    _inherit = 'account.invoice'
+    _inherit = "account.invoice"
 
     def get_access_action(self, *args, **kwargs):
-        if not self.env.context.get('no_website_action', False):
+        if not self.env.context.get("no_website_action", False):
             return super().get_access_action(*args, **kwargs)
         return False
