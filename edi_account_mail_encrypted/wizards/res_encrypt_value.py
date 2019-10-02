@@ -5,19 +5,17 @@ from odoo import api, fields, models
 
 
 class ResEncryptValue(models.TransientModel):
-    _name = 'res.encrypt.value'
-    _inherit = 'email.encryptor'
+    _name = "res.encrypt.value"
+    _inherit = "email.encryptor"
 
     model = fields.Char()
-    res_id = fields.Integer(
-        required=True
-    )
+    res_id = fields.Integer(required=True)
     value = fields.Char(required=True)
     field = fields.Char(required=True)
 
     @api.multi
     def doit(self):
-        self.env[self.model].browse(self.res_id).write({
-            self.field: self._encrypt_value(self.value)
-        })
+        self.env[self.model].browse(self.res_id).write(
+            {self.field: self._encrypt_value(self.value)}
+        )
         return {}

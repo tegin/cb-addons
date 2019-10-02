@@ -4,16 +4,17 @@ from odoo import models
 
 
 class AccountInvoiceIntegrationMethod(models.Model):
-    _name = 'account.invoice.integration.method'
-    _inherit = ['account.invoice.integration.method', 'email.encryptor']
+    _name = "account.invoice.integration.method"
+    _inherit = ["account.invoice.integration.method", "email.encryptor"]
 
     def email_integration_values(self, invoice):
         res = super().email_integration_values(invoice)
         if invoice.partner_id.email_integration_password:
             password = self._decrypt_value(
-                invoice.partner_id.email_integration_password)
-            value = self.env['mail.template'].render_template(
+                invoice.partner_id.email_integration_password
+            )
+            value = self.env["mail.template"].render_template(
                 password, invoice._name, invoice.id
             )
-            res['email_password'] = self._encrypt_value(value)
+            res["email_password"] = self._encrypt_value(value)
         return res
