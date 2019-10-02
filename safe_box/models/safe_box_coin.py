@@ -6,20 +6,19 @@ from odoo import fields, models
 
 
 class SafeBoxCoin(models.Model):
-    _name = 'safe.box.coin'
-    _description = 'Safe box coin'
-    _order = 'rate ASC'
+    _name = "safe.box.coin"
+    _description = "Safe box coin"
+    _order = "rate ASC"
 
     name = fields.Char(required=True)
     rate = fields.Float(required=True)
     safe_box_group_id = fields.Many2one(
-        comodel_name='safe.box.group',
-        string='Safe box group',
+        comodel_name="safe.box.group", string="Safe box group"
     )
     safe_box_ids = fields.Many2many(
-        comodel_name='safe.box',
-        relation='safe_box_coin_rel',
-        column1='coin_id',
-        column2='safe_box_id',
-        string='Safe boxes'
+        comodel_name="safe.box",
+        relation="safe_box_coin_rel",
+        column1="coin_id",
+        column2="safe_box_id",
+        string="Safe boxes",
     )
