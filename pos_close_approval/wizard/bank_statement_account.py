@@ -6,12 +6,12 @@ from odoo import api, fields, models
 
 
 class AccountBankStatementLineAccount(models.TransientModel):
-    _name = 'account.bank.statement.line.account'
+    _name = "account.bank.statement.line.account"
 
     def _default_statement_line(self):
-        active_model = self.env.context.get('active_model', False)
+        active_model = self.env.context.get("active_model", False)
         if active_model:
-            active_ids = self.env.context.get('active_ids', False)
+            active_ids = self.env.context.get("active_ids", False)
             return self.env[active_model].browse(active_ids).ensure_one()
         return None
 
@@ -22,25 +22,20 @@ class AccountBankStatementLineAccount(models.TransientModel):
         return self._default_statement_line().company_id
 
     account_id = fields.Many2one(
-        'account.account',
-        string='Account',
+        "account.account",
+        string="Account",
         required=True,
-        default=_default_account
+        default=_default_account,
     )
-    company_id = fields.Many2one(
-        'res.company',
-        default=_default_company
-    )
+    company_id = fields.Many2one("res.company", default=_default_company)
     statement_line_id = fields.Many2one(
-        'account.bank.statement.line',
+        "account.bank.statement.line",
         required=True,
-        default=_default_statement_line
+        default=_default_statement_line,
     )
 
     def _statement_line_vals(self):
-        return {
-            'account_id': self.account_id.id
-        }
+        return {"account_id": self.account_id.id}
 
     @api.multi
     def run(self):
