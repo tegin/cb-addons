@@ -6,30 +6,18 @@ from odoo import api, fields, models
 
 class StockRequestOrderTemplate(models.TransientModel):
 
-    _name = 'stock.request.order.template'
+    _name = "stock.request.order.template"
 
-    template_id = fields.Many2one(
-        'stock.request.template',
-        required=True,
-    )
-    order_id = fields.Many2one(
-        'stock.request.order',
-        required=True,
-    )
+    template_id = fields.Many2one("stock.request.template", required=True)
+    order_id = fields.Many2one("stock.request.order", required=True)
     company_id = fields.Many2one(
-        'res.company',
-        readonly=True,
-        related='order_id.company_id'
+        "res.company", readonly=True, related="order_id.company_id"
     )
     warehouse_id = fields.Many2one(
-        'stock.warehouse',
-        readonly=True,
-        related='order_id.warehouse_id'
+        "stock.warehouse", readonly=True, related="order_id.warehouse_id"
     )
     location_id = fields.Many2one(
-        'stock.location',
-        readonly=True,
-        related='order_id.location_id'
+        "stock.location", readonly=True, related="order_id.location_id"
     )
 
     @api.multi
