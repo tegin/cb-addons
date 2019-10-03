@@ -32,6 +32,5 @@
         'views/product_template.xml',
         'views/res_partner.xml',
         'views/webclient_templates.xml',
-        'wizards/wizard_new_medical_appointment.xml',
     ],
 }

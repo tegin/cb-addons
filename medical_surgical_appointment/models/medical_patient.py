@@ -18,6 +18,4 @@ class MedicalPatient(models.Model):
             appointment_id
         )
         appointment.patient_id = self
-        return appointment.with_context(
-            generate_from_wizard=True
-        ).generate_encounter()
+        appointment.selected_patient = True

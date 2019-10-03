@@ -30,10 +30,13 @@ class MedicalSurgicalAppointment(models.Model):
         help='Patient Name',
     )
 
+    selected_patient = fields.Boolean()
+
     state = fields.Selection(
         [
             ('draft', 'Draft'),
-            ('confirmed', 'Confirmed'),
+            ('confirmed_reservation', 'Confirmed Reservation'),
+            ('confirmed_patient', 'Confirmed Patient'),
             ('arrived', 'Arrived'),
             ('cancelled', 'Cancelled'),
         ],
@@ -44,7 +47,7 @@ class MedicalSurgicalAppointment(models.Model):
 
     firstname = fields.Char(
         string='First Name', readonly=True,
-        required=True, states={'draft': [('readonly', False)]},
+        states={'draft': [('readonly', False)]},
     )
     lastname = fields.Char(
         string='Last Name',
@@ -78,7 +81,6 @@ class MedicalSurgicalAppointment(models.Model):
     )
     mobile = fields.Char(
         string='Mobile',
-        required=True,
         readonly=True, states={'draft': [('readonly', False)]}
     )
     email = fields.Char(
@@ -109,7 +111,6 @@ class MedicalSurgicalAppointment(models.Model):
     service_id = fields.Many2one(
         string='Service',
         comodel_name='product.product',
-        required=True,
         ondelete='restrict', index=True,
         domain=[('type', '=', 'service'),
                 ('allow_surgical_appointment', '=', True)],
@@ -165,36 +166,39 @@ class MedicalSurgicalAppointment(models.Model):
         string='Payor',
         comodel_name='res.partner',
         domain=[('is_payor', '=', True)],
-        required=True,
         ondelete='restrict', index=True,
         track_visibility=True,
         help='Payer name',
-        readonly=True, states={'draft': [('readonly', False)]}
+        readonly=True, states={
+            'confirmed_reservation': [('readonly', False)]}
     )
 
     sub_payor_id = fields.Many2one(
         'res.partner',
         "Sub payor",
-        readonly=True, states={'draft': [('readonly', False)]}
+        readonly=True, states={
+            'confirmed_reservation': [('readonly', False)]}
     )
 
     coverage_template_id = fields.Many2one(
         string='Coverage Template',
         comodel_name='medical.coverage.template',
-        required=True,
         ondelete='restrict', index=True,
         help='Coverage Template',
-        readonly=True, states={'draft': [('readonly', False)]}
+        readonly=True, states={
+            'confirmed_reservation': [('readonly', False)]}
     )
 
     subscriber_id = fields.Char(
         string='Subscriber Id',
-        readonly=True, states={'draft': [('readonly', False)]}
+        readonly=True, states={
+            'confirmed_reservation': [('readonly', False)]}
     )
 
     authorization_number = fields.Char(
         track_visibility=True,
-        readonly=True, states={'draft': [('readonly', False)]}
+        readonly=True, states={
+            'confirmed_reservation': [('readonly', False)]}
     )
 
     patient_name = fields.Char(
@@ -337,12 +341,33 @@ class MedicalSurgicalAppointment(models.Model):
         result['res_id'] = self.encounter_id.id
         return result
 
+    @api.multi
+    def view_patient(self):
+        self.ensure_one()
+        action = self.env.ref(
+            'medical_administration.medical_patient_window_action'
+        )
+        result = action.read()[0]
+        result['views'] = [(False, 'form')]
+        result['target'] = 'new'
+        result['res_id'] = self.patient_id.id
+        return result
+
     # Workflow
 
-    def waiting2confirm(self):
+    def confirm_reservation2confirm_patient(self):
+        for record in self:
+            if not record.patient_id:
+                raise ValidationError(
+                    _('Cannot confirm without selecting patient')
+                )
+            if record.state == 'confirmed_reservation':
+                record.write({'state': 'confirmed_patient'})
+
+    def waiting2confirm_reservation(self):
         for record in self:
             if record.state == 'draft':
-                record.write({'state': 'confirmed'})
+                record.write({'state': 'confirmed_reservation'})
 
     def cancel_appointment(self):
         for record in self:
@@ -352,7 +377,7 @@ class MedicalSurgicalAppointment(models.Model):
     def back_to_draft(self):
         for record in self:
             if record.state != 'draft':
-                record.write({'state': 'draft'})
+                record.write({'state': 'draft', 'selected_patient': False})
 
     @api.multi
     def generated_by_mistake(self):
@@ -366,9 +391,9 @@ class MedicalSurgicalAppointment(models.Model):
 
     @api.constrains('duration')
     def _check_duration(self):
-        if self.filtered(lambda r: r.duration < 0):
+        if self.filtered(lambda r: r.duration <= 0):
             raise ValidationError(
-                _('The start date cannot be later than the end date.')
+                _('Duration must be greater than 00:00')
             )
 
     @api.constrains('location_id', 'start_date', 'end_date', 'state')

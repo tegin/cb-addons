@@ -20,7 +20,7 @@ class MedicalSurgicalAppointmentPatient(models.TransientModel):
     @api.model
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
-        appointment = self.env.context.get('medical_appointment', False)
+        appointment = self.env.context.get('active_id', False)
         if not appointment:
             return res
         appointment = self.env['medical.surgical.appointment'].browse(
@@ -37,7 +37,5 @@ class MedicalSurgicalAppointmentPatient(models.TransientModel):
 
     def generate_encounter_new_patient(self):
         self.ensure_one()
+        self.appointment_id.selected_patient = True
         self.appointment_id.patient_id = False
-        return self.appointment_id.with_context(
-            generate_from_wizard=True
-        ).generate_encounter()
