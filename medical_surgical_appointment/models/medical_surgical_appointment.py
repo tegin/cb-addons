@@ -43,7 +43,7 @@ class MedicalSurgicalAppointment(models.Model):
     )
 
     firstname = fields.Char(
-        string='First Name',
+        string='First Name', readonly=True,
         required=True, states={'draft': [('readonly', False)]},
     )
     lastname = fields.Char(

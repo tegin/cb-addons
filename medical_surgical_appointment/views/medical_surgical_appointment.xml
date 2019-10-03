@@ -182,7 +182,7 @@
         <field name="res_model">medical.surgical.appointment</field>
         <field name="view_mode">calendar,tree,form</field>
         <field name="domain">[]</field>
-        <field name="context">{'search_default_confirmed': 1, 'no_create_calendar': 1}</field>
+        <field name="context">{'search_default_confirmed': 1, 'no_drag': 1}</field>
     </record>
 
     <record model="ir.ui.menu" id="medical_surgical_appointment_menu">

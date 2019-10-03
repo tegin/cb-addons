@@ -38,6 +38,6 @@ class MedicalSurgicalAppointmentPatient(models.TransientModel):
     def generate_encounter_new_patient(self):
         self.ensure_one()
         self.appointment_id.patient_id = False
-        self.appointment_id.with_context(
+        return self.appointment_id.with_context(
             generate_from_wizard=True
         ).generate_encounter()
