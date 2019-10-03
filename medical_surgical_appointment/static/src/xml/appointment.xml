@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <t t-name="AppointmentView.buttons" t-extend="CalendarView.buttons">
+        <t t-jquery=".btn-group" t-operation="attributes">
+            <attribute name="t-if">false</attribute>
+        </t>
+        <t t-jquery=".o_calendar_buttons" t-operation="append">
+            <div class="o_calendar_locations"/>
+        </t>
+    </t>
+    <t t-name="AppointmentView.Locations">
+        <div class="btn-group o_dropdown o_calendar_locations">
+            <button class="o_dropdown_toggler_btn btn btn-sm dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-hospital"/>
+                <span class="dropdown_name"><t t-esc="widget.model.location_name"/></span>
+                <span class="caret"/>
+            </button>
+            <ul class="dropdown-menu o_locations_menu">
+                <li t-foreach="widget.model.locations" t-as="selection" t-att-class="'o_filters_menu appointment_select_' + selection[0]">
+                    <a href="#"><t t-esc="selection[1]"/></a>
+                </li>
+            </ul>
+        </div>
+    </t>
+    <t t-name="calendar-rule-box">
+    <div t-att-style="typeof color === 'string' ? ('background-color:'+color)+';' : ''" t-attf-class="#{record.is_highlighted &amp;&amp; record.is_highlighted.value ? 'o_event_hightlight' : ''} #{typeof color === 'number' ? 'o_calendar_color_'+color : ''}">
+        <div class="fc-time"/>
+        <div class="o_fields">
+             <t t-esc="record.name"/>
+        </div>
+    </div>
+    </t>
+</template>

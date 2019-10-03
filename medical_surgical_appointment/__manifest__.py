@@ -18,6 +18,9 @@
         'product',
         'mail',
     ],
+    'qweb': [
+        'static/src/xml/appointment.xml',
+    ],
     'data': [
         'views/medical_surgical_appointment_rule.xml',
         'wizards/medical_surgical_appointment_patient.xml',

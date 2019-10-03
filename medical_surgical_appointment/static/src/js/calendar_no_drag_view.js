@@ -14,6 +14,4 @@ var CalendarViewNoCreate = CalendarView.include({
     },
 });
 
-return CalendarViewNoCreate;
-
 });

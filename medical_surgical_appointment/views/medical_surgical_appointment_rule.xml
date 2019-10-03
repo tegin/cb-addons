@@ -34,7 +34,7 @@
                     </group>
                     <group name="specifications" string="Rule Type Specifications" attrs="{'invisible': [('rule_type', '=', False)]}">
                         <group attrs="{'invisible': [('rule_type', '=', 'specific')]}">
-                            <field name="surgeon_id" attrs="{'required': [('rule_type', '=', 'surgeon')], 'invisible': [('rule_type', '!=', 'surgeon')]}"/>
+                            <field name="surgeon_ids" attrs="{'required': [('rule_type', '=', 'surgeon')], 'invisible': [('rule_type', '!=', 'surgeon')]}" widget="many2many_tags"/>
                             <field name="week_day" attrs="{'required': [('rule_type', 'in', ['day', 'surgeon'])]}"/>
                             <field name="all_day" attrs="{'invisible': [('week_day', '=', False)]}"/>
                             <label for="hour_from" string="From - To" attrs="{'invisible': ['|', ('all_day', '=', True), ('week_day', '=', False)]}"/>

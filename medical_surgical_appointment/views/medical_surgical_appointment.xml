@@ -12,14 +12,6 @@
         <field name="arch" type="xml">
             <form create="false">
                 <header>
-                    <field name="warning" invisible="1"/>
-                    <div class="alert alert-warning"
-                         attrs="{'invisible': [('warning', '=', False)]}"
-                         style="margin-bottom:0px;">
-                        <p><i class="fa fa-info-circle"/>
-                            <field name="warning"/>
-                        </p>
-                    </div>
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,confirmed_reservation,confirmed_patient,arrived"/>
                     <button string="Confirm Reservation" name="waiting2confirm_reservation"
@@ -47,6 +39,14 @@
                             states="confirmed_reservation,confirmed_patient"
                             type="object"/>
                 </header>
+                <field name="warning" invisible="1"/>
+                <div class="alert alert-warning"
+                     attrs="{'invisible': [('warning', '=', False)]}"
+                     style="margin-bottom:0px;">
+                    <p><i class="fa fa-info-circle"/>
+                        <field name="warning"/>
+                    </p>
+                </div>
                 <sheet>
                     <field name="selected_patient" invisible="1"/>
                     <div name="button_box" class="oe_button_box">
@@ -188,13 +188,13 @@
         </field>
     </record>
 
-    <record id="medical_surgical_appointment_calendar_view" model="ir.ui.view">
+    <record id="medical_surgical_appointment_calendar_view2" model="ir.ui.view">
         <field name="name">medical.surgical.appointment.calendar</field>
         <field name="model">medical.surgical.appointment</field>
         <field eval="2" name="priority"/>
         <field name="arch" type="xml">
             <calendar date_start="start_date" date_delay="duration"
-                      string="Event Tracks" color="location_id"
+                      string="Event Tracks"
                       quick_add="0" mode="week"
             >
                 <field name="surgeon_id"/>
@@ -205,8 +205,34 @@
         </field>
     </record>
 
+    <record id="medical_surgical_appointment_calendar_view" model="ir.ui.view">
+        <field name="name">medical.surgical.appointment.calendar</field>
+        <field name="model">medical.surgical.appointment</field>
+        <field eval="2" name="priority"/>
+        <field name="arch" type="xml">
+            <appointment date_start="start_date" date_delay="duration"
+                      string="Event Tracks"
+                      quick_add="0" mode="day"
+            >
+                <field name="patient_name"/>
+                <field name="service_id"/>
+                <field name="location_id"/>
+                <field name="surgeon_id"/>
+            </appointment>
+        </field>
+    </record>
+
     <record model="ir.actions.act_window"
             id="medical_surgical_appointment_act_window">
+        <field name="name">Surgical Appointments</field>
+        <field name="res_model">medical.surgical.appointment</field>
+        <field name="view_mode">appointment,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.actions.act_window"
+            id="medical_surgical_appointment_calendar_act_window">
         <field name="name">Surgical Appointments</field>
         <field name="res_model">medical.surgical.appointment</field>
         <field name="view_mode">calendar,tree,form</field>
@@ -220,11 +246,19 @@
         <field name="sequence" eval="20"/>
     </record>
 
+    <record model="ir.ui.menu" id="medical_surgical_appointment_view_create_menu">
+        <field name="name">Create Surgical Appointments</field>
+        <field name="parent_id"
+               ref="medical_surgical_appointment.medical_surgical_appointment_menu"/>
+        <field name="action" ref="medical_surgical_appointment_act_window"/>
+        <field name="sequence" eval="20"/>
+    </record>
+
     <record model="ir.ui.menu" id="medical_surgical_appointment_view_all_menu">
         <field name="name">View Surgical Appointments</field>
         <field name="parent_id"
                ref="medical_surgical_appointment.medical_surgical_appointment_menu"/>
-        <field name="action" ref="medical_surgical_appointment_act_window"/>
+        <field name="action" ref="medical_surgical_appointment_calendar_act_window"/>
         <field name="sequence" eval="20"/>
     </record>
 

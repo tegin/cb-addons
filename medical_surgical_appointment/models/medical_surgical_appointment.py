@@ -224,7 +224,7 @@ class MedicalSurgicalAppointment(models.Model):
         store=True,
     )
 
-    @api.depends('start_date', 'end_date', 'location_id')
+    @api.depends('start_date', 'end_date', 'location_id', 'surgeon_id')
     def _compute_warning(self):
         for record in self:
             rules = self.env[
@@ -232,22 +232,21 @@ class MedicalSurgicalAppointment(models.Model):
             ].check_rules(
                 record.start_date,
                 record.end_date,
-                record.location_id.id
+                record.location_id,
+                record.surgeon_id
             )
+            breaking_rules = rules.filtered(lambda r: r.is_blocking)
+            non_breaking_rules = rules.filtered(lambda r: not r.is_blocking)
+
             message = _('Breaking the following rules:\n')
-            rules_messages = "\n".join(
-                ["- %s" % rule.name for rule in rules if rule.is_blocking]
-            )
-            record.broken_rules_message = message if rules_messages else False
+            record.broken_rules_message = '\n'.join([message] + [
+                "- %s" % rule.name for rule in breaking_rules
+            ]) if breaking_rules else False
+
             message = _('Warning: You are ignoring the following rules:\n')
-            rules_messages = "\n".join(
-                ["- %s" % rule.name for rule in rules if not rule.is_blocking]
-            )
-            record.warning = message if rules_messages else False
-            import logging
-            logging.info(rules)
-            logging.info(record.warning)
-            logging.info(record.broken_rules_message)
+            record.warning = '\n'.join([message] +[
+                "- %s" % rule.name for rule in non_breaking_rules
+            ]) if non_breaking_rules else False
 
     @api.depends('start_date', 'coverage_template_id',
                  'service_id', 'location_id')
@@ -467,3 +466,13 @@ class MedicalSurgicalAppointment(models.Model):
         for record in self:
             if record.broken_rules_message:
                 raise ValidationError(record.broken_rules_message)
+
+    @api.model
+    def get_locations(self):
+        locations = self.env['res.partner'].search([
+            ('is_location', '=', True),
+            ('allow_surgical_appointment', '=', True)
+        ])
+        return [
+            (location.id, location.display_name) for location in locations
+        ]

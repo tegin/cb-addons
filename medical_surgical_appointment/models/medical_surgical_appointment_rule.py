@@ -2,13 +2,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, _
-from datetime import datetime, time
 from dateutil import tz
-
+from pytz import utc
+from datetime import timedelta
 
 def intervals_overlap(x1, x2, y1, y2):
     return x1 < y2 and y1 < x2
-
 
 class MedicalSurgicalAppointmentRule(models.Model):
 
@@ -28,13 +27,13 @@ class MedicalSurgicalAppointmentRule(models.Model):
         ondelete='restrict',
         required=True,
     )
-    surgeon_id = fields.Many2one(
+    surgeon_ids = fields.Many2many(
         'res.partner',
         domain=[
             ('allow_surgical_appointment', '=', True),
             ('is_practitioner', '=', True)
         ],
-        string='Surgeon',
+        string='Surgeons',
     )
 
     is_blocking = fields.Boolean()
@@ -69,7 +68,7 @@ class MedicalSurgicalAppointmentRule(models.Model):
     validity_stop = fields.Datetime()
 
     @api.model
-    def check_rules(self, date_start, date_end, location_id):
+    def check_rules(self, date_start, date_end, location, surgeon=False):
         rules = self
         date_start = fields.Datetime.from_string(date_start)
         date_end = fields.Datetime.from_string(date_end)
@@ -79,14 +78,14 @@ class MedicalSurgicalAppointmentRule(models.Model):
         time_t = date_end.time().replace(tzinfo=tz.gettz(utz))
         time_end = time_t.hour + time_t.minute/60
 
-        domain = [('valid', '=', True), ('location_id', '=', location_id)]
+        domain = [('valid', '=', True), ('location_id', '=', location.id)]
         for record in self.search(domain):
+            if surgeon and record.rule_type == 'surgeon' and surgeon in record.surgeon_ids:
+                continue
             if record.rule_type in ['day', 'surgeon']:
-                import logging
                 if int(record.week_day) == date_start.weekday():
                     hour_from = 0.0 if record.all_day else record.hour_from
                     hour_to = 24.0 if record.all_day else record.hour_to
-                    logging.info([hour_from, hour_to, time_start, time_end])
                     if intervals_overlap(
                             hour_from, hour_to, time_start, time_end
                     ):
@@ -101,20 +100,42 @@ class MedicalSurgicalAppointmentRule(models.Model):
         return rules
 
     @api.model
-    def get_rules_date_location(self, date, location_id):
-        utz = self.env.user.tz
-        date_t = fields.Date.from_string(date)
-        date_start = fields.Datetime.to_string(
-            datetime.combine(date_t, time(
-                0, 0, 0, 0, tzinfo=tz.gettz(utz))),
-        )
-        date_end = fields.Datetime.to_string(
-            datetime.combine(
-                date_t, time(23, 59, 59, 99999, tzinfo=tz.gettz(utz))
-            )
-        )
-        rules = self.check_rules(date_start, date_end, location_id)
-        return [rule.read() for rule in rules]
+    def get_rules_date_location(self, date_start, date_stop, location):
+        if isinstance(location, int):
+            location = self.env['res.partner'].browse(location)
+            location.exists()
+        rules = self.check_rules(date_start, date_stop, location)
+        return [
+            rule._get_rule_vals(date_start, date_stop) for rule in rules
+        ]
+
+    def _get_rule_vals(self, date_start, date_stop):
+        start = fields.Datetime.from_string(date_start)
+        stop = fields.Datetime.from_string(date_stop)
+        if self.rule_type == 'specific':
+            rule_start = fields.Datetime.from_string(self.specific_from)
+            rule_stop = fields.Datetime.from_string(self.specific_to)
+        else:
+            # TODO: Improve the calculation, it might give problems on
+            # change date days. Not critical
+            start_tz = fields.Datetime.context_timestamp(self, start)
+            today_tz = start_tz.replace(hour=0, minute=0, second=0)
+            rule_start = (
+                today_tz + timedelta(hours=self.hour_from)
+            ).astimezone(utc).replace(tzinfo=None)
+            rule_stop = (
+                today_tz + timedelta(hours=self.hour_to)
+            ).astimezone(utc).replace(tzinfo=None)
+        start = max(start, rule_start)
+        stop = min(stop, rule_stop)
+        return {
+            'type': 'rule',
+            'id': - self.id,
+            'name': self.display_name,
+            'is_blocking': self.is_blocking,
+            'date_start': fields.Datetime.to_string(start),
+            'date_stop': fields.Datetime.to_string(stop),
+        }
 
     @api.onchange('rule_type')
     def _onchange_rule_type(self):
