@@ -18,12 +18,8 @@
         'product',
         'mail',
     ],
-    'external_dependencies': {
-        'python': [
-            'fuzzywuzzy',
-        ],
-    },
     'data': [
+        'views/medical_surgical_appointment_rule.xml',
         'wizards/medical_surgical_appointment_patient.xml',
         'data/surgical_appointment_sequence.xml',
         'security/ir.model.access.csv',

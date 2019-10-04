@@ -12,6 +12,14 @@
         <field name="arch" type="xml">
             <form create="false">
                 <header>
+                    <field name="warning" invisible="1"/>
+                    <div class="alert alert-warning"
+                         attrs="{'invisible': [('warning', '=', False)]}"
+                         style="margin-bottom:0px;">
+                        <p><i class="fa fa-info-circle"/>
+                            <field name="warning"/>
+                        </p>
+                    </div>
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,confirmed_reservation,confirmed_patient,arrived"/>
                     <button string="Confirm Reservation" name="waiting2confirm_reservation"
@@ -154,6 +162,7 @@
                 <field name="internal_identifier"/>
                 <field name="patient_id"/>
                 <field name="vat"/>
+                <field name="surgeon_id"/>
                 <field name="service_id"/>
                 <field name="start_date"/>
                 <filter name="confirmed" string="Confirmed" domain="[('state', 'not in', ['draft', 'cancelled'])]"/>
@@ -171,6 +180,7 @@
                 <field name="internal_identifier"/>
                 <field name="patient_name"/>
                 <field name="vat"/>
+                <field name="surgeon_id"/>
                 <field name="service_id"/>
                 <field name="start_date"/>
                 <field name="state"/>
@@ -187,10 +197,10 @@
                       string="Event Tracks" color="location_id"
                       quick_add="0" mode="week"
             >
-                <field name="patient_name"/>
-                <field name="service_id"/>
-                <field name="location_id"/>
                 <field name="surgeon_id"/>
+                <field name="location_id"/>
+                <field name="service_id"/>
+                <field name="patient_name"/>
             </calendar>
         </field>
     </record>
@@ -201,7 +211,7 @@
         <field name="res_model">medical.surgical.appointment</field>
         <field name="view_mode">calendar,tree,form</field>
         <field name="domain">[]</field>
-        <field name="context">{'search_default_confirmed': 1, 'no_drag': 1}</field>
+        <field name="context">{'no_drag': 1}</field>
     </record>
 
     <record model="ir.ui.menu" id="medical_surgical_appointment_menu">

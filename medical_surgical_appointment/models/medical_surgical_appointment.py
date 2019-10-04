@@ -214,7 +214,43 @@ class MedicalSurgicalAppointment(models.Model):
         compute='_compute_information'
     )
 
-    @api.depends('start_date', 'coverage_template_id', 'service_id', 'location_id')
+    # Rules
+    warning = fields.Text(compute='_compute_warning', store=True)
+    broken_rules_message = fields.Text(compute='_compute_warning', store=True)
+    broken_rules = fields.Many2many(
+        compute='_compute_warning',
+        comodel_name='medical.surgical.appointment.rule',
+        relation='appointment_broken_rules',
+        store=True,
+    )
+
+    @api.depends('start_date', 'end_date', 'location_id')
+    def _compute_warning(self):
+        for record in self:
+            rules = self.env[
+                'medical.surgical.appointment.rule'
+            ].check_rules(
+                record.start_date,
+                record.end_date,
+                record.location_id.id
+            )
+            message = _('Breaking the following rules:\n')
+            rules_messages = "\n".join(
+                ["- %s" % rule.name for rule in rules if rule.is_blocking]
+            )
+            record.broken_rules_message = message if rules_messages else False
+            message = _('Warning: You are ignoring the following rules:\n')
+            rules_messages = "\n".join(
+                ["- %s" % rule.name for rule in rules if not rule.is_blocking]
+            )
+            record.warning = message if rules_messages else False
+            import logging
+            logging.info(rules)
+            logging.info(record.warning)
+            logging.info(record.broken_rules_message)
+
+    @api.depends('start_date', 'coverage_template_id',
+                 'service_id', 'location_id')
     def _compute_information(self):
         for record in self:
             record.information = record._get_information()
@@ -222,8 +258,10 @@ class MedicalSurgicalAppointment(models.Model):
     def _get_information(self):
         informations = []
         item = self.env['medical.coverage.agreement.item'].get_item(
-            product=self.service_id, coverage_template=self.coverage_template_id,
-            center=self.location_id.center_id, date=fields.Date.to_string(
+            product=self.service_id,
+            coverage_template=self.coverage_template_id,
+            center=self.location_id.center_id,
+            date=fields.Date.to_string(
                 fields.Datetime.from_string(self.start_date).date()
             ),
         )
@@ -286,21 +324,7 @@ class MedicalSurgicalAppointment(models.Model):
     @api.multi
     def generate_encounter(self):
         self.ensure_one()
-        if not self.env.context.get('generate_from_wizard', False) and (
-            not self.check_patient() or not self.patient_id
-        ):
-            context = {'medical_appointment': self.id}
-            return {
-                'type': 'ir.actions.act_window',
-                'name': 'Validate Patient',
-                'res_model': 'medical.surgical.appointment.patient',
-                'view_mode': 'form',
-                'context': context,
-                'target': 'new'
-            }
-        patient_vals = False
-        if not self.patient_id:
-            patient_vals = {
+        patient_vals = False if not self.patient_id else {
                 'firstname': self.firstname,
                 'lastname': self.lastname,
                 'lastname2': self.lastname2,
@@ -311,6 +335,7 @@ class MedicalSurgicalAppointment(models.Model):
                 'gender': self.gender,
                 'birth_date': self.birth_date,
             }
+
         result = self.env['medical.encounter'].create_encounter(
             patient=self.patient_id,
             patient_vals=patient_vals,
@@ -411,56 +436,6 @@ class MedicalSurgicalAppointment(models.Model):
                       ' the same location that overlap in time!'))
 
     @api.model
-    def default_get(self, fields):
-        res = super().default_get(fields)
-        patient_id = self.env.context.get('patient_id', False)
-        if patient_id:
-            patient_id = self.env['medical.patient'].browse(patient_id)
-            res['patient_id'] = patient_id.id
-            res.update({
-                'firstname': patient_id.firstname,
-                'lastname': patient_id.lastname,
-                'lastname2': patient_id.lastname2,
-                'mobile': patient_id.mobile,
-                'phone': patient_id.phone,
-                'email': patient_id.email,
-                'vat': patient_id.vat,
-                'gender': patient_id.gender,
-                'birth_date': patient_id.birth_date,
-            })
-        res['location_id'] = self.env.context.get('location_id', False)
-        res['service_id'] = self.env.context.get('service_id', False)
-        res['surgeon_id'] = self.env.context.get('surgeon_id', False)
-        res['aux_surgeon_id'] = self.env.context.get('aux_surgeon_id', False)
-        return res
-
-    @api.model
-    def create(self, vals):
-        if 'patient_id' in vals:
-            patient = self.env['medical.patient'].browse(vals['patient_id'])
-            if patient:
-                vals.update({
-                    'firstname': patient.firstname,
-                    'lastname': patient.lastname,
-                    'lastname2': patient.lastname2,
-                    'vat': patient.vat
-                })
-        return super(MedicalSurgicalAppointment, self).create(vals)
-
-    @api.multi
-    def write(self, vals):
-        if 'patient_id' in vals:
-            patient = self.env['medical.patient'].browse(vals['patient_id'])
-            if patient:
-                vals.update({
-                    'firstname': patient.firstname,
-                    'lastname': patient.lastname,
-                    'lastname2': patient.lastname2,
-                    'vat': patient.vat
-                })
-        return super(MedicalSurgicalAppointment, self).write(vals)
-
-    @api.model
     def practitioner_fields(self):
         return ['surgeon_id', 'aux_surgeon_id']
 
@@ -487,14 +462,8 @@ class MedicalSurgicalAppointment(models.Model):
                         _('Error! A practitioner cannot have two appointments'
                           ' that overlap in time!'))
 
-    def check_patient(self):
-        # https://www.datacamp.com/community/tutorials/fuzzy-string-python
-        if not self.patient_id:
-            return True
-        comparisons = [(self.patient_id.firstname, self.firstname),
-                       (self.patient_id.lastname, self.lastname),
-                       (self.patient_id.lastname2, self.lastname2),
-                       (self.patient_id.vat, self.vat)]
-        return all(
-            [fuzz.ratio(a or "", b or "") >= 80 for (a, b) in comparisons]
-        )
+    @api.constrains('start_date', 'end_date', 'location_id')
+    def _check_appointment_rules(self):
+        for record in self:
+            if record.broken_rules_message:
+                raise ValidationError(record.broken_rules_message)
