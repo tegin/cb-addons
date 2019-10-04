@@ -9,8 +9,7 @@
         <field name="model">medical.surgical.appointment.patient</field>
         <field name="arch" type="xml">
             <form string="Medical Surgical Appointment Patient">
-                <h5>Please assign the appointment to a suggested patient,
-                    search for more or select 'New Patient' option to automatically create one</h5>
+                <h5>Search for a Patient or select 'New Patient' option to automatically create one</h5>
                 <group>
                     <field name="appointment_id" invisible="1"/>
                 </group>

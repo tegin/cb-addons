@@ -9,7 +9,7 @@ var CalendarViewNoCreate = CalendarView.include({
         var arch = viewInfo.arch;
         var attrs = arch.attrs;
         if (params.context['no_drag']){
-            this.loadParams.creatable = false;
+            this.loadParams.creatable = true;
         }
     },
 });

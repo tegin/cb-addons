@@ -12,10 +12,21 @@
         <field name="arch" type="xml">
             <form create="false">
                 <header>
+                    <field name="warning" invisible="1"/>
+                    <div class="alert alert-warning"
+                         attrs="{'invisible': [('warning', '=', False)]}"
+                         style="margin-bottom:0px;">
+                        <p><i class="fa fa-info-circle"/>
+                            <field name="warning"/>
+                        </p>
+                    </div>
                     <field name="state" widget="statusbar"
-                           statusbar_visible="draft,confirmed,arrived"/>
-                    <button string="Confirm" name="waiting2confirm"
+                           statusbar_visible="draft,confirmed_reservation,confirmed_patient,arrived"/>
+                    <button string="Confirm Reservation" name="waiting2confirm_reservation"
                             states="draft" type="object"
+                            class="btn-primary"/>
+                    <button string="Confirm Patient" name="confirm_reservation2confirm_patient"
+                            states="confirmed_reservation" type="object"
                             class="btn-primary"/>
                     <field name="encounter_id" invisible="1"/>
                     <button string="Generate Encounter"
@@ -33,44 +44,59 @@
                             states="draft,confirmed" type="object"
                             class="btn-primary"/>
                     <button string="Back to Draft" name="back_to_draft"
-                            states="confirmed"
+                            states="confirmed_reservation,confirmed_patient"
                             type="object"/>
                 </header>
                 <sheet>
+                    <field name="selected_patient" invisible="1"/>
                     <div name="button_box" class="oe_button_box">
                         <button type="object"
                                 name="view_encounter"
                                 string="Encounter"
                                 icon="fa-medkit"
                                 attrs="{'invisible': [('encounter_id', '=', False)]}"/>
+                        <button type="action"
+                                name="%(medical_surgical_appointment_patient_act_window)d"
+                                string="Assign Patient"
+                                icon="fa-user-plus"
+                                attrs="{'invisible': ['|', ('selected_patient', '=', True), ('state', '!=', 'confirmed_reservation')]}"/>
+                        <button type="action"
+                                name="%(medical_surgical_appointment_patient_act_window)d"
+                                string="Change Patient"
+                                icon="fa-user-edit"
+                                attrs="{'invisible': ['|', ('selected_patient', '=', False), ('state', '!=', 'confirmed_reservation')]}"/>
                     </div>
                     <div class="oe_title">
                         <h1>
                             <field name="internal_identifier"/>
                         </h1>
                     </div>
-                    <group string="Patient Information" name="info_group">
+                    <group string="Patient Information" name="info_group" attrs="{'invisible': [('selected_patient', '=', False)]}">
+                        <field name="patient_id" invisible="1"/>
                         <group>
-                            <field name="lastname"/>
-                            <field name="lastname2"/>
-                            <field name="firstname"/>
-                            <field name="vat"/>
-                            <field name="gender"/>
-                            <field name="birth_date"/>
+                            <field name="lastname" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <field name="lastname2" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <field name="firstname"
+                                   attrs="{'required': [('selected_patient', '=', True)], 'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <field name="vat" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <field name="gender" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <field name="birth_date" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
                         </group>
                         <group>
-                            <field name="phone"/>
-                            <field name="mobile"/>
-                            <field name="email" widget="email"/>
+                            <field name="phone" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <field name="mobile"
+                                   attrs="{'required': [('selected_patient', '=', True)], 'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <field name="email" widget="email" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <button string="View Patient" name="view_patient" type="object" attrs="{'invisible': [('patient_id', '=', False)]}" class="btn-primary"/>
                         </group>
                     </group>
 
                     <group string="Surgical Information" name="surgical_group">
                         <group>
-                            <field name="service_id"
-                                   options='{"no_create": True}'/>
+                            <field name="service_id" attrs="{'required': [('selected_patient', '=', True)]}"
+                                   options='{"no_create": True, "no_open": True}'/>
                             <field name="location_id"
-                                   options='{"no_create": True}'/>
+                                   options='{"no_create": True, "no_open": True}'/>
                             <field name="service_patient_interned"
                                    invisible="1"/>
                             <field name="patient_interned"
@@ -93,32 +119,33 @@
                                    options='{"no_create": True}'/>
                         </group>
                     </group>
-                    <field name="information"/>
 
-                    <notebook>
+                    <field name="information" attrs="{'invisible': [('selected_patient', '=', False)]}"/>
+
+                    <notebook attrs="{'invisible': [('selected_patient', '=', False)]}">
                         <page string="Coverage" name="coverage_group">
                             <group>
                                 <group>
-                                    <field name="payor_id"
+                                    <field name="payor_id" attrs="{'required': [('selected_patient', '=', True)]}"
                                            options='{"no_create": True}'/>
                                     <field name="sub_payor_id"
                                            domain="[('payor_id', '=', payor_id), ('is_sub_payor', '=', True)]"
                                            options='{"no_create": True}'/>
                                 </group>
                                 <group>
-                                    <field name="coverage_template_id"
+                                    <field name="coverage_template_id" attrs="{'required': [('selected_patient', '=', True)]}"
                                            domain="[('payor_id', '=', payor_id)]"
                                            options='{"no_create": True}'/>
-                                    <field name="subscriber_id"/>
-                                    <field name="authorization_number"/>
+                                    <field name="subscriber_id" attrs="{'required': [('selected_patient', '=', True)]}"/>
+                                    <field name="authorization_number" attrs="{'required': [('selected_patient', '=', True)]}"/>
                                 </group>
                             </group>
                         </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"
-                           groups="base.group_user"/>
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
                     <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
@@ -135,6 +162,7 @@
                 <field name="internal_identifier"/>
                 <field name="patient_id"/>
                 <field name="vat"/>
+                <field name="surgeon_id"/>
                 <field name="service_id"/>
                 <field name="start_date"/>
                 <filter name="confirmed" string="Confirmed" domain="[('state', 'not in', ['draft', 'cancelled'])]"/>
@@ -152,6 +180,7 @@
                 <field name="internal_identifier"/>
                 <field name="patient_name"/>
                 <field name="vat"/>
+                <field name="surgeon_id"/>
                 <field name="service_id"/>
                 <field name="start_date"/>
                 <field name="state"/>
@@ -168,10 +197,10 @@
                       string="Event Tracks" color="location_id"
                       quick_add="0" mode="week"
             >
-                <field name="patient_name"/>
-                <field name="service_id"/>
-                <field name="location_id"/>
                 <field name="surgeon_id"/>
+                <field name="location_id"/>
+                <field name="service_id"/>
+                <field name="patient_name"/>
             </calendar>
         </field>
     </record>
@@ -182,7 +211,7 @@
         <field name="res_model">medical.surgical.appointment</field>
         <field name="view_mode">calendar,tree,form</field>
         <field name="domain">[]</field>
-        <field name="context">{'search_default_confirmed': 1, 'no_drag': 1}</field>
+        <field name="context">{'no_drag': 1}</field>
     </record>
 
     <record model="ir.ui.menu" id="medical_surgical_appointment_menu">
