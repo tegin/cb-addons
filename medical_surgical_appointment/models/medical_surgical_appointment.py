@@ -114,7 +114,10 @@ class MedicalSurgicalAppointment(models.Model):
         ondelete='restrict', index=True,
         domain=[('type', '=', 'service'),
                 ('allow_surgical_appointment', '=', True)],
-        readonly=True, states={'draft': [('readonly', False)]}
+        readonly=True, states={
+            'draft': [('readonly', False)],
+            'confirmed_reservation': [('readonly', False)],
+        }
     )
 
     start_date = fields.Datetime(
@@ -237,14 +240,13 @@ class MedicalSurgicalAppointment(models.Model):
             )
             breaking_rules = rules.filtered(lambda r: r.is_blocking)
             non_breaking_rules = rules.filtered(lambda r: not r.is_blocking)
-
             message = _('Breaking the following rules:\n')
             record.broken_rules_message = '\n'.join([message] + [
                 "- %s" % rule.name for rule in breaking_rules
             ]) if breaking_rules else False
 
             message = _('Warning: You are ignoring the following rules:\n')
-            record.warning = '\n'.join([message] +[
+            record.warning = '\n'.join([message] + [
                 "- %s" % rule.name for rule in non_breaking_rules
             ]) if non_breaking_rules else False
 
@@ -323,18 +325,17 @@ class MedicalSurgicalAppointment(models.Model):
     @api.multi
     def generate_encounter(self):
         self.ensure_one()
-        patient_vals = False if not self.patient_id else {
-                'firstname': self.firstname,
-                'lastname': self.lastname,
-                'lastname2': self.lastname2,
-                'vat': self.vat,
-                'phone': self.phone,
-                'mobile': self.mobile,
-                'email': self.email,
-                'gender': self.gender,
-                'birth_date': self.birth_date,
-            }
-
+        patient_vals = False if self.patient_id else {
+            'firstname': self.firstname,
+            'lastname': self.lastname,
+            'lastname2': self.lastname2,
+            'vat': self.vat,
+            'phone': self.phone,
+            'mobile': self.mobile,
+            'email': self.email,
+            'gender': self.gender,
+            'birth_date': self.birth_date,
+        }
         result = self.env['medical.encounter'].create_encounter(
             patient=self.patient_id,
             patient_vals=patient_vals,
@@ -381,9 +382,13 @@ class MedicalSurgicalAppointment(models.Model):
 
     def confirm_reservation2confirm_patient(self):
         for record in self:
-            if not record.patient_id:
+            if not record.selected_patient:
                 raise ValidationError(
                     _('Cannot confirm without selecting patient')
+                )
+            if not record.service_id:
+                raise ValidationError(
+                    _('Cannot confirm without selecting a service')
                 )
             if record.state == 'confirmed_reservation':
                 record.write({'state': 'confirmed_patient'})

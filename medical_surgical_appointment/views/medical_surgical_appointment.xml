@@ -24,7 +24,7 @@
                     <button string="Generate Encounter"
                             name="generate_encounter"
                             type="object"
-                            attrs="{'invisible': ['|', ('encounter_id', '!=', False), ('state', '!=', 'confirmed')]}"
+                            attrs="{'invisible': ['|', ('encounter_id', '!=', False), ('state', '!=', 'confirmed_patient')]}"
                             class="btn-primary"/>
                     <button string="Generated Encounter by Mistake"
                             name="generated_by_mistake"
@@ -74,19 +74,19 @@
                     <group string="Patient Information" name="info_group" attrs="{'invisible': [('selected_patient', '=', False)]}">
                         <field name="patient_id" invisible="1"/>
                         <group>
-                            <field name="lastname" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
-                            <field name="lastname2" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <field name="lastname" attrs="{'readonly': [('patient_id', '!=', False)]}"/>
+                            <field name="lastname2" attrs="{'readonly': [('patient_id', '!=', False)]}"/>
                             <field name="firstname"
-                                   attrs="{'required': [('selected_patient', '=', True)], 'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
-                            <field name="vat" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
-                            <field name="gender" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
-                            <field name="birth_date" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                                   attrs="{'required': [('selected_patient', '=', True)], 'readonly': [('patient_id', '!=', False)]}"/>
+                            <field name="vat" attrs="{'readonly': [('patient_id', '!=', False)]}"/>
+                            <field name="gender" attrs="{'readonly': [('patient_id', '!=', False)]}"/>
+                            <field name="birth_date" attrs="{'readonly': [('patient_id', '!=', False)]}"/>
                         </group>
                         <group>
-                            <field name="phone" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                            <field name="phone" attrs="{'readonly': [('patient_id', '!=', False)]}"/>
                             <field name="mobile"
-                                   attrs="{'required': [('selected_patient', '=', True)], 'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
-                            <field name="email" widget="email" attrs="{'readonly': ['|', ('patient_id', '=', False), ('state', '=', 'confirmed_reservation')]}"/>
+                                   attrs="{'readonly': [('patient_id', '!=', False)]}"/>
+                            <field name="email" widget="email" attrs="{'readonly': [('patient_id', '!=', False)]}"/>
                             <button string="View Patient" name="view_patient" type="object" attrs="{'invisible': [('patient_id', '=', False)]}" class="btn-primary"/>
                         </group>
                     </group>

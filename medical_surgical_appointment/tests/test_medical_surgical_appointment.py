@@ -73,87 +73,38 @@ class TestMedicalSurgicalAppointment(TransactionCase):
             'name': 'Coverage 2',
         })
 
-    def test_create_surgical_appointment_wo_patient(self):
+    def test_surgical_appointment_workflow(self):
         msa = self.env['medical.surgical.appointment'].create({
-            'firstname': self.patient.firstname,
-            'mobile': '67898765',
-            'service_id': self.service.id,
-            'start_date': fields.Datetime.now(),
             'location_id': self.location.id,
-            'payor_id': self.payor1.id,
-            'coverage_template_id': self.template1.id,
-            'duration': 1.5,
             'surgeon_id': self.practitioner1.id,
-        })
-        self.assertTrue(msa.end_date)
-
-    def test_create_surgical_appointment(self):
-        msa = self.env['medical.surgical.appointment'].create({
-            'patient_id': self.patient.id,
-            'mobile': '67898765',
-            'service_id': self.service.id,
             'start_date': fields.Datetime.now(),
-            'location_id': self.location.id,
-            'payor_id': self.payor1.id,
-            'coverage_template_id': self.template1.id,
             'duration': 1.5,
-            'surgeon_id': self.practitioner1.id,
         })
-
-        msa._compute_patient_name()
-        self.assertEqual(msa.patient_name, 'Parker Parker Pieter')
-        self.assertEqual(msa.vat, '1234567889')
-
-        msa.payor_id = self.payor2.id
-        msa._onchange_payor()
-        self.assertEqual(msa.coverage_template_id.id, self.template2.id)
-
-        with self.assertRaises(ValidationError):
-            self.env['medical.surgical.appointment'].create({
-                'patient_id': self.patient.id,
-                'mobile': '67898765',
-                'service_id': self.service.id,
-                'start_date': fields.Datetime.now(),
-                'location_id': self.location.id,
-                'payor_id': self.payor1.id,
-                'coverage_template_id': self.template1.id,
-                'duration': 1.5,
-                'surgeon_id': self.practitioner2.id,
-            })
-        with self.assertRaises(ValidationError):
-            self.env['medical.surgical.appointment'].create({
-                'patient_id': self.patient.id,
-                'mobile': '67898765',
-                'service_id': self.service.id,
-                'start_date': fields.Datetime.now(),
-                'location_id': self.location2.id,
-                'payor_id': self.payor1.id,
-                'coverage_template_id': self.template1.id,
-                'duration': 1.5,
-                'surgeon_id': self.practitioner2.id,
-                'aux_surgeon_id': self.practitioner1.id,
-            })
-
-    def test_workflow_surgical_appointment(self):
-        msa = self.env['medical.surgical.appointment'].create({
-            'patient_id': self.patient.id,
-            'mobile': '67898765',
-            'service_id': self.service.id,
-            'start_date': fields.Datetime.now(),
-            'location_id': self.location.id,
-            'payor_id': self.payor1.id,
-            'coverage_template_id': self.template1.id,
-            'duration': 1.5,
-            'surgeon_id': self.practitioner1.id,
-        })
-        # Workflow
         self.assertEqual(msa.state, 'draft')
-        msa.waiting2confirm()
-        self.assertEqual(msa.state, 'confirmed')
-        msa.cancel_appointment()
-        self.assertEqual(msa.state, 'cancelled')
-        msa.back_to_draft()
-        self.assertEqual(msa.state, 'draft')
+        msa.waiting2confirm_reservation()
+        self.assertEqual(msa.state, 'confirmed_reservation')
+        with self.assertRaises(ValidationError):
+            msa.confirm_reservation2confirm_patient()
+        assign_patient = self.env[
+            'medical.surgical.appointment.patient'
+        ].with_context(active_id=msa.id).create({
+            'patient_ids': [(6, 0, [self.patient.id])]
+        })
+        assign_patient.patient_ids[0].assign_surgical_appointment(
+            context={'active_id': msa.id}
+        )
+        self.assertEqual(msa.patient_id.id, self.patient.id)
+        with self.assertRaises(ValidationError):
+            msa.confirm_reservation2confirm_patient()
+        msa.write({
+            'service_id': self.service.id,
+            'payor_id': self.payor1.id,
+            'coverage_template_id': self.template1.id,
+            'subscriber_id': 123421,
+            'authorization_number': 123445,
+        })
+        msa.confirm_reservation2confirm_patient()
+        self.assertEqual(msa.state, 'confirmed_patient')
 
     def test_generate_encounter(self):
         type = self.env['workflow.type'].create({
@@ -194,7 +145,7 @@ class TestMedicalSurgicalAppointment(TransactionCase):
         })
 
         msa = self.env['medical.surgical.appointment'].create({
-            'firstname': 'Generated Patient',
+            'patient_id': self.patient.id,
             'mobile': '67898765',
             'service_id': self.service.id,
             'start_date': fields.Datetime.now(),
@@ -205,12 +156,116 @@ class TestMedicalSurgicalAppointment(TransactionCase):
             'surgeon_id': self.practitioner1.id,
             'subscriber_id': 123421,
         })
-        msa.waiting2confirm()
-        msa.with_context(generate_from_wizard=True).generate_encounter()
+        msa.generate_encounter()
         self.assertTrue(msa.encounter_id)
         self.assertEqual(msa.state, 'arrived')
+        msa.cancel_appointment()
+        self.assertEqual(msa.state, 'cancelled')
+        msa.back_to_draft()
+        self.assertEqual(msa.state, 'draft')
+        self.assertFalse(msa.selected_patient, 'draft')
 
-        new_patient = self.env['medical.patient'].search([
-            ('name', '=', 'Generated Patient')
-        ])
-        self.assertTrue(new_patient)
+    def test_location_surgeon_constrains(self):
+        self.env['medical.surgical.appointment'].create({
+            'location_id': self.location.id,
+            'surgeon_id': self.practitioner1.id,
+            'start_date': '2019-12-20 08:00:00',
+            'duration': 1.5,
+        })
+        with self.assertRaises(ValidationError):
+            self.env['medical.surgical.appointment'].create({
+                'location_id': self.location.id,
+                'surgeon_id': self.practitioner2.id,
+                'start_date': '2019-12-20 09:00:00',
+                'duration': 1.5,
+            })
+        with self.assertRaises(ValidationError):
+            self.env['medical.surgical.appointment'].create({
+                'location_id': self.location2.id,
+                'surgeon_id': self.practitioner1.id,
+                'start_date': '2019-12-20 09:00:00',
+                'duration': 1.5,
+            })
+
+        # Duration cant be 0 minutes
+        with self.assertRaises(ValidationError):
+            self.env['medical.surgical.appointment'].create({
+                'location_id': self.location2.id,
+                'surgeon_id': self.practitioner1.id,
+                'start_date': '2019-12-20 12:00:00',
+                'duration': 0.0,
+            })
+
+    def test_appointment_rules(self):
+        self.env['medical.surgical.appointment.rule'].create({
+            'name': 'No Sundays from 10h to 14h',
+            'location_id': self.location.id,
+            'rule_type': 'day',
+            'is_blocking': True,
+            'week_day': '6',
+            'hour_from': 10,
+            'hour_to': 14,
+        })
+        with self.assertRaises(ValidationError):
+            self.env['medical.surgical.appointment'].create({
+                'location_id': self.location.id,
+                'surgeon_id': self.practitioner1.id,
+                'start_date': '2019-10-06 13:00:00',
+                'duration': 1.5,
+            })
+
+        msar = self.env['medical.surgical.appointment.rule'].create({
+            'name': 'Mondays to Practitioner 1',
+            'location_id': self.location.id,
+            'rule_type': 'surgeon',
+            'surgeon_ids': [(6, 0, [self.practitioner1.id])],
+            'week_day': '0',
+            'all_day': True,
+            'validity_stop': '2019-10-10',
+        })
+        msar._onchange_rule_type()
+        self.assertFalse(msar.is_blocking)
+        # No warning (correct surgeon)
+        msa1 = self.env['medical.surgical.appointment'].create({
+            'location_id': self.location.id,
+            'surgeon_id': self.practitioner1.id,
+            'start_date': '2019-10-07 10:00:00',
+            'duration': 1.5,
+        })
+        # Warning: Reserved to Practitioner 1
+        msa2 = self.env['medical.surgical.appointment'].create({
+            'location_id': self.location.id,
+            'surgeon_id': self.practitioner2.id,
+            'start_date': '2019-10-07 15:00:00',
+            'duration': 1.5,
+        })
+        # No warning, rule already expired
+        msa3 = self.env['medical.surgical.appointment'].create({
+            'location_id': self.location.id,
+            'surgeon_id': self.practitioner2.id,
+            'start_date': '2019-10-14 15:00:00',
+            'duration': 1.5,
+        })
+        self.assertFalse(msa1.warning)
+        self.assertFalse(msa3.warning)
+        self.assertEqual(
+            msa2.warning,
+            'Warning: You are ignoring the'
+            ' following rules:\n\n- Mondays to Practitioner 1'
+        )
+        msar = self.env['medical.surgical.appointment.rule'].create({
+            'name': 'Close on 9th October 2019 from 10 to 14',
+            'location_id': self.location.id,
+            'rule_type': 'specific',
+            'specific_from': '2019-10-09 10:00:00',
+            'specific_to': '2019-10-09 14:00:00',
+            'is_blocking': True,
+        })
+        msar._onchange_rule_type()
+        with self.assertRaises(ValidationError):
+            self.env['medical.surgical.appointment'].create({
+                'location_id': self.location.id,
+                'surgeon_id': self.practitioner1.id,
+                'start_date': '2019-10-09 13:00:00',
+                'duration': 1.5,
+            })

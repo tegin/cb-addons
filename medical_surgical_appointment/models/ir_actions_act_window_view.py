@@ -4,7 +4,7 @@
 from odoo import fields, models
 
 
-class IrActionsAct_windowView(models.Model):
+class IrActionsActWindowView(models.Model):
 
     _inherit = 'ir.actions.act_window.view'
     view_mode = fields.Selection(

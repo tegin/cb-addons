@@ -39,3 +39,16 @@ class MedicalSurgicalAppointmentPatient(models.TransientModel):
         self.ensure_one()
         self.appointment_id.selected_patient = True
         self.appointment_id.patient_id = False
+        self.appointment_id.write({
+            'selected_patient': True,
+            'patient_id': False,
+            'firstname': False,
+            'lastname': False,
+            'lastname2': False,
+            'vat': False,
+            'gender': False,
+            'birth_date': False,
+            'phone': False,
+            'mobile': False,
+            'email': False,
+        })

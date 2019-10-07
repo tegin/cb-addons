@@ -22,14 +22,14 @@
         'static/src/xml/appointment.xml',
     ],
     'data': [
-        'views/medical_surgical_appointment_rule.xml',
-        'wizards/medical_surgical_appointment_patient.xml',
-        'data/surgical_appointment_sequence.xml',
         'security/ir.model.access.csv',
         'security/security.xml',
+        'data/surgical_appointment_sequence.xml',
+        'views/webclient_templates.xml',
+        'wizards/medical_surgical_appointment_patient.xml',
         'views/medical_surgical_appointment.xml',
         'views/product_template.xml',
         'views/res_partner.xml',
-        'views/webclient_templates.xml',
+        'views/medical_surgical_appointment_rule.xml',
     ],
 }

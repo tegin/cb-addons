@@ -1,13 +1,15 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 from dateutil import tz
 from pytz import utc
 from datetime import timedelta
 
+
 def intervals_overlap(x1, x2, y1, y2):
     return x1 < y2 and y1 < x2
+
 
 class MedicalSurgicalAppointmentRule(models.Model):
 
@@ -63,9 +65,8 @@ class MedicalSurgicalAppointmentRule(models.Model):
     specific_to = fields.Datetime()
 
     # Validity dates
-    valid = fields.Boolean(compute='_compute_valid', store=True)
-    validity_start = fields.Datetime()
-    validity_stop = fields.Datetime()
+    validity_start = fields.Date()
+    validity_stop = fields.Date()
 
     @api.model
     def check_rules(self, date_start, date_end, location, surgeon=False):
@@ -78,9 +79,11 @@ class MedicalSurgicalAppointmentRule(models.Model):
         time_t = date_end.time().replace(tzinfo=tz.gettz(utz))
         time_end = time_t.hour + time_t.minute/60
 
-        domain = [('valid', '=', True), ('location_id', '=', location.id)]
-        for record in self.search(domain):
-            if surgeon and record.rule_type == 'surgeon' and surgeon in record.surgeon_ids:
+        for record in self.search(
+                [('location_id', '=', location.id)]
+        ).filtered(lambda r: r.is_valid(date_start, date_end)):
+            if surgeon and record.rule_type == 'surgeon' and (
+                    surgeon in record.surgeon_ids):
                 continue
             if record.rule_type in ['day', 'surgeon']:
                 if int(record.week_day) == date_start.weekday():
@@ -140,24 +143,24 @@ class MedicalSurgicalAppointmentRule(models.Model):
     @api.onchange('rule_type')
     def _onchange_rule_type(self):
         for record in self:
-            if record.rule_type != 'by_day':
+            if record.rule_type not in ['surgeon', 'day']:
                 record.week_day = False
                 record.all_day = False
                 record.hour_from = False
                 record.hour_to = False
             record.is_blocking = record.rule_type != 'surgeon'
 
-    @api.depends('validity_start', 'validity_stop')
-    def _compute_valid(self):
-        now = fields.Datetime.from_string(fields.Datetime.now())
+    def is_valid(self, date_start, date_end):
         for rule in self:
             validity_start = fields.Datetime.from_string(rule.validity_start)
             validity_stop = fields.Datetime.from_string(rule.validity_stop)
             if validity_start and validity_stop:
-                rule.valid = (now <= validity_stop) and (now >= validity_start)
+                return intervals_overlap(
+                    date_start, date_end, validity_start, validity_stop
+                )
             elif validity_start:
-                rule.valid = now >= validity_start
+                return date_start >= validity_start
             elif validity_stop:
-                rule.valid = now <= validity_stop
+                return date_end <= validity_stop
             else:
-                rule.valid = True
+                return True
