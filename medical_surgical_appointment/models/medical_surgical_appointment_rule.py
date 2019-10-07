@@ -15,6 +15,7 @@ class MedicalSurgicalAppointmentRule(models.Model):
 
     _name = 'medical.surgical.appointment.rule'
     _description = 'Medical Surgical Appointment Rule'
+    _inherit = ['mail.thread']
 
     name = fields.Char()
     active = fields.Boolean(default=True)
@@ -69,37 +70,66 @@ class MedicalSurgicalAppointmentRule(models.Model):
     validity_stop = fields.Date()
 
     @api.model
-    def check_rules(self, date_start, date_end, location, surgeon=False):
+    def check_rules(self, date_start, date_end, location,
+                    surgeon=False, aux_surgeon=False):
+        tz_name = self.env.user.tz
         rules = self
+
         date_start = fields.Datetime.from_string(date_start)
         date_end = fields.Datetime.from_string(date_end)
-        utz = self.env.user.tz
-        time_t = date_start.time().replace(tzinfo=tz.gettz(utz))
+
+        if not self.env.context.get('js', False):
+            date_start = date_start.replace(
+                tzinfo=tz.tzutc(),
+            ).astimezone(tz.gettz(tz_name))
+            date_end = date_end.replace(
+                tzinfo=tz.tzutc(),
+            ).astimezone(tz.gettz(tz_name))
+
+        time_t = date_start.time()
         time_start = time_t.hour + time_t.minute/60
-        time_t = date_end.time().replace(tzinfo=tz.gettz(utz))
+        time_t = date_end.time()
         time_end = time_t.hour + time_t.minute/60
 
-        for record in self.search(
-                [('location_id', '=', location.id)]
-        ).filtered(lambda r: r.is_valid(date_start, date_end)):
-            if surgeon and record.rule_type == 'surgeon' and (
-                    surgeon in record.surgeon_ids):
-                continue
-            if record.rule_type in ['day', 'surgeon']:
-                if int(record.week_day) == date_start.weekday():
-                    hour_from = 0.0 if record.all_day else record.hour_from
-                    hour_to = 24.0 if record.all_day else record.hour_to
+        check_rules = self.search(
+            [('location_id', '=', location.id)]).filtered(
+            lambda r: r.is_valid(date_start, date_end))
+        if surgeon:
+            check_rules = check_rules.filtered(
+                lambda r: (
+                    r.rule_type != 'surgeon' or (
+                        surgeon not in r.surgeon_ids and (
+                            aux_surgeon not in r.surgeon_ids))
+                ))
+            aux_surgeon_id = aux_surgeon.id if aux_surgeon else -1
+            check_rules |= self.search([
+                '|', ('surgeon_ids', '=', aux_surgeon_id),
+                ('surgeon_ids', '=', surgeon.id),
+                ('location_id', '!=', location.id),
+            ]).filtered(lambda r: r.is_valid(date_start, date_end))
+        for rule in check_rules:
+            if rule.rule_type in ['day', 'surgeon']:
+                if int(rule.week_day) == date_start.weekday():
+                    hour_from = 0.0 if rule.all_day else rule.hour_from
+                    hour_to = 24.0 if rule.all_day else rule.hour_to
                     if intervals_overlap(
-                            hour_from, hour_to, time_start, time_end
+                        hour_from, hour_to, time_start, time_end
                     ):
-                        rules |= record
+                        rules |= rule
             else:
-                start = fields.Datetime.from_string(record.specific_from)
-                end = fields.Datetime.from_string(record.specific_to)
+                start = fields.Datetime.from_string(rule.specific_from)
+                end = fields.Datetime.from_string(rule.specific_to)
+                if not self.env.context.get('js', False):
+                    start = start.replace(
+                        tzinfo=tz.tzutc(),
+                    ).astimezone(tz.gettz(tz_name))
+                    end = end.replace(
+                        tzinfo=tz.tzutc(),
+                    ).astimezone(tz.gettz(tz_name))
                 if intervals_overlap(
-                        start, end, date_start, date_end
+                    start, end, date_start, date_end
                 ):
-                    rules |= record
+                    rules |= rule
         return rules
 
     @api.model
@@ -107,7 +137,9 @@ class MedicalSurgicalAppointmentRule(models.Model):
         if isinstance(location, int):
             location = self.env['res.partner'].browse(location)
             location.exists()
-        rules = self.check_rules(date_start, date_stop, location)
+        rules = self.with_context(js=True).check_rules(
+            date_start, date_stop, location
+        )
         return [
             rule._get_rule_vals(date_start, date_stop) for rule in rules
         ]
@@ -148,6 +180,8 @@ class MedicalSurgicalAppointmentRule(models.Model):
                 record.all_day = False
                 record.hour_from = False
                 record.hour_to = False
+            if record.rule_type != 'surgeon':
+                record.surgeon_ids = [(6, 0, [])]
             record.is_blocking = record.rule_type != 'surgeon'
 
     def is_valid(self, date_start, date_end):

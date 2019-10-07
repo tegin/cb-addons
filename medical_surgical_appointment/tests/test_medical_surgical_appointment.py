@@ -21,6 +21,8 @@ class TestMedicalSurgicalAppointment(TransactionCase):
             'name': 'Service',
             'type': 'service',
             'allow_surgical_appointment': True,
+            'surgical_appointment_time': 1.5,
+            'patient_interned': True,
         })
 
         self.practitioner1 = self.env['res.partner'].create({
@@ -103,11 +105,14 @@ class TestMedicalSurgicalAppointment(TransactionCase):
             'subscriber_id': 123421,
             'authorization_number': 123445,
         })
+        msa._onchange_service()
+        msa._onchange_payor()
+        self.assertTrue(msa.patient_interned)
         msa.confirm_reservation2confirm_patient()
         self.assertEqual(msa.state, 'confirmed_patient')
 
     def test_generate_encounter(self):
-        type = self.env['workflow.type'].create({
+        w_type = self.env['workflow.type'].create({
             'name': 'TEST',
             'model_id': self.browse_ref(
                 'medical_administration.model_medical_patient').id,
@@ -116,7 +121,7 @@ class TestMedicalSurgicalAppointment(TransactionCase):
         })
         plan_definition = self.env['workflow.plan.definition'].create({
             'name': 'Plan definition',
-            'type_id': type.id,
+            'type_id': w_type.id,
         })
         agreement = self.env['medical.coverage.agreement'].create({
             'name': 'Agreement',
@@ -251,8 +256,16 @@ class TestMedicalSurgicalAppointment(TransactionCase):
         self.assertEqual(
             msa2.warning,
             'Warning: You are ignoring the'
-            ' following rules:\n\n- Mondays to Practitioner 1'
+            ' following rules:\n- Mondays to Practitioner 1'
         )
+
+        calendar_data = msar.get_rules_date_location(
+            msa2.start_date,
+            msa2.end_date,
+            msa2.location_id.id,
+        )
+        self.assertEqual(calendar_data[0]['name'], msar.name)
+
         msar = self.env['medical.surgical.appointment.rule'].create({
             'name': 'Close on 9th October 2019 from 10 to 14',
             'location_id': self.location.id,

@@ -214,10 +214,10 @@
                       string="Event Tracks"
                       quick_add="0" mode="day"
             >
-                <field name="patient_name"/>
-                <field name="service_id"/>
-                <field name="location_id"/>
                 <field name="surgeon_id"/>
+                <field name="service_id"/>
+                <field name="patient_name"/>
+                <field name="location_id"/>
             </appointment>
         </field>
     </record>

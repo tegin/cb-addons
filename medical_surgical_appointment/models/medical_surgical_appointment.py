@@ -8,11 +8,6 @@ from datetime import timedelta
 
 import logging
 _logger = logging.getLogger(__name__)
-try:
-    from fuzzywuzzy import fuzz
-except ImportError:
-    _logger.debug('Can not import fuzzywuzzy.')
-    fuzz = False
 
 
 class MedicalSurgicalAppointment(models.Model):
@@ -227,7 +222,8 @@ class MedicalSurgicalAppointment(models.Model):
         store=True,
     )
 
-    @api.depends('start_date', 'end_date', 'location_id', 'surgeon_id')
+    @api.depends('start_date', 'end_date',
+                 'location_id', 'surgeon_id', 'aux_surgeon_id')
     def _compute_warning(self):
         for record in self:
             rules = self.env[
@@ -236,19 +232,37 @@ class MedicalSurgicalAppointment(models.Model):
                 record.start_date,
                 record.end_date,
                 record.location_id,
-                record.surgeon_id
+                record.surgeon_id,
+                record.aux_surgeon_id,
             )
             breaking_rules = rules.filtered(lambda r: r.is_blocking)
-            non_breaking_rules = rules.filtered(lambda r: not r.is_blocking)
-            message = _('Breaking the following rules:\n')
+            non_breaking_rules_here = rules.filtered(
+                lambda r: not r.is_blocking and (
+                    r.location_id == record.location_id))
+            non_breaking_rules_other = rules.filtered(
+                lambda r: not r.is_blocking and (
+                    r.location_id != record.location_id))
+            message = _('Breaking the following rules:')
             record.broken_rules_message = '\n'.join([message] + [
                 "- %s" % rule.name for rule in breaking_rules
             ]) if breaking_rules else False
 
-            message = _('Warning: You are ignoring the following rules:\n')
-            record.warning = '\n'.join([message] + [
-                "- %s" % rule.name for rule in non_breaking_rules
-            ]) if non_breaking_rules else False
+            message = _('Warning: You are ignoring the following rules:')
+            message = '\n'.join([message] + [
+                "- %s" % rule.name for rule in non_breaking_rules_here
+            ]) if non_breaking_rules_here else ''
+
+            other_rules = _('Warning: This surgeon already '
+                            'has a location reserved at that time')
+            other_rules = '\n'.join([other_rules] + [
+                "- %s" % rule.name for rule in non_breaking_rules_other
+            ]) if non_breaking_rules_other else ''
+
+            if message and other_rules:
+                message += '\n\n' + other_rules
+            else:
+                message += other_rules
+            record.warning = message or False
 
     @api.depends('start_date', 'coverage_template_id',
                  'service_id', 'location_id')
@@ -448,7 +462,14 @@ class MedicalSurgicalAppointment(models.Model):
     def _check_surgeon_intervals(self):
         fields = self.practitioner_fields()
         for record in self.filtered(lambda r: r.state != 'cancelled'):
-            partners = [getattr(record, field) for field in fields]
+            if record.surgeon_id == record.aux_surgeon_id:
+                raise ValidationError(
+                    _('Error! A practitioner shouldn\'t be surgeon and'
+                      'auxiliary surgeon at the same time...'))
+            partners = [
+                getattr(record, field) for field in fields if getattr(
+                    record, field)
+            ]
             for partner in partners:
                 domain = []
                 for field in fields:
