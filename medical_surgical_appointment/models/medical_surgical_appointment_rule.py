@@ -78,7 +78,7 @@ class MedicalSurgicalAppointmentRule(models.Model):
         date_start = fields.Datetime.from_string(date_start)
         date_end = fields.Datetime.from_string(date_end)
 
-        if not self.env.context.get('js', False):
+        if not self.env.context.get('no_tz', False):
             date_start = date_start.replace(
                 tzinfo=tz.tzutc(),
             ).astimezone(tz.gettz(tz_name))
@@ -137,7 +137,7 @@ class MedicalSurgicalAppointmentRule(models.Model):
         if isinstance(location, int):
             location = self.env['res.partner'].browse(location)
             location.exists()
-        rules = self.with_context(js=True).check_rules(
+        rules = self.with_context(no_tz=True).check_rules(
             date_start, date_stop, location
         )
         return [

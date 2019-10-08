@@ -78,10 +78,17 @@ class TestMedicalSurgicalAppointment(TransactionCase):
     def test_surgical_appointment_workflow(self):
         msa = self.env['medical.surgical.appointment'].create({
             'location_id': self.location.id,
+            'service_id': self.service.id,
             'surgeon_id': self.practitioner1.id,
             'start_date': fields.Datetime.now(),
             'duration': 1.5,
         })
+
+        msa._onchange_service()
+        self.assertTrue(msa.patient_interned)
+        msa.service_id = False
+        msa._onchange_service()
+
         self.assertEqual(msa.state, 'draft')
         msa.waiting2confirm_reservation()
         self.assertEqual(msa.state, 'confirmed_reservation')
@@ -105,9 +112,7 @@ class TestMedicalSurgicalAppointment(TransactionCase):
             'subscriber_id': 123421,
             'authorization_number': 123445,
         })
-        msa._onchange_service()
         msa._onchange_payor()
-        self.assertTrue(msa.patient_interned)
         msa.confirm_reservation2confirm_patient()
         self.assertEqual(msa.state, 'confirmed_patient')
 
@@ -177,6 +182,12 @@ class TestMedicalSurgicalAppointment(TransactionCase):
             'start_date': '2019-12-20 08:00:00',
             'duration': 1.5,
         })
+        self.env['medical.surgical.appointment'].create({
+            'location_id': self.location2.id,
+            'surgeon_id': self.practitioner1.id,
+            'start_date': '2019-12-20 11:00:00',
+            'duration': 1.5,
+        })
         with self.assertRaises(ValidationError):
             self.env['medical.surgical.appointment'].create({
                 'location_id': self.location.id,
@@ -202,6 +213,7 @@ class TestMedicalSurgicalAppointment(TransactionCase):
             })
 
     def test_appointment_rules(self):
+        msa_obj = self.env['medical.surgical.appointment'].with_context(no_tz=True)
         self.env['medical.surgical.appointment.rule'].create({
             'name': 'No Sundays from 10h to 14h',
             'location_id': self.location.id,
@@ -212,7 +224,7 @@ class TestMedicalSurgicalAppointment(TransactionCase):
             'hour_to': 14,
         })
         with self.assertRaises(ValidationError):
-            self.env['medical.surgical.appointment'].create({
+            msa_obj.create({
                 'location_id': self.location.id,
                 'surgeon_id': self.practitioner1.id,
                 'start_date': '2019-10-06 13:00:00',
@@ -231,21 +243,21 @@ class TestMedicalSurgicalAppointment(TransactionCase):
         msar._onchange_rule_type()
         self.assertFalse(msar.is_blocking)
         # No warning (correct surgeon)
-        msa1 = self.env['medical.surgical.appointment'].create({
+        msa1 = msa_obj.create({
             'location_id': self.location.id,
             'surgeon_id': self.practitioner1.id,
             'start_date': '2019-10-07 10:00:00',
             'duration': 1.5,
         })
         # Warning: Reserved to Practitioner 1
-        msa2 = self.env['medical.surgical.appointment'].create({
+        msa2 = msa_obj.create({
             'location_id': self.location.id,
             'surgeon_id': self.practitioner2.id,
             'start_date': '2019-10-07 15:00:00',
             'duration': 1.5,
         })
         # No warning, rule already expired
-        msa3 = self.env['medical.surgical.appointment'].create({
+        msa3 = msa_obj.create({
             'location_id': self.location.id,
             'surgeon_id': self.practitioner2.id,
             'start_date': '2019-10-14 15:00:00',
@@ -276,7 +288,7 @@ class TestMedicalSurgicalAppointment(TransactionCase):
         })
         msar._onchange_rule_type()
         with self.assertRaises(ValidationError):
-            self.env['medical.surgical.appointment'].create({
+            msa_obj.create({
                 'location_id': self.location.id,
                 'surgeon_id': self.practitioner1.id,
                 'start_date': '2019-10-09 13:00:00',

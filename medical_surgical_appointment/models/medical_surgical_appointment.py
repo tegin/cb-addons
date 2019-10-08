@@ -40,6 +40,8 @@ class MedicalSurgicalAppointment(models.Model):
         track_visibility='onchange',
     )
 
+    note = fields.Text()
+
     firstname = fields.Char(
         string='First Name', readonly=True,
         states={'draft': [('readonly', False)]},
@@ -327,7 +329,7 @@ class MedicalSurgicalAppointment(models.Model):
 
     @api.onchange('service_id')
     def _onchange_service(self):
-        for record in self.filtered('service_id'):
+        for record in self.filtered(lambda r: r.state == 'draft'):
             if record.service_id:
                 record.duration = (
                     record.service_id.surgical_appointment_time or 0

@@ -122,26 +122,25 @@
 
                     <field name="information" attrs="{'invisible': [('selected_patient', '=', False)]}"/>
 
-                    <notebook attrs="{'invisible': [('selected_patient', '=', False)]}">
-                        <page string="Coverage" name="coverage_group">
-                            <group>
-                                <group>
-                                    <field name="payor_id" attrs="{'required': [('selected_patient', '=', True)]}"
-                                           options='{"no_create": True}'/>
-                                    <field name="sub_payor_id"
-                                           domain="[('payor_id', '=', payor_id), ('is_sub_payor', '=', True)]"
-                                           options='{"no_create": True}'/>
-                                </group>
-                                <group>
-                                    <field name="coverage_template_id" attrs="{'required': [('selected_patient', '=', True)]}"
-                                           domain="[('payor_id', '=', payor_id)]"
-                                           options='{"no_create": True}'/>
-                                    <field name="subscriber_id" attrs="{'required': [('selected_patient', '=', True)]}"/>
-                                    <field name="authorization_number" attrs="{'required': [('selected_patient', '=', True)]}"/>
-                                </group>
-                            </group>
-                        </page>
-                    </notebook>
+                    <group string="Coverage" name="coverage_group" attrs="{'invisible': [('selected_patient', '=', False)]}">
+                        <group>
+                            <field name="payor_id" attrs="{'required': [('selected_patient', '=', True)]}"
+                                   options='{"no_create": True}'/>
+                            <field name="sub_payor_id"
+                                   domain="[('payor_id', '=', payor_id), ('is_sub_payor', '=', True)]"
+                                   options='{"no_create": True}'/>
+                        </group>
+                        <group>
+                            <field name="coverage_template_id" attrs="{'required': [('selected_patient', '=', True)]}"
+                                   domain="[('payor_id', '=', payor_id)]"
+                                   options='{"no_create": True}'/>
+                            <field name="subscriber_id" attrs="{'required': [('selected_patient', '=', True)]}"/>
+                            <field name="authorization_number" attrs="{'required': [('selected_patient', '=', True)]}"/>
+                        </group>
+                    </group>
+                    <group string="Comments">
+                        <field name="note" placeholder="Write a note..." nolabel="1"/>
+                    </group>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
