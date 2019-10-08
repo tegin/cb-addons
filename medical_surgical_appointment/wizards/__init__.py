@@ -1,1 +1,0 @@
-from . import medical_surgical_appointment_patient
