@@ -213,7 +213,9 @@ class TestMedicalSurgicalAppointment(TransactionCase):
             })
 
     def test_appointment_rules(self):
-        msa_obj = self.env['medical.surgical.appointment'].with_context(no_tz=True)
+        msa_obj = self.env['medical.surgical.appointment'].with_context(
+            no_tz=True
+        )
         self.env['medical.surgical.appointment.rule'].create({
             'name': 'No Sundays from 10h to 14h',
             'location_id': self.location.id,
