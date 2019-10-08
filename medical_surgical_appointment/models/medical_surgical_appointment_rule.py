@@ -119,7 +119,7 @@ class MedicalSurgicalAppointmentRule(models.Model):
             else:
                 start = fields.Datetime.from_string(rule.specific_from)
                 end = fields.Datetime.from_string(rule.specific_to)
-                if not self.env.context.get('js', False):
+                if not self.env.context.get('no_tz', False):
                     start = start.replace(
                         tzinfo=tz.tzutc(),
                     ).astimezone(tz.gettz(tz_name))
