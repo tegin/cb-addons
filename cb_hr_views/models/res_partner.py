@@ -22,7 +22,7 @@ class ResPartner(models.Model):
     )
 
     show_info = fields.Boolean(
-        compute='_compute_show_info'
+        compute='_compute_show_info', default=True,
     )
 
     def _compute_show_info(self):
