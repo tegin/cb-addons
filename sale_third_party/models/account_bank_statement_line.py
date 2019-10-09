@@ -5,12 +5,10 @@ from odoo import api, fields, models
 
 
 class AccountBankStatementLine(models.Model):
-    _inherit = 'account.bank.statement.line'
+    _inherit = "account.bank.statement.line"
 
     third_party_sale_order_id = fields.Many2one(
-        'sale.order',
-        string='third party sale order',
-        readonly=True
+        "sale.order", string="third party sale order", readonly=True
     )
 
     @api.multi
@@ -27,11 +25,12 @@ class AccountBankStatementLine(models.Model):
                 )
                 if st_line.amount != 0:
                     vals = {
-                        'name': st_line.name,
-                        'debit': st_line.amount < 0 and -st_line.amount or 0.0,
-                        'credit': st_line.amount > 0 and st_line.amount or 0.0,
-                        'move_line': move_line,
-                        'third_party_customer_sale_order_id': sale_order.id,
+                        "name": st_line.name,
+                        "debit": st_line.amount < 0 and -st_line.amount or 0.0,
+                        "credit": st_line.amount > 0 and st_line.amount or 0.0,
+                        "move_line": move_line,
+                        "third_party_customer_sale_order_id": sale_order.id,
                     }
                     st_line.process_reconciliation(
-                        counterpart_aml_dicts=[vals])
+                        counterpart_aml_dicts=[vals]
+                    )

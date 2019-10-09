@@ -5,10 +5,10 @@ from odoo import api, models
 
 
 class HashSearch(models.Model):
-    _inherit = 'hash.search'
+    _inherit = "hash.search"
 
     @api.model
     def hash_search_models(self):
         res = super().hash_search_models()
-        res.append(('purchase.order', 'Purchase Order'))
+        res.append(("purchase.order", "Purchase Order"))
         return res

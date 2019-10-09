@@ -5,20 +5,20 @@ from odoo import api, fields, models
 
 
 class HashMissingDocument(models.Model):
-    _name = 'hash.missing.document'
-    _description = 'Missing Document'
+    _name = "hash.missing.document"
+    _description = "Missing Document"
 
     name = fields.Char(required=True, readonly=True)
     data = fields.Binary(attachment=True, required=True, readonly=True)
-    state = fields.Selection([
-        ('pending', 'Pending'),
-        ('processed', 'Processed'),
-        ('deleted', 'Rejected')
-    ], default='pending')
-    hash_search_id = fields.Many2one(
-        'hash.search',
-        readonly=True
+    state = fields.Selection(
+        [
+            ("pending", "Pending"),
+            ("processed", "Processed"),
+            ("deleted", "Rejected"),
+        ],
+        default="pending",
     )
+    hash_search_id = fields.Many2one("hash.search", readonly=True)
 
     @api.multi
     def assign_model(self, model, res_id):
@@ -28,25 +28,20 @@ class HashMissingDocument(models.Model):
         self.assign_hash(hsh)
 
     def _processed_values(self, hsh):
-        return {
-            'state': 'processed',
-            'hash_search_id': hsh.id,
-        }
+        return {"state": "processed", "hash_search_id": hsh.id}
 
     def _deleted_values(self):
-        return {
-            'state': 'deleted'
-        }
+        return {"state": "deleted"}
 
     @api.multi
     def assign_hash(self, hsh):
-        records = self.filtered(lambda r: r.state == 'pending')
+        records = self.filtered(lambda r: r.state == "pending")
         for record in records:
             hsh._scan_document(record.name, record.data)
         records.write(self._processed_values(hsh))
 
     @api.multi
     def reject_assign_document(self):
-        self.filtered(lambda r: r.state == 'pending').write(
+        self.filtered(lambda r: r.state == "pending").write(
             self._deleted_values()
         )

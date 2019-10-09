@@ -2,7 +2,7 @@ from odoo import fields, models
 
 
 class AccountMoveLine(models.Model):
-    _inherit = 'account.move.line'
+    _inherit = "account.move.line"
 
     narration = fields.Text(readonly=True)
     ref = fields.Char(readonly=True)

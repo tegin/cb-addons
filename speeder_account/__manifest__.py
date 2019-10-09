@@ -11,9 +11,6 @@
     "installable": True,
     "application": False,
     "summary": "Adds a check digit on sequences",
-    "depends": [
-        "account",
-    ],
-    "data": [
-    ],
+    "depends": ["account"],
+    "data": [],
 }

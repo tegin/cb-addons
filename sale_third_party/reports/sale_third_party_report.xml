@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <report 
+        <report
             id="action_report_saleorder_third_party"
             string="Third Party Invoice"
-            model="sale.order" 
+            model="sale.order"
             report_type="qweb-pdf"
             file="sale_third_party.report_saleorder_third_party"
             name="sale_third_party.report_saleorder_third_party"

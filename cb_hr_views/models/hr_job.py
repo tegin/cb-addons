@@ -6,8 +6,8 @@ from odoo import fields, models
 
 class HrJob(models.Model):
 
-    _inherit = 'hr.job'
+    _inherit = "hr.job"
 
-    state = fields.Selection(default='open')
+    state = fields.Selection(default="open")
     company_id = fields.Many2one(default=False)
     no_of_recruitment = fields.Integer(default=0)

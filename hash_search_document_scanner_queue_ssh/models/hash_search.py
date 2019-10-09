@@ -6,6 +6,7 @@ from odoo.addons.queue_job.job import job
 from odoo.modules.registry import Registry
 import time
 import logging
+
 _logger = logging.getLogger(__name__)
 try:
     from paramiko.client import SSHClient
@@ -14,15 +15,22 @@ except (ImportError, IOError) as err:
 
 
 class HashSearch(models.Model):
-    _inherit = 'hash.search'
+    _inherit = "hash.search"
 
     @api.model
     def cron_ssh_move_documents(
-        self, host=False, port=False, user=False, password=False,
-        ssh_path=False
+        self,
+        host=False,
+        port=False,
+        user=False,
+        password=False,
+        ssh_path=False,
     ):
-        dest_path = self.env['ir.config_parameter'].sudo().get_param(
-            'hash_search_document_scanner.path', default=False)
+        dest_path = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("hash_search_document_scanner.path", default=False)
+        )
         connection = SSHClient()
         connection.load_system_host_keys()
 
@@ -30,37 +38,41 @@ class HashSearch(models.Model):
             return False
         if not host:
             host = self.env["ir.config_parameter"].get_param(
-                'hash_search_document_scanner_queue_ssh.host', default=False)
+                "hash_search_document_scanner_queue_ssh.host", default=False
+            )
         if not port:
-            port = int(self.env["ir.config_parameter"].get_param(
-                'hash_search_document_scanner_queue_ssh.port', default='0'))
+            port = int(
+                self.env["ir.config_parameter"].get_param(
+                    "hash_search_document_scanner_queue_ssh.port", default="0"
+                )
+            )
         if not user:
             user = self.env["ir.config_parameter"].get_param(
-                'hash_search_document_scanner_queue_ssh.user', default=False)
+                "hash_search_document_scanner_queue_ssh.user", default=False
+            )
         if not password:
             password = self.env["ir.config_parameter"].get_param(
-                'hash_search_document_scanner_queue_ssh.password',
-                default=False)
+                "hash_search_document_scanner_queue_ssh.password",
+                default=False,
+            )
 
         if not ssh_path:
             ssh_path = self.env["ir.config_parameter"].get_param(
-                'hash_search_document_scanner_queue_ssh.ssh_path',
-                default=False)
+                "hash_search_document_scanner_queue_ssh.ssh_path",
+                default=False,
+            )
         connection.connect(
-            hostname=host,
-            port=port,
-            username=user,
-            password=password,
+            hostname=host, port=port, username=user, password=password
         )
         sftp = connection.open_sftp()
         if ssh_path:
             sftp.chdir(ssh_path)
-        elements = sftp.listdir_attr('.')
+        elements = sftp.listdir_attr(".")
         min_time = int(time.time()) - 60
-        single_commit = self.env.context.get('scanner_single_commit', False)
+        single_commit = self.env.context.get("scanner_single_commit", False)
         for element in elements:
             if element.st_atime > min_time and not self.env.context.get(
-                'scanner_ignore_time', False
+                "scanner_ignore_time", False
             ):
                 continue
             filename = element.filename
@@ -72,9 +84,13 @@ class HashSearch(models.Model):
                 if single_commit:
                     obj = self.env[self._name].browse()
                 else:
-                    obj = api.Environment(
-                        new_cr, self.env.uid, self.env.context
-                    )[self._name].browse().with_delay()
+                    obj = (
+                        api.Environment(
+                            new_cr, self.env.uid, self.env.context
+                        )[self._name]
+                        .browse()
+                        .with_delay()
+                    )
                 obj.process_document(new_element)
                 if not single_commit:
                     new_cr.commit()
@@ -93,6 +109,6 @@ class HashSearch(models.Model):
         return True
 
     @api.model
-    @job(default_channel='root.scanner')
+    @job(default_channel="root.scanner")
     def process_document(self, element):
         return super().process_document(element)

@@ -13,194 +13,208 @@ class TestLeaveHours(common.TransactionCase):
     def setUp(self):
         super(TestLeaveHours, self).setUp()
 
-        Leave = self.env['hr.holidays']
-        HolidaysStatus = self.env['hr.holidays.status']
-        Employee = self.env['hr.employee']
+        Leave = self.env["hr.holidays"]
+        HolidaysStatus = self.env["hr.holidays.status"]
+        Employee = self.env["hr.employee"]
 
         dt_holiday = datetime.today() + relativedelta(months=2)
         self.holiday_start = dt_holiday.replace(
-            hour=8, minute=0, second=0, microsecond=0)
+            hour=8, minute=0, second=0, microsecond=0
+        )
         self.holiday_end = dt_holiday.replace(
-            hour=18, minute=0, second=0, microsecond=0)
+            hour=18, minute=0, second=0, microsecond=0
+        )
 
         holiday_start = self.holiday_start.strftime(DF)
         holiday_end = self.holiday_end.strftime(DF)
 
-        Calendar = self.env['resource.calendar']
-        self.calendar = Calendar.create({
-            'name': 'Calendar 1',
-        })
+        Calendar = self.env["resource.calendar"]
+        self.calendar = Calendar.create({"name": "Calendar 1"})
 
         for i in range(0, 7):
-            self.env['resource.calendar.attendance'].create({
-                'name': 'Day ' + str(i),
-                'dayofweek': str(i),
-                'hour_from': 8.0,
-                'hour_to': 16.0,
-                'calendar_id': self.calendar.id,
-            })
+            self.env["resource.calendar.attendance"].create(
+                {
+                    "name": "Day " + str(i),
+                    "dayofweek": str(i),
+                    "hour_from": 8.0,
+                    "hour_to": 16.0,
+                    "calendar_id": self.calendar.id,
+                }
+            )
 
-        self.employee_1 = Employee.create({
-            'name': 'Employee 1',
-            'resource_calendar_id': self.calendar.id,
-        })
-        self.employee_2 = Employee.create({
-            'name': 'Employee 2',
-            'resource_calendar_id': self.calendar.id,
-        })
-        self.employee_3 = Employee.create({
-            'name': 'Employee 3',
-        })
-        self.employee_4 = Employee.create({
-            'name': 'Failing Employee',
-            'resource_calendar_id': self.calendar.id,
-        })
+        self.employee_1 = Employee.create(
+            {"name": "Employee 1", "resource_calendar_id": self.calendar.id}
+        )
+        self.employee_2 = Employee.create(
+            {"name": "Employee 2", "resource_calendar_id": self.calendar.id}
+        )
+        self.employee_3 = Employee.create({"name": "Employee 3"})
+        self.employee_4 = Employee.create(
+            {
+                "name": "Failing Employee",
+                "resource_calendar_id": self.calendar.id,
+            }
+        )
 
-        self.status_1 = HolidaysStatus.create({
-            'name': 'Status 1',
-            'count_in_hours': True,
-            'limit': True,
-        })
-        self.status_2 = HolidaysStatus.create({
-            'name': 'Status 2',
-            'count_in_hours': True,
-            'limit': False,
-        })
+        self.status_1 = HolidaysStatus.create(
+            {"name": "Status 1", "count_in_hours": True, "limit": True}
+        )
+        self.status_2 = HolidaysStatus.create(
+            {"name": "Status 2", "count_in_hours": True, "limit": False}
+        )
 
-        self.leave_allocation_1 = Leave.create({
-            'name': 'Allocation Request 1',
-            'holiday_status_id': self.status_1.id,
-            'holiday_type': 'employee',
-            'employee_id': self.employee_1.id,
-            'number_of_days_temp': 10,
-            'number_of_hours_temp': 80,
-            'type': 'add',
-        })
+        self.leave_allocation_1 = Leave.create(
+            {
+                "name": "Allocation Request 1",
+                "holiday_status_id": self.status_1.id,
+                "holiday_type": "employee",
+                "employee_id": self.employee_1.id,
+                "number_of_days_temp": 10,
+                "number_of_hours_temp": 80,
+                "type": "add",
+            }
+        )
 
-        self.leave_1 = Leave.create({
-            'holiday_status_id': self.status_1.id,
-            'holiday_type': 'employee',
-            'type': 'remove',
-            'date_from': holiday_start,
-            'date_to': holiday_end,
-            'employee_id': self.employee_1.id,
-            'number_of_hours_temp': 8,
-        })
+        self.leave_1 = Leave.create(
+            {
+                "holiday_status_id": self.status_1.id,
+                "holiday_type": "employee",
+                "type": "remove",
+                "date_from": holiday_start,
+                "date_to": holiday_end,
+                "employee_id": self.employee_1.id,
+                "number_of_hours_temp": 8,
+            }
+        )
 
-        self.leave_allocation_2 = Leave.create({
-            'name': 'Allocation Request 2',
-            'holiday_status_id': self.status_1.id,
-            'holiday_type': 'employee',
-            'employee_id': self.employee_2.id,
-            'number_of_days_temp': 10,
-            'type': 'add',
-        })
+        self.leave_allocation_2 = Leave.create(
+            {
+                "name": "Allocation Request 2",
+                "holiday_status_id": self.status_1.id,
+                "holiday_type": "employee",
+                "employee_id": self.employee_2.id,
+                "number_of_days_temp": 10,
+                "type": "add",
+            }
+        )
 
-        self.leave_2 = Leave.create({
-            'holiday_status_id': self.status_1.id,
-            'holiday_type': 'employee',
-            'type': 'remove',
-            'date_from': holiday_start,
-            'date_to': holiday_end,
-            'employee_id': self.employee_2.id,
-        })
+        self.leave_2 = Leave.create(
+            {
+                "holiday_status_id": self.status_1.id,
+                "holiday_type": "employee",
+                "type": "remove",
+                "date_from": holiday_start,
+                "date_to": holiday_end,
+                "employee_id": self.employee_2.id,
+            }
+        )
 
-        self.leave_allocation_3 = Leave.create({
-            'name': 'Allocation Request 3',
-            'holiday_status_id': self.status_1.id,
-            'holiday_type': 'employee',
-            'employee_id': self.employee_3.id,
-            'number_of_days_temp': 10,
-            'type': 'add',
-        })
+        self.leave_allocation_3 = Leave.create(
+            {
+                "name": "Allocation Request 3",
+                "holiday_status_id": self.status_1.id,
+                "holiday_type": "employee",
+                "employee_id": self.employee_3.id,
+                "number_of_days_temp": 10,
+                "type": "add",
+            }
+        )
 
-        self.leave_3 = Leave.create({
-            'holiday_status_id': self.status_1.id,
-            'holiday_type': 'employee',
-            'type': 'remove',
-            'date_from': holiday_start,
-            'date_to': holiday_end,
-            'employee_id': self.employee_3.id,
-        })
+        self.leave_3 = Leave.create(
+            {
+                "holiday_status_id": self.status_1.id,
+                "holiday_type": "employee",
+                "type": "remove",
+                "date_from": holiday_start,
+                "date_to": holiday_end,
+                "employee_id": self.employee_3.id,
+            }
+        )
 
     def test_01_onchange(self):
-
         def test_onchange(leave, employee, allocation):
             field_onchange = leave._onchange_spec()
-            self.assertEqual(field_onchange.get('employee_id'), '1')
-            self.assertEqual(field_onchange.get('date_from'), '1')
-            self.assertEqual(field_onchange.get('date_to'), '1')
+            self.assertEqual(field_onchange.get("employee_id"), "1")
+            self.assertEqual(field_onchange.get("date_from"), "1")
+            self.assertEqual(field_onchange.get("date_to"), "1")
 
             values = {
-                'employee_id': employee.id,
-                'date_from': self.holiday_start.strftime(DF),
-                'date_to': self.holiday_end.strftime(DF),
+                "employee_id": employee.id,
+                "date_from": self.holiday_start.strftime(DF),
+                "date_to": self.holiday_end.strftime(DF),
             }
             if allocation:
-                leave.with_context(default_type='add').onchange(
-                    values, 'employee_id', field_onchange)
-                leave.with_context(default_type='add').onchange(
-                    values, 'date_from', field_onchange)
-                leave.with_context(default_type='add').onchange(
-                    values, 'date_to', field_onchange)
+                leave.with_context(default_type="add").onchange(
+                    values, "employee_id", field_onchange
+                )
+                leave.with_context(default_type="add").onchange(
+                    values, "date_from", field_onchange
+                )
+                leave.with_context(default_type="add").onchange(
+                    values, "date_to", field_onchange
+                )
             else:
-                leave.onchange(values, 'employee_id', field_onchange)
-                leave.onchange(values, 'date_from', field_onchange)
-                leave.onchange(values, 'date_to', field_onchange)
+                leave.onchange(values, "employee_id", field_onchange)
+                leave.onchange(values, "date_from", field_onchange)
+                leave.onchange(values, "date_to", field_onchange)
 
         test_list = [
             {
-                'leave': self.leave_1,
-                'employee': self.employee_1,
-                'allocation': False,
+                "leave": self.leave_1,
+                "employee": self.employee_1,
+                "allocation": False,
             },
             {
-                'leave': self.leave_2,
-                'employee': self.employee_2,
-                'allocation': False,
+                "leave": self.leave_2,
+                "employee": self.employee_2,
+                "allocation": False,
             },
             {
-                'leave': self.leave_3,
-                'employee': self.employee_3,
-                'allocation': False,
+                "leave": self.leave_3,
+                "employee": self.employee_3,
+                "allocation": False,
             },
             {
-                'leave': self.leave_allocation_1,
-                'employee': self.employee_1,
-                'allocation': True,
+                "leave": self.leave_allocation_1,
+                "employee": self.employee_1,
+                "allocation": True,
             },
             {
-                'leave': self.leave_allocation_2,
-                'employee': self.employee_2,
-                'allocation': True,
+                "leave": self.leave_allocation_2,
+                "employee": self.employee_2,
+                "allocation": True,
             },
             {
-                'leave': self.leave_allocation_3,
-                'employee': self.employee_3,
-                'allocation': True,
+                "leave": self.leave_allocation_3,
+                "employee": self.employee_3,
+                "allocation": True,
             },
         ]
 
         for test in test_list:
-            test_onchange(test['leave'], test['employee'], test['allocation'])
+            test_onchange(test["leave"], test["employee"], test["allocation"])
 
     def test_03_creation_fail(self):
         with self.assertRaises(ValidationError):
-            self.env['hr.holidays'].create({
-                'holiday_status_id': self.status_2.id,
-                'holiday_type': 'employee',
-                'type': 'remove',
-                'date_from': self.holiday_start.strftime(DF),
-                'date_to': self.holiday_end.strftime(DF),
-                'employee_id': self.employee_4.id,
-                'number_of_hours_temp': 8.0
-            })
+            self.env["hr.holidays"].create(
+                {
+                    "holiday_status_id": self.status_2.id,
+                    "holiday_type": "employee",
+                    "type": "remove",
+                    "date_from": self.holiday_start.strftime(DF),
+                    "date_to": self.holiday_end.strftime(DF),
+                    "employee_id": self.employee_4.id,
+                    "number_of_hours_temp": 8.0,
+                }
+            )
 
     def test_05_compute_leaves_count(self):
-        employee_list = self.employee_1 + \
-            self.employee_2 + \
-            self.employee_3 + \
-            self.employee_4
+        employee_list = (
+            self.employee_1
+            + self.employee_2
+            + self.employee_3
+            + self.employee_4
+        )
         employee_list._compute_leaves_count()
 
     def test_06_get_hours(self):
@@ -208,31 +222,51 @@ class TestLeaveHours(common.TransactionCase):
         self.leave_1.action_approve()
         hours = self.status_1.get_hours(self.employee_1)
 
-        self.assertEqual(hours['virtual_remaining_hours'], 72.0)
-        self.assertEqual(hours['remaining_hours'], 72.0)
-        self.assertEqual(hours['hours_taken'], 8.0)
-        self.assertEqual(hours['max_hours'], 80.0)
+        self.assertEqual(hours["virtual_remaining_hours"], 72.0)
+        self.assertEqual(hours["remaining_hours"], 72.0)
+        self.assertEqual(hours["hours_taken"], 8.0)
+        self.assertEqual(hours["max_hours"], 80.0)
 
-        self.assertEqual(self.status_1.with_context(
-            employee_id=self.employee_1.id).virtual_remaining_hours, 72.0)
-        self.assertEqual(self.status_1.with_context(
-            employee_id=self.employee_1.id).remaining_hours, 72.0)
-        self.assertEqual(self.status_1.with_context(
-            employee_id=self.employee_1.id).hours_taken, 8.0)
-        self.assertEqual(self.status_1.with_context(
-            employee_id=self.employee_1.id).max_hours, 80.0)
+        self.assertEqual(
+            self.status_1.with_context(
+                employee_id=self.employee_1.id
+            ).virtual_remaining_hours,
+            72.0,
+        )
+        self.assertEqual(
+            self.status_1.with_context(
+                employee_id=self.employee_1.id
+            ).remaining_hours,
+            72.0,
+        )
+        self.assertEqual(
+            self.status_1.with_context(
+                employee_id=self.employee_1.id
+            ).hours_taken,
+            8.0,
+        )
+        self.assertEqual(
+            self.status_1.with_context(
+                employee_id=self.employee_1.id
+            ).max_hours,
+            80.0,
+        )
 
         self.assertEqual(self.status_1.max_hours, 0.0)
 
         self.assertEqual(
             self.status_1.with_context(
-                employee_id=self.employee_1.id).name_get(),
-            [(self.status_1.id, 'Status 1')])
+                employee_id=self.employee_1.id
+            ).name_get(),
+            [(self.status_1.id, "Status 1")],
+        )
 
         self.assertEqual(
             self.status_2.with_context(
-                employee_id=self.employee_1.id).name_get(),
-            [(self.status_2.id, 'Status 2 (0 hours remaining)')])
+                employee_id=self.employee_1.id
+            ).name_get(),
+            [(self.status_2.id, "Status 2 (0 hours remaining)")],
+        )
 
         with self.assertRaises(ValidationError):
-            self.leave_1.write({'number_of_hours_temp': -1})
+            self.leave_1.write({"number_of_hours_temp": -1})
