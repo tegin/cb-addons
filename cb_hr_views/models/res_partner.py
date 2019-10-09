@@ -19,9 +19,7 @@ class ResPartner(models.Model):
     )
     has_employee = fields.Boolean(compute="_compute_can_create_employee")
 
-    show_info = fields.Boolean(
-        compute='_compute_show_info', default=True,
-    )
+    show_info = fields.Boolean(compute="_compute_show_info", default=True)
 
     def _compute_show_info(self):
         is_manager = self.env.user.has_group("hr.group_hr_manager")
