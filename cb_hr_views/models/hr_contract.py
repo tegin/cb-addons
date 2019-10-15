@@ -42,7 +42,7 @@ class HrContract(models.Model):
     date_end = fields.Date(track_visibility="onchange")
     trial_date_end = fields.Date(track_visibility="onchange")
     department_id = fields.Many2one(track_visibility="onchange")
-    employee_id = fields.Many2one(track_visibility="onchange")
+    employee_id = fields.Many2one(track_visibility="onchange", required=True)
     name = fields.Char(track_visibility="onchange")
 
     @api.onchange("type_id")
