@@ -9,6 +9,11 @@ class HrEmployee(models.Model):
     _name = "hr.employee"
     _inherit = ["mail.activity.mixin", "hr.employee"]
 
+    def name_get(self):
+        return super(
+            HrEmployee, self.with_context(not_display_company=True)
+        ).name_get()
+
     def _default_personal_identifier(self):
         pid = None
         while not pid or self.env["hr.employee"].search(
