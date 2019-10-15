@@ -130,7 +130,10 @@
                     <field name="bank_account_id"
                            context="{'default_partner_id': partner_id}"
                            domain="[('partner_id', '=', partner_id)]"
+                           attrs="{'invisible': [('bank_account_id', '=', False)]}"
                     />
+                    <button name="%(wizard_bank_account_employee_act_window)d" string="New Bank Account"
+                        type="action" class="btn-primary" groups="hr.group_hr_manager"/>
                 </group>
             </xpath>
 
@@ -225,6 +228,14 @@
         <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager')])]"/>
     </record>
 
+    <record id="hr.hr_employee_action_subordinate_hierachy" model="ir.actions.act_window">
+         <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    </record>
+
+    <record id="hr_holidays.action_hr_holidays_summary_employee" model="ir.actions.act_window">
+         <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    </record>
+
     <record id="view_employee_form_inherit_hr_attendance" model="ir.ui.view">
         <field name="name">CB HR Views hr.employee.form</field>
         <field name="model">hr.employee</field>
@@ -273,7 +284,7 @@
                 <attribute name="attrs">{'invisible': [('show_info', '=', False)]}</attribute>
             </field>
             <field name="calendar_id" position="attributes">
-                <attribute name="options">{'no_create': True, "no_open": True}</attribute>
+                <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
             </field>
         </field>
     </record>

@@ -22,8 +22,10 @@
         "medical_administration_practitioner",
         "cb_medical_administration_center",
         "cb_departments_chart",
+        "base_iban",
     ],
     "data": [
+        "wizards/wizard_bank_account_employee.xml",
         "views/hr_laboral_category.xml",
         "views/hr_holidays_views.xml",
         "reports/hr_attendance_theoretical_time_report_views.xml",
