@@ -149,8 +149,8 @@ class AccountAssetAsset(models.Model):
             self.method_time = 'percentage'
 
     def _get_amount_linear(
-            self, depreciation_start_date, depreciation_stop_date):
+            self, depreciation_start_date, depreciation_stop_date, entry):
         if self.use_percentage:
             return self.depreciation_base * self.annual_percentage / 100
         return super(AccountAssetAsset, self)._get_amount_linear(
-            depreciation_start_date, depreciation_stop_date)
+            depreciation_start_date, depreciation_stop_date, entry)
