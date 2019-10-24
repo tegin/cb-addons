@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright 2016 Tecnativa - Antonio Espinosa
-     Copyright 2012-2019 Tecnativa - Pedro M. Baeza
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<!-- # Copyright 2019 Eficent Business and IT Consulting Services, S.L.
+     # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 
 <odoo>
 
@@ -17,6 +16,12 @@
                 <field name="method_percentage"
                     attrs="{'invisible': ['|', ('method_time', '!=', 'percentage'), ('method_period', '=', 'year')], 'required': [('method_time', '=', 'percentage')]}"
                 />
+            </field>
+            <field name="method_number" position="attributes">
+                <attribute name="attrs">{'invisible': [('method_time', 'in', ['end','percentage'])], 'required': [('method_time', 'in', ['number', 'year'])]}</attribute>
+            </field>
+            <field name="method_end" position="attributes">
+                <attribute name="attrs">{'required': [('method_time', '=', 'end')], 'invisible': [('method_time', 'in', ['number', 'percentage'])]}</attribute>
             </field>
         </field>
     </record>
