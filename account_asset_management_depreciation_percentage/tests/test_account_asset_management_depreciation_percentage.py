@@ -1,8 +1,5 @@
 # Copyright 2019 Eficent Business and IT Consulting Services, S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
-import calendar
-from datetime import date, datetime
 import time
 from odoo.tests.common import TransactionCase
 
