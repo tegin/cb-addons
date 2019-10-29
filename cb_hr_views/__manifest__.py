@@ -23,6 +23,7 @@
         "cb_medical_administration_center",
         "cb_departments_chart",
         "base_iban",
+        "base_report_to_printer",
     ],
     "data": [
         "wizards/wizard_bank_account_employee.xml",
@@ -31,6 +32,7 @@
         "reports/hr_attendance_theoretical_time_report_views.xml",
         "views/resource_calendar_views.xml",
         "views/res_partner.xml",
+        "views/res_users_views.xml",
         "security/hr_attendance_security.xml",
         "security/ir.model.access.csv",
         "security/hr_employee_security.xml",
