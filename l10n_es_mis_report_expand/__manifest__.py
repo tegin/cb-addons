@@ -7,7 +7,7 @@
         Plantillas extendidas MIS Builder para informes contables españoles""",
     'version': '11.0.1.0.0',
     'license': 'AGPL-3',
-    'author': 'Eficent',
+    'author': 'Eficent, Creu Blanca',
     'website': 'https://github.com/OCA/l10n-spain',
     'depends': [
         "l10n_es_mis_report",
