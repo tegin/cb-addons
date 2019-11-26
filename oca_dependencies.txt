@@ -9,8 +9,6 @@ queue
 multicompany-fixes https://github.com/eficent/multicompany-fixes 11.0
 partner-contact
 pos
-hr
-hr-course https://github.com/tegin/hr 11.0-hr_courses
 report-print-send https://github.com/etobella/report-print-send 11.0-fix-qr
 sale-workflow
 stock-logistics-warehouse
