@@ -4,6 +4,7 @@ import os
 from odoo import api, models
 from odoo.addons.queue_job.job import job
 from odoo.modules.registry import Registry
+import stat
 import time
 import logging
 
@@ -74,6 +75,8 @@ class HashSearch(models.Model):
             if element.st_atime > min_time and not self.env.context.get(
                 "scanner_ignore_time", False
             ):
+                continue
+            if stat.S_ISDIR(element.st_mode):
                 continue
             filename = element.filename
             new_element = os.path.join(dest_path, filename)
