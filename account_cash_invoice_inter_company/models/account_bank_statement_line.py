@@ -16,7 +16,7 @@ class BankStatementLine(models.Model):
             .search(
                 [
                     ("company_id", "=", self.company_id.id),
-                    ("related_company_id", "=", self.invoice_id.company_id.id),
+                    ("related_company_id", "=", self.account_id.company_id.id),
                 ]
             )
             .ensure_one()
@@ -46,18 +46,7 @@ class BankStatementLine(models.Model):
                     "inter_company_statement_id": statement.id,
                 }
             )
-        self.env["account.bank.statement.line"].create(
-            {
-                "statement_id": inverse_statement.id,
-                "amount": self.amount,
-                "account_id": self.account_id.id,
-                "invoice_id": self.invoice_id.id,
-                "partner_id": self.partner_id.id,
-                "ref": self.invoice_id.number,
-                "name": self.name,
-                "date": self.date,
-            }
-        )
+        self.copy({"statement_id": inverse_statement.id})
 
     @api.multi
     def fast_counterpart_creation(self):
