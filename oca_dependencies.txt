@@ -3,7 +3,7 @@ account-invoice-reporting
 account-payment
 medical-fhir https://github.com/eficent/medical-fhir 11.0-dev
 commission
-l10n-spain https://github.com/etobella/l10n-spain 11.0-add-l10n_es_facturae_fields
+l10n-spain
 connector
 queue
 multicompany-fixes https://github.com/eficent/multicompany-fixes 11.0
