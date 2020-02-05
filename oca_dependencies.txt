@@ -7,6 +7,7 @@ l10n-spain
 connector
 queue
 multicompany-fixes https://github.com/eficent/multicompany-fixes 11.0
+manufacture
 partner-contact
 pos
 report-print-send https://github.com/etobella/report-print-send 11.0-fix-qr
