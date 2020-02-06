@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <report
+                id="qc_questionary_report"
+                model="qc.inspection"
+                string="Print Questionary"
+                report_type="qweb-pdf"
+                name="cb_quality_report.questionary_template"
+                print_report_name="'Questionary-%s' % object.name"
+        />
+
+        <template id="questionary_question">
+            <div class="col-xs-6">
+                <b>Question <t t-esc="num + 1"/>:</b><br/>
+                <span t-field="question.name"/>
+                <t t-if="question.question_type == 'quantitative'">
+                    <span> (in <span t-field="question.uom_id"/>)</span>
+                    <br/>
+                    <div style="margin-top: 10px;">
+                        <span >__________________</span>
+                    </div>
+                </t>
+                <t t-if="question.question_type == 'qualitative'">
+                    <br/>
+                    <t t-foreach="question.possible_ql_values" t-as="value">
+                        <t>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<i class="fa fa-square-o"/> <span t-esc="value.name"/></t><br/>
+                    </t>
+                </t>
+                <div style="margin-top: 30px;"/>
+            </div>
+        </template>
+
+        <template id="questionary_template">
+            <t t-call="web.internal_layout">
+                <t t-foreach="docs" t-as="record">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <h1>
+                                    <strong t-field="record.name"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <h2><strong>Information</strong></h2>
+                        <h4>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <b>Test:</b>
+                                    <span t-field="record.test"/><br/><br/>
+                                    <b>Responsible:</b>
+                                    <span t-field="record.user"/><br/><br/>
+                                    <b>Quantity:</b>
+                                    <span t-field="record.qty"/><br/><br/>
+                                    <t t-if="record.product_id">
+                                        <b>Product:</b>
+                                        <span t-if="record.product_id" t-field="record.product_id"/><br/><br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </h4>
+                        <h2><strong>Questions</strong></h2>
+                        <t t-set="num" t-value="0"/>
+                        <t t-set="num_of_questions" t-value="len(record.inspection_lines)"/>
+                        <h4>
+                            <t t-foreach="range(0, num_of_questions//2)" t-as="i">
+                                <div class="row">
+                                    <t t-set="num" t-value="2*i"/>
+                                    <t t-set="question" t-value="record.inspection_lines[num]"/>
+                                    <t t-call="cb_quality_report.questionary_question"/>
+                                    <t t-set="num" t-value="num + 1"/>
+                                    <t t-set="question" t-value="record.inspection_lines[num]"/>
+                                    <t t-call="cb_quality_report.questionary_question"/>
+                                </div>
+                            </t>
+                            <t t-if="num_of_questions % 2 == 1">
+                                <div class="row">
+                                    <t t-set="num" t-value="num_of_questions-1"/>
+                                    <t t-set="question" t-value="record.inspection_lines[num]"/>
+                                    <t t-call="cb_quality_report.questionary_question"/>
+                                </div>
+                            </t>
+                        </h4>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

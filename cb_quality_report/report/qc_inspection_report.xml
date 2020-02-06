@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <report
+                id="qc_inspection_report"
+                model="qc.inspection"
+                string="Print Inspection Results"
+                report_type="qweb-pdf"
+                name="cb_quality_report.qc_inspection_template"
+                print_report_name="'Inspection-%s' % object.name"
+        />
+
+        <template id="qc_inspection_template">
+            <t t-call="web.internal_layout">
+                <t t-foreach="docs" t-as="record">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <h1>
+                                    <strong t-field="record.name"/>
+                                </h1>
+                            </div>
+                            <div class="col-xs-2">
+                                <span class="label label-primary pull-right">
+                                    <span style="margin-top: 6px" t-field="record.state"/>
+                                </span>
+                            </div>
+                        </div>
+                        <br/>
+                        <h2><strong>Information</strong></h2>
+                        <h4>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <b>Test:</b>
+                                    <span t-field="record.test"/><br/><br/>
+                                    <b>Responsible:</b>
+                                    <span t-field="record.user"/><br/><br/>
+                                    <b>Quantity:</b>
+                                    <span t-field="record.qty"/><br/><br/>
+                                    <b>Product:</b>
+                                    <span t-if="record.product_id" t-field="record.product_id"/><br/><br/>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    <b>Date:</b>
+                                    <span t-field="record.date"/><br/><br/>
+                                    <b>Succes:</b>
+                                    <span t-field="record.success"/><br/><br/>
+                                    <b>Auto-generated:</b>
+                                    <span t-field="record.auto_generated"/><br/><br/>
+                                </div>
+                            </div>
+                        </h4>
+                        <h2><strong>Questions</strong></h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-right">Question</th>
+                                    <th class="text-right">Question Type</th>
+                                    <th class="text-right">Qualitative Value</th>
+                                    <th class="text-right">Quantitative Value</th>
+                                    <th class="text-right">Valid Values</th>
+                                    <th class="text-right">Success?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="record.inspection_lines" t-as="question">
+                                    <tr>
+                                        <td class="text-right"><span t-field="question.name"/></td>
+                                        <td class="text-right"><span t-field="question.question_type"/></td>
+                                        <td class="text-right"><span t-field="question.qualitative_value"/></td>
+                                        <td class="text-right"><span t-field="question.quantitative_value"/></td>
+                                        <td class="text-right"><span t-field="question.valid_values"/></td>
+                                        <td class="text-right"><span t-field="question.success"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
