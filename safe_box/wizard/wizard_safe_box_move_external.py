@@ -7,6 +7,7 @@ from odoo import api, fields, models
 
 class WizardSafeBoxMoveExternal(models.TransientModel):
     _name = "wizard.safe.box.move.external"
+    _description = "wizard.safe.box.move.external"
 
     safe_box_group_id = fields.Many2one("safe.box.group", required=True)
     safe_box_id = fields.Many2one(
@@ -27,8 +28,8 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
     account_id = fields.Many2one(
         "account.account",
         required=True,
-        domain="[('id', 'not in', account_ids), "
-        "('company_id', '=', company_id)]",
+        domain="[('id', 'not in', account_ids),"
+        " ('company_id', '=', company_id)]",
     )
     currency_id = fields.Many2one(
         comodel_name="res.currency",
