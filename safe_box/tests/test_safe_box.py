@@ -116,23 +116,10 @@ class TestSafeBox(TransactionCase):
         company = self.env["res.company"].create(
             {"name": name, "vat": 1, "currency_id": self.ref("base.USD")}
         )
-        if not company.chart_template_id:
-            wizard = self.env["wizard.multi.charts.accounts"].new(
-                {
-                    "company_id": company.id,
-                    "chart_template_id": self.chart_template_id.id,
-                    "transfer_account_id": self.chart_template_id.transfer_account_id.id,
-                    "code_digits": 6,
-                    "sale_tax_rate": 15.0,
-                    "purchase_tax_rate": 15.0,
-                    "complete_tax_set": self.chart_template_id.complete_tax_set,
-                    "currency_id": company.currency_id.id,
-                    "bank_account_code_prefix": self.chart_template_id.bank_account_code_prefix,
-                    "cash_account_code_prefix": self.chart_template_id.cash_account_code_prefix,
-                }
-            )
-            wizard.onchange_chart_template_id()
-            wizard.execute()
+        self.env.user.write(
+            {"company_ids": [(4, company.id)], "company_id": company.id}
+        )
+        self.chart_template_id.load_for_current_company(15.0, 15.0)
         return company
 
     def test_safe_box(self):
