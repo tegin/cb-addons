@@ -71,7 +71,7 @@
         <field name="inherit_id" ref="point_of_sale.view_pos_session_search"/>
         <field name="arch" type="xml">
             <filter domain="[('state', '=', 'opened')]" position="after">
-                <filter string="Pending approval" domain="[('state', '=', 'pending_approval')]"/>
+                <filter string="Pending approval" domain="[('state', '=', 'pending_approval')]" name="pending"/>
             </filter>
         </field>
     </record>
