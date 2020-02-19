@@ -6,4 +6,4 @@
 Flag Box
 ========
 
-TBD
+Allows to use a flag box with icons / buttons
