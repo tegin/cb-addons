@@ -8,6 +8,7 @@ from odoo.tools import float_compare
 
 class WizardSafeBoxCount(models.TransientModel):
     _name = "wizard.safe.box.count"
+    _description = "wizard.safe.box.count"
 
     safe_box_group_id = fields.Many2one("safe.box.group", required=True)
     safe_box_id = fields.Many2one(
