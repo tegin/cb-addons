@@ -15,4 +15,10 @@
             </filter>
         </field>
     </record>
+
+    <template id="report_deliveryslip" inherit_id="stock.report_deliveryslip">
+        <xpath expr="//t[@t-call='stock.report_delivery_document']" position="attributes">
+            <attribute name="t-lang">o.partner_id.lang or o.env.user.lang</attribute>
+        </xpath>
+    </template>
 </odoo>
