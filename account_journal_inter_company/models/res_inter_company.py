@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 
 class ResInterCompany(models.Model):
     _name = "res.inter.company"
+    _description = "res.inter.company"
 
     company_id = fields.Many2one(comodel_name="res.company", required=True)
     journal_id = fields.Many2one(
@@ -20,6 +21,7 @@ class ResInterCompany(models.Model):
         comodel_name="res.company",
         string="Related company",
         related="inter_company_id.company_id",
+        readonly=False,
         domain="[('id', '!=', company_id)]",
         required=True,
         store=True,
@@ -29,6 +31,7 @@ class ResInterCompany(models.Model):
         comodel_name="account.journal",
         string="Related journal",
         related="inter_company_id.journal_id",
+        readonly=False,
         domain="[('company_id', '=', related_company_id)]",
         required=True,
     )
