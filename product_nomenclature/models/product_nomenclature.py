@@ -3,6 +3,7 @@ from odoo import api, fields, models, _
 
 class ProductNomenclature(models.Model):
     _name = "product.nomenclature"
+    _description = "Product nomenclature"
 
     code = fields.Char(required=True)
     name = fields.Text(required=True)
@@ -24,6 +25,7 @@ class ProductNomenclature(models.Model):
 
 class ProductNomenclatureProduct(models.Model):
     _name = "product.nomenclature.product"
+    _description = "Product nomenclature product"
 
     nomenclature_id = fields.Many2one("product.nomenclature", required=True)
     product_id = fields.Many2one("product.product", required=True)
