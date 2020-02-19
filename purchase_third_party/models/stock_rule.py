@@ -1,9 +1,9 @@
-from odoo import api, models, _
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 
-class ProcurementRule(models.Model):
-    _inherit = "procurement.rule"
+class StockRule(models.Model):
+    _inherit = "stock.rule"
 
     @api.multi
     def _run_buy(
@@ -56,7 +56,12 @@ class ProcurementRule(models.Model):
             cache[domain] = po
         if not po:
             vals = self._prepare_purchase_order_supplier(
-                product_id, product_qty, product_uom, origin, values, supplier
+                product_id,
+                product_qty,
+                product_uom,
+                origin,
+                values,
+                supplier.name,
             )
             company_id = (
                 values.get("company_id")
@@ -158,7 +163,8 @@ class ProcurementRule(models.Model):
         seller = product_id._select_seller(
             partner_id=supplier.name,
             quantity=procurement_uom_po_qty,
-            date=po.date_order and po.date_order[:10],
+            date=po.date_order
+            and fields.Datetime.to_string(po.date_order)[:10],
             uom_id=product_id.uom_po_id,
         )
         if not seller.third_party_partner_id and not po.third_party_order:

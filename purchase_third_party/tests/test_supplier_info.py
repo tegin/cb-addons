@@ -14,7 +14,7 @@ class TestPurchaseThirdParty(TransactionCase):
         self.supplier = self.env["res.partner"].create(
             {"name": "Test supplier"}
         )
-        self.uom_id = self.env.ref("product.product_uom_unit").id
+        self.uom_id = self.env.ref("uom.product_uom_unit").id
         self.mto_product = self.env["product.product"].create(
             {
                 "name": "Test buy product",
