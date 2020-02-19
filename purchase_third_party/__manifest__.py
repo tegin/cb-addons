@@ -3,10 +3,10 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    "name": "Sale third party invoice",
-    "version": "11.0.1.0.0",
+    "name": "Purchase Third Party",
+    "version": "12.0.1.0.0",
     "author": "Eficent, Creu Blanca",
-    "website": "http://github.com/eficent/cb-addons",
+    "website": "http://github.com/tegin/cb-addons",
     "summary": "Creates inter company relations",
     "sequence": 30,
     "category": "Sale",
