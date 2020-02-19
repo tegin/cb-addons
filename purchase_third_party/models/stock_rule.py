@@ -149,7 +149,7 @@ class StockRule(models.Model):
         self, product_id, product_qty, product_uom, values, line, supplier
     ):
         return self._update_purchase_order_line(
-            product_id, product_qty, product_uom, values, line, supplier.name
+            product_id, product_qty, product_uom, values, line, supplier
         )
 
     @api.multi
@@ -157,7 +157,7 @@ class StockRule(models.Model):
         self, product_id, product_qty, product_uom, values, po, supplier
     ):
         res = super()._prepare_purchase_order_line(
-            product_id, product_qty, product_uom, values, po, supplier
+            product_id, product_qty, product_uom, values, po, supplier.name
         )
         procurement_uom_po_qty = res["product_qty"]
         seller = product_id._select_seller(
