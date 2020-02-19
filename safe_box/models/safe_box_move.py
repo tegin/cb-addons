@@ -9,6 +9,7 @@ from odoo.tools import float_compare
 
 class SafeBoxMove(models.Model):
     _name = "safe.box.move"
+    _description = "safe.box.move"
 
     name = fields.Char(required=True, default="/", readonly=True)
     safe_box_group_id = fields.Many2one(
@@ -92,6 +93,7 @@ class SafeBoxMove(models.Model):
 
 class SafeBoxMoveLine(models.Model):
     _name = "safe.box.move.line"
+    _description = "safe.box.move.line"
 
     safe_box_move_id = fields.Many2one(
         comodel_name="safe.box.move", required=True, string="Move"
