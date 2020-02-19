@@ -2,7 +2,7 @@
     :alt: License: AGPL-3
 
 ==================
-PoS Close approval
+PoS Change Journal
 ==================
 
-TBD
+PoS Change Journal
