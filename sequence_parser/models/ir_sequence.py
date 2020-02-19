@@ -1,5 +1,5 @@
 from odoo import api, models
-from odoo.addons.base.ir.ir_sequence import _select_nextval, _update_nogap
+from odoo.addons.base.models.ir_sequence import _select_nextval, _update_nogap
 
 
 class IrSequence(models.Model):
