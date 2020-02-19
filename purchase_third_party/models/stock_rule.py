@@ -134,7 +134,7 @@ class StockRule(models.Model):
         self, product_id, product_qty, product_uom, origin, values, supplier
     ):
         res = self._prepare_purchase_order(
-            product_id, product_qty, product_uom, origin, values, supplier.name
+            product_id, product_qty, product_uom, origin, values, supplier
         )
         if supplier.third_party_partner_id:
             res.update(
