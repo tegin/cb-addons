@@ -56,12 +56,7 @@ class StockRule(models.Model):
             cache[domain] = po
         if not po:
             vals = self._prepare_purchase_order_supplier(
-                product_id,
-                product_qty,
-                product_uom,
-                origin,
-                values,
-                supplier.name,
+                product_id, product_qty, product_uom, origin, values, supplier
             )
             company_id = (
                 values.get("company_id")
@@ -134,7 +129,7 @@ class StockRule(models.Model):
         self, product_id, product_qty, product_uom, origin, values, supplier
     ):
         res = self._prepare_purchase_order(
-            product_id, product_qty, product_uom, origin, values, supplier
+            product_id, product_qty, product_uom, origin, values, supplier.name
         )
         if supplier.third_party_partner_id:
             res.update(
@@ -149,7 +144,7 @@ class StockRule(models.Model):
         self, product_id, product_qty, product_uom, values, line, supplier
     ):
         return self._update_purchase_order_line(
-            product_id, product_qty, product_uom, values, line, supplier
+            product_id, product_qty, product_uom, values, line, supplier.name
         )
 
     @api.multi
