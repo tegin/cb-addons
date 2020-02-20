@@ -3,11 +3,9 @@
 
 {
     "name": "Account Asset Management Depreciation Percentage",
-    "version": "11.0.1.0.1",
-    "depends": [
-        "account_asset_management",
-    ],
-    "conflicts": ['l10n_es_account_asset'],
+    "version": "12.0.1.0.0",
+    "depends": ["account_asset_management"],
+    "conflicts": ["l10n_es_account_asset"],
     "author": "Eficent",
     "license": "AGPL-3",
     "website": "https://www.eficent.com",
