@@ -13,7 +13,7 @@ class AccountInvoiceIntegrationMethod(models.Model):
             password = self._decrypt_value(
                 invoice.partner_id.email_integration_password
             )
-            value = self.env["mail.template"].render_template(
+            value = self.env["mail.template"]._render_template(
                 password, invoice._name, invoice.id
             )
             res["email_password"] = self._encrypt_value(value)
