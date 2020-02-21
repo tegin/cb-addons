@@ -7,6 +7,7 @@ from odoo import api, fields, models
 class StockRequestOrderTemplate(models.TransientModel):
 
     _name = "stock.request.order.template"
+    _description = "stock.request.order.template"
 
     template_id = fields.Many2one("stock.request.template", required=True)
     order_id = fields.Many2one("stock.request.order", required=True)

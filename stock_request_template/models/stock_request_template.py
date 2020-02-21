@@ -75,10 +75,11 @@ class StockRequestTemplate(models.Model):
 
 class StockRequestTemplateLine(models.Model):
     _name = "stock.request.template.line"
+    _description = "stock.request.template.line"
 
     template_id = fields.Many2one("stock.request.template", required=True)
     product_uom_id = fields.Many2one(
-        "product.uom",
+        "uom.uom",
         "Product Unit of Measure",
         required=True,
         default=lambda self: self._context.get("product_uom_id", False),
