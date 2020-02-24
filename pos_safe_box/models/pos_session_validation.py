@@ -225,6 +225,7 @@ class PosSessionValidation(models.Model):
 
 class PosSessionValidationLine(models.Model):
     _name = "pos.session.validation.line"
+    _description = "Add amount on validation"
 
     pos_session_validation_id = fields.Many2one(
         "pos.session.validation", required=True, readonly=True
