@@ -31,7 +31,7 @@
     text-align: left;
 
     .btn:hover, .btn:focus, .btn.focus{
-        color:;
+        color: #333;
     }
 
     .flag {
@@ -92,11 +92,11 @@
             line-height: 1.2;
 
             .o_stat_value {
-                .o-text-overflow(block);
+                @include o-text-overflow(block);
                 font-weight: 700;
             }
             .o_stat_text {
-                .o-text-overflow(block);
+                @include o-text-overflow(block);
                 font-size: small;
 
                 .o_stat_value {
@@ -122,7 +122,7 @@
             padding: 0 10px;
         }
         .o_dropdown_more {
-            .o-position-absolute(@top: 100%, @right: 0);
+            @include o-position-absolute($top: 100%, $right: 0);
             min-width: 0;
             padding: 0px;
         }
