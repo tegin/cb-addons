@@ -56,6 +56,7 @@ class WizardSafeBoxCount(models.TransientModel):
 
 class WizardSafeBoxCountCoin(models.TransientModel):
     _name = "wizard.safe.box.count.coin"
+    _description = "Count coins"
 
     safe_box_count_id = fields.Many2one(
         "wizard.safe.box.count.coin", readonly=True
