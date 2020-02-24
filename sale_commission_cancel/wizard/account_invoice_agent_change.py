@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class AccountInvoiceAgentChange(models.TransientModel):
     _name = "account.invoice.agent.change"
+    _description = "Change agent"
 
     agent = fields.Many2one(
         "res.partner", domain=[("agent", "=", True)], required=True
