@@ -36,56 +36,58 @@
         </template>
 
         <template id="questionary_template">
-            <t t-call="web.internal_layout">
-                <t t-foreach="docs" t-as="record">
-                    <div class="page">
-                        <div class="row">
-                            <div class="col-xs-10">
-                                <h1>
-                                    <strong t-field="record.name"/>
-                                </h1>
-                            </div>
-                        </div>
-                        <h2><strong>Information</strong></h2>
-                        <h4>
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <t t-foreach="docs" t-as="record">
+                        <div class="page">
                             <div class="row">
-                                <div class="col-xs-6">
-                                    <b>Test:</b>
-                                    <span t-field="record.test"/><br/><br/>
-                                    <b>Responsible:</b>
-                                    <span t-field="record.user"/><br/><br/>
-                                    <b>Quantity:</b>
-                                    <span t-field="record.qty"/><br/><br/>
-                                    <t t-if="record.product_id">
-                                        <b>Product:</b>
-                                        <span t-if="record.product_id" t-field="record.product_id"/><br/><br/>
-                                    </t>
+                                <div class="col-xs-10">
+                                    <h1>
+                                        <strong t-field="record.name"/>
+                                    </h1>
                                 </div>
                             </div>
-                        </h4>
-                        <h2><strong>Questions</strong></h2>
-                        <t t-set="num" t-value="0"/>
-                        <t t-set="num_of_questions" t-value="len(record.inspection_lines)"/>
-                        <h4>
-                            <t t-foreach="range(0, num_of_questions//2)" t-as="i">
+                            <h2><strong>Information</strong></h2>
+                            <h4>
                                 <div class="row">
-                                    <t t-set="num" t-value="2*i"/>
-                                    <t t-set="question" t-value="record.inspection_lines[num]"/>
-                                    <t t-call="cb_quality_report.questionary_question"/>
-                                    <t t-set="num" t-value="num + 1"/>
-                                    <t t-set="question" t-value="record.inspection_lines[num]"/>
-                                    <t t-call="cb_quality_report.questionary_question"/>
+                                    <div class="col-xs-6">
+                                        <b>Test:</b>
+                                        <span t-field="record.test"/><br/><br/>
+                                        <b>Responsible:</b>
+                                        <span t-field="record.user"/><br/><br/>
+                                        <b>Quantity:</b>
+                                        <span t-field="record.qty"/><br/><br/>
+                                        <t t-if="record.product_id">
+                                            <b>Product:</b>
+                                            <span t-if="record.product_id" t-field="record.product_id"/><br/><br/>
+                                        </t>
+                                    </div>
                                 </div>
-                            </t>
-                            <t t-if="num_of_questions % 2 == 1">
-                                <div class="row">
-                                    <t t-set="num" t-value="num_of_questions-1"/>
-                                    <t t-set="question" t-value="record.inspection_lines[num]"/>
-                                    <t t-call="cb_quality_report.questionary_question"/>
-                                </div>
-                            </t>
-                        </h4>
-                    </div>
+                            </h4>
+                            <h2><strong>Questions</strong></h2>
+                            <t t-set="num" t-value="0"/>
+                            <t t-set="num_of_questions" t-value="len(record.inspection_lines)"/>
+                            <h4>
+                                <t t-foreach="range(0, num_of_questions//2)" t-as="i">
+                                    <div class="row">
+                                        <t t-set="num" t-value="2*i"/>
+                                        <t t-set="question" t-value="record.inspection_lines[num]"/>
+                                        <t t-call="cb_quality_report.questionary_question"/>
+                                        <t t-set="num" t-value="num + 1"/>
+                                        <t t-set="question" t-value="record.inspection_lines[num]"/>
+                                        <t t-call="cb_quality_report.questionary_question"/>
+                                    </div>
+                                </t>
+                                <t t-if="num_of_questions % 2 == 1">
+                                    <div class="row">
+                                        <t t-set="num" t-value="num_of_questions-1"/>
+                                        <t t-set="question" t-value="record.inspection_lines[num]"/>
+                                        <t t-call="cb_quality_report.questionary_question"/>
+                                    </div>
+                                </t>
+                            </h4>
+                        </div>
+                    </t>
                 </t>
             </t>
         </template>
