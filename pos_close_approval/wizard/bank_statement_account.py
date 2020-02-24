@@ -7,6 +7,7 @@ from odoo import api, fields, models
 
 class AccountBankStatementLineAccount(models.TransientModel):
     _name = "account.bank.statement.line.account"
+    _description = "Set account on Bank statement line"
 
     def _default_statement_line(self):
         active_model = self.env.context.get("active_model", False)
