@@ -18,5 +18,6 @@ server-auth
 server-tools https://github.com/tegin/server-tools 12.0-mig-base-report
 server-ux-barcode https://github.com/tegin/server-ux 12.0-mig-barcode
 server-ux https://github.com/tegin/server-ux 12.0-mig-sequence_check_digit
+server-ux https://github.com/tegin/server-ux 12.0-mig-document_quick_access
 account-invoice-reporting
 web
