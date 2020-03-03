@@ -12,5 +12,7 @@ class AccountBankStatementLine(models.Model):
         "pos.session", related="statement_id.pos_session_id", readonly=True
     )
     pos_session_state = fields.Selection(
-        related="statement_id.pos_session_id.state", readonly=True
+        related="statement_id.pos_session_id.state",
+        readonly=True,
+        string="Session State",
     )
