@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class AccountBankStatementLineChangeJournal(models.TransientModel):
     _name = "account.bank.statement.line.change.journal"
+    _description = "account.bank.statement.line.change.journal"
 
     @api.model
     def _default_journal(self):
@@ -16,7 +17,10 @@ class AccountBankStatementLineChangeJournal(models.TransientModel):
         "account.journal", required=True, domain="[('id', 'in', journal_ids)]"
     )
     journal_ids = fields.Many2many(
-        "account.journal", required=True, default=_default_journal
+        "account.journal",
+        required=True,
+        default=_default_journal,
+        string="Journals",
     )
     session_id = fields.Many2one("pos.session", required=True)
 
