@@ -8,6 +8,7 @@ from odoo.http import request
 class HttpSessionWizard(models.TransientModel):
 
     _name = "http.session.wizard"
+    _description = "http.session.wizard"
 
     def check_session(self, session, current):
         return session.db == current.db and session.uid

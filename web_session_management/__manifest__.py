@@ -3,7 +3,7 @@
 
 {
     "name": "Web Session Management",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "author": "Creu Blanca",
     "depends": ["base_sparse_field", "auth_session_timeout"],
@@ -12,5 +12,4 @@
         "wizards/res_users_sessions_wizard.xml",
         "views/http_session_user.xml",
     ],
-    "demo": [],
 }
