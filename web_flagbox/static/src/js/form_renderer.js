@@ -75,7 +75,8 @@ odoo.define('web_flag_box.form_renderer', function (require) {
             var visible_buttons = buttons_partition[1];
 
             // Get the unfolded buttons according to window size
-            var nb_buttons = [7, 13, 19, 21][config.device.size_class];
+            var nb_buttons = [7, 13, 19, 21,
+             23, 25, 27][config.device.size_class];
             var unfolded_buttons = visible_buttons.slice(
                 0, nb_buttons).concat(invisible_buttons);
 
