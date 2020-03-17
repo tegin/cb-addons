@@ -1,23 +1,21 @@
+account-invoice-reporting
 account-invoicing
 account-payment
-account-payment-invoice https://github.com/mamcode/account-payment 12.0-mig-account_cash_invoice
 bank-payment
-medical-fhir https://github.com/eficent/medical-fhir 12.0
 commission
-l10n-spain
 connector
-queue
+knowledge
+l10n-spain
 manufacture
+medical-fhir https://github.com/eficent/medical-fhir 12.0
 multicompany-fixes https://github.com/eficent/multicompany-fixes 12.0
 partner-contact
 pos https://github.com/tegin/pos 12.0-mig.pos_session_pay_invoice
+queue
 report-print-send https://github.com/tegin/report-print-send 12.0-mig-remote_report_to_printer
-sale-workflow https://github.com/tegin/sale-workflow 12.0-mig-sale_merge_draft_invoice
-stock-logistics-warehouse
-stock-logistics-workflow https://github.com/tegin/stock-logistics-workflow 12.0-mig-stock_pack_operation
 server-auth
 server-tools https://github.com/tegin/server-tools 12.0-mig-base-report
-server-ux-barcode https://github.com/tegin/server-ux 12.0-mig-barcode
-server-ux-dqa https://github.com/tegin/server-ux 12.0-mig-document_quick_access
-account-invoice-reporting
+server-ux
+stock-logistics-warehouse
+stock-logistics-workflow
 web
