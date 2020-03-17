@@ -4,7 +4,7 @@ account-payment
 bank-payment
 commission
 connector
-knowledge
+knowledge https://github.com/tegin/knowledge 12.0-mig-docu-page-ref
 l10n-spain
 manufacture
 medical-fhir https://github.com/eficent/medical-fhir 12.0

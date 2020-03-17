@@ -1,8 +1,7 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from datetime import datetime
-from odoo import api, fields, http, models
-from odoo.http import request
+
+from odoo import api, http, models
 
 
 class HttpSessionWizard(models.TransientModel):
@@ -16,7 +15,7 @@ class HttpSessionWizard(models.TransientModel):
     def get_sessions(self):
         store = http.root.session_store
         mvals = []
-        current = request.session
+        current = http.request.session
         for sid in store.list():
             session = store.get(sid)
             if self.check_session(session, current):
@@ -28,9 +27,7 @@ class HttpSessionWizard(models.TransientModel):
                         "current_session": session.sid == current.sid,
                         "session_token": session.session_token,
                         "session_id": sid,
-                        "update_time": fields.Datetime.to_string(
-                            datetime.fromtimestamp(session.update_time)
-                        ),
+                        "update_time": session.update_time,
                     }
                 )
         result = self.env["http.session.user"]
