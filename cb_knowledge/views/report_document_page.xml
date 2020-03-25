@@ -9,13 +9,13 @@
         <div class="header">
             <div class="o_boxed_header">
                 <div class="row mb8">
-                    <div class="col-xs-2">
+                    <div class="col-2">
                         <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
                     </div>
-                    <div class="col-xs-7 text-left mb4">
+                    <div class="col-7 text-left mb4">
                         <h4 class="mt0" t-field="doc.name"/>
                     </div>
-                    <div class="col-xs-3 text-left mb4">
+                    <div class="col-3 text-left mb4">
                         <h6 class="mt0">
                             <span>Version:</span>
                             <span t-field="doc.history_head.name"/>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-2">
+                <div class="col-2">
                     <span style="font-size:10px" t-esc="doc.reference"/>
                 </div>
             </div>
@@ -40,10 +40,10 @@
 
         <div class="footer o_boxed_footer">
             <div class="row">
-                <div class="col-xs-3">
+                <div class="col-3">
                     <img t-att-src="'/report/qr/?value=%s&amp;error_correction=%s' % (doc.reference, 3)" style="width:100;height:100" t-if="doc.reference"/>
                 </div>
-                <div class="text-center col-xs-6">
+                <div class="text-center col-6">
                     <div>
                         Page: <span class="page"/> / <span class="topage"/>
                     </div>
