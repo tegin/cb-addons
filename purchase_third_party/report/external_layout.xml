@@ -3,11 +3,11 @@
     <template id="external_layout">
         <div class="header">
             <div class="row">
-                <div class="col-xs-3 mb4">
+                <div class="col-3 mb4">
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6" name="company_address">
+                <div class="col-6" name="company_address">
                     <span t-esc="partner"
                           t-esc-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
                           style="border-bottom: 1px solid black; display:inline-block;"/>
