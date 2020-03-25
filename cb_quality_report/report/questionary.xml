@@ -15,7 +15,7 @@
         />
 
         <template id="questionary_question">
-            <div class="col-xs-6">
+            <div class="col-6">
                 <b>Question <t t-esc="num + 1"/>:</b><br/>
                 <span t-field="question.name"/>
                 <t t-if="question.question_type == 'quantitative'">
@@ -41,7 +41,7 @@
                     <t t-foreach="docs" t-as="record">
                         <div class="page">
                             <div class="row">
-                                <div class="col-xs-10">
+                                <div class="col-10">
                                     <h1>
                                         <strong t-field="record.name"/>
                                     </h1>
@@ -50,7 +50,7 @@
                             <h2><strong>Information</strong></h2>
                             <h4>
                                 <div class="row">
-                                    <div class="col-xs-6">
+                                    <div class="col-6">
                                         <b>Test:</b>
                                         <span t-field="record.test"/><br/><br/>
                                         <b>Responsible:</b>

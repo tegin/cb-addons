@@ -20,12 +20,12 @@
                     <t t-foreach="docs" t-as="record">
                         <div class="page">
                             <div class="row">
-                                <div class="col-xs-10">
+                                <div class="col-10">
                                     <h1>
                                         <strong t-field="record.name"/>
                                     </h1>
                                 </div>
-                                <div class="col-xs-2">
+                                <div class="col-2">
                                     <span class="label label-primary pull-right">
                                         <span style="margin-top: 6px" t-field="record.state"/>
                                     </span>
@@ -35,7 +35,7 @@
                             <h2><strong>Information</strong></h2>
                             <h4>
                                 <div class="row">
-                                    <div class="col-xs-6">
+                                    <div class="col-6">
                                         <b>Test:</b>
                                         <span t-field="record.test"/><br/><br/>
                                         <b>Responsible:</b>
@@ -46,7 +46,7 @@
                                         <span t-if="record.product_id" t-field="record.product_id"/><br/><br/>
                                     </div>
 
-                                    <div class="col-xs-6">
+                                    <div class="col-6">
                                         <b>Date:</b>
                                         <span t-field="record.date"/><br/><br/>
                                         <b>Succes:</b>
