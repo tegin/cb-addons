@@ -43,7 +43,11 @@ class StockRule(models.Model):
             )
             raise UserError(msg)
         supplier = self._make_po_select_supplier(values, suppliers)
-        domain = self._make_po_get_domain_supplier(values, supplier)
+        partner = supplier.name
+        # we put `supplier_info` in values for extensibility purposes
+        values['supplier'] = supplier
+
+        domain = self._make_po_get_domain(values, partner)
         if domain in cache:
             po = cache[domain]
         else:
