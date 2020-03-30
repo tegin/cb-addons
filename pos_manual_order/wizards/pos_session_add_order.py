@@ -7,6 +7,7 @@ from odoo import api, fields, models
 class PosSessionAddOrder(models.TransientModel):
 
     _name = "pos.session.add.order"
+    _description = "Add Order for PoS Session"
 
     session_id = fields.Many2one("pos.session", required=True)
     product_id = fields.Many2one("product.product", required=True)
@@ -25,7 +26,9 @@ class PosSessionAddOrder(models.TransientModel):
     )
     journal_id = fields.Many2one("account.journal", required=True)
     journal_ids = fields.Many2many(
-        "account.journal", compute="_compute_journal_ids"
+        "account.journal",
+        compute="_compute_journal_ids",
+        string="Allowed Journals",
     )
 
     @api.depends("session_id")
@@ -35,6 +38,9 @@ class PosSessionAddOrder(models.TransientModel):
 
     @api.onchange("product_id")
     def _onchange_product(self):
+        import logging
+
+        logging.info("HERE")
         self.price = self.product_id.lst_price
 
     @api.depends(
@@ -47,7 +53,7 @@ class PosSessionAddOrder(models.TransientModel):
     def _compute_amount_total(self):
         for rec in self:
             taxes = rec.product_id.taxes_id.filtered(
-                lambda t: t.company_id.id == rec.session_id.company_id.id
+                lambda t: t.company_id == rec.session_id.config_id.company_id
             )
             fiscal_position_id = rec.fiscal_position_id
             if fiscal_position_id:
