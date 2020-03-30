@@ -128,8 +128,7 @@ class PurchaseOrderLine(models.Model):
         seller = self.product_id._select_seller(
             partner_id=self.partner_id,
             quantity=self.product_qty,
-            date=self.order_id.date_order and (
-                fields.Datetime.to_string(self.order_id.date_order)[:10]),
+            date=self.order_id.date_order,
             uom_id=self.product_uom,
         )
         if not seller or not self.order_id.third_party_order:
