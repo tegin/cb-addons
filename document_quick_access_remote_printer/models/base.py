@@ -5,13 +5,13 @@ from odoo import models
 
 
 class Base(models.AbstractModel):
-    _inherit = 'base'
+    _inherit = "base"
 
-    def _get_printer(self):
+    def _get_document_quick_access_label_printer(self):
         behaviour = self.remote.with_context(
-            printer_usage='label'
+            printer_usage="label"
         ).get_printer_behaviour()
-        if 'printer' not in behaviour:
+        if "printer" not in behaviour:
             return False
-        printer = behaviour.pop('printer')
+        printer = behaviour.pop("printer")
         return printer
