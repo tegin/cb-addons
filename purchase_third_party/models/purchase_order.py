@@ -74,8 +74,7 @@ class PurchaseOrder(models.Model):
                     "default_use_template": bool(template_id),
                     "default_template_id": template_id,
                     "tpl_partners_only": False,
-                    "custom_layout": "purchase_third_party."
-                    "mail_template_data_notification_email_purchase_order",
+                    "custom_layout": "mail.mail_notification_paynow",
                     "not_display_company": True,
                 }
             )
