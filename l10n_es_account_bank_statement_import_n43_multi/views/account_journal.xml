@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="account_journal_form_view">
+        <field name="name">account.journal.form (in import_n43_multi_wizard)</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="l10n_es_account_bank_statement_import_n43.view_account_journal_form_n43"/>
+        <field name="arch" type="xml">
+            <field name="n43_date_type" position="after">
+                <field name="n43_identifier"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
