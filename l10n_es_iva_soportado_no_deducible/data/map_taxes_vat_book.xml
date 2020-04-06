@@ -3,8 +3,6 @@
 
     <record id="l10n_es_vat_book.aeat_vat_book_map_line_p_iva_nd" model="aeat.vat.book.map.line">
         <field name="tax_ids" eval="[
-                (4, ref('account_tax_template_p_iva10_nd')),
-                (4, ref('account_tax_template_p_iva4_nd')),
                 (4, ref('account_tax_template_p_iva21_ic_nd_bc_2')),
                 (4, ref('account_tax_template_p_iva21_ic_nd_bi_2')),
                 (4, ref('account_tax_template_p_iva21_sp_in_nd_1')),

@@ -95,10 +95,4 @@
     <record id="l10n_es_aeat_mod390.aeat_mod390_map_line_637" model="l10n.es.aeat.map.tax.line">
         <field name="tax_ids" eval="[(4, ref('account_tax_template_p_iva21_sp_in_nd_1'))]"/>
     </record>
-    <record id="l10n_es_aeat_mod390.aeat_mod390_map_line_232" model="l10n.es.aeat.map.tax.line">
-        <field name="tax_ids" eval="[
-        (4, ref('account_tax_template_p_iva10_nd')),
-        (4, ref('account_tax_template_p_iva4_nd')),
-        ]"/>
-    </record>
 </odoo>
