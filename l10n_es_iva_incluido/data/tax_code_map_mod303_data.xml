@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 ForgeFlow, S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <!-- Régimen General - Base imponible 21% - Base -->
+    <record id="l10n_es_aeat_mod303.aeat_mod303_map_line_07" model="l10n.es.aeat.map.tax.line">
+        <field name="tax_ids"
+               eval="[(4, ref('account_tax_template_s_iva21s_inc'))]"/>
+    </record>
+    <!-- Régimen General - Base imponible 21% - Cuota -->
+    <record id="l10n_es_aeat_mod303.aeat_mod303_map_line_09" model="l10n.es.aeat.map.tax.line">
+        <field name="tax_ids"
+               eval="[(4, ref('account_tax_template_s_iva21s_inc'))]"/>
+    </record>
+    <!-- Régimen General - Base imponible 10% - Base -->
+    <record id="l10n_es_aeat_mod303.aeat_mod303_map_line_04" model="l10n.es.aeat.map.tax.line">
+        <field name="tax_ids"
+               eval="[(4, ref('account_tax_template_s_iva10s_inc'))]"/>
+    </record>
+    <!-- Régimen General - Base imponible 10% - Cuota -->
+    <record id="l10n_es_aeat_mod303.aeat_mod303_map_line_06" model="l10n.es.aeat.map.tax.line">
+        <field name="tax_ids"
+               eval="[(4, ref('account_tax_template_s_iva10s_inc'))]"/>
+    </record>
+    <!-- Régimen General - Base imponible 4% - Base -->
+    <record id="l10n_es_aeat_mod303.aeat_mod303_map_line_01" model="l10n.es.aeat.map.tax.line">
+        <field name="tax_ids"
+               eval="[(4, ref('account_tax_template_s_iva4s_inc'))]"/>
+    </record>
+    <!-- Régimen General - Base imponible 4% - Cuota -->
+    <record id="l10n_es_aeat_mod303.aeat_mod303_map_line_03" model="l10n.es.aeat.map.tax.line">
+        <field name="tax_ids"
+               eval="[(4, ref('account_tax_template_s_iva4s_inc'))]"/>
+    </record>
+
+</odoo>
