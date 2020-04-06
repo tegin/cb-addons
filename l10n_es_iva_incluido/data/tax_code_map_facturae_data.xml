@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 ForgeFlow, S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="account_tax_template_s_iva21s_inc" model="account.tax.template">
+        <field name="facturae_code">01</field>
+    </record>
+    <record id="account_tax_template_s_iva10s_inc" model="account.tax.template">
+        <field name="facturae_code">01</field>
+    </record>
+    <record id="account_tax_template_s_iva4s_inc" model="account.tax.template">
+        <field name="facturae_code">01</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 ForgeFlow, S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+  <record id="l10n_es_aeat_mod347.aeat_mod347_map_b" model="l10n.es.aeat.map.tax.line">
+        <field name="tax_ids" eval="[
+            (4, ref('account_tax_template_s_iva4s_inc')),
+            (4, ref('account_tax_template_s_iva10s_inc')),
+            (4, ref('account_tax_template_s_iva21s_inc')),
+        ]"/>
+  </record>
+
+</odoo>
