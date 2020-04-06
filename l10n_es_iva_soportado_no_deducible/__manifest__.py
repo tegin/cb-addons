@@ -4,8 +4,8 @@
 
 {
     "name": "L10n ES IVA Soportado No Deducible",
-    "version": "12.0.1.0.0",
-    "author": "Eficent, Creu Blanca",
+    "version": "12.0.2.0.0",
+    "author": "ForgeFlow, Creu Blanca",
     "depends": [
         "l10n_es",
         "l10n_es_aeat_mod303",
