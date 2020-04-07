@@ -33,5 +33,20 @@
         <field name="tax_ids"
                eval="[(4, ref('account_tax_template_s_iva4s_inc'))]"/>
     </record>
-
+    <!-- Modificación de bases (ventas) -->
+    <record id="l10n_es_aeat_mod390.aeat_mod390_map_line_29_sale" model="l10n.es.aeat.map.tax.line">
+        <field name="tax_ids"
+               eval="[(4, ref('account_tax_template_s_iva4s_inc')),
+               (4, ref('account_tax_template_s_iva10s_inc')),
+               (4, ref('account_tax_template_s_iva21s_inc')),
+               ]"/>
+    </record>
+    <!-- Modificación de cuotas (ventas) -->
+    <record id="l10n_es_aeat_mod390.aeat_mod390_map_line_30_sale" model="l10n.es.aeat.map.tax.line">
+        <field name="tax_ids"
+               eval="[(4, ref('account_tax_template_s_iva4s_inc')),
+               (4, ref('account_tax_template_s_iva10s_inc')),
+               (4, ref('account_tax_template_s_iva21s_inc')),
+               ]"/>
+    </record>
 </odoo>
