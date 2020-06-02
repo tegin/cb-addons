@@ -39,7 +39,7 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
         n43_multi = self._check_n43(base64.b64decode(self.data_file))
         for account in n43_multi:
             n43 = n43_multi[account]
-            journal = self._get_journal(account, n43)
+            journal = self._get_journal(n43["journal"], n43)
             self.env["account.bank.statement.import"].create(
                 {
                     "filename": self.filename,
@@ -79,13 +79,15 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
         files = {}
         records = 0
         account = False
+        journal = False
         for raw_line in data_file.split("\n"):
             records += 1
             if not raw_line.strip():
                 continue
             code = raw_line[0:2]
             if code == "11":
-                account = raw_line[2:20]
+                journal = raw_line[2:20]
+                account = raw_line[2:52]
             elif code == "22":
                 pass
             elif code == "23":
@@ -93,7 +95,7 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
             elif code == "24":
                 pass
             elif code == "33":
-                account = raw_line[2:20]
+                pass
             elif code == "88":
                 registros = int(raw_line[20:26])
                 # File level checks
@@ -122,6 +124,7 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
                 files[account] = {
                     "file": "",
                     "lines": 0,
+                    "journal": journal,
                 }
             files[account]["file"] += raw_line + "\n"
             files[account]["lines"] += 1
