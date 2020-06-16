@@ -38,9 +38,6 @@ class PosSessionAddOrder(models.TransientModel):
 
     @api.onchange("product_id")
     def _onchange_product(self):
-        import logging
-
-        logging.info("HERE")
         self.price = self.product_id.lst_price
 
     @api.depends(
