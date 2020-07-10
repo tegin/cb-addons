@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="view_users_form">
+        <field name="name">res.users.form (in web_register_login)</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="view_access_registers" type="object" class="oe_stat_button" icon="fa-sign-in" string="View Access" groups="base.group_no_one"/>
+            </xpath>
+            <group name="messaging" position="after">
+                <group name="login_group" string="Logging Settings" groups="base.group_no_one">
+                    <field name="dont_register_login"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>
