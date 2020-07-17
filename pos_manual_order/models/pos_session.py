@@ -73,6 +73,6 @@ class PosSession(models.Model):
             order._onchange_amount_all()
 
         data = self._get_manual_order_payment_data(order, journal)
-        order.add_payment(data)
+        order.with_context(force_company=order.company_id.id).add_payment(data)
         if order.test_paid():
             order.action_pos_order_paid()
