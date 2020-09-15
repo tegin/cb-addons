@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="partner_followup_form_view">
+        <field name="name">res.partner.form (in account_credit_control_deferred)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account_credit_control.partner_followup_form_view"/>
+        <field name="arch" type="xml">
+            <field name="payment_responsible_id" position="after">
+                <field name="credit_control_contact_partner_id"
+                       domain="[('parent_id', '=', active_id)]"
+                       attrs="{'readonly': [('id', '=', False)]}"
+                       widget="selection"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="partner_view_buttons" model="ir.ui.view">
+        <field name="name">res.partner.form.buttons (in account_credit_control_deferred)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account_credit_control.partner_view_buttons"/>
+        <field name="groups_id" eval="[(4, ref('account_credit_control.group_account_credit_control_manager')), (4, ref('account_credit_control.group_account_credit_control_user'))]"/>
+        <field name="arch" type="xml">
+            <button name="action_view_partner_invoices" position="after">
+                <button class="oe_stat_button" type="action" name="%(account_credit_control.credit_control_communication_action)d"
+                    context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}" attrs="{'invisible': [('credit_control_communication_count', '=', 0)]}"
+                    icon="fa-commenting-o">
+                    <field string="Communications" name="credit_control_communication_count" widget="statinfo"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+
+
+</odoo>
