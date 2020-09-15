@@ -4,6 +4,7 @@ account-payment
 bank-payment
 commission
 connector
+credit-control https://github.com/tecnativa/credit-control 12.0-account_credit_control-traceable_communications
 knowledge https://github.com/tegin/knowledge 12.0-mig-docu-page-ref
 l10n-spain
 manufacture
