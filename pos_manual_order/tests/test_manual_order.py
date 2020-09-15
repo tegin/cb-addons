@@ -7,8 +7,12 @@ from odoo.addons.point_of_sale.tests.common import TestPointOfSaleCommon
 class TestManualOrder(TestPointOfSaleCommon):
     def setUp(self):
         super().setUp()
-        self.product3.type = "service"
-        self.product4.type = "service"
+        self.product3 = self.env["product.product"].create(
+            {"name": "TEST PRODUCT", "type": "service", "taxes_id": []}
+        )
+        self.product4 = self.env["product.product"].create(
+            {"name": "TEST PRODUCT 4", "type": "service", "taxes_id": []}
+        )
 
     def test_manual_order_excluded(self):
         session = self.pos_order_session0
