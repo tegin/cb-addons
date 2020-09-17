@@ -11,11 +11,6 @@ class MailMail(models.Model):
     def _postprocess_sent_message(
         self, success_pids, failure_reason=False, failure_type=None
     ):
-        res = super()._postprocess_sent_message(
-            success_pids,
-            failure_reason=failure_reason,
-            failure_type=failure_type,
-        )
         msg = self.mail_message_id
         if msg.model == "credit.control.communication":
             mt_request = self.env.ref("account_credit_control.mt_request")
@@ -27,4 +22,8 @@ class MailMail(models.Model):
                         else "email_error",
                     }
                 )
-        return res
+        return super()._postprocess_sent_message(
+            success_pids,
+            failure_reason=failure_reason,
+            failure_type=failure_type,
+        )
