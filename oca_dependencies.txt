@@ -5,17 +5,17 @@ bank-payment
 commission
 connector
 credit-control
-knowledge https://github.com/tegin/knowledge 12.0-mig-docu-page-ref
+knowledge
 l10n-spain
 manufacture
 medical-fhir https://github.com/eficent/medical-fhir 12.0
 multicompany-fixes https://github.com/eficent/multicompany-fixes 12.0
 partner-contact
-pos https://github.com/tegin/pos 12.0-mig.pos_session_pay_invoice
+pos
 queue
 report-print-send https://github.com/tegin/report-print-send 12.0-mig-remote_report_to_printer
 server-auth
-server-tools https://github.com/tegin/server-tools 12.0-mig-base-report
+server-tools
 server-ux
 stock-logistics-warehouse
 stock-logistics-workflow
