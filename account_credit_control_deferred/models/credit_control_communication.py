@@ -19,7 +19,7 @@ class CreditControlCommunication(models.Model):
     def action_communication_answer(self):
         self.ensure_one()
         ir_model_data = self.env["ir.model.data"]
-        # template_id = self.policy_level_id.email_template_id.id
+        template_id = self.policy_level_id.email_template_id.id
         try:
             compose_form_id = ir_model_data.get_object_reference(
                 "mail", "email_compose_message_wizard_form"
@@ -32,7 +32,7 @@ class CreditControlCommunication(models.Model):
                 "default_model": self._name,
                 "default_res_id": self.ids[0],
                 "default_use_template": False,
-                # "default_template_id": template_id,
+                "default_template_id": template_id,
                 "default_composition_mode": "mass_post",
                 "default_is_log": False,
                 "default_notify": True,
