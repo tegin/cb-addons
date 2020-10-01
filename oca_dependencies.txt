@@ -17,6 +17,7 @@ report-print-send https://github.com/tegin/report-print-send 12.0-mig-remote_rep
 server-auth
 server-tools
 server-ux
+stock-logistics-barcode
 stock-logistics-warehouse
 stock-logistics-workflow
 web
