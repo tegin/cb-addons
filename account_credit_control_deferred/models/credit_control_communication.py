@@ -9,13 +9,29 @@ class CreditControlCommunication(models.Model):
     _inherit = "credit.control.communication"
 
     state = fields.Selection(
-        [("queued", "Queued"), ("sent", "Sent"), ("email_error", "Error")],
+        [
+            ("queued", "Queued"),
+            ("sent", "Sent"),
+            ("email_error", "Error"),
+            ("solved", "Solved"),
+        ],
         readonly=True,
         required=True,
         default="queued",
     )
 
-    @api.multi
+    def action_mark_as_sent(self):
+        self.write(self._sent_vals())
+
+    def _sent_vals(self):
+        return {"state": "sent"}
+
+    def action_mark_as_solved(self):
+        self.write(self._solved_vals())
+
+    def _solved_vals(self):
+        return {"state": "solved"}
+
     def action_communication_answer(self):
         self.ensure_one()
         ir_model_data = self.env["ir.model.data"]
@@ -51,7 +67,6 @@ class CreditControlCommunication(models.Model):
             "context": ctx,
         }
 
-    @api.multi
     def action_communication_send(self):
         self.ensure_one()
         ir_model_data = self.env["ir.model.data"]
@@ -91,7 +106,6 @@ class CreditControlCommunication(models.Model):
             "context": ctx,
         }
 
-    @api.multi
     @api.returns("mail.message", lambda value: value.id)
     def message_post(self, **kwargs):
         if self.env.context.get("mark_communication_as_sent"):
