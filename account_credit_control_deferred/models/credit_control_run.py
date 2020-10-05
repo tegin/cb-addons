@@ -16,4 +16,5 @@ class CreditControlRun(models.Model):
         if deferred_lines:
             comm_obj = self.env["credit.control.communication"]
             comm_obj._generate_comm_from_credit_lines(deferred_lines)
+            deferred_lines.write({"state": "queued"})
         return result
