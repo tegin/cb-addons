@@ -21,6 +21,10 @@ class CreditControlCommunication(models.Model):
     )
 
     def action_mark_as_sent(self):
+        self.ensure_one()
+        self.credit_control_line_ids.filtered(
+            lambda line: line.state == "queued"
+        ).write({"state": "sent"})
         self.write(self._sent_vals())
 
     def _sent_vals(self):
