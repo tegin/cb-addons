@@ -14,7 +14,7 @@
                     <button name="action_communication_send" type="object" string="Send" states="queued,email_error"/>
                     <button name="action_communication_answer" type="object" string="Send mail" states="sent"/>
                     <button name="action_mark_as_sent" type="object" string="Mark as Sent" attrs="{'invisible': [('state', '=', 'sent')]}"/>
-                    <button name="action_mark_as_solved" type="object" string="Mark as Solved" attrs="{'invisible': [('state', '=', 'solved')]}"/>
+                    <button name="action_mark_as_solved" type="object" string="Mark as Solved" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
                     <field name="state" widget="statusbar"/>
                 </header>
             </sheet>
@@ -27,8 +27,7 @@
         <field name="inherit_id" ref="account_credit_control.credit_control_communication_tree_view"/>
         <field name="arch" type="xml">
             <tree position="attributes">
-                <!-- decoration-info="state == 'open'" decoration-muted="state == 'done'" -->
-                <attribute name="decoration-muted">state == 'solved'</attribute>
+                <attribute name="decoration-muted">state == 'queued'</attribute>
                 <attribute name="decoration-info">state == 'draft'</attribute>
                 <attribute name="decoration-danger">state == 'error'</attribute>
             </tree>
