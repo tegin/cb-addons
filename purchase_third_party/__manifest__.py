@@ -13,6 +13,7 @@
     "depends": ["mcfix_purchase"],
     "license": "LGPL-3",
     "data": [
+        "views/res_partner.xml",
         "report/external_layout.xml",
         "report/purchase_order_templates.xml",
         "report/purchase_quotation_templates.xml",
