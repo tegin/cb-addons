@@ -5,7 +5,6 @@ from odoo import api, fields, models, _
 
 
 class CreditControlCommunication(models.Model):
-
     _inherit = "credit.control.communication"
 
     state = fields.Selection(
@@ -129,3 +128,7 @@ class CreditControlCommunication(models.Model):
                     "contact_address_id"
                 ] = partner.credit_control_contact_partner_id.id
         return result
+
+    def update_balance(self):
+        for record in self:
+            record.credit_control_line_ids._update_balance(record.currency_id)

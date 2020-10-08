@@ -4,6 +4,9 @@
 
 <odoo>
 
+
+    <!-- TODO: Filters -->
+
     <record model="ir.ui.view" id="credit_control_communication_form_view">
         <field name="name">credit.control.communication.form (in account_credit_control_deferred)</field>
         <field name="model">credit.control.communication</field>
@@ -15,6 +18,7 @@
                     <button name="action_communication_answer" type="object" string="Send mail" states="sent"/>
                     <button name="action_mark_as_sent" type="object" string="Mark as Sent" attrs="{'invisible': [('state', '=', 'sent')]}"/>
                     <button name="action_mark_as_solved" type="object" string="Mark as Solved" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                    <button name="update_balance" type="object" string="Update balance"/>
                     <field name="state" widget="statusbar"/>
                 </header>
             </sheet>
@@ -27,8 +31,8 @@
         <field name="inherit_id" ref="account_credit_control.credit_control_communication_tree_view"/>
         <field name="arch" type="xml">
             <tree position="attributes">
-                <attribute name="decoration-muted">state == 'queued'</attribute>
-                <attribute name="decoration-info">state == 'draft'</attribute>
+                <attribute name="decoration-muted">state == 'solved'</attribute>
+                <attribute name="decoration-info">state == 'queued'</attribute>
                 <attribute name="decoration-danger">state == 'error'</attribute>
             </tree>
             <tree position="inside">
@@ -37,5 +41,18 @@
         </field>
     </record>
 
-
+    <record model="ir.ui.view" id="credit_control_communication_search_view">
+        <field name="name">credit.control.communication.tree (in account_credit_control_deferred)</field>
+        <field name="model">credit.control.communication</field>
+        <field name="inherit_id" ref="account_credit_control.credit_control_communication_search_view"/>
+        <field name="arch" type="xml">
+            <field name="report_date" position="after">
+                <separator/>
+                <filter name="queued" domain="[('state', '=', 'queued')]" string="Queued"/>
+                <filter name="error" domain="[('state', '=', 'error')]" string="Error"/>
+                <filter name="sent" domain="[('state', '=', 'sent')]" string="Sent"/>
+                <filter name="solved" domain="[('state', '=', 'solved')]" string="Solved"/>
+            </field>
+        </field>
+    </record>
 </odoo>
