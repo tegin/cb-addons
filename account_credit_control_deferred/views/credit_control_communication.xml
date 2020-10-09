@@ -38,6 +38,10 @@
             <tree position="inside">
                 <field name="state"/>
             </tree>
+            <field name="company_id" position="after">
+                <field name="total_invoiced" sum="Total"/>
+                <field name="total_due" sum="Total"/>
+            </field>
         </field>
     </record>
 
@@ -53,6 +57,16 @@
                 <filter name="sent" domain="[('state', '=', 'sent')]" string="Sent"/>
                 <filter name="solved" domain="[('state', '=', 'solved')]" string="Solved"/>
             </field>
+        </field>
+    </record>
+    <record id="action_credit_control_communication_update_balance" model="ir.actions.server">
+        <field name="name">Update Balance</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="account_credit_control.model_credit_control_communication"/>
+        <field name="binding_model_id" ref="account_credit_control.model_credit_control_communication"/>
+        <field name="code">
+records.update_balance()
         </field>
     </record>
 </odoo>
