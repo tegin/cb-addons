@@ -18,6 +18,23 @@ class CreditControlCommunication(models.Model):
         required=True,
         default="queued",
     )
+    total_current_invoiced = fields.Float(
+        compute="_compute_total",
+    )
+
+    def _compute_total(self):
+        super()._compute_total()
+        for communication in self:
+            communication.total_current_invoiced = (
+                communication._get_current_total()
+            )
+
+    def _get_current_total(self):
+        result = 0
+        for line in self.credit_control_line_ids:
+            if line.balance_due > 0:
+                result += line.amount_due
+        return result
 
     def action_mark_as_sent(self):
         self.ensure_one()
