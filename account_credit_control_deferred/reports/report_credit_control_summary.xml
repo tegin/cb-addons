@@ -4,6 +4,9 @@
         <xpath expr="//tr[@t-as='l']" position="attributes">
             <attribute name="t-if">l.balance_due > 0</attribute>
         </xpath>
+        <xpath expr="//span[@t-field='doc.total_invoiced']" position="attributes">
+            <attribute name="t-field">doc.total_current_invoiced</attribute>
+        </xpath>
     </template>
 
 </odoo>
