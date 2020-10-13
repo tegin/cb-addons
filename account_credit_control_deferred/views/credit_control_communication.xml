@@ -22,6 +22,9 @@
                     <field name="state" widget="statusbar"/>
                 </header>
             </sheet>
+            <field name="company_id" position="after">
+                <field name="last_message"/>
+            </field>
         </field>
     </record>
 
@@ -39,6 +42,7 @@
                 <field name="state"/>
             </tree>
             <field name="company_id" position="after">
+                <field name="last_message"/>
                 <field name="total_invoiced" sum="Total"/>
                 <field name="total_due" sum="Total"/>
             </field>
