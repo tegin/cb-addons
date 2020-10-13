@@ -18,6 +18,36 @@ class CreditControlCommunication(models.Model):
         required=True,
         default="queued",
     )
+    total_current_invoiced = fields.Float(
+        compute="_compute_total",
+    )
+    last_message = fields.Datetime(
+        compute="_compute_last_message",
+        store=True,
+    )
+
+    @api.depends("message_ids")
+    def _compute_last_message(self):
+        for record in self:
+            record.last_message = max(
+                record.message_ids.filtered(
+                    lambda r: r.author_id and r.author_id.user_ids
+                ).mapped("date")
+            )
+
+    def _compute_total(self):
+        super()._compute_total()
+        for communication in self:
+            communication.total_current_invoiced = (
+                communication._get_current_total()
+            )
+
+    def _get_current_total(self):
+        result = 0
+        for line in self.credit_control_line_ids:
+            if line.balance_due > 0:
+                result += line.amount_due
+        return result
 
     def action_mark_as_sent(self):
         self.ensure_one()
