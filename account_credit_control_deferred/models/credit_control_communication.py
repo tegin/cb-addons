@@ -21,6 +21,19 @@ class CreditControlCommunication(models.Model):
     total_current_invoiced = fields.Float(
         compute="_compute_total",
     )
+    last_message = fields.Datetime(
+        compute="_compute_last_message",
+        store=True,
+    )
+
+    @api.depends("message_ids")
+    def _compute_last_message(self):
+        for record in self:
+            record.last_message = max(
+                record.message_ids.filtered(
+                    lambda r: r.author_id and r.author_id.user_ids
+                ).mapped("date")
+            )
 
     def _compute_total(self):
         super()._compute_total()
