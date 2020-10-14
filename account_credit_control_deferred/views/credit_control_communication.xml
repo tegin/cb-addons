@@ -25,6 +25,9 @@
             <field name="company_id" position="after">
                 <field name="last_message"/>
             </field>
+            <field name="contact_address_id" position="attributes">
+              <attribute name="domain">[('commercial_partner_id', '=', partner_id)]</attribute>
+            </field>
         </field>
     </record>
 
