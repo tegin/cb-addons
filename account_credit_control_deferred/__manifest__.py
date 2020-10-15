@@ -11,6 +11,7 @@
     "website": "www.creublanca.es",
     "depends": ["account_credit_control"],
     "data": [
+        "views/res_company.xml",
         "reports/report_credit_control_summary.xml",
         "views/credit_control_line.xml",
         "views/credit_control_communication.xml",
