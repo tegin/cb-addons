@@ -18,13 +18,10 @@ class CreditControlCommunication(models.Model):
         required=True,
         default="queued",
     )
-    total_current_invoiced = fields.Float(
-        compute="_compute_total",
-    )
-    last_message = fields.Datetime(
-        compute="_compute_last_message",
-        store=True,
-    )
+    total_current_invoiced = fields.Float(compute="_compute_total")
+    last_message = fields.Datetime(compute="_compute_last_message", store=True)
+    total_invoiced = fields.Float(store=True)
+    total_due = fields.Float(store=True)
 
     @api.depends("message_ids")
     def _compute_last_message(self):
