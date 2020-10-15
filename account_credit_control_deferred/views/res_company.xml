@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="credit_control_company_form">
+        <field name="name">res.company.form (in account_credit_control_deferred)</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="account_credit_control.credit_control_company_form"/>
+        <field name="arch" type="xml">
+            <field name="credit_policy_id" position="after">
+                <field name="payment_responsible_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
