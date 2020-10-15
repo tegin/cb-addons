@@ -30,9 +30,7 @@ class CreditControlCommunication(models.Model):
     def _compute_last_message(self):
         for record in self:
             record.last_message = max(
-                record.message_ids.filtered(
-                    lambda r: r.author_id and r.author_id.user_ids
-                ).mapped("date")
+                record.message_ids.mapped("date") + [record.write_date]
             )
 
     def _compute_total(self):
@@ -76,6 +74,9 @@ class CreditControlCommunication(models.Model):
         except ValueError:
             compose_form_id = False
         ctx = dict(self.env.context or {})
+        ctx.pop("active_id", False)
+        ctx.pop("active_ids", False)
+        ctx.pop("active_model", False)
         ctx.update(
             {
                 "default_model": self._name,
@@ -111,6 +112,9 @@ class CreditControlCommunication(models.Model):
         except ValueError:
             compose_form_id = False
         ctx = dict(self.env.context or {})
+        ctx.pop("active_id", False)
+        ctx.pop("active_ids", False)
+        ctx.pop("active_model", False)
         ctx.update(
             {
                 "default_model": self._name,
@@ -162,3 +166,22 @@ class CreditControlCommunication(models.Model):
     def update_balance(self):
         for record in self:
             record.credit_control_line_ids._update_balance(record.currency_id)
+
+    def _onchange_partner_id(self):
+        data = super()._onchange_partner_id()
+        for record in self:
+            if (
+                record.company_id.payment_responsible_id
+                or record.partner_id.payment_responsible_id
+            ):
+                record.user_id = (
+                    record.partner_id.payment_responsible_id
+                    or record.company_id.payment_responsible_id
+                )
+        return data
+
+    def _generate_comm_from_credit_lines(self, lines):
+        comms = super()._generate_comm_from_credit_lines(lines)
+        for comm in comms:
+            comm.message_subscribe([comm.user_id.partner_id.id])
+        return comms
