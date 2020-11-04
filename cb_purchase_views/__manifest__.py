@@ -3,7 +3,7 @@
 
 {
     "name": "Cb Purchase Views",
-    "description": """
+    "summary": """
         Purchase custom views""",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
