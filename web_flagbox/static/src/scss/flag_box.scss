@@ -1,36 +1,37 @@
 .oe_flag_box {
-
     .flag-muted {
-      color: #777;
+        color: #777;
     }
 
     .flag-primary {
-      color: #7349fe;
+        color: #7349fe;
     }
 
     .flag-success {
-      color: #3c763d;
+        color: #3c763d;
     }
 
     .flag-info {
-      color: #31708f;
+        color: #31708f;
     }
 
     .flag-warning {
-      color: #8a6d3b;
+        color: #8a6d3b;
     }
 
     .flag-danger {
-      color: #a94442;
+        color: #a94442;
     }
 
     .flag-light {
-      color: #EEE;
+        color: #eee;
     }
 
     text-align: left;
 
-    .btn:hover, .btn:focus, .btn.focus{
+    .btn:hover,
+    .btn:focus,
+    .btn.focus {
         color: #333;
     }
 
@@ -43,10 +44,10 @@
         touch-action: manipulation;
         background-image: none;
         border: 1px solid transparent;
-            border-top-color: transparent;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-            border-left-color: transparent;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
         white-space: nowrap;
         padding: 6px 12px;
         font-size: 13px;
@@ -85,7 +86,9 @@
         }
 
         // Some buttons only display text without using StatInfo template
-        .o_stat_info, > span { // contains the value and text
+        .o_stat_info,
+        > span {
+            // contains the value and text
             display: inline-block;
             vertical-align: middle;
             max-width: 70%;
