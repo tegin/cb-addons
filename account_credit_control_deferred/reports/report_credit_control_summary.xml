@@ -1,6 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="report_credit_control_summary_document" inherit_id="account_credit_control.report_credit_control_summary_document">
+    <template
+        id="report_credit_control_summary_document"
+        inherit_id="account_credit_control.report_credit_control_summary_document"
+    >
         <xpath expr="//tr[@t-as='l']" position="attributes">
             <attribute name="t-if">l.balance_due > 0</attribute>
         </xpath>
@@ -8,5 +11,4 @@
             <attribute name="t-field">doc.total_current_invoiced</attribute>
         </xpath>
     </template>
-
 </odoo>
