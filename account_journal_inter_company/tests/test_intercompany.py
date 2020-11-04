@@ -2,8 +2,9 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from . import common
 from odoo.exceptions import ValidationError
+
+from . import common
 
 
 class TestInterCompanyJournal(common.TestInterCompany):
