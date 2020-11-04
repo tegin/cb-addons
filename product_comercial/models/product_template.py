@@ -59,6 +59,6 @@ class ProductTemplate(models.Model):
             name = orig_name[rec.id]
             comercial = rec.comercial
             if comercial:
-                name = "%s (%s)" % (name, comercial)
+                name = "{} ({})".format(name, comercial)
             result.append((rec.id, name))
         return result
