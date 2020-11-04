@@ -3,7 +3,7 @@
 
 {
     "name": "Import N43 Multi Wizard",
-    "description": """
+    "summary": """
         Import n43 multi wizard""",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
