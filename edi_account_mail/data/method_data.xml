@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
     <record id="seq_account_invoice_email" model="ir.sequence">
         <field name="name">Integration FACe</field>
@@ -9,6 +9,6 @@
     <record id="integration_email" model="account.invoice.integration.method">
         <field name="name">email</field>
         <field name="code">email</field>
-        <field name="sequence_id" ref="seq_account_invoice_email"/>
+        <field name="sequence_id" ref="seq_account_invoice_email" />
     </record>
 </odoo>

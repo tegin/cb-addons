@@ -2,8 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import base64
-from odoo.tests.common import TransactionCase
+
 from odoo import exceptions
+from odoo.tests.common import TransactionCase
 
 
 class TestInvoiceIntegrationPartner(TransactionCase):
@@ -174,7 +175,7 @@ class TestInvoiceIntegrationPartner(TransactionCase):
         attachment = self.env["ir.attachment"].create(
             {
                 "name": "attach.txt",
-                "datas": base64.b64encode("attachment".encode("utf-8")),
+                "datas": base64.b64encode(b"attachment"),
                 "datas_fname": "attach.txt",
                 "res_model": "account.invoice",
                 "res_id": self.invoice.id,
