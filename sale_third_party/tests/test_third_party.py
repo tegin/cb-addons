@@ -1,6 +1,7 @@
 import time
-from odoo.tests.common import TransactionCase
+
 from odoo.exceptions import UserError, ValidationError
+from odoo.tests.common import TransactionCase
 
 
 class ThirdParty(TransactionCase):
