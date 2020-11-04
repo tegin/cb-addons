@@ -3,10 +3,14 @@
 from openupgradelib import openupgrade
 
 xmlid_renames = [
-    ('l10n_es_iva_soportado_no_deducible.account_tax_template_p_iva10_nd',
-     'l10n_es.account_tax_template_p_iva10_nd'),
-    ('l10n_es_iva_soportado_no_deducible.account_tax_template_p_iva4_nd',
-     'l10n_es.account_tax_template_p_iva4_nd'),
+    (
+        "l10n_es_iva_soportado_no_deducible.account_tax_template_p_iva10_nd",
+        "l10n_es.account_tax_template_p_iva10_nd",
+    ),
+    (
+        "l10n_es_iva_soportado_no_deducible.account_tax_template_p_iva4_nd",
+        "l10n_es.account_tax_template_p_iva4_nd",
+    ),
 ]
 
 

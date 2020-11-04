@@ -1,40 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 Creu Blanca
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
-
-
     <!-- TODO: Filters -->
-
     <record model="ir.ui.view" id="credit_control_communication_form_view">
-        <field name="name">credit.control.communication.form (in account_credit_control_deferred)</field>
+        <field
+            name="name"
+        >credit.control.communication.form (in account_credit_control_deferred)</field>
         <field name="model">credit.control.communication</field>
-        <field name="inherit_id" ref="account_credit_control.credit_control_communication_form_view"/>
+        <field
+            name="inherit_id"
+            ref="account_credit_control.credit_control_communication_form_view"
+        />
         <field name="arch" type="xml">
             <sheet position="before">
                 <header>
-                    <button name="action_communication_send" type="object" string="Send" states="queued,email_error"/>
-                    <button name="action_communication_answer" type="object" string="Send mail" states="sent"/>
-                    <button name="action_mark_as_sent" type="object" string="Mark as Sent" attrs="{'invisible': [('state', '=', 'sent')]}"/>
-                    <button name="action_mark_as_solved" type="object" string="Mark as Solved" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
-                    <button name="update_balance" type="object" string="Update balance"/>
-                    <field name="state" widget="statusbar"/>
+                    <button
+                        name="action_communication_send"
+                        type="object"
+                        string="Send"
+                        states="queued,email_error"
+                    />
+                    <button
+                        name="action_communication_answer"
+                        type="object"
+                        string="Send mail"
+                        states="sent"
+                    />
+                    <button
+                        name="action_mark_as_sent"
+                        type="object"
+                        string="Mark as Sent"
+                        attrs="{'invisible': [('state', '=', 'sent')]}"
+                    />
+                    <button
+                        name="action_mark_as_solved"
+                        type="object"
+                        string="Mark as Solved"
+                        attrs="{'invisible': [('state', '!=', 'sent')]}"
+                    />
+                    <button
+                        name="update_balance"
+                        type="object"
+                        string="Update balance"
+                    />
+                    <field name="state" widget="statusbar" />
                 </header>
             </sheet>
             <field name="company_id" position="after">
-                <field name="last_message"/>
+                <field name="last_message" />
             </field>
             <field name="contact_address_id" position="attributes">
-              <attribute name="domain">[('commercial_partner_id', '=', partner_id)]</attribute>
+                <attribute
+                    name="domain"
+                >[('commercial_partner_id', '=', partner_id)]</attribute>
             </field>
         </field>
     </record>
-
     <record model="ir.ui.view" id="credit_control_communication_tree_view">
-        <field name="name">credit.control.communication.tree (in account_credit_control_deferred)</field>
+        <field
+            name="name"
+        >credit.control.communication.tree (in account_credit_control_deferred)</field>
         <field name="model">credit.control.communication</field>
-        <field name="inherit_id" ref="account_credit_control.credit_control_communication_tree_view"/>
+        <field
+            name="inherit_id"
+            ref="account_credit_control.credit_control_communication_tree_view"
+        />
         <field name="arch" type="xml">
             <tree position="attributes">
                 <attribute name="decoration-muted">state == 'solved'</attribute>
@@ -42,36 +73,61 @@
                 <attribute name="decoration-danger">state == 'error'</attribute>
             </tree>
             <tree position="inside">
-                <field name="state"/>
+                <field name="state" />
             </tree>
             <field name="company_id" position="after">
-                <field name="last_message"/>
-                <field name="total_invoiced" sum="Total"/>
-                <field name="total_due" sum="Total"/>
+                <field name="last_message" />
+                <field name="total_invoiced" sum="Total" />
+                <field name="total_due" sum="Total" />
             </field>
         </field>
     </record>
-
     <record model="ir.ui.view" id="credit_control_communication_search_view">
-        <field name="name">credit.control.communication.tree (in account_credit_control_deferred)</field>
+        <field
+            name="name"
+        >credit.control.communication.tree (in account_credit_control_deferred)</field>
         <field name="model">credit.control.communication</field>
-        <field name="inherit_id" ref="account_credit_control.credit_control_communication_search_view"/>
+        <field
+            name="inherit_id"
+            ref="account_credit_control.credit_control_communication_search_view"
+        />
         <field name="arch" type="xml">
             <field name="report_date" position="after">
-                <separator/>
-                <filter name="queued" domain="[('state', '=', 'queued')]" string="Queued"/>
-                <filter name="error" domain="[('state', '=', 'error')]" string="Error"/>
-                <filter name="sent" domain="[('state', '=', 'sent')]" string="Sent"/>
-                <filter name="solved" domain="[('state', '=', 'solved')]" string="Solved"/>
+                <separator />
+                <filter
+                    name="queued"
+                    domain="[('state', '=', 'queued')]"
+                    string="Queued"
+                />
+                <filter
+                    name="error"
+                    domain="[('state', '=', 'error')]"
+                    string="Error"
+                />
+                <filter name="sent" domain="[('state', '=', 'sent')]" string="Sent" />
+                <filter
+                    name="solved"
+                    domain="[('state', '=', 'solved')]"
+                    string="Solved"
+                />
             </field>
         </field>
     </record>
-    <record id="action_credit_control_communication_update_balance" model="ir.actions.server">
+    <record
+        id="action_credit_control_communication_update_balance"
+        model="ir.actions.server"
+    >
         <field name="name">Update Balance</field>
         <field name="type">ir.actions.server</field>
         <field name="state">code</field>
-        <field name="model_id" ref="account_credit_control.model_credit_control_communication"/>
-        <field name="binding_model_id" ref="account_credit_control.model_credit_control_communication"/>
+        <field
+            name="model_id"
+            ref="account_credit_control.model_credit_control_communication"
+        />
+        <field
+            name="binding_model_id"
+            ref="account_credit_control.model_credit_control_communication"
+        />
         <field name="code">
 records.update_balance()
         </field>

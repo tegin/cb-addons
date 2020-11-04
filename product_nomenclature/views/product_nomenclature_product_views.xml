@@ -7,10 +7,10 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="nomenclature_id"/>
-                        <field name="product_id" options="{'no_create': True}"/>
-                        <field name="code"/>
-                        <field name="name"/>
+                        <field name="nomenclature_id" />
+                        <field name="product_id" options="{'no_create': True}" />
+                        <field name="code" />
+                        <field name="name" />
                     </group>
                 </sheet>
             </form>
@@ -22,34 +22,38 @@
         <field name="priority">10</field>
         <field name="arch" type="xml">
             <tree editable="bottom">
-                <field name="nomenclature_id" invisible="1"/>
-                <field name="product_id" options="{'no_create': True}"/>
-                <field name="code"/>
-                <field name="name"/>
-                <button name="toggle_active" type="object"
-                        confirm="Are you sure you want to archive/unarchive this element?"
-                        class="oe_stat_button" icon="fa-archive">
-                    <field name="active" widget="boolean_button"
-                           options='{"terminology": "archive"}'/>
+                <field name="nomenclature_id" invisible="1" />
+                <field name="product_id" options="{'no_create': True}" />
+                <field name="code" />
+                <field name="name" />
+                <button
+                    name="toggle_active"
+                    type="object"
+                    confirm="Are you sure you want to archive/unarchive this element?"
+                    class="oe_stat_button"
+                    icon="fa-archive"
+                >
+                    <field
+                        name="active"
+                        widget="boolean_button"
+                        options='{"terminology": "archive"}'
+                    />
                 </button>
             </tree>
         </field>
     </record>
-
     <record id="product_nomenclature_product_search" model="ir.ui.view">
         <field name="name">product.nomenclature.product.search</field>
         <field name="model">product.nomenclature.product</field>
         <field name="arch" type="xml">
             <search string="Product Nomenclatures">
-                <field name="product_id"/>
-                <field name="code"/>
-                <field name="name"/>
+                <field name="product_id" />
+                <field name="code" />
+                <field name="name" />
             </search>
         </field>
     </record>
-
-    <record id="product_nomenclature_product_action"
-            model="ir.actions.act_window">
+    <record id="product_nomenclature_product_action" model="ir.actions.act_window">
         <field name="name">Nomenclature Items</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.nomenclature.product</field>
@@ -61,5 +65,4 @@
             </p>
         </field>
     </record>
-
 </odoo>

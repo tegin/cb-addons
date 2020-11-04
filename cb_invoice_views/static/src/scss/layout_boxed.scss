@@ -4,7 +4,7 @@
             tr {
                 td {
                     background-color: transparent;
-                    color: #000
+                    color: #000;
                 }
                 &.is-subtotal,
                 td.o_price_total {
@@ -16,7 +16,7 @@
     /*Total table*/
     .row > div > table,
     div#total table {
-        tr{
+        tr {
             &:last-child td {
                 background-color: transparent;
                 color: #000;
@@ -25,9 +25,11 @@
     }
 
     address {
-        font-size: 120%
+        font-size: 120%;
     }
 }
-.o_boxed_footer, .o_boxed_header, .o_report_layout_boxed {
+.o_boxed_footer,
+.o_boxed_header,
+.o_report_layout_boxed {
     font-size: 14px;
 }

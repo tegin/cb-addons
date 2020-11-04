@@ -1,5 +1,5 @@
-from odoo.tests import common
 from odoo.exceptions import UserError, ValidationError
+from odoo.tests import common
 
 
 @common.at_install(False)

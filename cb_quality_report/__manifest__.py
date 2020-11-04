@@ -3,7 +3,7 @@
 
 {
     "name": "Cb Quality Report",
-    "description": """
+    "summary": """
         QC Inspections Report""",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",

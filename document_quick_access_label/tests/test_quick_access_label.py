@@ -1,9 +1,10 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+import json
+
+from lxml import etree
 from mock import patch
 from odoo.tests.common import TransactionCase
-from lxml import etree
-import json
 
 
 class TestQuickAccessLabel(TransactionCase):

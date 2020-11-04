@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <template id="login_view" inherit_id="web.login">
         <xpath expr="//label[@for='login']" position="replace">
             <label for="login">Username</label>
