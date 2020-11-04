@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -45,7 +45,7 @@ class StockRule(models.Model):
         supplier = self._make_po_select_supplier(values, suppliers)
         partner = supplier.name
         # we put `supplier_info` in values for extensibility purposes
-        values['supplier'] = supplier
+        values["supplier"] = supplier
 
         domain = self._make_po_get_domain(values, partner)
         if domain in cache:
