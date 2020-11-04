@@ -11,13 +11,9 @@ class CreditControlLine(models.Model):
     channel = fields.Selection(
         selection_add=[("email_deferred", "Email Deferred")]
     )
-    balance_due = fields.Float(
-        string="Due balance",
-    )
+    balance_due = fields.Float(string="Due balance")
     original_balance_due = fields.Float(
-        string="Original Due balance",
-        required=True,
-        readonly=True,
+        string="Original Due balance", required=True, readonly=True,
     )
 
     @api.model
@@ -32,11 +28,7 @@ class CreditControlLine(models.Model):
         data = super()._prepare_from_move_line(
             move_line, level, controlling_date, open_amount, default_lines_vals
         )
-        data.update(
-            {
-                "original_balance_due": data["balance_due"],
-            }
-        )
+        data.update({"original_balance_due": data["balance_due"]})
         return data
 
     def _update_balance(self, user_currency):
