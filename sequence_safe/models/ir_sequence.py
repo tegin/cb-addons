@@ -1,9 +1,10 @@
 # Copyright (C) 2017 Creu Blanca
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
+import threading
+
 from odoo import api, fields, models
 from odoo.modules.registry import Registry
-import threading
 
 
 class IrSequence(models.Model):
