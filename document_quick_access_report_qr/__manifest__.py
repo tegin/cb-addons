@@ -3,7 +3,7 @@
 
 {
     "name": "Document Quick Access Report Qr",
-    "description": """
+    "summary": """
         Add QR to models reports""",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
