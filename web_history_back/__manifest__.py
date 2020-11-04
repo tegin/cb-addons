@@ -3,7 +3,7 @@
 
 {
     "name": "Web History Back",
-    "description": """
+    "summary": """
         Add history back""",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
