@@ -2,7 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import base64
 import logging
-from odoo import api, fields, models, _
+
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -103,9 +104,9 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
                 # including the record 88, so checking this with the absolute
                 # difference allows to bypass the error
                 if abs(records - registros) > 1:  # pragma: no cover
-                    print(records)
-                    print(registros)
-                    print(raw_line)
+                    _logger.info(records)
+                    _logger.info(registros)
+                    _logger.info(raw_line)
                     raise ValidationError(
                         _(
                             "Number of records doesn't match with the defined "
