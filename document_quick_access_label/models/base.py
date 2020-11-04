@@ -2,10 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import json
+
 from lxml import etree
-from odoo.osv.orm import setup_modifiers
-from odoo import api, models, _
+from odoo import _, api, models
 from odoo.exceptions import UserError
+from odoo.osv.orm import setup_modifiers
 
 
 class Base(models.AbstractModel):
