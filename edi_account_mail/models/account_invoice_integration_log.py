@@ -1,11 +1,12 @@
 # Copyright 2018 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import base64
-from email.utils import formataddr
-from odoo import models, tools
 import logging
 import traceback
+from email.utils import formataddr
 from io import StringIO
+
+from odoo import models, tools
 
 _logger = logging.getLogger(__name__)
 
@@ -62,7 +63,7 @@ class AccountInvoiceIntegrationLog(models.Model):
                 email_cc=[],
                 attachments=attachments,
                 # references=self._get_email_references(),
-                object_id="%s-%s" % (self.id, self._name),
+                object_id="{}-{}".format(self.id, self._name),
                 subtype="html",
                 subtype_alternative="plain",
                 # headers=self._get_email_headers()
