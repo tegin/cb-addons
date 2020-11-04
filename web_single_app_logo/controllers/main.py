@@ -5,6 +5,7 @@ import base64
 import functools
 import imghdr
 import io
+
 from odoo import http
 from odoo.modules import get_resource_path
 
