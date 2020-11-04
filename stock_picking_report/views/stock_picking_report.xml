@@ -8,7 +8,7 @@
         </xpath>
         <xpath expr="//td[@name='td_sched_date']" position="after">
             <td name="td_destination" t-if="not o.partner_id">
-                <span t-field="o.location_dest_id"/>
+                <span t-field="o.location_dest_id" />
             </td>
         </xpath>
     </template>
