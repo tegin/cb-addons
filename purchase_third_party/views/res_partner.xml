@@ -1,26 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 Creu Blanca
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
-
     <record model="ir.ui.view" id="view_partner_form">
         <field name="name">res.partner.form (in purchase_third_party)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
-                <field name="supplier" invisible="1"/>
-                <button type="object" attrs="{'invisible': [('supplier', '=', False)]}"
+                <field name="supplier" invisible="1" />
+                <button
+                    type="object"
+                    attrs="{'invisible': [('supplier', '=', False)]}"
                     name="action_view_product_supplierinfo"
                     class="oe_stat_button"
                     string="Supplier Agreements"
-                    icon="fa-handshake-o">
+                    icon="fa-handshake-o"
+                >
                 </button>
             </div>
         </field>
     </record>
-
-
-
 </odoo>
