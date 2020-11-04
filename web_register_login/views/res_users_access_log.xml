@@ -1,36 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 Creu Blanca
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
-
-
     <record model="ir.ui.view" id="res_users_access_log_search_view">
         <field name="name">res.users.access.log.search (in web_register_login)</field>
         <field name="model">res.users.access.log</field>
         <field name="arch" type="xml">
             <search>
-                <field name="create_uid"/>
-                <field name="create_date"/>
-                <field name="remote_id"/>
+                <field name="create_uid" />
+                <field name="create_date" />
+                <field name="remote_id" />
             </search>
         </field>
     </record>
-
     <record model="ir.ui.view" id="res_users_access_log_tree_view">
         <field name="name">res.users.access.log.tree (in web_register_login)</field>
         <field name="model">res.users.access.log</field>
         <field name="arch" type="xml">
             <tree create="0">
-                <field name="create_uid"/>
-                <field name="create_date"/>
-                <field name="remote_id"/>
-                <field name="remote_name"/>
-                <field name="remote_ip"/>
+                <field name="create_uid" />
+                <field name="create_date" />
+                <field name="remote_id" />
+                <field name="remote_name" />
+                <field name="remote_ip" />
             </tree>
         </field>
     </record>
-
     <record model="ir.actions.act_window" id="res_users_access_log_act_window">
         <field name="name">Users Access Log</field>
         <field name="res_model">res.users.access.log</field>
@@ -38,13 +33,10 @@
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
-
     <record model="ir.ui.menu" id="res_users_access_log_menu">
         <field name="name">Users Access Log</field>
-        <field name="parent_id" ref="base.menu_security"/>
-        <field name="action" ref="res_users_access_log_act_window"/>
-        <field name="sequence" eval="50"/>
+        <field name="parent_id" ref="base.menu_security" />
+        <field name="action" ref="res_users_access_log_act_window" />
+        <field name="sequence" eval="50" />
     </record>
-
-
 </odoo>

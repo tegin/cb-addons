@@ -1,26 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="group_admin_access_log" model="res.groups">
         <field name="name">View Access Log</field>
-        <field name="users" eval="[(4, ref('base.group_system'))]"/>
+        <field name="users" eval="[(4, ref('base.group_system'))]" />
     </record>
-
     <record id="model_res_users_access_log_read_own" model="ir.rule">
         <field name="name">Access Log Everyone can read its own</field>
-        <field name="model_id" ref="web_register_login.model_res_users_access_log"/>
-        <field name="perm_create" eval="True"/>
-        <field name="perm_read" eval="True"/>
+        <field name="model_id" ref="web_register_login.model_res_users_access_log" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_read" eval="True" />
         <field name="domain_force">[('create_uid', '=', user.id)]</field>
-        <field name="groups" eval="[(6, 0, [ref('base.group_user')])]"/>
+        <field name="groups" eval="[(6, 0, [ref('base.group_user')])]" />
     </record>
-
     <record id="model_res_users_access_log_admin_rule" model="ir.rule">
         <field name="name">group_admin_access_log can do everything</field>
-        <field name="model_id" ref="web_register_login.model_res_users_access_log"/>
-        <field name="perm_read" eval="True"/>
+        <field name="model_id" ref="web_register_login.model_res_users_access_log" />
+        <field name="perm_read" eval="True" />
         <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(6, 0, [ref('group_admin_access_log')])]"/>
+        <field name="groups" eval="[(6, 0, [ref('group_admin_access_log')])]" />
     </record>
-
 </odoo>
