@@ -2,8 +2,7 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models, _
-from odoo.exceptions import Warning
+from odoo import _, api, exceptions, fields, models
 
 
 class SafeBoxGroup(models.Model):
@@ -50,5 +49,7 @@ class SafeBoxGroup(models.Model):
                 self.session_validation_vals()
             )
         if len(validation.ids) > 1:
-            raise Warning(_("Only one validation session is allowed"))
+            raise exceptions.Warning(
+                _("Only one validation session is allowed")
+            )
         return validation
