@@ -1,6 +1,6 @@
+import dateutil.relativedelta
 from odoo import fields
 from odoo.tests.common import TransactionCase
-import dateutil.relativedelta
 
 
 class TestSaleCommission(TransactionCase):
