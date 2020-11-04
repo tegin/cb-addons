@@ -1,9 +1,10 @@
 import base64
-from mock import patch
 
+from mock import patch
 from odoo import tools
 from odoo.http import Response
-from odoo.tests.common import HttpCase, post_install, at_install
+from odoo.tests.common import HttpCase, at_install, post_install
+
 from ..controllers.main import MulticompanyLogo
 
 
