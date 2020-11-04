@@ -1,13 +1,14 @@
 # Copyright 2018 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import models, _
-from odoo.exceptions import UserError
-from tempfile import TemporaryDirectory
 import logging
-from io import BytesIO
-import subprocess
-import os
 import mimetypes
+import os
+import subprocess
+from io import BytesIO
+from tempfile import TemporaryDirectory
+
+from odoo import _, models
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 try:
