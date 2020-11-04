@@ -8,51 +8,53 @@
             </div>
             <div class="row">
                 <div class="col-6" name="company_address">
-                    <span t-esc="partner"
-                          t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                          style="border-bottom: 1px solid black; display:inline-block;"/>
+                    <span
+                        t-esc="partner"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                        style="border-bottom: 1px solid black; display:inline-block;"
+                    />
                 </div>
             </div>
         </div>
-        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not o" t-set="o" t-value="doc" />
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
-                <t t-set="company" t-value="company_id"/>
+                <t t-set="company" t-value="company_id" />
             </t>
             <t t-elif="o and 'company_id' in o">
-                <t t-set="company" t-value="o.company_id.sudo()"/>
+                <t t-set="company" t-value="o.company_id.sudo()" />
             </t>
             <t t-else="else">
-                <t t-set="company" t-value="res_company"/>
+                <t t-set="company" t-value="res_company" />
             </t>
         </t>
-
-        <t t-call="web.external_layout_standard"><t t-raw="0"/></t>
-
+        <t t-call="web.external_layout_standard">
+            <t t-raw="0" />
+        </t>
         <div class="footer">
             <div class="text-center" style="border-top: 1px solid black;">
                 <ul class="list-inline mb4">
                     <li t-if="partner.phone">Phone:
-                        <span t-field="partner.phone"/>
+                        <span t-field="partner.phone" />
                     </li>
                     <li t-if="partner.email">Email:
-                        <span t-field="partner.email"/>
+                        <span t-field="partner.email" />
                     </li>
                     <li t-if="partner.website">Web:
-                        <span t-field="partner.website"/>
+                        <span t-field="partner.website" />
                     </li>
                     <li t-if="partner.vat"><t
-                            t-esc="partner.country_id.vat_label or 'TIN'"/>:
-                        <span t-field="partner.vat"/>
+                            t-esc="partner.country_id.vat_label or 'TIN'"
+                        />:
+                        <span t-field="partner.vat" />
                     </li>
                 </ul>
-
                 <div class="text-muted">
                     Page:
-                    <span class="page"/>
+                    <span class="page" />
                     /
-                    <span class="topage"/>
+                    <span class="topage" />
                 </div>
             </div>
         </div>
