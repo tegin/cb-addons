@@ -20,7 +20,6 @@
         "data/tax_code_map_mod303_data.xml",
         "data/tax_code_map_mod347_data.xml",
         "data/tax_code_map_mod390_data.xml",
-        "data/tax_code_map_facturae_data.xml",
         "data/map_taxes_vat_book.xml",
     ],
     "website": "https://github.com/Eficent/cb-addons",
