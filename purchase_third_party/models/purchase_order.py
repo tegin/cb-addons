@@ -1,7 +1,7 @@
+from odoo import _, api, fields, models
 from odoo.addons import decimal_precision as dp
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
 from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
+from odoo.exceptions import ValidationError
 
 
 class PurchaseOrder(models.Model):
