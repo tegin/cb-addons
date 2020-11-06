@@ -1,9 +1,9 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 from odoo.tools import float_compare
-from odoo.exceptions import ValidationError
 
 
 class TestPaymentOrderCheck(TransactionCase):
@@ -177,7 +177,7 @@ class TestPaymentOrderCheck(TransactionCase):
         currency_id,
         price_unit,
         reference,
-        type="in_invoice",
+        invoice_type="in_invoice",
     ):
         invoice = self.env["account.invoice"].create(
             {
@@ -187,7 +187,7 @@ class TestPaymentOrderCheck(TransactionCase):
                 "currency_id": currency_id,
                 "name": "test",
                 "account_id": self.account_payable.id,
-                "type": type,
+                "type": invoice_type,
                 "company_id": self.main_company.id,
                 "payment_mode_id": self.payment_mode.id,
                 "partner_bank_id": bank.id,

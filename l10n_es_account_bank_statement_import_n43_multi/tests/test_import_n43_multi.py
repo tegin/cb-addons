@@ -1,10 +1,11 @@
 # Copyright 2016-2017 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields
-from odoo.tests import common
-from odoo.modules.module import get_module_resource
 import base64
+
+from odoo import fields
+from odoo.modules.module import get_module_resource
+from odoo.tests import common
 
 
 class L10nEsAccountBankStatementImportN43(common.SavepointCase):
