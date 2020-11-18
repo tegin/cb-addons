@@ -54,9 +54,9 @@ class ResPartner(models.Model):
                     rec.sudo().third_party_sequence_id.prefix = prefix
                 else:
                     seq_vals = self._prepare_ir_sequence(prefix)
-                    rec.third_party_sequence_id = self.env[
-                        "ir.sequence"
-                    ].create(seq_vals)
+                    rec.third_party_sequence_id = (
+                        self.env["ir.sequence"].sudo().create(seq_vals)
+                    )
         return super().write(vals)
 
     @api.model
