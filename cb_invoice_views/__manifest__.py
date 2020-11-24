@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Cb Invoice Views",
+    "name": "Cb Invoice Views 2",
     "summary": """
         Modify invoice views css""",
     "version": "12.0.1.0.0",
