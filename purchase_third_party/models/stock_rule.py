@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, api, models
 from odoo.exceptions import UserError
 
 
@@ -162,8 +162,7 @@ class StockRule(models.Model):
         seller = product_id._select_seller(
             partner_id=supplier.name,
             quantity=procurement_uom_po_qty,
-            date=po.date_order
-            and fields.Datetime.to_string(po.date_order)[:10],
+            date=po.date_order.date(),
             uom_id=product_id.uom_po_id,
         )
         if not seller.third_party_partner_id and not po.third_party_order:
