@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="base_custom_info.menu_base_custom_info" model="ir.ui.menu">
+        <field
+            name="groups_id"
+            eval="[(4, ref('custom_info_form.group_custom_info_form_manager'))]"
+        />
+    </record>
+    <record id="base_custom_info.menu_basic" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('base_custom_info.group_basic'))]" />
+    </record>
+    <menuitem
+        id="menu_form"
+        name="Form"
+        groups="custom_info_form.group_custom_info_form_manager"
+        parent="base_custom_info.menu_base_custom_info"
+    />
+</odoo>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="custom_info_form_form_view">
+        <field name="name">custom.info.form.form (in custom_info_form)</field>
+        <field name="model">custom.info.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header />
+                <sheet>
+                    <group groups="custom_info_form.group_custom_info_form_manager">
+                        <field name="partner_id" />
+                        <field name="custom_info_template_id" />
+                    </group>
+                    <field name="custom_info_ids" mode="custom_info" />
+                </sheet>
+                <div class="oe_chatter" />
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="custom_info_form_search_view">
+        <field name="name">custom.info.form.search (in custom_info_form)</field>
+        <field name="model">custom.info.form</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="custom_info_form_tree_view">
+        <field name="name">custom.info.form.tree (in custom_info_form)</field>
+        <field name="model">custom.info.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id" />
+                <field name="custom_info_template_id" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="custom_info_form_act_window">
+        <field name="name">Custom Info Form</field>
+        <field name="res_model">custom.info.form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <record model="ir.ui.menu" id="custom_info_form_menu">
+        <field name="name">Custom Info Form</field>
+        <field name="parent_id" ref="menu_form" />
+        <field name="action" ref="custom_info_form_act_window" />
+        <field name="sequence" eval="16" />
+    </record>
+    <record model="ir.actions.act_window" id="custom_info_form_act_window_fullscreen">
+        <field name="name">Custom Info Form</field>
+        <field name="res_model">custom.info.form</field>
+        <field name="view_mode">form</field>
+        <field name="target">fullscreen</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>
