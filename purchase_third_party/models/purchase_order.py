@@ -15,20 +15,20 @@ class PurchaseOrder(models.Model):
     )
 
     tp_amount_untaxed = fields.Monetary(
-        string="Untaxed Amount",
+        string="Third Party Untaxed Amount",
         store=True,
         readonly=True,
         compute="_compute_amount_all_tp",
         track_visibility="always",
     )
     tp_amount_tax = fields.Monetary(
-        string="Taxes",
+        string="Third Party Taxes",
         store=True,
         readonly=True,
         compute="_compute_amount_all_tp",
     )
     tp_amount_total = fields.Monetary(
-        string="Total",
+        string="Third Party Total",
         store=True,
         readonly=True,
         compute="_compute_amount_all_tp",
@@ -90,13 +90,19 @@ class PurchaseOrderLine(models.Model):
     )
 
     third_party_price_subtotal = fields.Monetary(
-        compute="_compute_amount_third_party", string="Subtotal", store=True
+        compute="_compute_amount_third_party",
+        string="Third Party Subtotal",
+        store=True,
     )
     third_party_price_total = fields.Monetary(
-        compute="_compute_amount_third_party", string="Total", store=True
+        compute="_compute_amount_third_party",
+        string="Third Party Total",
+        store=True,
     )
     third_party_price_tax = fields.Float(
-        compute="_compute_amount_third_party", string="Tax", store=True
+        compute="_compute_amount_third_party",
+        string="Third Party Tax",
+        store=True,
     )
 
     @api.depends("product_qty", "third_party_price_unit", "taxes_id")
@@ -136,7 +142,7 @@ class PurchaseOrderLine(models.Model):
         partner = self.order_id.third_party_partner_id
         if partner != seller.third_party_partner_id:
             raise ValidationError(_("Third party partner must be the same"))
-        self.third_party_price_unit = (
+        price_unit = (
             self.env["account.tax"]._fix_tax_included_price_company(
                 seller.third_party_price,
                 self.product_id.supplier_taxes_id,
@@ -146,4 +152,25 @@ class PurchaseOrderLine(models.Model):
             if seller
             else 0.0
         )
+        if (
+            price_unit
+            and seller
+            and self.order_id.currency_id
+            and seller.currency_id != self.order_id.currency_id
+        ):
+            price_unit = seller.currency_id._convert(
+                price_unit,
+                self.order_id.currency_id,
+                self.order_id.company_id,
+                self.date_order or fields.Date.today(),
+            )
+        if (
+            seller
+            and self.product_uom
+            and seller.product_uom != self.product_uom
+        ):
+            price_unit = seller.product_uom._compute_price(
+                price_unit, self.product_uom
+            )
+        self.third_party_price_unit = price_unit
         return res
