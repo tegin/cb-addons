@@ -113,7 +113,7 @@ class StockRule(models.Model):
             vals = self._prepare_purchase_order_line(
                 product_id, product_qty, product_uom, values, po, supplier
             )
-        self.env["purchase.order.line"].sudo().create(vals)
+            self.env["purchase.order.line"].sudo().create(vals)
 
     def _make_po_get_domain_supplier(self, values, supplier):
         res = self._make_po_get_domain(values, supplier.name)
