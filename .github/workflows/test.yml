@@ -40,7 +40,7 @@ jobs:
               run: |
                   pip install wheel
                   sudo apt update
-                  sudo apt install libldap2-dev nodejs libxml2-dev libxslt1-dev libevent-dev libsasl2-dev expect unixodbc-dev python-mysqldb libxmlsec1-dev libxml2-dev libxmlsec1-openssl openssl python-simplejson python-serial python-yaml cups libcups2-dev libzbar-dev
+                  sudo apt install libldap2-dev nodejs libxml2-dev libxslt1-dev libevent-dev libsasl2-dev expect unixodbc-dev libxmlsec1-dev libxml2-dev libxmlsec1-openssl openssl python-simplejson python-yaml cups libcups2-dev libzbar-dev
             - name: Downloading Maintainer quality tools
               run: |
                   git clone --depth=1 https://github.com/tegin/maintainer-quality-tools.git -b master-github ${HOME}/maintainer-quality-tools
