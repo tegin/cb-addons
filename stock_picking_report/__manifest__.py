@@ -10,5 +10,8 @@
     "author": "Creu Blanca,Odoo Community Association (OCA)",
     "website": "www.creublanca.es",
     "depends": ["stock"],
-    "data": ["views/stock_picking_report.xml"],
+    "data": [
+        "views/stock_picking_report.xml",
+        "reports/report_picking_operations.xml",
+    ],
 }
