@@ -47,6 +47,7 @@ class TestAssetManagementDepreciationPercentage(TransactionCase):
                 "method_time": "percentage",
                 "method_number": 0,
                 "method_period": "month",
+                "method_end": time.strftime("2003-05-01"),
                 "prorata": False,
                 "days_calc": True,
                 "use_leap_years": False,
