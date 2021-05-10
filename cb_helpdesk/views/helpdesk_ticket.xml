@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="helpdesk_ticket_form_view">
+        <field name="name">helpdesk.ticket.form (in cb_helpdesk)</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form" />
+        <field name="arch" type="xml">
+            <field name="partner_email" position="after">
+                <field name="partner_phone" />
+            </field>
+        </field>
+    </record>
+    <record id="helpdesk_mgmt.helpdesk_ticket_dashboard_menu" model="ir.ui.menu">
+        <field
+            name="groups_id"
+            eval="[(4, ref('helpdesk_mgmt.group_helpdesk_user'))]"
+        />
+    </record>
+    <record id="helpdesk_mgmt.helpdesk_ticket_action" model="ir.actions.act_window">
+        <field name="context">{'search_default_open': 1}</field>
+    </record>
+</odoo>
