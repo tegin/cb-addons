@@ -1,6 +1,6 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo.addons.storage_backend.tests.common import CommonCase
+from odoo.addons.storage_backend.tests.common import Common as CommonCase
 from odoo.exceptions import ValidationError
 
 
