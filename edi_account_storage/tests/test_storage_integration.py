@@ -3,7 +3,7 @@
 import logging
 
 from odoo import exceptions
-from odoo.addons.storage_backend.tests.common import CommonCase
+from odoo.addons.storage_backend.tests.common import Common as CommonCase
 from odoo.tests import tagged
 
 _logger = logging.getLogger(__name__)
