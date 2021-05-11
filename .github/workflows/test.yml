@@ -23,6 +23,7 @@ jobs:
             DB_USERNAME: "odoo"
             DB_PASSWORD: "odoo"
             DB_HOST: "localhost"
+            WKHTMLTOPDF_VERSION: "0.12.5"
             DB_PORT: 5432
         steps:
             - uses: actions/checkout@v2
