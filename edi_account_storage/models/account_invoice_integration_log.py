@@ -50,8 +50,8 @@ class AccountInvoiceIntegrationLog(models.Model):
                     invoice=self.integration_id.invoice_id,
                 ),
             )
-            partner.account_integration_storage_id.add(
-                filename, final_data, binary=True
+            partner.account_integration_storage_id._add_bin_data(
+                filename, final_data
             )
         except Exception as error:
             buff = StringIO()
