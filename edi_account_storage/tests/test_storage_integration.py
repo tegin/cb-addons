@@ -37,7 +37,7 @@ class TestIntegration(CommonCase):
                     "account.account_invoices_without_payment"
                 ).id,
                 "account_integration_storage_id": self.backend.id,
-                "account_integration_filename_pattern": "Invoice_{invoice.number}.pdf",
+                "account_integration_filename_pattern": "Invoice_{invoice.number}",
                 "invoice_integration_method_ids": [
                     (
                         6,

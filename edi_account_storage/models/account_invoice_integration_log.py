@@ -25,33 +25,38 @@ class AccountInvoiceIntegrationLog(models.Model):
             return self._send_storage()
         return super().send_method()
 
-    def _send_storage(self):
-        try:
-            output_pdf = PdfFileWriter()
-            content = self.integration_id.attachment_id.datas
+    def _send_storage_data(self):
+        output_pdf = PdfFileWriter()
+        content = self.integration_id.attachment_id.datas
+        in_buff = BytesIO(base64.b64decode(content))
+        pdf = PdfFileReader(in_buff)
+        output_pdf.appendPagesFromReader(pdf)
+        for attachment in self.integration_id.attachment_ids:
+            content = attachment.datas
             in_buff = BytesIO(base64.b64decode(content))
             pdf = PdfFileReader(in_buff)
             output_pdf.appendPagesFromReader(pdf)
-            for attachment in self.integration_id.attachment_ids:
-                content = attachment.datas
-                in_buff = BytesIO(base64.b64decode(content))
-                pdf = PdfFileReader(in_buff)
-                output_pdf.appendPagesFromReader(pdf)
-            buff = BytesIO()
-            output_pdf.write(buff)
-            final_data = buff.getvalue()
+        buff = BytesIO()
+        output_pdf.write(buff)
+        final_data = buff.getvalue()
+        partner = self.integration_id.invoice_id.partner_id
+        # We need to clean the filename, as we cannot send special characters
+        filename = re.sub(
+            r"[\\\/]",
+            "-",
+            partner.account_integration_filename_pattern.format(
+                integration=self.integration_id,
+                invoice=self.integration_id.invoice_id,
+            ),
+        )
+        return final_data, filename, "pdf"
+
+    def _send_storage(self):
+        try:
+            final_data, filename, file_type = self._send_storage_data()
             partner = self.integration_id.invoice_id.partner_id
-            # We need to clean the filename, as we cannot send special characters
-            filename = re.sub(
-                r"[\\\/]",
-                "",
-                partner.account_integration_filename_pattern.format(
-                    integration=self.integration_id,
-                    invoice=self.integration_id.invoice_id,
-                ),
-            )
             partner.account_integration_storage_id._add_bin_data(
-                filename, final_data
+                "{}.{}".format(filename, file_type), final_data
             )
         except Exception as error:
             buff = StringIO()
