@@ -10,5 +10,9 @@
     "author": "Creu Blanca",
     "website": "www.creublanca.es",
     "depends": ["l10n_es_facturae", "storage_backend"],
-    "data": ["data/storage_data.xml", "views/res_partner.xml"],
+    "data": [
+        "data/storage_data.xml",
+        "views/res_partner.xml",
+        "security/ir.model.access.csv",
+    ],
 }
