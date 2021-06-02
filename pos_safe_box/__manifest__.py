@@ -17,7 +17,7 @@
         "views/safe_box_coin_views.xml",
     ],
     "website": "https://github.com/eficent/cb-addons",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "installable": True,
     "auto_install": False,
 }
