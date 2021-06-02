@@ -11,7 +11,7 @@
     "sequence": 30,
     "category": "Accounting",
     "depends": ["account"],
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "data": [
         "security/security.xml",
         "security/ir.model.access.csv",

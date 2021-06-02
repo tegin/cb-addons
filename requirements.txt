@@ -1,3 +1,2 @@
-fuzzywuzzy
-pdf2image
-pyzbar
+# generated from manifests external_dependencies
+PyPDF2

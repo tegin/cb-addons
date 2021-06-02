@@ -11,7 +11,7 @@
     "sequence": 30,
     "category": "Sale",
     "depends": ["mcfix_purchase"],
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "data": [
         "views/res_partner.xml",
         "report/external_layout.xml",
