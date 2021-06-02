@@ -11,7 +11,7 @@
     "sequence": 30,
     "category": "Sale",
     "depends": ["base", "sequence_check_digit"],
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "data": [],
     "installable": True,
     "application": False,
