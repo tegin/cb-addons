@@ -7,7 +7,7 @@
     "category": "Reporting",
     "website": "https://github.com/OCA/server-tools",
     "author": "Creu Blanca",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "installable": True,
     "application": False,
     "summary": "Adds a check digit on sequences",
