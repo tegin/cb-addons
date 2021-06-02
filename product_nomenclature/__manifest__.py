@@ -14,7 +14,7 @@
         "views/product_nomenclature_views.xml",
     ],
     "website": "https://github.com/Eficent/cb-addons",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "installable": True,
     "auto_install": False,
 }
