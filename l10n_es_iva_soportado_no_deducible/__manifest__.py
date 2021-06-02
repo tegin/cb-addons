@@ -22,7 +22,7 @@
         "data/map_taxes_vat_book.xml",
     ],
     "website": "https://github.com/Eficent/cb-addons",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "installable": True,
     "auto_install": False,
 }
