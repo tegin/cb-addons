@@ -11,7 +11,7 @@
     "sequence": 30,
     "category": "Accounting",
     "depends": ["account_cash_invoice", "account_journal_inter_company"],
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "data": [
         "views/account_bank_statement_line.xml",
         "wizard/cash_invoice_in.xml",
