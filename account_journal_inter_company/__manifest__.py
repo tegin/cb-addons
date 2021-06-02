@@ -11,7 +11,7 @@
     "sequence": 30,
     "category": "Accounting",
     "depends": ["mcfix_account"],
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "data": [
         "security/ir.model.access.csv",
         "views/res_company_views.xml",
