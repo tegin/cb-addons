@@ -8,6 +8,12 @@ from odoo.tools import float_compare
 
 
 class SafeBoxMove(models.Model):
+    """
+    This entity joins the accounting moves (account.move) with the safe box group.
+    The amount related to the safe boxes must be equal to the accounting entries
+    related to safe box accounts
+    """
+
     _name = "safe.box.move"
     _description = "safe.box.move"
 
@@ -19,7 +25,9 @@ class SafeBoxMove(models.Model):
         delete="restrict",
     )
     line_ids = fields.One2many(
-        comodel_name="safe.box.move.line", inverse_name="safe_box_move_id"
+        comodel_name="safe.box.move.line",
+        inverse_name="safe_box_move_id",
+        string="Safe box move line",
     )
     account_move_ids = fields.One2many(
         comodel_name="account.move",
@@ -34,6 +42,13 @@ class SafeBoxMove(models.Model):
     )
 
     def _validate(self):
+        """
+        We want to check that the accounting balance is identical to
+        the safe boxes' balance.
+        Also, it checks that the user is allowed to move or take from
+        a safe box.
+        Finally, it checks that a safe box is not set as negative
+        """
         amount = sum([l.amount for l in self.line_ids])
         amount -= sum(
             [
@@ -92,8 +107,12 @@ class SafeBoxMove(models.Model):
 
 
 class SafeBoxMoveLine(models.Model):
+    """
+        This entity has the information of a line move.
+    """
+
     _name = "safe.box.move.line"
-    _description = "safe.box.move.line"
+    _description = "Safe box move line"
 
     safe_box_move_id = fields.Many2one(
         comodel_name="safe.box.move", required=True, string="Move"
@@ -120,3 +139,13 @@ class SafeBoxMoveLine(models.Model):
     amount = fields.Monetary(
         required=True, default=0, currency_field="currency_id"
     )
+
+    def name_get(self):
+        result = []
+        for record in self:
+            name = "{} - {}".format(
+                record.safe_box_move_id.display_name,
+                record.safe_box_id.display_name,
+            )
+            result.append((record.id, name))
+        return result
