@@ -22,6 +22,7 @@ class AccountAccount(models.Model):
 
     @api.multi
     def recompute_amount(self):
+        """Updates the balance of the account"""
         for record in self:
             if record.safe_box_group_id:
                 moves = self.env["account.move.line"].search(
@@ -34,6 +35,11 @@ class AccountAccount(models.Model):
 
     @api.constrains("safe_box_group_id")
     def _check_safe_box_group(self):
+        """
+        Checks that the safe_box_group is set properly:
+            - Safe box can only be edited if the balance is 0
+            - Only one account by company is allowed on a safe box group
+        """
         for record in self:
             lines = self.env["account.move.line"].search(
                 [
@@ -52,4 +58,11 @@ class AccountAccount(models.Model):
                         "Safe box group cannot be set if the account has "
                         "not zero value"
                     )
+                )
+            sb_group = record.safe_box_group_id
+            if sb_group and len(sb_group.account_ids) != len(
+                sb_group.mapped("account_ids.company_id")
+            ):
+                raise ValidationError(
+                    _("Only one account by company is allowed")
                 )
