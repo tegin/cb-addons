@@ -61,7 +61,7 @@
     </record>
     <act_window
         id="wizard_safe_box_count_action"
-        name="Generate move"
+        name="Count money"
         res_model="wizard.safe.box.count"
         view_mode="form"
         view_type="form"

@@ -6,6 +6,13 @@ from odoo import api, fields, models
 
 
 class SafeBoxGroup(models.Model):
+    """
+    This entity joins the accounting information (account.account) with a
+    set of safe boxes.
+    The balance of the accounts must be equal to the balance of the safe boxes,
+    however, the amount on each safe box can be shared between several companies
+    """
+
     _name = "safe.box.group"
     _description = "Safe box group"
     _inherit = ["mail.thread", "mail.activity.mixin"]

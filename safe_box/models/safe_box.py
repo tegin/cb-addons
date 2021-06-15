@@ -6,6 +6,12 @@ from odoo import api, fields, models
 
 
 class SafeBox(models.Model):
+    """
+    This entity contains the information of each safe box that are part
+    of a safe box group (safe.box.group).
+    Each one will have an amount that is computed with all the moves
+    """
+
     _name = "safe.box"
     _description = "Safe box"
 
@@ -28,6 +34,7 @@ class SafeBox(models.Model):
 
     @api.multi
     def recompute_amount(self):
+        """The total amount is recalculated every time a safe boxes move is executed"""
         for record in self:
             moves = self.env["safe.box.move.line"].search(
                 [("safe_box_id", "=", record.id), ("state", "=", "closed")]
