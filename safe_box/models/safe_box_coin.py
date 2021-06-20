@@ -6,6 +6,11 @@ from odoo import fields, models
 
 
 class SafeBoxCoin(models.Model):
+    """
+    This entity contains the name and rate of the different coins and bills.
+    Useful to recount all the amounts of a safe box
+    """
+
     _name = "safe.box.coin"
     _description = "Safe box coin"
     _order = "rate ASC"
