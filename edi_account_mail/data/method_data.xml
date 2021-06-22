@@ -1,14 +1,26 @@
 <?xml version="1.0" ?>
 <odoo>
-    <record id="seq_account_invoice_email" model="ir.sequence">
-        <field name="name">Integration FACe</field>
-        <field name="code">account.invoice.integration.email</field>
-        <field name="prefix">EMAIL</field>
-        <field name="padding">8</field>
+    <record id="mail_backend_type" model="edi.backend.type">
+        <field name="name">Spanish Facturae Backend type</field>
+        <field name="code">account_move_mail</field>
     </record>
-    <record id="integration_email" model="account.invoice.integration.method">
-        <field name="name">email</field>
-        <field name="code">email</field>
-        <field name="sequence_id" ref="seq_account_invoice_email" />
+    <record id="mail_backend" model="edi.backend">
+        <field name="name">Mail</field>
+        <field name="backend_type_id" ref="mail_backend_type" />
+    </record>
+    <record id="mail_exchange_type" model="edi.exchange.type">
+        <field name="name">Mail</field>
+        <field name="code">account_move_mail</field>
+        <field name="backend_type_id" ref="mail_backend_type" />
+        <field name="direction">output</field>
+        <field name="exchange_filename_pattern">{record_name}--{dt}</field>
+        <field name="exchange_file_ext">pdf</field>
+        <field name="model_ids" eval="[(4, ref('account.model_account_move'))]" />
+        <field
+            name="enable_domain"
+        >[('state', '!=', 'draft'), ('partner_id.send_invoice_by_mail', '=', True)]</field>
+        <field
+            name="enable_snippet"
+        >result = not record._has_exchange_record(exchange_type.code)</field>
     </record>
 </odoo>
