@@ -35,18 +35,6 @@ def migrate(env, version):
     openupgrade.logged_query(
         env.cr,
         """
-        SELECT rp.id, rp.email_integration, rp.invoice_report_email_id
-        FROM res_partner rp, account_move_integration_method_res_partner_rel amimrpr
-        WHERE rp.l10n_es_facturae_sending_code is NULL
-            AND amimrpr.res_partner_id = rp.id
-            AND amimrpr.account_move_integration_method_id = {method_id}
-        """.format(
-            method_id=method_id
-        ),
-    )
-    openupgrade.logged_query(
-        env.cr,
-        """
         INSERT INTO edi_exchange_record (
             {integration_field},
             edi_exchange_state,
@@ -126,5 +114,18 @@ def migrate(env, version):
         WHERE aiiia.ir_attachment_id = at.id
         """.format(
             integration_field=integration_field_name, method_id=method_id,
+        ),
+    )
+    openupgrade.logged_query(
+        env.cr,
+        """
+        UPDATE res_partner rp
+        SET send_invoice_by_mail = TRUE
+        FROM account_move_integration_method_res_partner_rel amimrpr
+        WHERE rp.l10n_es_facturae_sending_code is NULL
+            AND amimrpr.res_partner_id = rp.id
+            AND amimrpr.account_move_integration_method_id = {method_id}
+        """.format(
+            method_id=method_id
         ),
     )
