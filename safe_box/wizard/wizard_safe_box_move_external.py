@@ -2,7 +2,7 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class WizardSafeBoxMoveExternal(models.TransientModel):
@@ -73,7 +73,6 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
             vals["partner_id"] = self.partner_id.id
         return vals
 
-    @api.multi
     def run(self):
         self.ensure_one()
         move = self.env["safe.box.move"].create(self.create_move_vals())

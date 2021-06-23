@@ -20,7 +20,6 @@ class AccountAccount(models.Model):
     )
     safe_box_amount = fields.Monetary(currency_field="safe_box_currency_id")
 
-    @api.multi
     def recompute_amount(self):
         """Updates the balance of the account"""
         for record in self:
