@@ -2,7 +2,7 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools import float_compare
 
@@ -93,7 +93,6 @@ class SafeBoxMove(models.Model):
                     _("Safe box cannot have a negative value")
                 )
 
-    @api.multi
     def close(self):
         self.ensure_one()
         self._validate()

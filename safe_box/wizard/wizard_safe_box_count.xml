@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     Copyright 2017 Eficent Business and IT Consulting Services, S.L.
     Copyright 2017 Creu Blanca
@@ -12,7 +12,7 @@
             <form string="Create safe box move">
                 <group>
                     <field name="safe_box_group_id" invisible="1" />
-                    <field name="safe_box_id" />
+                    <field name="safe_box_id" required="1" />
                     <field name="state" invisible="1" />
                 </group>
                 <field name="coin_ids" options="{'no_create_edit': True}" />
@@ -64,7 +64,6 @@
         name="Count money"
         res_model="wizard.safe.box.count"
         view_mode="form"
-        view_type="form"
         target="new"
     />
 </odoo>

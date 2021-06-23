@@ -39,12 +39,19 @@
                             context="{'default_safe_box_group_id': active_id}"
                         />
                         <button
+                            name="action_count_money"
+                            type="object"
+                            string="Count money"
+                            icon="fa-money"
+                        />
+                        <!--
+                        <button
                             name="%(safe_box.wizard_safe_box_count_action)d"
                             type="action"
                             string="Count money"
                             icon="fa-money"
                             context="{'default_safe_box_group_id': active_id}"
-                        />
+                        />-->
                     </div>
                     <group>
                         <field name="code" />
@@ -82,7 +89,6 @@
         <field name="name">Safe Box Group</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">safe.box.group</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem
