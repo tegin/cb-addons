@@ -24,14 +24,76 @@ def migrate(env, version):
         )
     openupgrade.logged_query(
         env.cr,
-        "SELECT id from account_move_integration_method where code = 'email'",
+        "SELECT id from account_move_integration_method where code = 'storage'",
     )
     data = env.cr.fetchall()
     if not data:
         return
     method_id = data[0][0]
-    backend = env.ref("edi_account_mail.mail_backend")
-    exchange_type = env.ref("edi_account_mail.mail_exchange_type")
+    backend_type = env.ref("edi_account_storage.backend_type")
+
+    openupgrade.logged_query(
+        env.cr,
+        """
+        SELECT
+            rp.id,
+            rp.account_integration_report_id,
+            rp.account_integration_storage_id,
+            rp.account_integration_filename_pattern
+        FROM res_partner rp, account_move_integration_method_res_partner_rel amimrpr
+        WHERE rp.l10n_es_facturae_sending_code is NULL
+            AND amimrpr.res_partner_id = rp.id
+            AND amimrpr.account_move_integration_method_id = {method_id}
+        """.format(
+            method_id=method_id
+        ),
+    )
+    for x in env.cr.fetchall():
+        partner = env["res.partner"].browse(x[0])
+        backend = env["edi.backend"].create(
+            {
+                "name": "EDI backend for %s" % partner.name,
+                "backend_type_id": backend_type.id,
+                "storage_id": x[2],
+            }
+        )
+
+        exchange_type = env["edi.exchange.type"].create(
+            {
+                "name": "Storage Invoice Exchange type for %s" % partner.name,
+                "backend_type_id": backend_type.id,
+                "backend_id": backend.id,
+                "code": "edi_account_storage_partner_%s" % partner.id,
+                "direction": "output",
+                "exchange_filename_pattern": x[3].replace(
+                    "{invoice", "{record"
+                ),
+                "model_ids": [(4, env.ref("account.model_account_move").id)],
+                "enable_snippet": "result = not record."
+                "_has_exchange_record(exchange_type.code)",
+            }
+        )
+        exchange_type.write(
+            {
+                "enable_domain": "[('state', '!=', 'draft'), ('partner_id."
+                "account_invoice_storage_exchange_type_id'"
+                ", '=', %s)]" % exchange_type.id,
+            }
+        )
+        env["edi.exchange.template.output"].create(
+            {
+                "name": "Storage backend for %s" % partner.name,
+                "backend_type_id": backend_type.id,
+                "backend_id": backend.id,
+                "type_id": exchange_type.id,
+                "code": "edi_account_storage_partner_template_%s" % partner.id,
+                "output_type": "pdf",
+                "generator": "report",
+                "report_id": x[1],
+            }
+        )
+        partner.account_invoice_storage_exchange_type_id = exchange_type
+        partner.flush()
     openupgrade.logged_query(
         env.cr,
         """
@@ -62,8 +124,8 @@ def migrate(env, version):
             END,
             ami.name,
             ami.register_number,
-            {type_id},
-            {backend_id},
+            eet.id,
+            eet.backend_id,
             ia.name,
             ami.create_date,
             ami.create_uid,
@@ -81,11 +143,10 @@ def migrate(env, version):
             LEFT JOIN ir_attachment ia ON ia.id = ami.attachment_id
             LEFT JOIN account_move am ON am.id = ami.move_id
             LEFT JOIN res_partner rp ON rp.id = am.partner_id
+            LEFT JOIN edi_exchange_type eet ON eet.id =
+                rp.account_invoice_storage_exchange_type_id
         WHERE ami.method_id = {method_id}""".format(
-            integration_field=integration_field_name,
-            method_id=method_id,
-            type_id=exchange_type.id,
-            backend_id=backend.id,
+            integration_field=integration_field_name, method_id=method_id,
         ),
     )
     openupgrade.logged_query(
@@ -114,18 +175,5 @@ def migrate(env, version):
         WHERE aiiia.ir_attachment_id = at.id
         """.format(
             integration_field=integration_field_name, method_id=method_id,
-        ),
-    )
-    openupgrade.logged_query(
-        env.cr,
-        """
-        UPDATE res_partner rp
-        SET send_invoice_by_mail = TRUE
-        FROM account_move_integration_method_res_partner_rel amimrpr
-        WHERE rp.l10n_es_facturae_sending_code is NULL
-            AND amimrpr.res_partner_id = rp.id
-            AND amimrpr.account_move_integration_method_id = {method_id}
-        """.format(
-            method_id=method_id
         ),
     )
