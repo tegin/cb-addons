@@ -5,7 +5,7 @@
         model="aeat.vat.book.map.line"
     >
         <field
-            name="tax_ids"
+            name="tax_tmpl_ids"
             eval="[
                 (4, ref('account_tax_template_p_iva21_ic_nd_bc_2')),
                 (4, ref('account_tax_template_p_iva21_ic_nd_bi_2')),
