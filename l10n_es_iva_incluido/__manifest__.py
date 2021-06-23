@@ -4,7 +4,7 @@
 
 {
     "name": "L10n ES IVA Incluido",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "ForgeFlow, Creu Blanca",
     "depends": [
         "l10n_es",
