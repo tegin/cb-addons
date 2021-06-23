@@ -59,8 +59,18 @@ class SafeBoxGroup(models.Model):
             vals.update({"sequence_id": self.sudo()._create_sequence(vals).id})
         return super(SafeBoxGroup, self).create(vals)
 
-    @api.multi
     def recompute_amount(self):
         for record in self.sudo():
             record.safe_box_ids.recompute_amount()
             record.account_ids.recompute_amount()
+
+    def action_count_money(self):
+        self.ensure_one()
+        action = self.env.ref("safe_box.wizard_safe_box_count_action").read()[
+            0
+        ]
+        wizard = self.env["wizard.safe.box.count"].create(
+            {"safe_box_group_id": self.id}
+        )
+        action["res_id"] = wizard.id
+        return action

@@ -2,7 +2,7 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class SafeBox(models.Model):
@@ -32,7 +32,6 @@ class SafeBox(models.Model):
     )
     user_ids = fields.Many2many("res.users")
 
-    @api.multi
     def recompute_amount(self):
         """The total amount is recalculated every time a safe boxes move is executed"""
         for record in self:

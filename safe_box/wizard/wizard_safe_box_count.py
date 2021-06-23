@@ -14,7 +14,7 @@ class WizardSafeBoxCount(models.TransientModel):
     safe_box_id = fields.Many2one(
         "safe.box",
         domain="[('safe_box_group_id', '=', safe_box_group_id)]",
-        required=True,
+        required=False,
     )
     coin_ids = fields.One2many(
         "wizard.safe.box.count.coin",
@@ -32,11 +32,12 @@ class WizardSafeBoxCount(models.TransientModel):
 
     @api.onchange("safe_box_id")
     def _onchange_safe_box_id(self):
-        for record in self:
-            record.coin_ids = [
-                {"safe_box_coin_id": coin.id}
-                for coin in record.safe_box_id.coin_ids
+        self.coin_ids = self.env["wizard.safe.box.count.coin"].create(
+            [
+                {"safe_box_coin_id": coin.id, "safe_box_count_id": self.id}
+                for coin in self.safe_box_id.coin_ids
             ]
+        )
 
     @api.onchange("coin_ids")
     def validate(self):
@@ -58,9 +59,7 @@ class WizardSafeBoxCountCoin(models.TransientModel):
     _name = "wizard.safe.box.count.coin"
     _description = "Count coins"
 
-    safe_box_count_id = fields.Many2one(
-        "wizard.safe.box.count.coin", readonly=True
-    )
+    safe_box_count_id = fields.Many2one("wizard.safe.box.count", readonly=True)
     safe_box_coin_id = fields.Many2one(
         "safe.box.coin", required=True, string="Coin"
     )

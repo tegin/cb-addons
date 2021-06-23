@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     Copyright 2017 Eficent Business and IT Consulting Services, S.L.
     Copyright 2017 Creu Blanca
@@ -44,7 +44,6 @@
         name="Generate move"
         res_model="wizard.safe.box.move.external"
         view_mode="form"
-        view_type="form"
         target="new"
     />
 </odoo>

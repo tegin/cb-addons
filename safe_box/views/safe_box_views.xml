@@ -5,7 +5,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">safe.box.move.line</field>
         <field name="domain">[('safe_box_id', '=', active_id)]</field>
-        <field name="view_type">form</field>
         <field name="view_mode">graph,tree,form</field>
         <!--<field name="view_ids" eval="[(5, 0, 0),(0,0, {'view_mode': 'tree', 'view_id': ref('safe_box.safe_box_move_line_view_tree')})]" />-->
     </record>
