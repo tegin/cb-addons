@@ -9,11 +9,9 @@ class TestPurchaseThirdParty(TransactionCase):
     def setUp(self):
         super().setUp()
         self.company = self.browse_ref("base.main_company")
-        self.vendor = self.env["res.partner"].create(
-            {"name": "Supplier", "supplier": True}
-        )
+        self.vendor = self.env["res.partner"].create({"name": "Supplier"})
         self.tp_partner = self.env["res.partner"].create(
-            {"name": "Third Party Partner", "supplier": True}
+            {"name": "Third Party Partner"}
         )
         self.tax = self.env["account.tax"].create(
             {
@@ -82,3 +80,7 @@ class TestPurchaseThirdParty(TransactionCase):
         self.assertEqual(po.order_line.third_party_price_subtotal, 7)
         self.assertEqual(po.order_line.third_party_price_tax, 1.47)
         self.assertEqual(po.order_line.third_party_price_total, 8.47)
+        self.assertEqual(po.tp_amount_untaxed, 7)
+        self.assertEqual(po.tp_amount_tax, 1.47)
+        self.assertEqual(po.tp_amount_total, 8.47)
+        po.with_context(third_party_send=True).action_rfq_send()

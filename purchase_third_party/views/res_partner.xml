@@ -8,17 +8,19 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
-                <field name="supplier" invisible="1" />
                 <button
                     type="object"
-                    attrs="{'invisible': [('supplier', '=', False)]}"
                     name="action_view_product_supplierinfo"
                     class="oe_stat_button"
                     string="Supplier Agreements"
                     icon="fa-handshake-o"
+                    attrs="{'invisible': [('supplier_rank', '=', 0)]}"
                 >
                 </button>
             </div>
+            <field name="category_id" position="after">
+                <field name="supplier_rank" invisible="1" />
+            </field>
         </field>
     </record>
 </odoo>
