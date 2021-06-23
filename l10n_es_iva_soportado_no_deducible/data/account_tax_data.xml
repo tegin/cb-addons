@@ -4,47 +4,30 @@
      License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
 <odoo>
     <!-- IVA SOPORTADO NO DEDUCIBLE -->
-    <record id="l10n_es.account_tax_template_p_iva10_nd" model="account.tax.template">
-        <field name="account_id" ref="account_common_6340" />
-        <field name="refund_account_id" ref="account_common_6340" />
-    </record>
-    <record id="l10n_es.account_tax_template_p_iva4_nd" model="account.tax.template">
-        <field name="account_id" ref="account_common_6340" />
-        <field name="refund_account_id" ref="account_common_6340" />
-    </record>
-    <record id="l10n_es.account_tax_template_p_iva0_nd" model="account.tax.template">
-        <field name="account_id" ref="account_common_6340" />
-        <field name="refund_account_id" ref="account_common_6340" />
-    </record>
+    <record id="l10n_es.account_tax_template_p_iva10_nd" model="account.tax.template" />
+    <record id="l10n_es.account_tax_template_p_iva4_nd" model="account.tax.template" />
+    <record id="l10n_es.account_tax_template_p_iva0_nd" model="account.tax.template" />
     <!-- ADQUISICIONES INTRACOMUNITARIAS NO DEDUCIBLES -->
     <!-- IVA 21% Adquisición de servicios intracomunitarios no deducible -->
     <record id="account_tax_template_p_iva21_sp_in_nd_1" model="account.tax.template">
         <field name="description">P_IVA21_SP_IN_ND_1</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="l10n_es.account_common_477" />
         <field name="sequence" eval="10" />
         <field
             name="name"
         >IVA 21% Inversión del sujeto pasivo intracomunitario no deducible (1)</field>
-        <field name="refund_account_id" ref="l10n_es.account_common_477" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="-21" />
         <field name="amount_type">percent</field>
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_21" />
-        <field
-            name="tag_ids"
-            eval="[(6, False, [ref('l10n_es.mod_303_10_11'), ref('l10n_es.mod_303_14_15_purchase')])]"
-        />
     </record>
     <record id="account_tax_template_p_iva21_sp_in_nd_2" model="account.tax.template">
         <field name="description">P_IVA21_SP_IN_ND_2</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="account_common_6340" />
         <field name="sequence" eval="20" />
         <field
             name="name"
         >IVA 21% Inversión del sujeto pasivo intracomunitario no deducible (2)</field>
-        <field name="refund_account_id" ref="account_common_6340" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="21" />
         <field name="amount_type">percent</field>
@@ -69,30 +52,22 @@
     <record id="account_tax_template_p_iva21_ic_nd_bc_2" model="account.tax.template">
         <field name="description">P_IVA21_IC_ND_BC_2</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="l10n_es.account_common_477" />
         <field name="sequence" eval="20" />
         <field
             name="name"
         >IVA 21% Intracomunitario no deducible. Bienes corrientes (2)</field>
-        <field name="refund_account_id" ref="l10n_es.account_common_477" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="-21" />
         <field name="amount_type">percent</field>
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_21" />
-        <field
-            name="tag_ids"
-            eval="[(6, False, [ref('l10n_es.mod_303_10_11'), ref('l10n_es.mod_303_14_15_purchase')])]"
-        />
     </record>
     <record id="account_tax_template_p_iva21_ic_nd_bc_1" model="account.tax.template">
         <field name="description">P_IVA21_IC_ND_BC_1</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="account_common_6340" />
         <field name="sequence" eval="10" />
         <field
             name="name"
         >IVA 21% Intracomunitario no deducible. Bienes corrientes (1)</field>
-        <field name="refund_account_id" ref="account_common_6340" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="21" />
         <field name="amount_type">percent</field>
@@ -117,30 +92,22 @@
     <record id="account_tax_template_p_iva21_ic_nd_bi_2" model="account.tax.template">
         <field name="description">P_IVA21_IC_ND_BI_2</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="l10n_es.account_common_477" />
         <field name="sequence" eval="20" />
         <field
             name="name"
         >IVA 21% Intracomunitario no deducible. Bienes de inversión (2)</field>
-        <field name="refund_account_id" ref="l10n_es.account_common_477" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="-21" />
         <field name="amount_type">percent</field>
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_21" />
-        <field
-            name="tag_ids"
-            eval="[(6, False, [ref('l10n_es.mod_303_10_11'), ref('l10n_es.mod_303_14_15_purchase')])]"
-        />
     </record>
     <record id="account_tax_template_p_iva21_ic_nd_bi_1" model="account.tax.template">
         <field name="description">P_IVA21_IC_ND_BI_1</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="account_common_6340" />
         <field name="sequence" eval="10" />
         <field
             name="name"
         >IVA 21% Intracomunitario no deducible. Bienes de inversión (1)</field>
-        <field name="refund_account_id" ref="account_common_6340" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="21" />
         <field name="amount_type">percent</field>
@@ -165,30 +132,22 @@
     <record id="account_tax_template_p_iva10_sp_in_nd_1" model="account.tax.template">
         <field name="description">P_IVA10_SP_IN_ND_1</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="l10n_es.account_common_477" />
         <field name="sequence" eval="10" />
         <field
             name="name"
         >IVA 10% Inversión del sujeto pasivo intracomunitario no deducible (1)</field>
-        <field name="refund_account_id" ref="l10n_es.account_common_477" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="-10" />
         <field name="amount_type">percent</field>
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_10" />
-        <field
-            name="tag_ids"
-            eval="[(6, False, [ref('l10n_es.mod_303_10_11'), ref('l10n_es.mod_303_14_15_purchase')])]"
-        />
     </record>
     <record id="account_tax_template_p_iva10_sp_in_nd_2" model="account.tax.template">
         <field name="description">P_IVA10_SP_IN_ND_2</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="account_common_6340" />
         <field name="sequence" eval="20" />
         <field
             name="name"
         >IVA 10% Inversión del sujeto pasivo intracomunitario no deducible (2)</field>
-        <field name="refund_account_id" ref="account_common_6340" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="10" />
         <field name="amount_type">percent</field>
@@ -213,30 +172,22 @@
     <record id="account_tax_template_p_iva4_sp_in_nd_1" model="account.tax.template">
         <field name="description">P_IVA4_SP_IN_ND_1</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="l10n_es.account_common_477" />
         <field name="sequence" eval="10" />
         <field
             name="name"
         >IVA 4% Inversión del sujeto pasivo intracomunitario no deducible (1)</field>
-        <field name="refund_account_id" ref="l10n_es.account_common_477" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="-4" />
         <field name="amount_type">percent</field>
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_4" />
-        <field
-            name="tag_ids"
-            eval="[(6, False, [ref('l10n_es.mod_303_10_11'), ref('l10n_es.mod_303_14_15_purchase')])]"
-        />
     </record>
     <record id="account_tax_template_p_iva4_sp_in_nd_2" model="account.tax.template">
         <field name="description">P_IVA4_SP_IN_ND_2</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="account_common_6340" />
         <field name="sequence" eval="20" />
         <field
             name="name"
         >IVA 4% Inversión del sujeto pasivo intracomunitario no deducible (2)</field>
-        <field name="refund_account_id" ref="account_common_6340" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="4" />
         <field name="amount_type">percent</field>
@@ -261,30 +212,22 @@
     <record id="account_tax_template_p_iva4_ic_nd_bc_2" model="account.tax.template">
         <field name="description">P_IVA4_IC_ND_BC_2</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="l10n_es.account_common_477" />
         <field name="sequence" eval="20" />
         <field
             name="name"
         >IVA 4% Intracomunitario no deducible. Bienes corrientes (2)</field>
-        <field name="refund_account_id" ref="l10n_es.account_common_477" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="-4" />
         <field name="amount_type">percent</field>
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_4" />
-        <field
-            name="tag_ids"
-            eval="[(6, False, [ref('l10n_es.mod_303_10_11'), ref('l10n_es.mod_303_14_15_purchase')])]"
-        />
     </record>
     <record id="account_tax_template_p_iva4_ic_nd_bc_1" model="account.tax.template">
         <field name="description">P_IVA4_IC_ND_BC_1</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="account_common_6340" />
         <field name="sequence" eval="10" />
         <field
             name="name"
         >IVA 4% Intracomunitario no deducible. Bienes corrientes (1)</field>
-        <field name="refund_account_id" ref="account_common_6340" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="4" />
         <field name="amount_type">percent</field>
@@ -309,30 +252,22 @@
     <record id="account_tax_template_p_iva4_ic_nd_bi_2" model="account.tax.template">
         <field name="description">P_IVA4_IC_ND_BI_2</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="l10n_es.account_common_477" />
         <field name="sequence" eval="20" />
         <field
             name="name"
         >IVA 4% Intracomunitario no deducible. Bienes de inversión (2)</field>
-        <field name="refund_account_id" ref="l10n_es.account_common_477" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="-4" />
         <field name="amount_type">percent</field>
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_4" />
-        <field
-            name="tag_ids"
-            eval="[(6, False, [ref('l10n_es.mod_303_10_11'), ref('l10n_es.mod_303_14_15_purchase')])]"
-        />
     </record>
     <record id="account_tax_template_p_iva4_ic_nd_bi_1" model="account.tax.template">
         <field name="description">P_IVA4_IC_ND_BI_1</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="account_common_6340" />
         <field name="sequence" eval="10" />
         <field
             name="name"
         >IVA 4% Intracomunitario no deducible. Bienes de inversión (1)</field>
-        <field name="refund_account_id" ref="account_common_6340" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="4" />
         <field name="amount_type">percent</field>
@@ -357,30 +292,22 @@
     <record id="account_tax_template_p_iva10_ic_nd_bc_2" model="account.tax.template">
         <field name="description">P_IVA10_IC_ND_BC_2</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="l10n_es.account_common_477" />
         <field name="sequence" eval="20" />
         <field
             name="name"
         >IVA 10% Intracomunitario no deducible. Bienes corrientes (2)</field>
-        <field name="refund_account_id" ref="l10n_es.account_common_477" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="-10" />
         <field name="amount_type">percent</field>
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_10" />
-        <field
-            name="tag_ids"
-            eval="[(6, False, [ref('l10n_es.mod_303_10_11'), ref('l10n_es.mod_303_14_15_purchase')])]"
-        />
     </record>
     <record id="account_tax_template_p_iva10_ic_nd_bc_1" model="account.tax.template">
         <field name="description">P_IVA10_IC_ND_BC_1</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="account_common_6340" />
         <field name="sequence" eval="10" />
         <field
             name="name"
         >IVA 10% Intracomunitario no deducible. Bienes corrientes (1)</field>
-        <field name="refund_account_id" ref="account_common_6340" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="10" />
         <field name="amount_type">percent</field>
@@ -405,30 +332,22 @@
     <record id="account_tax_template_p_iva10_ic_nd_bi_2" model="account.tax.template">
         <field name="description">P_IVA10_IC_ND_BI_2</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="l10n_es.account_common_477" />
         <field name="sequence" eval="20" />
         <field
             name="name"
         >IVA 10% Intracomunitario no deducible. Bienes de inversión (2)</field>
-        <field name="refund_account_id" ref="l10n_es.account_common_477" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="-10" />
         <field name="amount_type">percent</field>
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_10" />
-        <field
-            name="tag_ids"
-            eval="[(6, False, [ref('l10n_es.mod_303_10_11'), ref('l10n_es.mod_303_14_15_purchase')])]"
-        />
     </record>
     <record id="account_tax_template_p_iva10_ic_nd_bi_1" model="account.tax.template">
         <field name="description">P_IVA10_IC_ND_BI_1</field>
         <field name="type_tax_use">purchase</field>
-        <field name="account_id" ref="account_common_6340" />
         <field name="sequence" eval="10" />
         <field
             name="name"
         >IVA 10% Adquisición Intracomunitario no deducible. Bienes de inversión (1)</field>
-        <field name="refund_account_id" ref="account_common_6340" />
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="10" />
         <field name="amount_type">percent</field>
