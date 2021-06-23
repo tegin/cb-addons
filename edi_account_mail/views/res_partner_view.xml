@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form1" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="edi_account.view_partner_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <group name="edi_configuration" position="inside">
+                <field name="send_invoice_by_mail" />
+                <field name="email_integration" />
+                <field name="invoice_report_email_id" />
+            </group>
+        </field>
+    </record>
+</odoo>
