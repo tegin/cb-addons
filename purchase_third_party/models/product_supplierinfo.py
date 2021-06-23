@@ -1,27 +1,18 @@
 from odoo import _, api, fields, models
-from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
 
 
 class SupplierInfo(models.Model):
     _inherit = "product.supplierinfo"
+    _check_company_auto = True
 
-    third_party_partner_id = fields.Many2one("res.partner")
-    third_party_price = fields.Float(digits=dp.get_precision("Product Price"))
+    third_party_partner_id = fields.Many2one("res.partner", check_company=True)
+    third_party_price = fields.Float(digits="Product Price")
 
     @api.onchange("third_party_partner_id")
     def _onchange_third_party_partner(self):
         if not self.third_party_partner_id:
             self.third_party_price = False
-
-    @api.constrains("third_party_partner_id", "company_id")
-    def _check_third_party_company(self):
-        for rec in self:
-            partner = rec.third_party_partner_id
-            if partner and not partner.check_company(rec.company_id):
-                raise ValidationError(
-                    _("Company of the third party must be consistent")
-                )
 
     @api.constrains("third_party_partner_id", "third_party_price")
     def _check_third_party_price(self):
