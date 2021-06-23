@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<odoo noupdate="1">
+    <record id="backend_type" model="edi.backend.type">
+        <field name="name">Move Storage Backend type</field>
+        <field name="code">account_move_storage</field>
+    </record>
+</odoo>

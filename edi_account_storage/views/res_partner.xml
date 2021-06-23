@@ -5,13 +5,14 @@
     <record model="ir.ui.view" id="res_partner_form_view">
         <field name="name">res.partner.form (in l10n_es_facturae_storage)</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="l10n_es_facturae.view_partner_form" />
+        <field name="inherit_id" ref="edi_account.view_partner_form" />
         <field name="arch" type="xml">
-            <field name="organo_proponente" position="after">
-                <field name="account_integration_report_id" />
-                <field name="account_integration_storage_id" />
-                <field name="account_integration_filename_pattern" />
-            </field>
+            <group name="edi_configuration" position="inside">
+                <field
+                    name="account_invoice_storage_exchange_type_id"
+                    domain="[('backend_id', '!=', False), ('backend_type_id', '=', %(edi_account_storage.backend_type)s)]"
+                />
+            </group>
         </field>
     </record>
 </odoo>
