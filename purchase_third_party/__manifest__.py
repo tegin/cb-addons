@@ -4,13 +4,13 @@
 
 {
     "name": "Purchase Third Party",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "Eficent, Creu Blanca",
     "website": "http://github.com/tegin/cb-addons",
     "summary": "Creates inter company relations",
     "sequence": 30,
     "category": "Sale",
-    "depends": ["mcfix_purchase"],
+    "depends": ["purchase_stock"],
     "license": "AGPL-3",
     "data": [
         "views/res_partner.xml",
