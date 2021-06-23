@@ -1,11 +1,10 @@
-from odoo import api, models
+from odoo import models
 from odoo.addons.base.models.ir_sequence import _select_nextval, _update_nogap
 
 
 class IrSequence(models.Model):
     _inherit = "ir.sequence"
 
-    @api.multi
     def _next_do(self):
         if self.env.context.get("sequence_tuple", False):
             if self.implementation == "standard":
