@@ -16,12 +16,14 @@ class TestPurchaseThirdParty(TransactionCase):
         )
 
         self.uom_id = self.env.ref("uom.product_uom_unit").id
+        route = self.env.ref("purchase_stock.route_warehouse0_buy")
         self.mto_product = self.env["product.product"].create(
             {
                 "name": "Test buy product",
                 "type": "product",
                 "uom_id": self.uom_id,
                 "uom_po_id": self.uom_id,
+                "standard_price": 1,
                 "seller_ids": [
                     (
                         0,
@@ -34,6 +36,7 @@ class TestPurchaseThirdParty(TransactionCase):
                         },
                     )
                 ],
+                "route_ids": (4, route.id),
             }
         )
 
@@ -42,18 +45,22 @@ class TestPurchaseThirdParty(TransactionCase):
         rule = self.env["stock.rule"].search(
             [("route_id", "=", route.id)], limit=1
         )
-        rule._run_buy(
+        rule.flush()
+        procurement = self.env["procurement.group"].Procurement(
             product_id=self.mto_product,
             product_qty=1,
             product_uom=self.mto_product.uom_id,
             location_id=self.env["stock.location"].search([], limit=1),
             name="Procurement order test",
             origin="Test",
+            company_id=self.env.user.company_id,
             values={
+                "date_planned": str(Datetime.now()),
                 "company_id": self.env.user.company_id,
-                "date_planned": Datetime.now(),
             },
         )
+        procurements = (procurement, rule)
+        rule._run_buy([procurements])
         purchase = self.env["purchase.order"].search([("origin", "=", "Test")])
         self.assertEqual(purchase.third_party_partner_id, self.tp_partner)
         self.assertEqual(purchase.order_line.third_party_price_unit, 5)

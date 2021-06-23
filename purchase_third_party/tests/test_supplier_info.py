@@ -1,7 +1,7 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tests.common import TransactionCase
 
 
@@ -39,7 +39,7 @@ class TestPurchaseThirdParty(TransactionCase):
     def test_check_third_party_company(self):
         company_1 = self.env["res.company"].create({"name": "Comp1"})
         company_2 = self.env["res.company"].create({"name": "Comp2"})
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(UserError):
             self.tp_partner.write({"company_id": company_1.id})
             self.supplier.write({"company_id": company_2.id})
 

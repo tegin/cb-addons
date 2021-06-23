@@ -1,5 +1,4 @@
 from odoo import _, api, fields, models
-from odoo.addons import decimal_precision as dp
 from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
 from odoo.exceptions import ValidationError
 
@@ -51,7 +50,6 @@ class PurchaseOrder(models.Model):
                 }
             )
 
-    @api.multi
     def action_rfq_send(self):
         res = super().action_rfq_send()
         if self.env.context.get("third_party_send"):
@@ -85,9 +83,7 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    third_party_price_unit = fields.Float(
-        digits=dp.get_precision("Product Price")
-    )
+    third_party_price_unit = fields.Float(digits="Product Price")
 
     third_party_price_subtotal = fields.Monetary(
         compute="_compute_amount_third_party",
