@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import Form, TransactionCase
 
 
 class TestSafeBox(TransactionCase):
@@ -114,12 +114,12 @@ class TestSafeBox(TransactionCase):
 
     def create_company(self, name):
         company = self.env["res.company"].create(
-            {"name": name, "vat": 1, "currency_id": self.ref("base.USD")}
+            {"name": name, "vat": "1", "currency_id": self.ref("base.USD")}
         )
         self.env.user.write(
             {"company_ids": [(4, company.id)], "company_id": company.id}
         )
-        self.chart_template_id.load_for_current_company(15.0, 15.0)
+        self.chart_template_id.try_loading()
         return company
 
     def test_safe_box(self):
@@ -147,7 +147,9 @@ class TestSafeBox(TransactionCase):
         self.assertEqual(self.safe_box_01.amount, 100)
         self.assertEqual(self.safe_box_02.amount, 0)
         with self.assertRaises(ValidationError):
-            self.env["wizard.safe.box.move"].sudo(user=self.user.id).create(
+            self.env["wizard.safe.box.move"].with_user(
+                user=self.user.id
+            ).create(
                 {
                     "safe_box_group_id": self.safe_box_group.id,
                     "initial_safe_box_id": self.safe_box_01.id,
@@ -156,7 +158,7 @@ class TestSafeBox(TransactionCase):
                 }
             ).run()
         self.safe_box_02.write({"user_ids": [(4, self.user.id)]})
-        self.env["wizard.safe.box.move"].sudo(user=self.user.id).create(
+        self.env["wizard.safe.box.move"].with_user(user=self.user.id).create(
             {
                 "safe_box_group_id": self.safe_box_group.id,
                 "initial_safe_box_id": self.safe_box_01.id,
@@ -173,13 +175,15 @@ class TestSafeBox(TransactionCase):
             }
         ).run()
         self.safe_box_group.recompute_amount()
-        count = (
-            self.env["wizard.safe.box.count"]
-            .with_context(default_safe_box_group_id=self.safe_box_group.id)
-            .new({})
+        wizard_action = self.safe_box_group.action_count_money()
+        self.safe_box_group.flush()
+        count = self.env["wizard.safe.box.count"].browse(
+            wizard_action["res_id"]
         )
-        count.safe_box_id = self.safe_box_02
-        count._onchange_safe_box_id()
+        count.flush()
+        with Form(count) as form_count:
+            form_count.safe_box_id = self.safe_box_02
+        # count._onchange_safe_box_id()
         count.validate()
         self.assertEqual(count.state, "different")
         self.assertTrue(count.coin_ids)
