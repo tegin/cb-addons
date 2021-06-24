@@ -5,7 +5,7 @@
     "name": "Account Credit Control Deferred",
     "summary": """
         Defferred credit control mails""",
-    "version": "12.0.1.1.0",
+    "version": "13.0.1.1.0",
     "license": "AGPL-3",
     "author": "Creu Blanca,Odoo Community Association (OCA)",
     "website": "www.creublanca.es",
