@@ -34,9 +34,10 @@ class TestPaymentOrderCheck(TransactionCase):
                 "company_id": self.main_company.id,
             }
         )
-        self.env.ref(
-            "l10n_generic_coa.configurable_chart_template"
-        ).try_loading_for_current_company()
+        self.chart_template_id = self.env["account.chart.template"].search(
+            [("visible", "=", True)], limit=1
+        )
+        self.chart_template_id.try_loading()
         self.account_expense = self.account_model.search(
             [
                 (
@@ -134,7 +135,7 @@ class TestPaymentOrderCheck(TransactionCase):
         accpre = self.env["decimal.precision"].precision_get("Account")
         self.assertEqual(asus_pay_line1.currency_id, self.eur_currency)
         self.assertEqual(
-            asus_pay_line1.partner_bank_id, invoice1.partner_bank_id
+            asus_pay_line1.partner_bank_id, invoice1.invoice_partner_bank_id
         )
         self.assertEqual(
             float_compare(
@@ -161,14 +162,14 @@ class TestPaymentOrderCheck(TransactionCase):
         self.assertEqual(asus_bank_line.communication_type, "normal")
         self.assertEqual(asus_bank_line.communication, "Inv9032-Inv9033")
         self.assertEqual(
-            asus_bank_line.partner_bank_id, invoice1.partner_bank_id
+            asus_bank_line.partner_bank_id, invoice1.invoice_partner_bank_id
         )
 
         action = self.payment_order.open2generated()
         self.assertEqual(self.payment_order.state, "generated")
         self.assertEqual(action["res_model"], "ir.attachment")
         attachment = self.attachment_model.browse(action["res_id"])
-        self.assertEqual(attachment.datas_fname[-4:], ".pdf")
+        self.assertEqual(attachment.name[-4:], ".pdf")
 
     def create_invoice(
         self,
@@ -179,30 +180,31 @@ class TestPaymentOrderCheck(TransactionCase):
         reference,
         invoice_type="in_invoice",
     ):
-        invoice = self.env["account.invoice"].create(
+        invoice = self.env["account.move"].create(
             {
                 "partner_id": partner_id,
                 "reference_type": "none",
-                "reference": reference,
+                "ref": reference,
                 "currency_id": currency_id,
-                "name": "test",
-                "account_id": self.account_payable.id,
                 "type": invoice_type,
                 "company_id": self.main_company.id,
                 "payment_mode_id": self.payment_mode.id,
-                "partner_bank_id": bank.id,
+                "invoice_partner_bank_id": bank.id,
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "price_unit": price_unit,
+                            "quantity": 1,
+                            "name": "Great service",
+                            "account_id": self.account_expense.id,
+                        },
+                    )
+                ],
             }
         )
-        self.env["account.invoice.line"].create(
-            {
-                "invoice_id": invoice.id,
-                "price_unit": price_unit,
-                "quantity": 1,
-                "name": "Great service",
-                "account_id": self.account_expense.id,
-            }
-        )
-        invoice.action_invoice_open()
+        invoice.post()
         return invoice
 
     def test_constrain(self):

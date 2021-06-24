@@ -39,7 +39,7 @@ class AccountPaymentLine(models.Model):
     _inherit = "account.payment.line"
 
     def _get_check_reference(self):
-        invoice = self.move_line_id.invoice_id
-        if invoice and invoice.reference:
-            return invoice.reference
+        invoice = self.move_line_id.move_id
+        if invoice and invoice.invoice_payment_ref:
+            return invoice.invoice_payment_ref
         return self.name
