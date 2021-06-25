@@ -9,10 +9,18 @@ class TestInterCompany(SavepointCase):
     def setUp(self):
         super(TestInterCompany, self).setUp()
         self.company_1 = self.env["res.company"].create(
-            {"name": "1Company", "vat": 1, "currency_id": self.ref("base.USD")}
+            {
+                "name": "1Company",
+                "vat": "1",
+                "currency_id": self.ref("base.USD"),
+            }
         )
         self.company_2 = self.env["res.company"].create(
-            {"name": "2Company", "vat": 2, "currency_id": self.ref("base.USD")}
+            {
+                "name": "2Company",
+                "vat": "2",
+                "currency_id": self.ref("base.USD"),
+            }
         )
         self.chart_template_id = self.env["account.chart.template"].search(
             [("visible", "=", True)], limit=1
@@ -21,7 +29,7 @@ class TestInterCompany(SavepointCase):
             self.env.user.write(
                 {"company_ids": [(4, company.id)], "company_id": company.id}
             )
-            self.chart_template_id.load_for_current_company(15.0, 15.0)
+            self.chart_template_id.try_loading()
 
     def create_inter_company(
         self, company_1, company_2, journal_1=False, journal_2=False
