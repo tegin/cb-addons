@@ -4,13 +4,13 @@
 
 {
     "name": "Intercompany journal",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "Eficent, Creu Blanca",
     "website": "http://github.com/eficent/cb-addons",
     "summary": "Creates inter company relations",
     "sequence": 30,
     "category": "Accounting",
-    "depends": ["mcfix_account"],
+    "depends": ["account"],
     "license": "AGPL-3",
     "data": [
         "security/ir.model.access.csv",
