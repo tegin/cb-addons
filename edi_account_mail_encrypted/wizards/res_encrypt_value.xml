@@ -14,7 +14,12 @@
                     <field name="value" />
                 </group>
                 <footer>
-                    <button name="doit" string="OK" class="btn-primary" type="object" />
+                    <button
+                        name="encrypt_store"
+                        string="OK"
+                        class="btn-primary"
+                        type="object"
+                    />
                     <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
             </form>

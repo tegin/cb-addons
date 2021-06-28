@@ -7,6 +7,7 @@ from odoo import api, fields, models
 class ResViewValue(models.TransientModel):
     _name = "res.view.value"
     _inherit = "email.encryptor"
+    _description = "View an Encrypted mail value"
 
     @api.model
     def _default_value(self):
