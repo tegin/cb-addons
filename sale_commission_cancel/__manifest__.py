@@ -4,7 +4,7 @@
 
 {
     "name": "Sale Commission Cancel",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "Eficent, Creu Blanca",
     "website": "http://github.com/eficent/cb-addons",
     "summary": "Creates inter company relations",
