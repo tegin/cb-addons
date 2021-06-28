@@ -6,7 +6,7 @@ from odoo.addons.component.core import Component
 
 
 class EdiOutputL10nEsFacturae(Component):
-    _name = "edi.output.generate.l10n_es_facturae"
+    _name = "edi.output.generate.edi_account_mail.generate"
     _inherit = "edi.component.output.mixin"
     _usage = "output.generate"
     _backend_type = "account_move_mail"
@@ -25,4 +25,10 @@ class EdiOutputL10nEsFacturae(Component):
     def _generate(self):
         action = self.get_email_integration_action()
         content, content_type = action.render(self.exchange_record.record.ids)
-        return content, "Invoice.%s" % content_type, content_type
+        return self._post_generate(
+            content, "Invoice.%s" % content_type, content_type
+        )
+
+    def _post_generate(self, content, content_name, content_type):
+        """Hook used if we want to generate zip files or add attachments"""
+        return content, content_name, content_type
