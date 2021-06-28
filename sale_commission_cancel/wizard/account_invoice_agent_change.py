@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class AccountInvoiceAgentChange(models.TransientModel):
@@ -12,7 +12,6 @@ class AccountInvoiceAgentChange(models.TransientModel):
         "account.invoice.line.agent", required=True, readonly=True
     )
 
-    @api.multi
     def run(self):
         self.ensure_one()
         self.agent_line.change_agent(self.agent)

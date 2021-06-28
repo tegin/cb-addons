@@ -16,7 +16,7 @@ class TestSaleCommission(TransactionCase):
         )
         self.res_partner_model = self.env["res.partner"]
         self.partner = self.res_partner_model.create({"name": "Partner"})
-        self.partner.write({"supplier": False, "agent": False})
+        self.partner.write({"agent": False})
         self.sale_order_model = self.env["sale.order"]
         self.advance_inv_model = self.env["sale.advance.payment.inv"]
         self.settle_model = self.env["sale.commission.settlement"]
@@ -34,6 +34,7 @@ class TestSaleCommission(TransactionCase):
                 "agent": True,
                 "settlement": "monthly",
                 "lang": "en_US",
+                "commission_id": 1,
             }
         )
         self.agent_2 = self.res_partner_model.create(
@@ -42,6 +43,7 @@ class TestSaleCommission(TransactionCase):
                 "agent": True,
                 "settlement": "monthly",
                 "lang": "en_US",
+                "commission_id": 1,
             }
         )
 
@@ -59,13 +61,13 @@ class TestSaleCommission(TransactionCase):
                             "product_uom_qty": 1.0,
                             "product_uom": self.ref("uom.product_uom_unit"),
                             "price_unit": self.product.lst_price,
-                            "agents": [
+                            "agent_ids": [
                                 (
                                     0,
                                     0,
                                     {
-                                        "agent": agent.id,
-                                        "commission": commission.id,
+                                        "agent_id": agent.id,
+                                        "commission_id": commission.id,
                                     },
                                 )
                             ],
@@ -82,9 +84,7 @@ class TestSaleCommission(TransactionCase):
 
         sale_order.action_confirm()
         self.assertEqual(len(sale_order.invoice_ids), 0)
-        payment = self.advance_inv_model.create(
-            {"advance_payment_method": "all"}
-        )
+        payment = self.advance_inv_model.create({})
         context = {
             "active_model": "sale.order",
             "active_ids": [sale_order.id],
@@ -92,30 +92,30 @@ class TestSaleCommission(TransactionCase):
         }
         payment.with_context(context).create_invoices()
         self.assertNotEqual(len(sale_order.invoice_ids), 0)
-        sale_order.invoice_ids.action_invoice_open()
+        sale_order.invoice_ids.post()
         line = sale_order.invoice_ids.invoice_line_ids
-        agent_line = line.agents
+        agent_line = line.agent_ids
         self.assertTrue(agent_line)
         self.assertTrue(agent_line.can_cancel)
-        self.assertEqual(agent_line.agent, self.agent_1)
+        self.assertEqual(agent_line.agent_id, self.agent_1)
         self.assertFalse(agent_line.is_cancel)
         action = self.env["account.invoice.agent.change"].create(
             {"agent_line": agent_line.id, "agent": self.agent_1.id}
         )
         action.run()
         line.refresh()
-        self.assertEqual(len(line.agents), 1)
-        self.assertEqual(agent_line, line.agents)
-        self.assertEqual(agent_line.agent, self.agent_1)
+        self.assertEqual(len(line.agent_ids), 1)
+        self.assertEqual(agent_line, line.agent_ids)
+        self.assertEqual(agent_line.agent_id, self.agent_1)
         action = self.env["account.invoice.agent.change"].create(
             {"agent_line": agent_line.id, "agent": self.agent_2.id}
         )
         action.run()
         line.refresh()
         agent_line.refresh()
-        self.assertEqual(len(line.agents), 1)
-        self.assertEqual(agent_line.agent, self.agent_2)
-        agent_line = line.agents
+        self.assertEqual(len(line.agent_ids), 1)
+        self.assertEqual(agent_line.agent_id, self.agent_2)
+        agent_line = line.agent_ids
         wizard = self.make_settle_model.create(
             {
                 "date_to": (
@@ -130,12 +130,12 @@ class TestSaleCommission(TransactionCase):
         )
         action.run()
         line.refresh()
-        self.assertEqual(len(line.agents), 3)
-        self.assertIn(agent_line.id, line.agents.ids)
+        self.assertEqual(len(line.agent_ids), 3)
+        self.assertIn(agent_line.id, line.agent_ids.ids)
         agent_line.refresh()
         self.assertFalse(agent_line.can_cancel)
-        self.assertEqual(agent_line.agent, self.agent_2)
-        self.assertTrue(line.agents.filtered(lambda r: r.is_cancel))
+        self.assertEqual(agent_line.agent_id, self.agent_2)
+        self.assertTrue(line.agent_ids.filtered(lambda r: r.is_cancel))
         self.assertTrue(
-            line.agents.filtered(lambda r: r.agent == self.agent_1)
+            line.agent_ids.filtered(lambda r: r.agent_id == self.agent_1)
         )
