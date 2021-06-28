@@ -15,7 +15,7 @@ class TestWebRegisterLogin(TransactionCase):
         )
         # Login should be performed here but we dont want to commit
         # user_admin.sudo(user_admin)._login(self.env.cr.dbname, "admin", "admin")
-        users_obj.sudo(user_admin.id).register_new_login()
+        users_obj.with_user(user_admin.id).register_new_login()
 
         logins_after = len(
             self.env["res.users.access.log"].search(
