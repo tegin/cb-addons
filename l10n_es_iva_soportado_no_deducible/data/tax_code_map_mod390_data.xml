@@ -8,7 +8,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva4_ic_nd_bc_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva4_ic_nd_bc'))]"
         />
     </record>
     <record
@@ -17,7 +17,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva4_ic_nd_bc_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva4_ic_nd_bc'))]"
         />
     </record>
     <record
@@ -26,7 +26,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva10_ic_nd_bc_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva10_ic_nd_bc'))]"
         />
     </record>
     <record
@@ -35,7 +35,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva10_ic_nd_bc_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva10_ic_nd_bc'))]"
         />
     </record>
     <record
@@ -44,7 +44,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva21_ic_nd_bc_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva21_ic_nd_bc'))]"
         />
     </record>
     <record
@@ -53,7 +53,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva21_ic_nd_bc_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva21_ic_nd_bc'))]"
         />
     </record>
     <record
@@ -62,7 +62,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva4_sp_in_nd_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva4_sp_in_nd'))]"
         />
     </record>
     <record
@@ -71,7 +71,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva4_sp_in_nd_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva4_sp_in_nd'))]"
         />
     </record>
     <record
@@ -80,7 +80,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva10_sp_in_nd_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva10_sp_in_nd'))]"
         />
     </record>
     <record
@@ -89,7 +89,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva10_sp_in_nd_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva10_sp_in_nd'))]"
         />
     </record>
     <record
@@ -98,7 +98,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva21_sp_in_nd_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva21_sp_in_nd'))]"
         />
     </record>
     <record
@@ -107,7 +107,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva21_sp_in_nd_2'))]"
+            eval="[(4, ref('account_tax_template_p_iva21_sp_in_nd'))]"
         />
     </record>
     <record
@@ -117,15 +117,15 @@
         <field
             name="tax_ids"
             eval="[
-        (4, ref('account_tax_template_p_iva4_ic_nd_bc_2')),
-        (4, ref('account_tax_template_p_iva4_sp_in_nd_1')),
-        (4, ref('account_tax_template_p_iva4_ic_nd_bi_2')),
-        (4, ref('account_tax_template_p_iva10_ic_nd_bc_2')),
-        (4, ref('account_tax_template_p_iva10_sp_in_nd_1')),
-        (4, ref('account_tax_template_p_iva10_ic_nd_bi_2')),
-        (4, ref('account_tax_template_p_iva21_ic_nd_bc_2')),
-        (4, ref('account_tax_template_p_iva21_sp_in_nd_1')),
-        (4, ref('account_tax_template_p_iva21_ic_nd_bi_2'))]"
+        (4, ref('account_tax_template_p_iva4_ic_nd_bc')),
+        (4, ref('account_tax_template_p_iva4_sp_in_nd')),
+        (4, ref('account_tax_template_p_iva4_ic_nd_bi')),
+        (4, ref('account_tax_template_p_iva10_ic_nd_bc')),
+        (4, ref('account_tax_template_p_iva10_sp_in_nd')),
+        (4, ref('account_tax_template_p_iva10_ic_nd_bi')),
+        (4, ref('account_tax_template_p_iva21_ic_nd_bc')),
+        (4, ref('account_tax_template_p_iva21_sp_in_nd')),
+        (4, ref('account_tax_template_p_iva21_ic_nd_bi'))]"
         />
     </record>
     <record
@@ -135,15 +135,15 @@
         <field
             name="tax_ids"
             eval="[
-        (4, ref('account_tax_template_p_iva4_ic_nd_bc_2')),
-        (4, ref('account_tax_template_p_iva4_sp_in_nd_1')),
-        (4, ref('account_tax_template_p_iva4_ic_nd_bi_2')),
-        (4, ref('account_tax_template_p_iva10_ic_nd_bc_2')),
-        (4, ref('account_tax_template_p_iva10_sp_in_nd_1')),
-        (4, ref('account_tax_template_p_iva10_ic_nd_bi_2')),
-        (4, ref('account_tax_template_p_iva21_ic_nd_bc_2')),
-        (4, ref('account_tax_template_p_iva21_sp_in_nd_1')),
-        (4, ref('account_tax_template_p_iva21_ic_nd_bi_2'))]"
+        (4, ref('account_tax_template_p_iva4_ic_nd_bc')),
+        (4, ref('account_tax_template_p_iva4_sp_in_nd')),
+        (4, ref('account_tax_template_p_iva4_ic_nd_bi')),
+        (4, ref('account_tax_template_p_iva10_ic_nd_bc')),
+        (4, ref('account_tax_template_p_iva10_sp_in_nd')),
+        (4, ref('account_tax_template_p_iva10_ic_nd_bi')),
+        (4, ref('account_tax_template_p_iva21_ic_nd_bc')),
+        (4, ref('account_tax_template_p_iva21_sp_in_nd')),
+        (4, ref('account_tax_template_p_iva21_ic_nd_bi'))]"
         />
     </record>
     <record
@@ -152,7 +152,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva4_ic_nd_bc_1'))]"
+            eval="[(4, ref('account_tax_template_p_iva4_ic_nd_bc'))]"
         />
     </record>
     <record
@@ -161,7 +161,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva4_sp_in_nd_1'))]"
+            eval="[(4, ref('account_tax_template_p_iva4_sp_in_nd'))]"
         />
     </record>
     <record
@@ -170,7 +170,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva10_ic_nd_bc_1'))]"
+            eval="[(4, ref('account_tax_template_p_iva10_ic_nd_bc'))]"
         />
     </record>
     <record
@@ -179,7 +179,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva21_ic_nd_bc_1'))]"
+            eval="[(4, ref('account_tax_template_p_iva21_ic_nd_bc'))]"
         />
     </record>
     <record
@@ -188,7 +188,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva10_sp_in_nd_1'))]"
+            eval="[(4, ref('account_tax_template_p_iva10_sp_in_nd'))]"
         />
     </record>
     <record
@@ -197,7 +197,7 @@
     >
         <field
             name="tax_ids"
-            eval="[(4, ref('account_tax_template_p_iva21_sp_in_nd_1'))]"
+            eval="[(4, ref('account_tax_template_p_iva21_sp_in_nd'))]"
         />
     </record>
 </odoo>
