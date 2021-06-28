@@ -20,7 +20,6 @@ class ResConfigSettings(models.TransientModel):
         res.update(single_app_logo=single_app_logo)
         return res
 
-    @api.multi
     def set_values(self):
         res = super(ResConfigSettings, self).set_values()
         self.env["ir.config_parameter"].sudo().set_param(
