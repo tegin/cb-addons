@@ -3,10 +3,10 @@
     <record id="view_partner_form1" model="ir.ui.view">
         <field name="name">res.partner.form</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="l10n_es_facturae.view_partner_form" />
+        <field name="inherit_id" ref="edi_account_mail.view_partner_form1" />
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <field name="organo_proponente" position="after">
+            <field name="invoice_report_email_id" position="after">
                 <label for="email_integration_password" />
                 <div>
                     <field
@@ -15,19 +15,19 @@
                         password="True"
                     />
                     <button
-                        name="%(invoice_integration_email_encrypted.res_view_value_act_window)s"
+                        name="%(edi_account_mail_encrypted.res_view_value_act_window)s"
                         type="action"
                         string="View value"
-                        class="oe_inline"
-                        groups="invoice_integration_email_encrypted.group_view_encrypted_email_values"
+                        class="btn btn-primary oe_inline"
+                        groups="edi_account_mail_encrypted.group_view_encrypted_email_values"
                         context="{'default_res_id': active_id, 'default_model': active_model, 'default_field': 'email_integration_password'}"
                     />
                     <button
-                        name="%(invoice_integration_email_encrypted.res_encrypt_value_act_window)s"
+                        name="%(edi_account_mail_encrypted.res_encrypt_value_act_window)s"
                         type="action"
                         string="Set value"
-                        class="oe_inline"
-                        groups="invoice_integration_email_encrypted.group_set_encrypted_email_values"
+                        class="btn btn-secondary oe_inline"
+                        groups="edi_account_mail_encrypted.group_set_encrypted_email_values"
                         context="{'default_res_id': active_id, 'default_model': active_model, 'default_field': 'email_integration_password'}"
                     />
                 </div>
