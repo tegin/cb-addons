@@ -13,7 +13,9 @@ class AccountInvoiceLineAgent(models.Model):
         inverse_name="parent_agent_line_id",
         readonly=True,
     )
-    is_cancel = fields.Boolean(default=False, required=True, readonly=True)
+    is_cancel = fields.Boolean(
+        default=False, required=True, readonly=True, store=True
+    )
     can_cancel = fields.Boolean(compute="_compute_can_cancel", store=True)
 
     @classmethod
@@ -25,8 +27,7 @@ class AccountInvoiceLineAgent(models.Model):
                 constraints.append(
                     (
                         key,
-                        "UNIQUE(object_id, agent, parent_agent_line_id, "
-                        "is_cancel)",
+                        "UNIQUE(object_id, agent_id, parent_agent_line_id, is_cancel)",
                         message,
                     )
                 )
@@ -36,14 +37,14 @@ class AccountInvoiceLineAgent(models.Model):
         return res
 
     @api.depends(
-        "child_agent_line_ids", "is_cancel", "object_id.invoice_id.state"
+        "child_agent_line_ids", "is_cancel", "object_id.move_id.state"
     )
     def _compute_can_cancel(self):
         for rec in self:
             rec.can_cancel = (
                 not rec.child_agent_line_ids
                 and not rec.is_cancel
-                and rec.object_id.invoice_id.state != "draft"
+                and rec.object_id.move_id.state != "draft"
             )
 
     @api.constrains("parent_agent_line_id", "is_cancel")
@@ -67,18 +68,18 @@ class AccountInvoiceLineAgent(models.Model):
         return {
             "parent_agent_line_id": self.id,
             "object_id": self.object_id.id,
-            "commission": self.commission.id,
+            "commission_id": self.commission_id.id,
             "agent_line": False,
-            "agent": agent.id if agent else self.agent.id,
+            "agent_id": agent.id if agent else self.agent_id.id,
             "is_cancel": self.is_cancel if agent else not self.is_cancel,
         }
 
     def change_agent(self, agent):
         self.ensure_one()
-        if agent == self.agent:
+        if agent == self.agent_id:
             return
         if not self.agent_line:
-            self.agent = agent
+            self.agent_id = agent
             return
         self.create(self.get_commission_cancel_vals())
         self.create(self.get_commission_cancel_vals(agent))
