@@ -2,6 +2,7 @@
 # @author: Enric Tobella
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import base64
 import mimetypes
 from email.utils import formataddr
 
@@ -32,7 +33,7 @@ class EdiOutputAccountMoveSendMail(Component):
         result = [
             (
                 self.exchange_record.exchange_filename,
-                self.exchange_record.exchange_file,
+                base64.b64decode(self.exchange_record.exchange_file),
                 mimetypes.guess_type(self.exchange_record.exchange_filename)[
                     0
                 ],
