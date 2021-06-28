@@ -32,7 +32,7 @@ jobs:
             - uses: actions/checkout@v2
               with:
                   persist-credentials: false
-            - run: apt-get install zip -y
+            - run: apt-get install zip cups libcups2-dev libzbar-dev -y
             - run: oca_install_addons
             - run: oca_init_test_database
             - name: licenses check
