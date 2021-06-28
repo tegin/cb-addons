@@ -3,7 +3,7 @@
 
 {
     "name": "Flag Box",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "Creu Blanca",
     "license": "AGPL-3",
     "category": "Website",
