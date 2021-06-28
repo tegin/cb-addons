@@ -6,7 +6,7 @@ from odoo.addons.component.core import Component
 
 
 class AccountMoveMailListener(Component):
-    _name = "account.move.mail.listener"
+    _name = "account.move.storage.listener"
     _inherit = "base.event.listener"
     _apply_on = ["account.move"]
 
