@@ -37,6 +37,9 @@ jobs:
             - run:
                   pip install
                   git+https://github.com/tegin/medical-fhir.git@13.0#subdirectory=setup
+            - run:
+                  pip install
+                  git+https://github.com/forgeflow/multicompany-fixes.git@13.0#subdirectory=setup
             - run: oca_install_addons
             - run: oca_init_test_database
             - name: licenses check
