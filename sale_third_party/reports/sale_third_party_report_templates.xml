@@ -97,11 +97,11 @@
                         <p t-field="doc.client_order_ref" />
                     </div>
                     <div
-                        t-if="doc.confirmation_date and doc.state not in ['draft','sent']"
+                        t-if="doc.date_order and doc.state not in ['draft','sent']"
                         class="col-3"
                     >
                         <strong>Date Ordered:</strong>
-                        <p t-field="doc.confirmation_date" />
+                        <p t-field="doc.date_order" />
                     </div>
                     <div
                         t-if="doc.date_order and doc.state in ['draft','sent']"

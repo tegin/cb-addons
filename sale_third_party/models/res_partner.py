@@ -45,7 +45,6 @@ class ResPartner(models.Model):
         }
         return vals
 
-    @api.multi
     def write(self, vals):
         prefix = vals.get("third_party_sequence_prefix")
         if prefix:
@@ -93,9 +92,8 @@ class PartnerProperty(models.TransientModel):
         store=False,
     )
 
-    @api.multi
     def get_property_fields(self, obj, properties):
-        super(PartnerProperty, self).get_property_fields(obj, properties)
+        super().get_property_fields(obj, properties)
         for rec in self:
             rec.property_third_party_customer_account_id = rec.get_property_value(
                 "property_third_party_customer_account_id", obj, properties
@@ -104,9 +102,8 @@ class PartnerProperty(models.TransientModel):
                 "property_third_party_supplier_account_id", obj, properties
             )
 
-    @api.multi
     def get_property_fields_list(self):
-        res = super(PartnerProperty, self).get_property_fields_list()
+        res = super().get_property_fields_list()
         res.append("property_third_party_customer_account_id")
         res.append("property_third_party_supplier_account_id")
         return res

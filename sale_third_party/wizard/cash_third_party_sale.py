@@ -6,7 +6,8 @@ from odoo import api, fields, models
 
 class CashInvoiceOut(models.TransientModel):
     _name = "cash.third.party.sale"
-    _inherit = "cash.box.in"
+    _description = "Cash Third Party Sale"
+    _inherit = "cash.box.out"
 
     def _default_value(self, default_function):
         active_model = self.env.context.get("active_model", False)
@@ -84,7 +85,6 @@ class CashInvoiceOut(models.TransientModel):
     def _onchange_sale_order(self):
         self.amount = self.sale_order_id.third_party_customer_in_residual
 
-    @api.multi
     def _calculate_values_for_statement_line(self, record):
         res = super()._calculate_values_for_statement_line(record)
         res["third_party_sale_order_id"] = self.sale_order_id.id
