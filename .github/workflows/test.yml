@@ -33,6 +33,10 @@ jobs:
               with:
                   persist-credentials: false
             - run: apt-get install zip cups libcups2-dev libzbar-dev -y
+            - run: pip install setuptools-odoo
+            - run:
+                  pip install
+                  git+https://github.com/tegin/medical-fhir.git@13.0#subdirectory=setup
             - run: oca_install_addons
             - run: oca_init_test_database
             - name: licenses check
