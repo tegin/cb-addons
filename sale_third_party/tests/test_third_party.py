@@ -13,7 +13,6 @@ class ThirdParty(TransactionCase):
                 "name": "Journal",
                 "company_id": self.company.id,
                 "code": "TPJ",
-                "update_posted": True,
                 "type": "general",
             }
         )
@@ -65,15 +64,15 @@ class ThirdParty(TransactionCase):
         self.supplier = self.env["res.partner"].create(
             {
                 "name": "supplier",
-                "supplier": True,
+                "supplier_rank": 1,
                 "third_party_sequence_prefix": "SUP",
             }
         )
         self.supplier_2 = self.env["res.partner"].create(
-            {"name": "supplier 2", "supplier": True}
+            {"name": "supplier 2", "supplier_rank": 1}
         )
         self.customer = self.env["res.partner"].create(
-            {"name": "Customer", "customer": True}
+            {"name": "Customer", "customer_rank": 1}
         )
         self.product = self.env["product.product"].create(
             {"type": "service", "name": "Product"}
@@ -133,6 +132,7 @@ class ThirdParty(TransactionCase):
         prop.write(
             {"property_third_party_customer_account_id": self.customer_acc2.id}
         )
+        prop.refresh()
         self.assertEqual(
             self.customer.with_context(
                 force_company=self.company.id
@@ -150,7 +150,7 @@ class ThirdParty(TransactionCase):
         third_party = self.env["res.partner"].create(
             {
                 "name": "supplier",
-                "supplier": True,
+                "supplier_rank": 1,
                 "third_party_sequence_prefix": "SUP",
             }
         )
@@ -245,7 +245,7 @@ class ThirdParty(TransactionCase):
             sale_order.third_party_order_ids.id,
         )
         self.assertTrue(sale_order.third_party_move_id)
-        sale_order.action_cancel()
+        sale_order.with_context(force_delete=True).action_cancel()
         self.assertFalse(sale_order.third_party_move_id)
 
     def test_third_party_raises(self):
@@ -286,6 +286,7 @@ class ThirdParty(TransactionCase):
                 "default_third_party_supplier_account_id": self.supplier_acc.id,
             }
         )
+        self.company.refresh()
         sale_order = self.env["sale.order"].create(
             {
                 "company_id": self.company.id,
@@ -314,6 +315,7 @@ class ThirdParty(TransactionCase):
         self.assertEqual("no", sale_order.invoice_status)
         self.assertFalse(sale_order.third_party_move_id)
         sale_order.action_confirm()
+        self.assertTrue(sale_order.third_party_move_id)
         self.assertEqual(1, sale_order.third_party_order_count)
         self.assertEqual("no", sale_order.invoice_status)
         self.assertEqual(len(sale_order.third_party_order_ids), 1)

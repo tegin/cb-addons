@@ -13,10 +13,7 @@ class SaleOrder(models.Model):
         comodel_name="res.partner",
         readonly=True,
         states={"draft": [("readonly", False)]},
-        domain=[
-            ("supplier", "=", True),
-            ("third_party_sequence_id", "!=", False),
-        ],
+        domain=[("third_party_sequence_id", "!=", False)],
     )
     third_party_number = fields.Char(copy=False, readonly=True)
     third_party_move_id = fields.Many2one(
@@ -46,11 +43,13 @@ class SaleOrder(models.Model):
     third_party_customer_in_residual = fields.Monetary(
         currency_field="currency_id",
         compute="_compute_third_party_residual",
+        store=True,
         string="Incoming payment residual amount",
     )
     third_party_customer_in_residual_company = fields.Monetary(
         currency_field="currency_id",
         compute="_compute_third_party_residual",
+        store=True,
         string="Incoming payment residual amount in company currency",
     )
     third_party_customer_out_state = fields.Selection(
@@ -64,14 +63,15 @@ class SaleOrder(models.Model):
         currency_field="currency_id",
         string="Outgoing payment residual amount",
         compute="_compute_third_party_residual",
+        store=True,
     )
     third_party_customer_out_residual_company = fields.Monetary(
         currency_field="currency_id",
         string="Outgoing payment residual amount in company currency",
         compute="_compute_third_party_residual",
+        store=True,
     )
 
-    @api.multi
     @api.depends(
         "third_party_order",
         "third_party_move_id",
@@ -149,18 +149,18 @@ class SaleOrder(models.Model):
                 out_residual_company
             )
             rec.third_party_customer_out_residual = abs(out_residual)
-            if float_is_zero(
+            if rec.currency_id and float_is_zero(
                 rec.third_party_customer_in_residual,
                 precision_rounding=rec.currency_id.rounding,
             ):
                 rec.third_party_customer_in_state = "paid"
-            if float_is_zero(
+            if rec.currency_id and float_is_zero(
                 rec.third_party_customer_out_residual,
                 precision_rounding=rec.currency_id.rounding,
             ):
                 rec.third_party_customer_out_state = "paid"
 
-    @api.multi
+    @api.depends("third_party_order_ids")
     def _compute_third_party_order_count(self):
         for order in self:
             order.third_party_order_count = len(order.third_party_order_ids)
@@ -252,7 +252,6 @@ class SaleOrder(models.Model):
         order._compute_tax_id()
         return order
 
-    @api.multi
     def _action_confirm(self):
         res = super(SaleOrder, self)._action_confirm()
         for order in self.filtered(lambda o: o.third_party_order):
@@ -272,16 +271,14 @@ class SaleOrder(models.Model):
             order._create_third_party_order()
         return res
 
-    @api.multi
     def action_confirm(self):
-        res = super(SaleOrder, self).action_confirm()
+        res = super().action_confirm()
         for order in self.filtered(lambda o: o.third_party_order):
             order.action_done()
         return res
 
-    @api.multi
     def action_cancel(self):
-        res = super(SaleOrder, self).action_cancel()
+        res = super().action_cancel()
         for order in self.filtered(lambda o: o.third_party_move_id):
             order.third_party_order_ids.action_cancel()
             order.third_party_move_id.button_cancel()
@@ -308,7 +305,6 @@ class SaleOrder(models.Model):
                     _("Please define a third party partner.")
                 )
 
-    @api.multi
     def third_party_invoice_print(self):
         return self.env.ref(
             "sale_third_party.action_report_saleorder_third_party"

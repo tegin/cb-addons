@@ -1,7 +1,7 @@
 # Copyright (C) 2017 Creu Blanca
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class AccountBankStatementLine(models.Model):
@@ -11,7 +11,6 @@ class AccountBankStatementLine(models.Model):
         "sale.order", string="third party sale order", readonly=True
     )
 
-    @api.multi
     def fast_counterpart_creation(self):
         for st_line in self:
             if not st_line.third_party_sale_order_id:
