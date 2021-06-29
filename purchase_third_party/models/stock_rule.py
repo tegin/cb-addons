@@ -1,5 +1,8 @@
-from odoo import _, models
-from odoo.exceptions import UserError
+import logging
+
+from odoo import models
+
+_logger = logging.getLogger(__name__)
 
 
 class StockRule(models.Model):
@@ -16,6 +19,8 @@ class StockRule(models.Model):
                     values["supplier"].third_party_partner_id.id,
                 ),
             )
+        else:
+            res += (("third_party_order", "=", False),)
         return res
 
     def _prepare_purchase_order(self, company_id, origins, values):
@@ -47,14 +52,6 @@ class StockRule(models.Model):
         )
         if not seller.third_party_partner_id and not po.third_party_order:
             return res
-        if seller.third_party_partner_id and not po.third_party_order:
-            return UserError(
-                _("The partner of the third party must be the same")
-            )
-        if seller.third_party_partner_id != po.third_party_partner_id:
-            return UserError(
-                _("The partner of the third party must be the same")
-            )
         taxes = product_id.supplier_taxes_id
         fpos = po.fiscal_position_id
         taxes_id = fpos.map_tax(taxes) if fpos else taxes
