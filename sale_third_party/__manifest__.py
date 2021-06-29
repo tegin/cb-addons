@@ -4,13 +4,13 @@
 
 {
     "name": "Sale third party invoice",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "Eficent, Creu Blanca",
     "website": "http://github.com/tegin/cb-addons",
     "summary": "Creates inter company relations",
     "sequence": 30,
     "category": "Sale",
-    "depends": ["mcfix_sale", "multicompany_property_account"],
+    "depends": ["sale", "multicompany_property_account"],
     "license": "AGPL-3",
     "data": [
         "views/sale_order_views.xml",

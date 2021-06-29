@@ -84,11 +84,11 @@
             >
                 <field
                     name="third_party_price"
-                    attrs="{'invisible': [('parent.third_party_order', '=', False)]}"
+                    attrs="{'column_invisible': [('parent.third_party_order', '=', False)]}"
                 />
                 <field
                     name="third_party_product_id"
-                    attrs="{'invisible': [('parent.third_party_order', '=', False)]}"
+                    attrs="{'column_invisible': [('parent.third_party_order', '=', False)]}"
                 />
             </xpath>
             <xpath
@@ -97,11 +97,11 @@
             >
                 <field
                     name="third_party_price"
-                    attrs="{'invisible': [('parent.third_party_order', '=', False)]}"
+                    attrs="{'column_invisible': [('parent.third_party_order', '=', False)]}"
                 />
                 <field
                     name="third_party_product_id"
-                    attrs="{'invisible': [('parent.third_party_order', '=', False)]}"
+                    attrs="{'column_invisible': [('parent.third_party_order', '=', False)]}"
                 />
             </xpath>
         </field>
@@ -111,11 +111,12 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale_third_party.view_order_form" />
         <field name="arch" type="xml">
-            <button name="print_quotation" position="after">
+            <button name="preview_sale_order" position="before">
                 <button
                     type="object"
                     name="third_party_invoice_print"
                     class="oe_highlight"
+                    icon="fa-print"
                     string="Print Third Party Invoice"
                     attrs="{'invisible': [('third_party_number','=', False)]}"
                 />
