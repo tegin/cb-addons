@@ -6,7 +6,6 @@ import json
 from lxml import etree
 from odoo import _, api, models
 from odoo.exceptions import UserError
-from odoo.osv.orm import setup_modifiers
 
 
 class Base(models.AbstractModel):
@@ -56,10 +55,10 @@ class Base(models.AbstractModel):
         return True
 
     @api.model
-    def fields_view_get(
+    def _fields_view_get(
         self, view_id=None, view_type="form", toolbar=False, submenu=False
     ):
-        res = super().fields_view_get(
+        res = super()._fields_view_get(
             view_id=view_id,
             view_type=view_type,
             toolbar=toolbar,
@@ -89,7 +88,6 @@ class Base(models.AbstractModel):
             if node is not None:
                 buttons = self._get_quick_access_buttons(rules)
                 for button in buttons:
-                    setup_modifiers(button)
                     node.append(button)
             res["arch"] = etree.tostring(doc, encoding="unicode")
         return res
