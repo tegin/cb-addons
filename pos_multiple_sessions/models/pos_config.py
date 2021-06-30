@@ -20,7 +20,6 @@ class PosConfig(models.Model):
             pos_config.current_session_id = session
             pos_config.current_session_state = session.state
 
-    @api.multi
     def open_ui(self):
         self.ensure_one()
         return self._open_session(self.current_session_id.id)
