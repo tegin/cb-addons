@@ -12,7 +12,11 @@ class TestAssetManagementDepreciationPercentage(TransactionCase):
         self.asset_profile_model = self.env["account.asset.profile"]
         self.account_account_type_model = self.env["account.account.type"]
         self.account_type_regular = self.account_account_type_model.create(
-            {"name": "Test Regular", "type": "other"}
+            {
+                "name": "Test Regular",
+                "type": "other",
+                "internal_group": "asset",
+            }
         )
 
         self.account = self.env["account.account"].create(
@@ -48,7 +52,6 @@ class TestAssetManagementDepreciationPercentage(TransactionCase):
                 "method_number": 0,
                 "method_period": "month",
                 "method_end": time.strftime("2003-05-01"),
-                "prorata": False,
                 "days_calc": True,
                 "use_leap_years": False,
                 "annual_percentage": 25.0,
@@ -65,7 +68,7 @@ class TestAssetManagementDepreciationPercentage(TransactionCase):
         days = 1461
         day_amount = 4000 / days
         # January has 31 days
-        self.assertAlmostEqual(
+        self.assertAlmostEquals(
             asset.depreciation_line_ids[1].amount, 31 * day_amount, places=2
         )
         # February has 29 days

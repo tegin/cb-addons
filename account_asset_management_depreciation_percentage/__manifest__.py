@@ -3,7 +3,7 @@
 
 {
     "name": "Account Asset Management Depreciation Percentage",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "depends": ["account_asset_management"],
     "conflicts": ["l10n_es_account_asset"],
     "author": "Eficent",
