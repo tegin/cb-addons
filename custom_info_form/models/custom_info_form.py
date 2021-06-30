@@ -15,7 +15,7 @@ class CustomInfoForm(models.Model):
     partner_id = fields.Many2one(
         "res.partner",
         required=True,
-        track_visibility="onchange",
+        tracking=True,
         default=lambda r: r.env.user.partner_id,
     )
     custom_info_template_id = fields.Many2one(
