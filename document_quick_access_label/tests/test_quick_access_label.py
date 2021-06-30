@@ -4,6 +4,7 @@ import json
 
 from lxml import etree
 from mock import patch
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
@@ -14,7 +15,7 @@ class TestQuickAccessLabel(TransactionCase):
         self.remote = self.env["res.remote"].search([("name", "=", name)])
         if not self.remote:
             self.remote = self.env["res.remote"].create(
-                {"name": name, "ip": "127.0.0.1"}
+                {"name": name, "ip": "127.0.0.1", "in_network": True}
             )
 
         self.server = self.env["printing.server"].create(
@@ -137,6 +138,71 @@ class TestQuickAccessLabel(TransactionCase):
                 final_button = button
                 break
         context = json.loads(final_button.attrib["context"])
+        with patch(
+            "odoo.addons.base_remote.models.base.Base.remote", new=self.remote
+        ):
+            print_file_patch.assert_not_called()
+            self.partner.with_context(**context).action_print_document_label()
+            print_file_patch.assert_called()
+
+    @patch(
+        "odoo.addons.base_report_to_printer.models.printing_printer."
+        "PrintingPrinter.print_file"
+    )
+    def test_printing_exception(self, print_file_patch):
+        self.rule.label_id = self.label
+        data = self.partner.fields_view_get()
+        xml = etree.XML(data["arch"])
+        buttons = xml.xpath(
+            "//div[@name='button_box']/"
+            "button[@name='action_print_document_label']"
+        )
+        final_button = False
+        for button in buttons:
+            if (
+                json.loads(button.attrib["context"]).get("rule_id", False)
+                == self.rule.id
+            ):
+                final_button = button
+                break
+        context = json.loads(final_button.attrib["context"])
+        self.remote.write({"remote_printer_ids": [(5, 0, 0)]})
+        with patch(
+            "odoo.addons.base_remote.models.base.Base.remote", new=self.remote
+        ):
+            with self.assertRaises(UserError):
+                self.partner.with_context(
+                    **context
+                ).action_print_document_label()
+
+    @patch(
+        "odoo.addons.base_report_to_printer.models.printing_printer."
+        "PrintingPrinter.print_file"
+    )
+    def test_printing_user(self, print_file_patch):
+        self.rule.label_id = self.label
+        data = self.partner.fields_view_get()
+        xml = etree.XML(data["arch"])
+        buttons = xml.xpath(
+            "//div[@name='button_box']/"
+            "button[@name='action_print_document_label']"
+        )
+        final_button = False
+        for button in buttons:
+            if (
+                json.loads(button.attrib["context"]).get("rule_id", False)
+                == self.rule.id
+            ):
+                final_button = button
+                break
+        context = json.loads(final_button.attrib["context"])
+        self.remote.write({"remote_printer_ids": [(5, 0, 0)]})
+        self.env.user.write(
+            {
+                "printing_action": "server",
+                "printing_printer_id": self.printer.id,
+            }
+        )
         with patch(
             "odoo.addons.base_remote.models.base.Base.remote", new=self.remote
         ):
