@@ -19,11 +19,11 @@
                 <group>
                     <group>
                         <field
-                            name="journal_id"
-                            domain="[('id', 'in', journal_ids)]"
+                            name="payment_method_id"
+                            domain="[('id', 'in', payment_method_ids)]"
                             options="{'no_create': True}"
                         />
-                        <field name="journal_ids" invisible="1" />
+                        <field name="payment_method_ids" invisible="1" />
                     </group>
                     <group>
                         <field name="partner_id" />

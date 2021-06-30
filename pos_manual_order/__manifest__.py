@@ -5,7 +5,7 @@
     "name": "Pos Manual Order",
     "summary": """
         Add Orders manually on a PoS Session""",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "author": "Creu Blanca",
     "depends": ["mcfix_point_of_sale"],
