@@ -1,14 +1,13 @@
 # Copyright 2020 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
+from odoo import _, models
 
 
 class ProductTemplate(models.Model):
 
     _inherit = "product.template"
 
-    @api.multi
     def action_view_po(self):
         action = {
             "name": _("Purchase Order Lines"),
