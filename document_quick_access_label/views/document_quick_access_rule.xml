@@ -16,6 +16,7 @@
                 <field name="label_id" domain="[('model_id', '=', model_id)]" />
                 <field name="label_name" />
                 <field name="label_attrs" />
+                <field name="icon" />
             </field>
         </field>
     </record>
