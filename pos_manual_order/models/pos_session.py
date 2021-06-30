@@ -39,15 +39,23 @@ class PosSession(models.Model):
             }
         ]
 
-    def _get_manual_order_payment_data(self, order, journal):
+    def _get_manual_order_payment_data(self, order, payment_method):
         return {
             "amount": order.amount_total,
-            "journal": journal.id,
-            "pos_session_id": self.id,
+            "payment_method_id": payment_method.id,
+            "session_id": self.id,
+            "pos_order_id": order.id,
         }
 
     def _add_manual_order(
-        self, product, qty, price, discount, partner, fiscal_position, journal
+        self,
+        product,
+        qty,
+        price,
+        discount,
+        partner,
+        fiscal_position,
+        payment_method,
     ):
         self.ensure_one()
         if self.state != "opened":
@@ -72,7 +80,7 @@ class PosSession(models.Model):
             )
             order._onchange_amount_all()
 
-        data = self._get_manual_order_payment_data(order, journal)
+        data = self._get_manual_order_payment_data(order, payment_method)
         order.with_context(force_company=order.company_id.id).add_payment(data)
-        if order.test_paid():
+        if order._is_pos_order_paid():
             order.action_pos_order_paid()
