@@ -24,17 +24,12 @@ class PosSessionAddOrder(models.TransientModel):
         related="session_id.config_id.company_id.currency_id",
         readonly=True,
     )
-    journal_id = fields.Many2one("account.journal", required=True)
-    journal_ids = fields.Many2many(
-        "account.journal",
-        compute="_compute_journal_ids",
-        string="Allowed Journals",
+    payment_method_id = fields.Many2one("pos.payment.method", required=True)
+    payment_method_ids = fields.Many2many(
+        "pos.payment.method",
+        related="session_id.payment_method_ids",
+        string="Allowed Methods",
     )
-
-    @api.depends("session_id")
-    def _compute_journal_ids(self):
-        for rec in self:
-            rec.journal_ids = rec.session_id.statement_ids.mapped("journal_id")
 
     @api.onchange("product_id")
     def _onchange_product(self):
@@ -67,7 +62,6 @@ class PosSessionAddOrder(models.TransientModel):
             )
             rec.amount_total = taxes["total_included"]
 
-    @api.multi
     def run(self):
         return self.session_id._add_manual_order(
             self.product_id,
@@ -76,5 +70,5 @@ class PosSessionAddOrder(models.TransientModel):
             self.discount,
             self.partner_id,
             self.fiscal_position_id,
-            self.journal_id,
+            self.payment_method_id,
         )
