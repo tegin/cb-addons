@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template t-name="cb_knowledge.document_structure">
+        <t t-set="company" t-value="doc.company_id.sudo()" />
+        <t t-if="not company">
+            <t t-set="company" t-value="doc.env.user.company_id.sudo()" />
+        </t>
+        <div class="header">
+            <div class="o_boxed_header">
+                <div class="row mb8">
+                    <div class="col-2">
+                        <img
+                            t-if="company.logo"
+                            t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"
+                        />
+                    </div>
+                    <div class="col-7 text-left mb4">
+                        <h4 class="mt0" t-field="doc.name" />
+                    </div>
+                    <div class="col-3 text-left mb4">
+                        <h6 class="mt0">
+                            <span>Version:</span>
+                            <span t-field="doc.history_head.name" />
+                        </h6>
+                        <h6 class="mt0">
+                            <span>Approved:</span>
+                            <span
+                                t-field="doc.approved_date"
+                                t-options="{'widget': 'date'}"
+                            />
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <span style="font-size:10px" t-esc="doc.reference" />
+                </div>
+            </div>
+        </div>
+        <div class="article o_report_layout_boxed">
+            <t t-raw="0" />
+        </div>
+        <div class="footer o_boxed_footer">
+            <div class="row">
+                <div class="col-3">
+                    <img
+                        t-att-src="'/report/qr/?value=%s&amp;error_correction=%s' % (doc.reference, 3)"
+                        style="width:100;height:100"
+                        t-if="doc.reference"
+                    />
+                </div>
+                <div class="text-center col-6">
+                    <div>
+                        Page: <span class="page" /> / <span class="topage" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template
+        id="report_documentpage_doc"
+        inherit_id="document_page.report_documentpage_doc"
+    >
+        <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+            <attribute name="t-call">cb_knowledge.document_structure</attribute>
+        </xpath>
+        <xpath expr="//h1[@t-field='doc.name']" position="attributes">
+            <attribute name="t-if">1==0</attribute>
+        </xpath>
+    </template>
+</odoo>
