@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="custom_info_property_form">
+        <field name="name">custom.info.property.form (in custom_info_form)</field>
+        <field name="model">custom.info.property</field>
+        <field name="inherit_id" ref="base_custom_info.custom_info_property_form" />
+        <field name="arch" type="xml">
+            <field name="default_value" position="after">
+                <field
+                    name="compute_form_value"
+                    attrs="{'invisible': [('model', '!=', 'custom.info.form')]}"
+                />
+                <field name="model" invisible="1" />
+            </field>
+        </field>
+    </record>
+</odoo>
