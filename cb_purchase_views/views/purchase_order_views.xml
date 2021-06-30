@@ -8,7 +8,7 @@
             <field name="partner_id" position="after">
                 <field name="partner_ref" />
             </field>
-            <filter name="not_invoiced" position="before">
+            <filter name="my_purchases" position="after">
                 <filter
                     string="My Quotations"
                     domain="[('create_uid','=',uid)]"
