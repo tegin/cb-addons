@@ -4,7 +4,7 @@
 
 {
     "name": "PoS Close approval",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Reporting",
     "website": "https://github.com/eficent/cb-addons",
     "author": "Creu Blanca, Eficent",
@@ -12,10 +12,8 @@
     "installable": True,
     "application": False,
     "summary": "Adds integration information",
-    "depends": ["pos_multiple_sessions"],
+    "depends": ["pos_multiple_sessions", "pos_session_pay_invoice"],
     "data": [
-        "wizard/cash_box_journal_in.xml",
-        "wizard/cash_box_journal_out.xml",
         "wizard/bank_statement_account.xml",
         "views/pos_config_views.xml",
         "views/pos_session_views.xml",

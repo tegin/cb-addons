@@ -10,11 +10,15 @@ class TestPosCloseApproval(TransactionCase):
     def setUp(self):
         super(TestPosCloseApproval, self).setUp()
         self.pos_config = self.env["pos.config"].create({"name": "PoS config"})
+        self.session = False
+
+    def _open_session(self):
         self.pos_config.open_session_cb()
         self.session = self.pos_config.current_session_id
         self.session.action_pos_session_open()
 
     def test_unicity(self):
+        self._open_session()
         with self.assertRaises(ValidationError):
             self.env["pos.session"].create(
                 {"config_id": self.pos_config.id, "user_id": self.env.uid}
@@ -22,6 +26,7 @@ class TestPosCloseApproval(TransactionCase):
 
     def test_unicity_with_approval(self):
         self.pos_config.requires_approval = True
+        self._open_session()
         with self.assertRaises(ValidationError):
             self.env["pos.session"].create(
                 {"config_id": self.pos_config.id, "user_id": self.env.uid}
@@ -29,6 +34,7 @@ class TestPosCloseApproval(TransactionCase):
 
     def test_unicity_when_closed(self):
         self.pos_config.requires_approval = True
+        self._open_session()
         self.session.action_pos_session_closing_control()
         self.assertEqual(self.session.state, "pending_approval")
         session = self.env["pos.session"].create(
@@ -37,12 +43,14 @@ class TestPosCloseApproval(TransactionCase):
         self.assertTrue(session)
 
     def test_normal_closing(self):
+        self._open_session()
         self.session.action_pos_session_closing_control()
+        self.session.flush()
         self.assertEqual(self.session.state, "closed")
 
     def test_validation(self):
         self.pos_config.requires_approval = True
-        self.pos_config.open_session_cb()
+        self._open_session()
         self.session = self.pos_config.current_session_id
         self.session.action_pos_session_open()
         self.session.action_pos_session_closing_control()
@@ -53,7 +61,6 @@ class TestPosCloseApproval(TransactionCase):
         self.assertEqual(self.session.state, "closed")
 
     def test_wizard(self):
-        journal = self.session.journal_ids[0]
         account = self.env["account.account"].create(
             {
                 "company_id": self.pos_config.company_id.id,
@@ -64,39 +71,30 @@ class TestPosCloseApproval(TransactionCase):
                 ),
             }
         )
+        self._open_session()
         wizard = (
-            self.env["cash.box.journal.in"]
+            self.env["cash.box.out"]
             .with_context(
                 active_model="pos.session", active_ids=self.session.ids
             )
             .create({"amount": 10, "name": "Out"})
         )
-        wizard.journal_id = journal
         wizard.run()
         self.assertGreater(
-            self.session.statement_ids.filtered(
-                lambda r: r.journal_id.id == journal.id
-            ).balance_end,
-            0,
+            self.session.statement_ids.balance_end, 0,
         )
         wizard = (
-            self.env["cash.box.journal.out"]
+            self.env["cash.box.out"]
             .with_context(
                 active_model="pos.session", active_ids=self.session.ids
             )
-            .create({"amount": 10, "name": "Out"})
+            .create({"amount": -10, "name": "Out"})
         )
-        wizard.journal_id = journal
         wizard.run()
         self.assertEqual(
-            self.session.statement_ids.filtered(
-                lambda r: r.journal_id.id == journal.id
-            ).balance_end,
-            0,
+            self.session.statement_ids.balance_end, 0,
         )
-        statement = self.session.statement_ids.filtered(
-            lambda r: r.journal_id.id == journal.id
-        )
+        statement = self.session.statement_ids
         line = statement.line_ids[0]
         self.env["account.bank.statement.line.account"].with_context(
             active_model="account.bank.statement.line", active_ids=line.ids
