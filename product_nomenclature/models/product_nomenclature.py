@@ -12,7 +12,6 @@ class ProductNomenclature(models.Model):
     )
     active = fields.Boolean(default=True)
 
-    @api.multi
     def action_view_items(self):
         action = self.env.ref(
             "product_nomenclature." "product_nomenclature_product_action"

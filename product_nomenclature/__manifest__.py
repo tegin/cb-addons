@@ -4,10 +4,10 @@
 
 {
     "name": "Product nomenclature",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "Creu Blanca",
     "category": "Product",
-    "depends": ["product", "sales_team"],
+    "depends": ["sale"],
     "data": [
         "security/ir.model.access.csv",
         "views/product_nomenclature_product_views.xml",
