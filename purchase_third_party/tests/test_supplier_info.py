@@ -35,11 +35,13 @@ class TestPurchaseThirdParty(TransactionCase):
                 ],
             }
         )
+        self.supplier_info = self.mto_product.seller_ids
 
     def test_check_third_party_company(self):
         company_1 = self.env["res.company"].create({"name": "Comp1"})
         company_2 = self.env["res.company"].create({"name": "Comp2"})
         with self.assertRaises(UserError):
+            self.supplier_info.company_id = company_1
             self.tp_partner.write({"company_id": company_1.id})
             self.supplier.write({"company_id": company_2.id})
 
