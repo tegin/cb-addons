@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_nomenclature_form" model="ir.ui.view">
+        <field name="name">product.nomenclature.form</field>
+        <field name="model">product.nomenclature</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        text="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            type="object"
+                            name="action_view_items"
+                            class="oe_stat_button"
+                            icon="fa-bars"
+                            string="Items"
+                        />
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" />
+                            <field name="active" invisible="1" />
+                        </h1>
+                        <h2>
+                            <field name="name" />
+                        </h2>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="product_nomenclature_tree" model="ir.ui.view">
+        <field name="name">product.nomenclature.form</field>
+        <field name="model">product.nomenclature</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="product_nomenclature_search" model="ir.ui.view">
+        <field name="name">product.nomenclature.search</field>
+        <field name="model">product.nomenclature</field>
+        <field name="arch" type="xml">
+            <search string="Nomenclatures">
+                <field name="code" />
+                <field name="name" />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active','=',False)]"
+                />
+            </search>
+        </field>
+    </record>
+    <record id="product_nomenclature_action" model="ir.actions.act_window">
+        <field name="name">Nomenclatures</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.nomenclature</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a nomenclature.
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="nomenclature_menu"
+        name="Nomenclatures"
+        parent="sale.product_menu_catalog"
+        action="product_nomenclature.product_nomenclature_action"
+        groups="sales_team.group_sale_manager"
+        sequence="35"
+    />
+</odoo>
