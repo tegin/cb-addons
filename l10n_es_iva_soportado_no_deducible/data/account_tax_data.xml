@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2008 Eficent
+     Copyright 2008 Creu Blanca
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <!-- IVA SOPORTADO NO DEDUCIBLE -->
+    <record id="l10n_es.account_tax_template_p_iva10_nd" model="account.tax.template" />
+    <record id="l10n_es.account_tax_template_p_iva4_nd" model="account.tax.template" />
+    <record id="l10n_es.account_tax_template_p_iva0_nd" model="account.tax.template" />
+    <!-- ADQUISICIONES INTRACOMUNITARIAS NO DEDUCIBLES -->
+    <!-- IVA 21% Adquisición de servicios intracomunitarios no deducible -->
+    <record id="account_tax_template_p_iva21_sp_in_nd" model="account.tax.template">
+        <field
+            name="name"
+        >IVA 21% Adquisición de servicios intracomunitarios no deducible</field>
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="21" />
+        <field name="children_tax_ids" eval="[(5,0,0)]" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_10'), ref('l10n_es.mod_303_36')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_37')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_11')],
+            }),
+        ]"
+        />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_14_purchase'), ref('l10n_es.mod_303_40')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_41')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_15')],
+            }),
+        ]"
+        />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_21" />
+    </record>
+    <!-- IVA 21% Adquisición de servicios intracomunitarios no deducible. Bienes corrientes -->
+    <record id="account_tax_template_p_iva21_ic_nd_bc" model="account.tax.template">
+        <field
+            name="name"
+        >IVA 21% Adquisición Intracomunitaria no deducible. Bienes corrientes</field>
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="21" />
+        <field name="children_tax_ids" eval="[(5,0,0)]" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_36'), ref('l10n_es.mod_303_10')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_37')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_11')],
+            }),
+        ]"
+        />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_40'), ref('l10n_es.mod_303_14_purchase')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_41')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_15')],
+            }),
+        ]"
+        />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_21" />
+    </record>
+    <!-- IVA 21% Adquisición Intracomunitaria no deducible. Bienes de inversión -->
+    <record id="account_tax_template_p_iva21_ic_nd_bi" model="account.tax.template">
+        <field
+            name="name"
+        >IVA 21% Adquisición Intracomunitaria no deducible. Bienes de inversión</field>
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="21" />
+        <field name="children_tax_ids" eval="[(5,0,0)]" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_10'), ref('l10n_es.mod_303_38')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_39')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_11')],
+            }),
+        ]"
+        />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_40'), ref('l10n_es.mod_303_14_purchase')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_41')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_15')],
+            }),
+        ]"
+        />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_21" />
+    </record>
+    <!-- IVA 10% Adquisición de servicios intracomunitarios no deducible -->
+    <record id="account_tax_template_p_iva10_sp_in_nd" model="account.tax.template">
+        <field
+            name="name"
+        >IVA 10% Adquisición de servicios intracomunitarios no deducible</field>
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="10" />
+        <field name="children_tax_ids" eval="[(5,0,0)]" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_36'), ref('l10n_es.mod_303_10')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_472'),
+                'tag_ids': [ref('l10n_es.mod_303_37')],
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_11')],
+            }),
+        ]"
+        />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_40'), ref('l10n_es.mod_303_14_purchase')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_472'),
+                'tag_ids': [ref('l10n_es.mod_303_41')],
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_15')],
+            }),
+        ]"
+        />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_10" />
+    </record>
+    <!-- IVA 4% Adquisición de servicios intracomunitarios no deducible -->
+    <record id="account_tax_template_p_iva4_sp_in_nd" model="account.tax.template">
+        <field
+            name="name"
+        >IVA 4% Adquisición de servicios intracomunitarios no deducible</field>
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="4" />
+        <field name="children_tax_ids" eval="[(5,0,0)]" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_36'), ref('l10n_es.mod_303_10')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_37')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_11')],
+            }),
+        ]"
+        />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_40'), ref('l10n_es.mod_303_14_purchase')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_41')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_15')],
+            }),
+        ]"
+        />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_4" />
+    </record>
+    <!-- IVA 4% Intracomunitario no deducible. Bienes corrientes -->
+    <record id="account_tax_template_p_iva4_ic_nd_bc" model="account.tax.template">
+        <field
+            name="name"
+        >IVA 4% Adquisición Intracomunitario no deducible. Bienes corrientes</field>
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="4" />
+        <field name="children_tax_ids" eval="[(5,0,0)]" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_36'), ref('l10n_es.mod_303_10')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_37')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_11')],
+            }),
+        ]"
+        />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_40'), ref('l10n_es.mod_303_14_purchase')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_41')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_15')],
+            }),
+        ]"
+        />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_4" />
+    </record>
+    <!-- IVA 4% Adquisición Intracomunitario no deducible. Bienes de inversión -->
+    <record id="account_tax_template_p_iva4_ic_nd_bi" model="account.tax.template">
+        <field
+            name="name"
+        >IVA 4% Adquisición Intracomunitario no deducible. Bienes de inversión</field>
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="4" />
+        <field name="children_tax_ids" eval="[(5,0,0)]" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_38'), ref('l10n_es.mod_303_10')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_39')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_11')],
+            }),
+        ]"
+        />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_4" />
+    </record>
+    <!-- IVA 10% Adquisición Intracomunitario no deducible. Bienes corrientes -->
+    <record id="account_tax_template_p_iva10_ic_nd_bc" model="account.tax.template">
+        <field
+            name="name"
+        >IVA 10% Adquisición Intracomunitario no deducible. Bienes corrientes</field>
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="10" />
+        <field name="children_tax_ids" eval="[(5,0,0)]" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_36'), ref('l10n_es.mod_303_10')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_37')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_11')],
+            }),
+        ]"
+        />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_40'), ref('l10n_es.mod_303_14_purchase')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_41')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_15')],
+            }),
+        ]"
+        />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_10" />
+    </record>
+    <!-- IVA 10% Adquisición Intracomunitario no deducible. Bienes de inversión -->
+    <record id="account_tax_template_p_iva10_ic_nd_bi" model="account.tax.template">
+        <field
+            name="name"
+        >IVA 10% Adquisición Intracomunitario no deducible. Bienes de inversión</field>
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount_type">percent</field>
+        <field name="amount" eval="10" />
+        <field name="children_tax_ids" eval="[(5,0,0)]" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_38'), ref('l10n_es.mod_303_10')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_39')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_11')],
+            }),
+        ]"
+        />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_40'), ref('l10n_es.mod_303_14_purchase')],
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_41')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_15')],
+            }),
+        ]"
+        />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_10" />
+    </record>
+</odoo>
