@@ -6,20 +6,13 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <widget
+                        name="web_ribbon"
+                        text="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
                     <div class="oe_button_box" name="button_box">
-                        <button
-                            name="toggle_active"
-                            type="object"
-                            confirm="Are you sure you want to archive/unarchive this element?"
-                            class="oe_stat_button"
-                            icon="fa-archive"
-                        >
-                            <field
-                                name="active"
-                                widget="boolean_button"
-                                options='{"terminology": "archive"}'
-                            />
-                        </button>
                         <button
                             type="object"
                             name="action_view_items"
@@ -31,6 +24,7 @@
                     <div class="oe_title">
                         <h1>
                             <field name="code" />
+                            <field name="active" invisible="1" />
                         </h1>
                         <h2>
                             <field name="name" />
@@ -69,7 +63,6 @@
         <field name="name">Nomenclatures</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.nomenclature</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
@@ -77,4 +70,12 @@
             </p>
         </field>
     </record>
+    <menuitem
+        id="nomenclature_menu"
+        name="Nomenclatures"
+        parent="sale.product_menu_catalog"
+        action="product_nomenclature.product_nomenclature_action"
+        groups="sales_team.group_sale_manager"
+        sequence="35"
+    />
 </odoo>
