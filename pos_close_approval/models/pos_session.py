@@ -12,6 +12,11 @@ class PosSession(models.Model):
     state = fields.Selection(
         selection_add=[("pending_approval", "Pending approval")]
     )
+    statement_line_ids = fields.One2many(
+        "account.bank.statement.line",
+        inverse_name="pos_session_id",
+        readonly=True,
+    )
 
     @api.constrains("config_id")
     def _check_pos_config(self):
@@ -33,19 +38,16 @@ class PosSession(models.Model):
                 )
             )
 
-    @api.multi
     def action_pos_session_approve(self):
         for session in self:
             for statement in session.statement_ids:
                 statement.write({"balance_end_real": statement.balance_end})
             session.action_pos_session_close()
 
-    @api.multi
     def action_pos_session_closing_control(self):
-        approved = 0
-        for record in self:
-            if not record.config_id.requires_approval:
-                approved += 1
+        approved = len(
+            self.filtered(lambda r: not r.config_id.requires_approval)
+        )
         if approved == len(self):
             return super(PosSession, self).action_pos_session_closing_control()
         if approved == 0:

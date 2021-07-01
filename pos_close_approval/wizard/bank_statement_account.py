@@ -2,7 +2,7 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class AccountBankStatementLineAccount(models.TransientModel):
@@ -38,7 +38,6 @@ class AccountBankStatementLineAccount(models.TransientModel):
     def _statement_line_vals(self):
         return {"account_id": self.account_id.id}
 
-    @api.multi
     def run(self):
         for record in self:
             record.statement_line_id.write(record._statement_line_vals())

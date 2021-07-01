@@ -15,58 +15,89 @@
                     groups="point_of_sale.group_pos_manager"
                 />
             </button>
-            <button name="%(point_of_sale.action_pos_box_in)d" position="after">
-                <button
-                    name="%(action_cash_box_journal_in_pos)d"
-                    type="action"
-                    icon="fa-level-down"
-                    class="oe_stat_button"
-                    states="pending_approval"
-                    groups="point_of_sale.group_pos_manager"
+            <notebook position="inside">
+                <page
+                    name="no_cash_control"
+                    string="Cash Control"
+                    attrs="{'invisible' : [('cash_control', '=', True)]}"
                 >
-                    <div class="o_from_field o_stat_info">
-                        <span class="o_stat_text">Put</span>
-                        <span class="o_stat_text">Money In</span>
-                    </div>
-                </button>
-                <button
-                    name="%(action_cash_box_journal_in_pos)d"
-                    type="action"
-                    icon="fa-level-down"
-                    class="oe_stat_button"
-                    states="opened,closing_control"
+                    <group class="col-md-12" style="margin-left: 140px;">
+                        <group class="col-md-7">
+                            <div style="margin:0;padding:0;">
+                                <group style="margin:0;padding:0;">
+                                    <field
+                                        style="text-align:right;margin:0;padding:0;"
+                                        name="cash_register_balance_start"
+                                        readonly="1"
+                                        widget="monetary"
+                                        options="{'currency_field': 'currency_id'}"
+                                        string="Starting Cash"
+                                    />
+                                </group>
+                                <group
+                                    style="margin:0;padding:0;"
+                                    attrs="{'invisible' : [('state', 'in', ['new_session', 'opening_control'])]}"
+                                >
+                                    <field
+                                        style="text-align:right;margin:0;padding:0;"
+                                        name="cash_register_total_entry_encoding"
+                                        widget="monetary"
+                                        options="{'currency_field': 'currency_id'}"
+                                        string="+ Transactions"
+                                    />
+                                </group>
+                                <group
+                                    style="margin:0;padding:0;"
+                                    attrs="{'invisible' : [('state', 'in', ['new_session', 'opening_control'])]}"
+                                >
+                                    <field
+                                        style="text-align:right;margin:0;padding:0;"
+                                        name="cash_register_balance_end"
+                                        widget="monetary"
+                                        options="{'currency_field': 'currency_id'}"
+                                        string="= Expected in Cash"
+                                    />
+                                </group>
+                            </div>
+                            <div style="margin:0;padding:0;">
+                                <group style="margin:0;padding:0;">
+                                </group>
+                                <group
+                                    style="margin:0;padding:0;"
+                                    attrs="{'invisible' : [('state', 'in', ['new_session', 'opening_control'])]}"
+                                >
+                                    <button
+                                        class="oe_inline oe_link"
+                                        name="342"
+                                        type="action"
+                                        attrs="{'invisible' : [('state', '=', 'closed')]}"
+                                    >Cash In/Out</button>
+                                </group>
+                                <group
+                                    style="margin:0;padding:0;"
+                                    attrs="{'invisible' : [('state', 'in', ['new_session', 'opening_control'])]}"
+                                >
+                                </group>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+                <page
+                    string="Statements"
+                    name="statements"
+                    attrs="{'invisible' : [('cash_control', '=', True)]}"
                 >
-                    <div class="o_from_field o_stat_info">
-                        <span class="o_stat_text">Put</span>
-                        <span class="o_stat_text">Money In</span>
-                    </div>
-                </button>
-                <button
-                    name="%(action_cash_box_journal_out_pos)d"
-                    type="action"
-                    icon="fa-level-up"
-                    class="oe_stat_button"
-                    states="opened,closing_control"
-                >
-                    <div class="o_from_field o_stat_info">
-                        <span class="o_stat_text">Take</span>
-                        <span class="o_stat_text">Money Out</span>
-                    </div>
-                </button>
-                <button
-                    name="%(action_cash_box_journal_out_pos)d"
-                    type="action"
-                    icon="fa-level-up"
-                    class="oe_stat_button"
-                    states="pending_approval"
-                    groups="point_of_sale.group_pos_manager"
-                >
-                    <div class="o_from_field o_stat_info">
-                        <span class="o_stat_text">Take</span>
-                        <span class="o_stat_text">Money Out</span>
-                    </div>
-                </button>
-            </button>
+                    <field name="statement_line_ids">
+                        <tree>
+                            <field name="journal_id" />
+                            <field name="ref" />
+                            <field name="name" />
+                            <field name="partner_id" />
+                            <field name="amount" />
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
         </field>
     </record>
     <record id="view_pos_session_search" model="ir.ui.view">
