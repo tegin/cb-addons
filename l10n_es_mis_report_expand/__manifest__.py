@@ -5,7 +5,7 @@
     "name": "L10n Es Mis Report Expand",
     "summary": """
         Plantillas extendidas MIS Builder para informes contables españoles""",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "author": "Eficent, Creu Blanca",
     "website": "https://github.com/OCA/l10n-spain",
