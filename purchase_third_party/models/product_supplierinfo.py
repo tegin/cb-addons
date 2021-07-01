@@ -4,7 +4,6 @@ from odoo.exceptions import ValidationError
 
 class SupplierInfo(models.Model):
     _inherit = "product.supplierinfo"
-    _check_company_auto = True
 
     third_party_partner_id = fields.Many2one("res.partner", check_company=True)
     third_party_price = fields.Float(digits="Product Price")
