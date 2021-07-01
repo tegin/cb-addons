@@ -10,7 +10,7 @@
     "summary": "Creates inter company relations",
     "sequence": 30,
     "category": "Sale",
-    "depends": ["purchase_stock"],
+    "depends": ["mcfix_purchase_stock"],
     "license": "AGPL-3",
     "data": [
         "views/res_partner.xml",
