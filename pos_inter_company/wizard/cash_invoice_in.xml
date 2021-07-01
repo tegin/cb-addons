@@ -12,7 +12,7 @@
             <field name="invoice_id" position="attributes">
                 <attribute name="domain">['|',('company_id', '=', company_id),
                             ('company_id', 'in', inter_company_ids),
-                           ('state', '=', 'open'),
+                           ('state', '=', 'posted'),
                            ('currency_id', '=', currency_id),
                            ('type', 'in', ['in_invoice', 'out_refund'])]</attribute>
             </field>
