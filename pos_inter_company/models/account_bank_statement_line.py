@@ -1,14 +1,15 @@
-# Copyright 2017 Creu Blanca
+# Copyright 2017-21 Creu Blanca
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class BankStatementLine(models.Model):
     _inherit = "account.bank.statement.line"
 
-    @api.multi
+    account_id = fields.Many2one(check_company=False)
+
     def inter_company_payment(self):
         self.ensure_one()
         inter_company = (
@@ -48,7 +49,6 @@ class BankStatementLine(models.Model):
             )
         self.copy({"statement_id": inverse_statement.id})
 
-    @api.multi
     def fast_counterpart_creation(self):
         for st_line in self:
             company = st_line.statement_id.company_id
@@ -71,7 +71,6 @@ class BankStatementLine(models.Model):
                     ),
                 ).fast_counterpart_creation()
 
-    @api.multi
     @api.constrains("company_id", "account_id")
     def _check_company_id_account_id(self):
         return
