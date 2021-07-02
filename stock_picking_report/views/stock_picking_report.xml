@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@name='div_sched_date']" position="after">
+            <div t-if="not o.partner_id" class="col-auto" name="div_destination">
+                <strong>Destination</strong>
+                <p t-field="o.location_dest_id" />
+            </div>
+        </xpath>
+    </template>
+</odoo>
