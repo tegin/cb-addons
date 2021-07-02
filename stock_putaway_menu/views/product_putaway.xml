@@ -4,7 +4,7 @@
 <odoo>
     <record model="ir.actions.act_window" id="product_putaway_act_window">
         <field name="name">Product Putaway</field>
-        <field name="res_model">product.putaway</field>
+        <field name="res_model">stock.putaway.rule</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
