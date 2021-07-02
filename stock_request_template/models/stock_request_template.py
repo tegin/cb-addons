@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
-from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
 
 
@@ -29,9 +28,7 @@ class StockRequestTemplate(models.Model):
         "res.company",
         "Company",
         required=True,
-        default=lambda self: self.env["res.company"]._company_default_get(
-            "stock.request.order"
-        ),
+        default=lambda self: self.env.company,
     )
 
     @api.onchange("warehouse_id")
@@ -41,10 +38,9 @@ class StockRequestTemplate(models.Model):
             loc_wh = self.location_id.sudo().get_warehouse()
             if self.warehouse_id != loc_wh:
                 self.location_id = self.warehouse_id.sudo().lot_stock_id
-                self.with_context(no_change_childs=True).onchange_location_id()
+
             if self.warehouse_id.sudo().company_id != self.company_id:
                 self.company_id = self.warehouse_id.company_id
-                self.with_context(no_change_childs=True).onchange_company_id()
 
     @api.onchange("company_id")
     def onchange_company_id(self):
@@ -78,19 +74,6 @@ class StockRequestTemplateLine(models.Model):
     _description = "stock.request.template.line"
 
     template_id = fields.Many2one("stock.request.template", required=True)
-    product_uom_id = fields.Many2one(
-        "uom.uom",
-        "Product Unit of Measure",
-        required=True,
-        default=lambda self: self._context.get("product_uom_id", False),
-    )
-    product_uom_qty = fields.Float(
-        "Quantity",
-        digits=dp.get_precision("Product Unit of Measure"),
-        required=True,
-        help="Quantity, specified in the unit of measure indicated in the "
-        "request.",
-    )
     product_id = fields.Many2one(
         "product.product",
         "Product",
@@ -98,21 +81,25 @@ class StockRequestTemplateLine(models.Model):
         ondelete="restrict",
         required=True,
     )
+    product_uom_id = fields.Many2one(
+        "uom.uom", "Product Unit of Measure", required=True,
+    )
 
-    @api.constrains("product_id")
-    def _check_product_uom(self):
-        if any(
-            request.product_id.uom_id.category_id
-            != request.product_uom_id.category_id
-            for request in self
-        ):
-            raise ValidationError(
-                _(
-                    "You have to select a product unit of measure in the "
-                    "same category than the default unit "
-                    "of measure of the product"
+    product_uom_qty = fields.Float(
+        "Quantity",
+        digits="Product Unit of Measure",
+        required=True,
+        help="Quantity, specified in the unit of measure indicated in the "
+        "request.",
+    )
+
+    @api.constrains("product_uom_qty")
+    def _check_product_uom_qty(self):
+        for rec in self:
+            if rec.product_uom_qty <= 0:
+                raise ValidationError(
+                    _("Product quantity has to be strictly positive.")
                 )
-            )
 
     @api.onchange("product_id")
     def onchange_product_id(self):
