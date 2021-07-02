@@ -1,13 +1,12 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import models
 
 
 class StockRequestOrder(models.Model):
     _inherit = "stock.request.order"
 
-    @api.multi
     def _apply_template(self, template):
         for line in template.template_line_ids:
             vals = self._template_line_vals(template, line)

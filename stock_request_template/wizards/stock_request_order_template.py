@@ -1,7 +1,7 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class StockRequestOrderTemplate(models.TransientModel):
@@ -21,7 +21,6 @@ class StockRequestOrderTemplate(models.TransientModel):
         "stock.location", readonly=True, related="order_id.location_id"
     )
 
-    @api.multi
-    def doit(self):
+    def apply_template(self):
         self.ensure_one()
         return self.order_id._apply_template(self.template_id)
