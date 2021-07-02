@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_pos_session_form" model="ir.ui.view">
+        <field name="name">pos.session.form.view</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form" />
+        <field name="arch" type="xml">
+            <button name="action_pos_session_closing_control" position="after">
+                <button
+                    name="action_pos_session_approve"
+                    type="object"
+                    string="Approve"
+                    class="oe_highlight"
+                    states="pending_approval"
+                    groups="point_of_sale.group_pos_manager"
+                />
+            </button>
+            <notebook position="inside">
+                <page
+                    name="no_cash_control"
+                    string="Cash Control"
+                    attrs="{'invisible' : [('cash_control', '=', True)]}"
+                >
+                    <group class="col-md-12" style="margin-left: 140px;">
+                        <group class="col-md-7">
+                            <div style="margin:0;padding:0;">
+                                <group style="margin:0;padding:0;">
+                                    <field
+                                        style="text-align:right;margin:0;padding:0;"
+                                        name="cash_register_balance_start"
+                                        readonly="1"
+                                        widget="monetary"
+                                        options="{'currency_field': 'currency_id'}"
+                                        string="Starting Cash"
+                                    />
+                                </group>
+                                <group
+                                    style="margin:0;padding:0;"
+                                    attrs="{'invisible' : [('state', 'in', ['new_session', 'opening_control'])]}"
+                                >
+                                    <field
+                                        style="text-align:right;margin:0;padding:0;"
+                                        name="cash_register_total_entry_encoding"
+                                        widget="monetary"
+                                        options="{'currency_field': 'currency_id'}"
+                                        string="+ Transactions"
+                                    />
+                                </group>
+                                <group
+                                    style="margin:0;padding:0;"
+                                    attrs="{'invisible' : [('state', 'in', ['new_session', 'opening_control'])]}"
+                                >
+                                    <field
+                                        style="text-align:right;margin:0;padding:0;"
+                                        name="cash_register_balance_end"
+                                        widget="monetary"
+                                        options="{'currency_field': 'currency_id'}"
+                                        string="= Expected in Cash"
+                                    />
+                                </group>
+                            </div>
+                            <div style="margin:0;padding:0;">
+                                <group style="margin:0;padding:0;">
+                                </group>
+                                <group
+                                    style="margin:0;padding:0;"
+                                    attrs="{'invisible' : [('state', 'in', ['new_session', 'opening_control'])]}"
+                                >
+                                    <button
+                                        class="oe_inline oe_link"
+                                        name="342"
+                                        type="action"
+                                        attrs="{'invisible' : [('state', '=', 'closed')]}"
+                                    >Cash In/Out</button>
+                                </group>
+                                <group
+                                    style="margin:0;padding:0;"
+                                    attrs="{'invisible' : [('state', 'in', ['new_session', 'opening_control'])]}"
+                                >
+                                </group>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+                <page
+                    string="Statements"
+                    name="statements"
+                    attrs="{'invisible' : [('cash_control', '=', True)]}"
+                >
+                    <field name="statement_line_ids">
+                        <tree>
+                            <field name="journal_id" />
+                            <field name="ref" />
+                            <field name="name" />
+                            <field name="partner_id" />
+                            <field name="amount" />
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+    <record id="view_pos_session_search" model="ir.ui.view">
+        <field name="name">pos.session.search.view</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_search" />
+        <field name="arch" type="xml">
+            <filter domain="[('state', '=', 'opened')]" position="after">
+                <filter
+                    string="Pending approval"
+                    domain="[('state', '=', 'pending_approval')]"
+                    name="pending"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>
