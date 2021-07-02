@@ -22,7 +22,12 @@
                     <field name="company_id" invisible="1" />
                 </group>
                 <footer>
-                    <button name="doit" string="OK" class="btn-primary" type="object" />
+                    <button
+                        name="apply_template"
+                        string="OK"
+                        class="btn-primary"
+                        type="object"
+                    />
                     <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
             </form>
