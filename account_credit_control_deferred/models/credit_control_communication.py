@@ -18,7 +18,7 @@ class CreditControlCommunication(models.Model):
         required=True,
         default="queued",
     )
-    total_current_invoiced = fields.Float(compute="_compute_total")
+    total_current_invoiced = fields.Float(compute="_compute_total", store=True)
     last_message = fields.Datetime(compute="_compute_last_message", store=True)
     total_invoiced = fields.Float(store=True)
     total_due = fields.Float(store=True)

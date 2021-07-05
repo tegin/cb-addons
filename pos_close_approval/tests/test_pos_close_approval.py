@@ -81,7 +81,8 @@ class TestPosCloseApproval(TransactionCase):
         )
         wizard.run()
         self.assertGreater(
-            self.session.statement_ids.balance_end, 0,
+            self.session.statement_ids.balance_end,
+            self.session.statement_ids.balance_start,
         )
         wizard = (
             self.env["cash.box.out"]
@@ -92,7 +93,8 @@ class TestPosCloseApproval(TransactionCase):
         )
         wizard.run()
         self.assertEqual(
-            self.session.statement_ids.balance_end, 0,
+            self.session.statement_ids.balance_end,
+            self.session.statement_ids.balance_start,
         )
         statement = self.session.statement_ids
         line = statement.line_ids[0]

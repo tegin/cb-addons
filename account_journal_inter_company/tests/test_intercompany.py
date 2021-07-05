@@ -22,4 +22,9 @@ class TestInterCompanyJournal(common.TestInterCompany):
             )
         )
         with self.assertRaises(ValidationError):
-            self.create_inter_company(self.company_1, self.company_2)
+            self.create_inter_company(
+                self.company_1,
+                self.company_2,
+                self.company_1.inter_company_ids.journal_id,
+                self.company_1.inter_company_ids.related_journal_id,
+            )
