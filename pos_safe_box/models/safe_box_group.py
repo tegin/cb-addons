@@ -2,7 +2,7 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, api, exceptions, fields, models
+from odoo import _, exceptions, fields, models
 
 
 class SafeBoxGroup(models.Model):
@@ -38,7 +38,6 @@ class SafeBoxGroup(models.Model):
             ],
         }
 
-    @api.multi
     def get_current_session_validation(self):
         self.ensure_one()
         validation = self.env["pos.session.validation"].search(
