@@ -57,7 +57,6 @@ class TestPosSafeBox(TransactionCase):
             [("type", "=", "cash"), ("company_id", "=", self.company.id)],
             limit=1,
         )
-        self.journal.write({"journal_user": True})
         self.pos_config = self.env["pos.config"].new(
             {
                 "company_id": self.company.id,
@@ -67,17 +66,14 @@ class TestPosSafeBox(TransactionCase):
             }
         )
         self.pos_config = self.pos_config.create(self.pos_config._cache)
-        self.pos_config.journal_ids = self.journal
 
     def test_pos_safe_box(self):
         self.pos_config.open_session_cb()
         session = self.pos_config.current_session_id
         self.assertTrue(session.statement_ids)
-        self.env["cash.box.journal.in"].with_context(
+        self.env["cash.box.out"].with_context(
             active_model="pos.session", active_ids=session.ids
-        ).create(
-            {"journal_id": self.journal.id, "name": "Testing", "amount": 100}
-        ).run()
+        ).create({"name": "Testing", "amount": 100}).run()
         session.action_pos_session_closing_control()
         self.assertTrue(session.pos_session_validation_id)
         validation = session.pos_session_validation_id
