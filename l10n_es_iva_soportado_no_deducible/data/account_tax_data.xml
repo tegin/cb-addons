@@ -390,6 +390,30 @@
             }),
         ]"
         />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('l10n_es.mod_303_40'), ref('l10n_es.mod_303_14_purchase')],
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('l10n_es.mod_303_41')],
+                'account_id': ref('l10n_es.account_common_472'),
+            }),
+
+            (0,0, {
+                'factor_percent': -100,
+                'repartition_type': 'tax',
+                'account_id': ref('l10n_es.account_common_477'),
+                'tag_ids': [ref('l10n_es.mod_303_15')],
+            }),
+        ]"
+        />
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_4" />
     </record>
     <!-- IVA 10% Adquisición Intracomunitario no deducible. Bienes corrientes -->
