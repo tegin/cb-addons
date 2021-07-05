@@ -34,23 +34,37 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
             [("n43_identifier", "=", account)], limit=1
         )
 
-    @api.multi
-    def doit(self):
+    def _get_exchange_record_vals(
+        self, journal, account, n43, filename, extension
+    ):
+        return {
+            "model": journal._name,
+            "res_id": journal.id,
+            "edi_exchange_state": "input_received",
+            "exchange_filename": "%s_%s.%s"
+            % (filename, journal.id, extension),
+        }
+
+    def process_file(self):
         self.ensure_one()
         n43_multi = self._check_n43(base64.b64decode(self.data_file))
+        real_filename, extension = self.filename.rsplit(".")
+        backend = self.env.ref(
+            "l10n_es_account_bank_statement_import_n43_multi.backend"
+        )
         for account in n43_multi:
             n43 = n43_multi[account]
             journal = self._get_journal(n43["journal"], n43)
-            self.env["account.bank.statement.import"].create(
-                {
-                    "filename": self.filename,
-                    "data_file": base64.b64encode(
-                        n43["file"].encode(
-                            self._get_common_file_encodings()[0]
-                        )
-                    ),
-                }
-            ).with_context(journal_id=journal.id).import_file()
+            exchange_record = backend.create_record(
+                "l10n_es_n43",
+                self._get_exchange_record_vals(
+                    journal, account, n43, real_filename, extension
+                ),
+            )
+            exchange_record._set_file_content(
+                n43["file"].encode(self._get_common_file_encodings()[0])
+            )
+            backend.with_delay().exchange_process(exchange_record)
         return {}
 
     @api.model

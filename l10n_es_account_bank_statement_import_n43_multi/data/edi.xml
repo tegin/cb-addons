@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="backend_type" model="edi.backend.type">
+        <field name="name">L10n ES N43</field>
+        <field name="code">l10n_es_n43</field>
+    </record>
+    <record id="exchange_type" model="edi.exchange.type">
+        <field name="name">l10n ES N43</field>
+        <field name="code">l10n_es_n43</field>
+        <field name="backend_type_id" ref="backend_type" />
+        <field name="direction">input</field>
+        <field name="exchange_filename_pattern">{record_name}--{dt}</field>
+        <field name="exchange_file_ext">txt</field>
+    </record>
+    <record id="backend" model="edi.backend">
+        <field name="name">N43 Backend</field>
+        <field name="backend_type_id" ref="backend_type" />
+    </record>
+</odoo>
