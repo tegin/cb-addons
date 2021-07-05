@@ -142,7 +142,6 @@ class PosSessionValidation(models.Model):
             ],
         }
 
-    @api.multi
     def close(self):
         self.ensure_one()
         if self.coin_amount != self.cash_amount:
@@ -180,7 +179,6 @@ class PosSessionValidation(models.Model):
         self.closing_move_id.close()
         self.write({"state": "closed", "closing_date": fields.Datetime.now()})
 
-    @api.multi
     def approve(self):
         self.ensure_one()
         sbg = self.safe_box_group_id
