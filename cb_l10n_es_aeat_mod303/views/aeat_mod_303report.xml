@@ -89,9 +89,9 @@
                                         <strong>Other parameters:</strong>
                                     </h4>
                                     <b>Statement Type:</b>
-                                    <span t-field="o.type" />
+                                    <span t-field="o.period_type" />
                                     <br />
-                                    <div t-if="o.type != 'N'">
+                                    <div t-if="o.period_type != 'N'">
                                         <b>Previous number:</b>
                                         <span t-field="o.previous_number" />
                                         <br />
