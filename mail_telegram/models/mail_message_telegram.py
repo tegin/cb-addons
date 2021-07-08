@@ -5,7 +5,7 @@ import base64
 import logging
 from io import BytesIO
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
 from odoo.tools import html2plaintext
 from telegram import Bot
@@ -50,7 +50,6 @@ class MailMessageTelegram(models.Model):
         " email server, stored to ease the debugging of mailing issues.",
     )
 
-    @api.multi
     def send(
         self, auto_commit=False, raise_exception=False, parse_mode="HTML"
     ):
@@ -107,10 +106,8 @@ class MailMessageTelegram(models.Model):
             # pylint: disable=invalid-commit
             self._cr.commit()
 
-    @api.multi
     def mark_outgoing(self):
         return self.write({"state": "outgoing"})
 
-    @api.multi
     def cancel(self):
         return self.write({"state": "cancel"})
