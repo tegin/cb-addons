@@ -3,7 +3,8 @@
 
 import base64
 import logging
-from io import BytesIO
+import traceback
+from io import BytesIO, StringIO
 
 from odoo import _, fields, models
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
@@ -79,12 +80,14 @@ class MailMessageTelegram(models.Model):
                 else:
                     new_message = chat.send_document(
                         BytesIO(base64.b64decode(attachment.datas)),
-                        filename=attachment.datas_fname,
+                        filename=attachment.name,
                     )
                 if not message:
                     message = new_message
-                _logger.info(attachment.read(["mimetype"]))
         except Exception as exc:
+            buff = StringIO()
+            traceback.print_exc(file=buff)
+            _logger.error(buff.getvalue())
             if raise_exception:
                 raise MailDeliveryException(
                     _("Unable to send the telegram message"), exc
