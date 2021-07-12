@@ -26,3 +26,10 @@ class CustomInfoValue(models.Model):
         return {
             "user": self.env.user,
         }
+
+    def _selection_owner_id(self):
+        result = super(CustomInfoValue, self)._selection_owner_id()
+        model = self.env.ref("custom_info_form.model_custom_info_form")
+        if all(m[0] != model.model for m in result):
+            result.append((model.model, model.name))
+        return result

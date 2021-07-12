@@ -39,6 +39,7 @@ class CustomInfoForm(models.Model):
         if not form:
             form = self.create({"custom_info_template_id": template_id})
             form._onchange_custom_info_template_id()
+            form.flush()
         action = self.env.ref(
             "custom_info_form.custom_info_form_act_window_fullscreen"
         ).read()[0]
