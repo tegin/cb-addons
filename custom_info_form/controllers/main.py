@@ -11,7 +11,6 @@ class FormController(http.Controller):
             int(template_id)
         )
         url_params = {
-            "view_type": form_action["view_type"],
             "model": form_action["res_model"],
             "id": form_action["res_id"],
             "active_id": form_action["res_id"],
