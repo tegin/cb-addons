@@ -15,44 +15,63 @@ class PosSession(models.Model):
         "account.move", inverse_name="inter_company_pos_session_id"
     )
 
-    def _accumulate_amounts(self, data):
+    def _pos_session_process_order(self, order, data):
+        key = order.partner_id
+        invoice_receivables = data["invoice_receivables"]
+        inter_company_receivables = data["inter_company_invoice_receivables"]
+        inter_company_amounts = data["inter_company_amounts"]
+        if (
+            order.is_invoiced
+            and order.account_move.company_id == self.company_id
+        ):
+            # Combine invoice receivable lines
+            key = key.with_context(force_company=self.company_id.id)
+            invoice_receivables[key] = self._update_amounts(
+                invoice_receivables[key],
+                {"amount": order._get_amount_receivable()},
+                order.date_order,
+            )
+        elif order.is_invoiced:
+            company_id = order.account_move.company_id.id
+            inter_company_receivables[company_id][key] = self._update_amounts(
+                inter_company_receivables[company_id][key],
+                {"amount": order._get_amount_receivable()},
+                order.date_order,
+            )
+            inter_company_amounts[company_id] = self._update_amounts(
+                inter_company_amounts[company_id],
+                {"amount": order._get_amount_receivable()},
+                order.date_order,
+            )
+
+    def _accumulate_amount_preprocess_data(self, data):
         def amounts():
             return {"amount": 0.0, "amount_converted": 0.0}
 
-        result = super(PosSession, self)._accumulate_amounts(data)
         old_invoice_receivables = data.get("invoice_receivables")
         invoice_receivables = defaultdict(amounts)
         inter_company_receivables = defaultdict(lambda: defaultdict(amounts))
         inter_company_amounts = defaultdict(amounts)
+
+        data.update(
+            {
+                "old_invoice_receivables": old_invoice_receivables,
+                "invoice_receivables": invoice_receivables,
+                "inter_company_amounts": inter_company_amounts,
+                "inter_company_invoice_receivables": inter_company_receivables,
+            }
+        )
+
+    def _accumulate_amounts(self, data):
+        result = super(
+            PosSession, self.with_context(force_company=self.company_id.id)
+        )._accumulate_amounts(data)
+        self._accumulate_amount_preprocess_data(data)
         for order in self.order_ids:
-            key = order.partner_id
-            if (
-                order.is_invoiced
-                and order.account_move.company_id == self.company_id
-            ):
-                # Combine invoice receivable lines
-                invoice_receivables[key] = self._update_amounts(
-                    invoice_receivables[key],
-                    {"amount": order._get_amount_receivable()},
-                    order.date_order,
-                )
-            elif order.is_invoiced:
-                company_id = order.account_move.company_id.id
-                inter_company_receivables[company_id][
-                    key
-                ] = self._update_amounts(
-                    inter_company_receivables[company_id][key],
-                    {"amount": order._get_amount_receivable()},
-                    order.date_order,
-                )
-                inter_company_amounts[company_id] = self._update_amounts(
-                    inter_company_amounts[company_id],
-                    {"amount": order._get_amount_receivable()},
-                    order.date_order,
-                )
+            self._pos_session_process_order(order, data)
         inter_company_map = {}
         inter_company_move_map = {}
-        for company_id in inter_company_amounts:
+        for company_id in data["inter_company_amounts"]:
             inter_company = self.env["res.inter.company"].search(
                 [
                     ("company_id", "=", self.company_id.id),
@@ -87,10 +106,6 @@ class PosSession(models.Model):
 
         data.update(
             {
-                "old_invoice_receivables": old_invoice_receivables,
-                "invoice_receivables": invoice_receivables,
-                "inter_company_amounts": inter_company_amounts,
-                "inter_company_invoice_receivables": inter_company_receivables,
                 "inter_company_map": inter_company_map,
                 "inter_company_move_map": inter_company_move_map,
             }
