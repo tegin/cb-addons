@@ -53,6 +53,8 @@ class ProductProduct(models.Model):
         barcode_decoded = self.env["gs1_barcode"].decode(barcode)
         package_barcode = barcode_decoded.get("01", False)
         if not package_barcode:
+            package_barcode = barcode_decoded.get("02", False)
+        if not package_barcode:
             raise ValidationError(_("Package cannot be found"))
         package = self.env["product.packaging"].search(
             self._barcode_gs1_package_domain(package_barcode)
