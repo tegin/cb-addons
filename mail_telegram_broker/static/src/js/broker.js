@@ -4,15 +4,15 @@ odoo.define("telegram.Broker", function(require) {
     var ExtendedComposer = require("mail.composer.Extended");
     var core = require("web.core");
     var AbstractAction = require("web.AbstractAction");
-    var ControlPanelMixin = require("web.ControlPanelMixin");
+    // Var ControlPanelMixin = require("web.ControlPanelMixin");
     var ThreadWidget = require("mail.widget.Thread");
     var dom = require("web.dom");
 
     var QWeb = core.qweb;
     var _t = core._t;
 
-    var Broker = AbstractAction.extend(ControlPanelMixin, {
-        template: "mail_telegram_broker.broker",
+    var Broker = AbstractAction.extend({
+        contentTemplate: "mail_telegram_broker.broker",
         events: {
             "click .o_mail_channel_settings": "_onChannelSettingsClicked",
             "click .o_mail_discuss_item": "_onSelectTelegramChat",
@@ -58,6 +58,43 @@ odoo.define("telegram.Broker", function(require) {
         },
         start: function() {
             var self = this;
+
+            return this._super.apply(this, arguments).then(function() {
+                return self._initRender();
+            });
+            /*
+            Return this.alive($.when.apply($, defs))
+                .then(function() {
+                    if (self._defaultChatID) {
+                        return self.alive(self._setThread(self._defaultChatID));
+                    }
+                })
+
+                .then(function() {
+                    self._updateThreads();
+                    self._startListening();
+                    self._threadWidget.$el.on(
+                        "scroll",
+                        null,
+                        _.debounce(function() {
+                            var $noContent = self._threadWidget.$(".o_mail_no_content");
+                            if (
+                                self._threadWidget.getScrolltop() < 20 &&
+                                !self._thread.isAllHistoryLoaded() &&
+                                !$noContent.length
+                            ) {
+                                self._loadMoreMessages();
+                            }
+                            if (self._threadWidget.isAtBottom()) {
+                                self._thread.markAsRead();
+                            }
+                        }, 100)
+                    );
+                });
+            */
+        },
+        _initRender: function() {
+            var self = this;
             this._basicComposer = new BasicComposer(this, {
                 mentionPartnersRestricted: true,
             });
@@ -76,11 +113,10 @@ odoo.define("telegram.Broker", function(require) {
 
             defs.push(this._renderThread());
             defs.push(this._basicComposer.appendTo(this.$(".o_mail_discuss_content")));
-
-            return this.alive($.when.apply($, defs))
+            return Promise.all(defs)
                 .then(function() {
                     if (self._defaultChatID) {
-                        return self.alive(self._setThread(self._defaultChatID));
+                        return self._setThread(self._defaultChatID);
                     }
                 })
 
@@ -383,7 +419,7 @@ odoo.define("telegram.Broker", function(require) {
                         self._threadWidget.scrollToBottom();
                     }
                 })
-                .fail(function() {
+                .catch(function() {
                     // TODO: Display notifications
                 });
         },

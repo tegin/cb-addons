@@ -1,6 +1,9 @@
 # Copyright 2020 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from datetime import datetime
+from xmlrpc.client import DateTime
+
 from odoo import api, fields, models
 
 
@@ -90,7 +93,10 @@ class MailTelegramChat(models.Model):
         if kwargs.get("author_id", False):
             vals["author_id"] = kwargs["author_id"]
         if "date" in kwargs:
-            vals["date"] = kwargs["date"]
+            date = kwargs["date"]
+            if isinstance(date, DateTime):
+                date = datetime.strptime(str(date), "%Y%m%dT%H:%M:%S")
+            vals["date"] = date
         if "message_id" in kwargs:
             vals["message_id"] = kwargs["message_id"]
         vals["telegram_unread"] = kwargs.get("telegram_unread", False)
@@ -145,7 +151,6 @@ class MailTelegramChat(models.Model):
             self.env["bus.bus"].sendmany(notifications)
         return chats
 
-    @api.multi
     @api.returns("mail.telegram.message", lambda value: value.id)
     def telegram_message_post(self, body=False, **kwargs):
         self.ensure_one()
