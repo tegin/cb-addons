@@ -1,25 +1,25 @@
-odoo.define('telegram.Broker', function (require) {
+odoo.define("telegram.Broker", function(require) {
     "use strict";
-    var BasicComposer = require('mail.composer.Basic');
-    var ExtendedComposer = require('mail.composer.Extended');
-    var core = require('web.core');
-    var AbstractAction = require('web.AbstractAction');
-    var ControlPanelMixin = require('web.ControlPanelMixin');
-    var ThreadWidget = require('mail.widget.Thread');
-    var dom = require('web.dom');
+    var BasicComposer = require("mail.composer.Basic");
+    var ExtendedComposer = require("mail.composer.Extended");
+    var core = require("web.core");
+    var AbstractAction = require("web.AbstractAction");
+    var ControlPanelMixin = require("web.ControlPanelMixin");
+    var ThreadWidget = require("mail.widget.Thread");
+    var dom = require("web.dom");
 
     var QWeb = core.qweb;
     var _t = core._t;
 
     var Broker = AbstractAction.extend(ControlPanelMixin, {
-        template: 'mail_telegram_broker.broker',
+        template: "mail_telegram_broker.broker",
         events: {
-            'click .o_mail_channel_settings': '_onChannelSettingsClicked',
-            'click .o_mail_discuss_item': '_onSelectTelegramChat',
-            'click .o_mail_sidebar_title .o_add': '_onSearchThread',
-            'blur .o_mail_add_thread input': '_onSearchThreadBlur',
+            "click .o_mail_channel_settings": "_onChannelSettingsClicked",
+            "click .o_mail_discuss_item": "_onSelectTelegramChat",
+            "click .o_mail_sidebar_title .o_add": "_onSearchThread",
+            "blur .o_mail_add_thread input": "_onSearchThreadBlur",
         },
-        init: function (parent, action, options) {
+        init: function(parent, action, options) {
             this._super.apply(this, arguments);
             this.action = action;
             this.action_manager = parent;
@@ -27,20 +27,21 @@ odoo.define('telegram.Broker', function (require) {
             this.options = options || {};
             this._threadsScrolltop = {};
             this._composerStates = {};
-            this._defaultChatID = this.options.active_id ||
-                                  this.action.context.active_id ||
-                                  this.action.params.default_active_id;
+            this._defaultChatID =
+                this.options.active_id ||
+                this.action.context.active_id ||
+                this.action.params.default_active_id;
             this._selectedMessage = null;
-
         },
 
         /**
          * @override
          */
-        on_attach_callback: function () {
+        on_attach_callback: function() {
             if (this._thread) {
                 this._threadWidget.scrollToPosition(
-                    this._threadsScrolltop[this._thread.getID()]);
+                    this._threadsScrolltop[this._thread.getID()]
+                );
                 this._loadEnoughMessages();
             }
         },
@@ -48,50 +49,49 @@ odoo.define('telegram.Broker', function (require) {
         /**
          * @override
          */
-        on_detach_callback: function () {
+        on_detach_callback: function() {
             if (this._thread) {
                 this._threadsScrolltop[
-                    this._thread.getID()] = this._threadWidget.getScrolltop();
+                    this._thread.getID()
+                ] = this._threadWidget.getScrolltop();
             }
         },
-        start: function () {
+        start: function() {
             var self = this;
-            this._basicComposer = new BasicComposer(
-                this,
-                {mentionPartnersRestricted: true}
-            );
-            this._extendedComposer = new ExtendedComposer(
-                this,
-                {mentionPartnersRestricted: true}
-            );
+            this._basicComposer = new BasicComposer(this, {
+                mentionPartnersRestricted: true,
+            });
+            this._extendedComposer = new ExtendedComposer(this, {
+                mentionPartnersRestricted: true,
+            });
             this._basicComposer
-                .on('post_message', this, this._onPostMessage)
-                .on('input_focused', this, this._onComposerFocused);
+                .on("post_message", this, this._onPostMessage)
+                .on("input_focused", this, this._onComposerFocused);
             this._extendedComposer
-                .on('post_message', this, this._onPostMessage)
-                .on('input_focused', this, this._onComposerFocused);
+                .on("post_message", this, this._onPostMessage)
+                .on("input_focused", this, this._onComposerFocused);
             this._renderButtons();
 
             var defs = [];
 
             defs.push(this._renderThread());
-            defs.push(this._basicComposer.appendTo(
-                this.$('.o_mail_discuss_content')));
+            defs.push(this._basicComposer.appendTo(this.$(".o_mail_discuss_content")));
 
             return this.alive($.when.apply($, defs))
-                .then(function () {
+                .then(function() {
                     if (self._defaultChatID) {
                         return self.alive(self._setThread(self._defaultChatID));
                     }
                 })
 
-                .then(function () {
+                .then(function() {
                     self._updateThreads();
                     self._startListening();
                     self._threadWidget.$el.on(
-                        'scroll', null, _.debounce(function () {
-                            var $noContent = self._threadWidget.$(
-                                '.o_mail_no_content');
+                        "scroll",
+                        null,
+                        _.debounce(function() {
+                            var $noContent = self._threadWidget.$(".o_mail_no_content");
                             if (
                                 self._threadWidget.getScrolltop() < 20 &&
                                 !self._thread.isAllHistoryLoaded() &&
@@ -102,24 +102,28 @@ odoo.define('telegram.Broker', function (require) {
                             if (self._threadWidget.isAtBottom()) {
                                 self._thread.markAsRead();
                             }
-                        }, 100));
+                        }, 100)
+                    );
                 });
         },
-        _startListening: function () {
-            this.call('mail_service', 'getMailBus').on(
-                'new_message', this, this._onNewMessage);
+        _startListening: function() {
+            this.call("mail_service", "getMailBus").on(
+                "new_message",
+                this,
+                this._onNewMessage
+            );
         },
-        _setThread: function (threadID) {
+        _setThread: function(threadID) {
             this._storeThreadState();
-            var thread = this.call('mail_service', 'getThread', threadID);
-            if (! thread) {
+            var thread = this.call("mail_service", "getThread", threadID);
+            if (!thread) {
                 return;
             }
             this._thread = thread;
 
             var self = this;
             this.messagesSeparatorPosition = undefined;
-            return this._fetchAndRenderThread().then(function () {
+            return this._fetchAndRenderThread().then(function() {
                 self._thread.markAsRead();
                 // Restore scroll position and composer of the new
                 // current thread
@@ -135,13 +139,14 @@ odoo.define('telegram.Broker', function (require) {
                 });
             });
         },
-        _storeThreadState: function () {
+        _storeThreadState: function() {
             if (this._thread) {
-                this._threadsScrolltop[this._thread.getID()] =
-                    this._threadWidget.getScrolltop();
+                this._threadsScrolltop[
+                    this._thread.getID()
+                ] = this._threadWidget.getScrolltop();
             }
         },
-        _loadEnoughMessages: function () {
+        _loadEnoughMessages: function() {
             var $el = this._threadWidget.el;
             var loadMoreMessages =
                 $el.clientHeight &&
@@ -149,14 +154,15 @@ odoo.define('telegram.Broker', function (require) {
                 !this._thread.isAllHistoryLoaded();
             if (loadMoreMessages) {
                 return this._loadMoreMessages().then(
-                    this._loadEnoughMessages.bind(this));
+                    this._loadEnoughMessages.bind(this)
+                );
             }
         },
-        _getThreadRenderingOptions: function () {
+        _getThreadRenderingOptions: function() {
             if (_.isUndefined(this.messagesSeparatorPosition)) {
                 if (this._unreadCounter) {
                     var messageID = this._thread.getLastSeenMessageID();
-                    this.messagesSeparatorPosition = messageID || 'top';
+                    this.messagesSeparatorPosition = messageID || "top";
                 } else {
                     // No unread message -> don't display separator
                     this.messagesSeparatorPosition = false;
@@ -175,135 +181,135 @@ odoo.define('telegram.Broker', function (require) {
                 displayStars: false,
             };
         },
-        _fetchAndRenderThread: function () {
+        _fetchAndRenderThread: function() {
             var self = this;
-            return this._thread.fetchMessages()
-                .then(function () {
-                    self._threadWidget.render(
-                        self._thread,
-                        self._getThreadRenderingOptions()
-                    );
-                    return self._loadEnoughMessages();
-                });
+            return this._thread.fetchMessages().then(function() {
+                self._threadWidget.render(
+                    self._thread,
+                    self._getThreadRenderingOptions()
+                );
+                return self._loadEnoughMessages();
+            });
         },
-        _renderButtons: function () {
+        _renderButtons: function() {
             // This is a hook just in case some buttons are required
         },
-        _renderThread: function () {
+        _renderThread: function() {
             this._threadWidget = new ThreadWidget(this, {
                 areMessageAttachmentsDeletable: false,
                 loadMoreOnScroll: true,
             });
-            this._threadWidget
-                .on('load_more_messages', this, this._loadMoreMessages);
-            return this._threadWidget.appendTo(
-                this.$('.o_mail_discuss_content'));
+            this._threadWidget.on("load_more_messages", this, this._loadMoreMessages);
+            return this._threadWidget.appendTo(this.$(".o_mail_discuss_content"));
         },
-        _renderSidebar: function (options) {
-            var $sidebar = $(QWeb.render('mail_telegram.broker.Sidebar', {
-                activeThreadID: this._thread ? this._thread.getID() : undefined,
-                bots: options.bots,
-            }));
+        _renderSidebar: function(options) {
+            var $sidebar = $(
+                QWeb.render("mail_telegram.broker.Sidebar", {
+                    activeThreadID: this._thread ? this._thread.getID() : undefined,
+                    bots: options.bots,
+                })
+            );
             return $sidebar;
         },
-        _restoreThreadState: function () {
-            var $newMessagesSeparator = this.$(
-                '.o_thread_new_messages_separator');
+        _restoreThreadState: function() {
+            var $newMessagesSeparator = this.$(".o_thread_new_messages_separator");
             if ($newMessagesSeparator.length) {
                 this._threadWidget.$el.scrollTo($newMessagesSeparator);
             } else {
-                var newThreadScrolltop = this._threadsScrolltop[
-                    this._thread.getID()];
+                var newThreadScrolltop = this._threadsScrolltop[this._thread.getID()];
                 this._threadWidget.scrollToPosition(newThreadScrolltop);
             }
         },
-        _updateThreads: function () {
-            var bots = this.call('mail_service', 'getTelegramBots');
+        _updateThreads: function() {
+            var bots = this.call("mail_service", "getTelegramBots");
             var $sidebar = this._renderSidebar({
                 bots: bots,
             });
-            this.$('.o_mail_discuss_sidebar').html($sidebar.contents());
+            this.$(".o_mail_discuss_sidebar").html($sidebar.contents());
             var self = this;
-            _.each(bots, function (bot, bot_id) {
+            _.each(bots, function(bot, bot_id) {
                 var $input = self.$(
-                    '.o_mail_add_thread[data-bot=' + bot_id + '] input');
+                    ".o_mail_add_thread[data-bot=" + bot_id + "] input"
+                );
                 self._prepareAddThreadInput($input, bot_id, bot);
             });
         },
-        _prepareAddThreadInput: function ($input, bot_id) {
+        _prepareAddThreadInput: function($input, bot_id) {
             var self = this;
             $input.autocomplete({
-                source: function (request, response) {
+                source: function(request, response) {
                     self._lastSearchVal = _.escape(request.term);
-                    self._searchChannel(bot_id, self._lastSearchVal).done(
-                        function (result) {
-                            response(result);
-                        });
+                    self._searchChannel(bot_id, self._lastSearchVal).done(function(
+                        result
+                    ) {
+                        response(result);
+                    });
                 },
-                select: function (ev, ui) {
-                    self._setThread('telegram_thread_' + ui.item.id);
+                select: function(ev, ui) {
+                    self._setThread("telegram_thread_" + ui.item.id);
                     self._updateThreads();
                 },
-                focus: function (ev) {
+                focus: function(ev) {
                     ev.preventDefault();
                 },
                 html: true,
             });
         },
-        _loadMoreMessages: function () {
+        _loadMoreMessages: function() {
             var self = this;
-            var oldestMessageID = this.$(
-                '.o_thread_message').first().data('messageId');
-            var oldestMessageSelector = '.o_thread_message[data-message-id="' +
-                oldestMessageID + '"]';
-            var offset = -dom.getPosition(
-                document.querySelector(oldestMessageSelector)).top;
-            return this._thread.fetchMessages({loadMore: true})
-                .then(function () {
-                    if (self.messagesSeparatorPosition === 'top') {
-                        // Reset value to re-compute separator position
-                        self.messagesSeparatorPosition = undefined;
-                    }
-                    self._threadWidget.render(
-                        self._thread,
-                        self._getThreadRenderingOptions()
-                    );
-                    offset += dom.getPosition(document.querySelector(
-                        oldestMessageSelector)).top;
-                    self._threadWidget.scrollToPosition(offset);
-                });
-        },
-        _onSearchThread: function (ev) {
-            ev.preventDefault();
-            var bot = $(ev.target).data('bot');
-            this.$('.o_mail_add_thread[data-bot=' + bot + ']')
-                .show()
-                .find('input').focus();
-        },
-        _onSearchThreadBlur: function () {
-            this.$('.o_mail_add_thread').hide();
-        },
-        _onChannelSettingsClicked: function (ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            var threadID = $(ev.target).data('thread-id');
-            var thread = this.call('mail_service', 'getThread', threadID);
-            this.do_action({
-                type: 'ir.actions.act_window',
-                res_model: 'mail.telegram.chat',
-                res_id: thread.resId,
-                name: _t('Configure chat'),
-                views: [[false, 'form']],
-                target: 'new',
+            var oldestMessageID = this.$(".o_thread_message")
+                .first()
+                .data("messageId");
+            var oldestMessageSelector =
+                '.o_thread_message[data-message-id="' + oldestMessageID + '"]';
+            var offset = -dom.getPosition(document.querySelector(oldestMessageSelector))
+                .top;
+            return this._thread.fetchMessages({loadMore: true}).then(function() {
+                if (self.messagesSeparatorPosition === "top") {
+                    // Reset value to re-compute separator position
+                    self.messagesSeparatorPosition = undefined;
+                }
+                self._threadWidget.render(
+                    self._thread,
+                    self._getThreadRenderingOptions()
+                );
+                offset += dom.getPosition(document.querySelector(oldestMessageSelector))
+                    .top;
+                self._threadWidget.scrollToPosition(offset);
             });
         },
-        _onNewMessage: function (message) {
-            var thread_id = 'telegram_thread_' + message.telegram_chat_id;
+        _onSearchThread: function(ev) {
+            ev.preventDefault();
+            var bot = $(ev.target).data("bot");
+            this.$(".o_mail_add_thread[data-bot=" + bot + "]")
+                .show()
+                .find("input")
+                .focus();
+        },
+        _onSearchThreadBlur: function() {
+            this.$(".o_mail_add_thread").hide();
+        },
+        _onChannelSettingsClicked: function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            var threadID = $(ev.target).data("thread-id");
+            var thread = this.call("mail_service", "getThread", threadID);
+            this.do_action({
+                type: "ir.actions.act_window",
+                res_model: "mail.telegram.chat",
+                res_id: thread.resId,
+                name: _t("Configure chat"),
+                views: [[false, "form"]],
+                target: "new",
+            });
+        },
+        _onNewMessage: function(message) {
+            var thread_id = "telegram_thread_" + message.telegram_chat_id;
             if (this._thread && thread_id === this._thread.getID()) {
                 this._thread.markAsRead();
                 var shouldScroll = this._threadWidget.isAtBottom();
                 var self = this;
-                this._fetchAndRenderThread().then(function () {
+                this._fetchAndRenderThread().then(function() {
                     if (shouldScroll) {
                         self._threadWidget.scrollToMessage({
                             msgID: message.getID(),
@@ -316,63 +322,74 @@ odoo.define('telegram.Broker', function (require) {
             this._updateThreads();
             // Dump scroll position of threads in which the new message arrived
             this._threadsScrolltop = _.omit(
-                this._threadsScrolltop, message.getThreadIDs());
+                this._threadsScrolltop,
+                message.getThreadIDs()
+            );
         },
-        _searchChannel: function (bot_id, searchVal) {
+        _searchChannel: function(bot_id, searchVal) {
             return this._rpc({
-                model: 'mail.telegram.bot',
-                method: 'chat_search',
+                model: "mail.telegram.bot",
+                method: "chat_search",
                 args: [[parseInt(bot_id, 10)], searchVal],
-            }).then(function (result) {
+            }).then(function(result) {
                 var values = [];
-                _.each(result, function (channel) {
+                _.each(result, function(channel) {
                     var escapedName = _.escape(channel.name);
-                    values.push(_.extend(channel, {
-                        'value': escapedName,
-                        'label': escapedName,
-                    }));
+                    values.push(
+                        _.extend(channel, {
+                            value: escapedName,
+                            label: escapedName,
+                        })
+                    );
                 });
                 return values;
             });
         },
-        _onComposerFocused: function () {
+        _onComposerFocused: function() {
             // Hook
         },
-        _onSelectTelegramChat: function (ev) {
+        _onSelectTelegramChat: function(ev) {
             ev.preventDefault();
-            var threadID = $(ev.currentTarget).data('thread-id');
+            var threadID = $(ev.currentTarget).data("thread-id");
             this._setThread(threadID);
             this._updateThreads();
         },
-        _onPostMessage: function (messageData) {
+        _onPostMessage: function(messageData) {
             var self = this;
             var options = {};
             if (this._selectedMessage) {
                 messageData.subtype = this._selectedMessage.isNote()
-                    ? 'mail.mt_note': 'mail.mt_comment';
+                    ? "mail.mt_note"
+                    : "mail.mt_comment";
                 messageData.subtype_id = false;
-                messageData.message_type = 'comment';
+                messageData.message_type = "comment";
 
                 options.documentID = this._selectedMessage.getDocumentID();
-                options.documentModel =
-                    this._selectedMessage.getDocumentModel();
+                options.documentModel = this._selectedMessage.getDocumentModel();
             }
-            this._thread.postMessage(messageData, options).then(function () {
-                if (self._selectedMessage) {
-                    self._renderSnackbar('mail.discuss.MessageSentSnackbar', {
-                        documentName: self._selectedMessage.getDocumentName(),
-                    }, 5000);
-                    self._unselectMessage();
-                } else {
-                    self._threadWidget.scrollToBottom();
-                }
-            }).fail(function () {
-                // TODO: Display notifications
-            });
+            this._thread
+                .postMessage(messageData, options)
+                .then(function() {
+                    if (self._selectedMessage) {
+                        self._renderSnackbar(
+                            "mail.discuss.MessageSentSnackbar",
+                            {
+                                documentName: self._selectedMessage.getDocumentName(),
+                            },
+                            5000
+                        );
+                        self._unselectMessage();
+                    } else {
+                        self._threadWidget.scrollToBottom();
+                    }
+                })
+                .fail(function() {
+                    // TODO: Display notifications
+                });
         },
     });
 
-    core.action_registry.add('mail.telegram.broker', Broker);
+    core.action_registry.add("mail.telegram.broker", Broker);
 
     return Broker;
 });

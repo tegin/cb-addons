@@ -6,5 +6,7 @@ def pre_init_hook(cr):
     Without this script, big databases can take a long time to install this
     module.
     """
-    cr.execute("""ALTER TABLE mail_message
-    ADD COLUMN telegram_chat_id int""")
+    cr.execute(
+        """ALTER TABLE mail_message
+    ADD COLUMN telegram_chat_id int"""
+    )
