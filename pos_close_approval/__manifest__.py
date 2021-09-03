@@ -13,6 +13,7 @@
     "application": False,
     "summary": "Adds integration information",
     "depends": ["pos_multiple_sessions", "pos_session_pay_invoice"],
+    "post_load": "post_load_hook",
     "data": [
         "wizard/bank_statement_account.xml",
         "views/pos_config_views.xml",
