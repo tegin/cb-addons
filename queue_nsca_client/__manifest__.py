@@ -10,8 +10,5 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": [
-        'queue_job',
-        'nsca_client',
-    ],
+    "depends": ["queue_job", "nsca_client"],
 }
