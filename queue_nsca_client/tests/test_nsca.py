@@ -12,7 +12,12 @@ class TestQueueNsca(TransactionCase):
         date = fields.Datetime.from_string(fields.Datetime.now()) + timedelta(
             seconds=-2
         )
-        job_1 = self.env["queue.job"].create(
+        job_model = self.env["queue.job"]
+        # The sentinel is used to prevent edition sensitive fields (such as
+        # method_name) from RPC methods.
+        edit_sentinel = job_model.EDIT_SENTINEL
+        job_model = job_model.with_context(_job_edit_sentinel=edit_sentinel)
+        job_1 = job_model.create(
             {
                 "name": "Test",
                 "state": "failed",
@@ -23,7 +28,7 @@ class TestQueueNsca(TransactionCase):
                 "date_created": date,
             }
         )
-        job_2 = self.env["queue.job"].create(
+        job_2 = job_model.create(
             {
                 "name": "Test",
                 "state": "failed",
@@ -34,7 +39,7 @@ class TestQueueNsca(TransactionCase):
                 "date_created": date,
             }
         )
-        job_3 = self.env["queue.job"].create(
+        job_3 = job_model.create(
             {
                 "name": "Test",
                 "state": "failed",
