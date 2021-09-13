@@ -3,7 +3,7 @@
 {
     "name": "Queue - NSCA Client",
     "summary": "Send passive alerts to monitor your Odoo application.",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Tools",
     "website": "http://github.com/OCA/server-tools",
     "author": "Creu Blanca, Odoo Community Association (OCA)",
