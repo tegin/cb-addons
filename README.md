@@ -47,6 +47,7 @@ addon | version | maintainers | summary
 [product_comercial](product_comercial/) | 13.0.1.0.0 |  | Add Comercial field to product
 [product_nomenclature](product_nomenclature/) | 13.0.1.0.0 |  | Product nomenclature
 [purchase_third_party](purchase_third_party/) | 13.0.1.0.0 |  | Creates inter company relations
+[queue_nsca_client](queue_nsca_client/) | 12.0.1.0.0 |  | Send passive alerts to monitor your Odoo application.
 [remote_report_to_printer_label](remote_report_to_printer_label/) | 13.0.1.0.0 |  | Adds label selection to remote printer
 [safe_box](safe_box/) | 13.0.1.0.0 |  | Creates inter company relations
 [sale_commission_cancel](sale_commission_cancel/) | 13.0.1.0.0 |  | Creates inter company relations
