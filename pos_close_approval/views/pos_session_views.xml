@@ -68,7 +68,7 @@
                                 >
                                     <button
                                         class="oe_inline oe_link"
-                                        name="342"
+                                        name="%(point_of_sale.action_pos_box_out)d"
                                         type="action"
                                         attrs="{'invisible' : [('state', '=', 'closed')]}"
                                     >Cash In/Out</button>
