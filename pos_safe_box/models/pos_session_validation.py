@@ -79,11 +79,26 @@ class PosSessionValidation(models.Model):
         for record in self:
             record.coin_amount = sum(record.line_ids.mapped("amount"))
 
+    def _compute_statement_amount(self):
+        lines = self.pos_session_ids.mapped("cash_register_id.line_ids")
+        lines_not_computed = lines.filtered(
+            lambda r: r.account_id
+            not in r.statement_id.pos_session_id.payment_method_ids.mapped(
+                "receivable_account_id"
+            )
+        )
+        payments = self.pos_session_ids.mapped("order_ids.payment_ids")
+        amount = sum(lines_not_computed.mapped("amount")) + sum(
+            payments.mapped("amount")
+        )
+        return amount
+
     @api.depends("statement_ids", "pos_session_ids")
     def _compute_statement_values(self):
         for record in self:
             statements = record.statement_ids
             record.amount = sum(statements.mapped("total_entry_encoding"))
+            record.amount = record._compute_statement_amount()
             record.cash_amount = sum(
                 statements.filtered(
                     lambda r: r.journal_id.type == "cash"
