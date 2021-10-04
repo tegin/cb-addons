@@ -55,6 +55,17 @@
                     name="domain"
                 >[('commercial_partner_id', '=', partner_id)]</attribute>
             </field>
+            <field name="credit_control_line_ids" position="inside">
+                <tree>
+                    <field name="invoice_id" />
+                    <field name="date_entry" />
+                    <field name="date_due" />
+                    <field name="date" />
+                    <field name="amount_due" sum="Amount Due" />
+                    <field name="balance_due" sum="Balance Due" />
+                    <field name="state" />
+                </tree>
+            </field>
         </field>
     </record>
     <record model="ir.ui.view" id="credit_control_communication_tree_view">
