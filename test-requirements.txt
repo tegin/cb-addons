@@ -1,5 +1,6 @@
 git+https://github.com/OCA/report-print-send.git@refs/pull/251/merge#subdirectory=setup/remote_report_to_printer
 git+https://github.com/OCA/pos.git@refs/pull/674/merge#subdirectory=setup/pos_session_pay_invoice
 git+https://github.com/OCA/server-tools.git@refs/pull/2111/merge#subdirectory=setup/nsca_client
+git+https://github.com/OCA/edi.git@refs/pull/455/merge#subdirectory=setup/edi_account
 freezegun
 odoo_test_helper
