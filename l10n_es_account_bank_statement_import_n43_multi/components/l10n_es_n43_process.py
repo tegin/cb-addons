@@ -2,8 +2,6 @@
 # @author: Enric Tobella
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import base64
-
 from odoo.addons.component.core import Component
 
 
@@ -22,11 +20,7 @@ class L10nEsN43Process(Component):
                         0,
                         {
                             "name": self.exchange_record.exchange_filename,
-                            "datas": base64.b64encode(
-                                self.exchange_record._get_file_content().encode(
-                                    "utf-8"
-                                ),
-                            ),
+                            "datas": self.exchange_record.exchange_file,
                         },
                     )
                 ]
