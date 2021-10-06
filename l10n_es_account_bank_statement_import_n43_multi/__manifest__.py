@@ -13,5 +13,6 @@
         "data/edi.xml",
         "wizards/account_bank_statement_import_n43_multi.xml",
         "views/account_journal.xml",
+        "views/edi_exchange_record.xml",
     ],
 }

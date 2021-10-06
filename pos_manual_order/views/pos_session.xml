@@ -11,7 +11,7 @@
                 <button
                     name="%(pos_manual_order.pos_session_add_order_act_window)s"
                     class="oe_stat_button"
-                    attrs="{'invisible':[('state', '!=', 'opened')]}"
+                    attrs="{'invisible':[('state', 'in', ['new_session','opening_control','closing_control','closed'])]}"
                     icon="fa-money"
                     type="action"
                 >
