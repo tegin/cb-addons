@@ -58,7 +58,12 @@ class PosSession(models.Model):
         payment_method,
     ):
         self.ensure_one()
-        if self.state != "opened":
+        if self.state in [
+            "new_session",
+            "opening_control",
+            "closing_control",
+            "closed",
+        ]:
             raise ValidationError(
                 _("Manual Order can only be added on in progress sessions")
             )
