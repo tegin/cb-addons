@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record
+        model="ir.actions.act_window"
+        id="act_open_edi_exchange_record_account_n43_view"
+    >
+        <field name="name">N43 Files Exchange Record</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">edi.exchange.record</field>
+        <field name="view_mode">tree,form</field>
+        <field
+            name="domain"
+        >[('type_id.backend_type_id.code', '=', 'l10n_es_n43')]</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem
+        id="menu_account_edi_exchange_record"
+        name="N43 Files"
+        action="act_open_edi_exchange_record_account_n43_view"
+        parent="edi_account.menu_account_edi_root"
+        sequence="30"
+    />
+</odoo>
