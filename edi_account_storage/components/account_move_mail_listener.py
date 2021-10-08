@@ -38,6 +38,9 @@ class AccountMoveMailListener(Component):
             exchange_record = backend.create_record(
                 exchange_type, self._get_exchange_record_vals(record)
             )
+            if record.account_invoice_storage_clean_file_name:
+                filename = exchange_record.exchange_filename
+                exchange_record.exchange_filename = filename.replace("/", "")
             backend.exchange_generate(exchange_record)
             backend.exchange_send(exchange_record)
 
