@@ -124,7 +124,7 @@ class PurchaseOrderLine(models.Model):
     @api.onchange("product_qty", "product_uom")
     def _onchange_quantity(self):
         res = super()._onchange_quantity()
-        if not self.product_id:
+        if not self.product_id or not self.order_id.third_party_order:
             return res
         seller = self.product_id._select_seller(
             partner_id=self.partner_id,
@@ -132,7 +132,7 @@ class PurchaseOrderLine(models.Model):
             date=self.order_id.date_order.date(),
             uom_id=self.product_uom,
         )
-        if not seller or not self.order_id.third_party_order:
+        if not seller:
             self.third_party_price_unit = 0
             return res
         partner = self.order_id.third_party_partner_id
