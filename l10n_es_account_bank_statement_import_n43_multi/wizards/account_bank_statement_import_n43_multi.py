@@ -48,7 +48,7 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
     def process_file(self):
         self.ensure_one()
         n43_multi = self._check_n43(base64.b64decode(self.data_file))
-        real_filename, extension = self.filename.rsplit(".")
+        real_filename, extension = self.filename.rsplit(".", 1)
         backend = self.env.ref(
             "l10n_es_account_bank_statement_import_n43_multi.backend"
         )
