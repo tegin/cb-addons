@@ -12,6 +12,7 @@
                     name="account_invoice_storage_exchange_type_id"
                     domain="[('backend_id', '!=', False), ('backend_type_id', '=', %(edi_account_storage.backend_type)s)]"
                 />
+                <field name="account_invoice_storage_clean_file_name" />
             </group>
         </field>
     </record>
