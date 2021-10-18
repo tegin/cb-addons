@@ -7,5 +7,17 @@
                 <p t-field="o.location_dest_id" />
             </div>
         </xpath>
+        <xpath
+            expr="//table[@name='stock_move_table']//span[@t-field='move.description_picking']/.."
+            position="attributes"
+        >
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath
+            expr="//table[@name='stock_move_line_table']//span[@t-field='move_line.move_id.description_picking']/.."
+            position="attributes"
+        >
+            <attribute name="t-if">False</attribute>
+        </xpath>
     </template>
 </odoo>
