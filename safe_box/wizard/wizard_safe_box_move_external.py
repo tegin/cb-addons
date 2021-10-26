@@ -9,6 +9,7 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
     _name = "wizard.safe.box.move.external"
     _description = "wizard.safe.box.move.external"
 
+    date = fields.Date()
     safe_box_group_id = fields.Many2one("safe.box.group", required=True)
     safe_box_id = fields.Many2one(
         "safe.box",
@@ -42,11 +43,14 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
         return {"safe_box_group_id": self.safe_box_group_id.id}
 
     def create_account_move_vals(self, move, lines):
-        return {
+        vals = {
             "safe_box_move_id": move.id,
             "journal_id": self.journal_id.id,
             "line_ids": [(0, 0, line) for line in lines],
         }
+        if self.date:
+            vals["date"] = self.date
+        return vals
 
     def create_safe_box_move_line_vals(self, move):
         return {
