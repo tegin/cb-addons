@@ -19,6 +19,7 @@
     "license": "AGPL-3",
     "data": [
         "views/account_bank_statement_line.xml",
+        "views/pos_session.xml",
         "wizard/cash_invoice_in.xml",
         "wizard/cash_invoice_out.xml",
     ],
