@@ -29,9 +29,14 @@
                 <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-            <t t-call="web.address_layout"/>
-            <t t-raw="0"/>
+        <div
+            t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+            t-att-data-oe-model="o and o._name"
+            t-att-data-oe-id="o and o.id"
+            t-att-data-oe-lang="o and o.env.context.get('lang')"
+        >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
         </div>
         <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
             <div class="text-center" style="border-top: 1px solid black;">
