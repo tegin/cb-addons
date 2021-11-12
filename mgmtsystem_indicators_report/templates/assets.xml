@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="assets_backend"
+        name="Backend Assets (used in backend interface)"
+        inherit_id="web.assets_backend"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/mgmtsystem_indicators_report/static/src/js/indicator_value_widget.js"
+            />
+            <script
+                type="text/javascript"
+                src="/mgmtsystem_indicators_report/static/src/js/field_dynamic_options_dropdown.js"
+            />
+        </xpath>
+    </template>
+</odoo>
