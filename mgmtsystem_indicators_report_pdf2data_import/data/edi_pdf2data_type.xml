@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="pdf2data_template_type" model="pdf2data.template.type">
+        <field name="name">Indicators Report</field>
+        <field name="code">mgmtsystem.indicators.report</field>
+    </record>
+</odoo>
