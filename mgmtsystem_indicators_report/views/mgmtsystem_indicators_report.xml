@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="mgmtsystem_indicators_report_form_view">
+        <field
+            name="name"
+        >mgmtsystem.indicators.report.form (in mgmtsystem_indicators_report)</field>
+        <field name="model">mgmtsystem.indicators.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="conforming_action"
+                        string="Mark as Conforming"
+                        class="btn-success"
+                        confirm="Are you sure you want to mark this report as conforming?"
+                        type="object"
+                        attrs="{'invisible':[('state', 'not in', ['draft'])]}"
+                    />
+                    <button
+                        name="non_conforming_action"
+                        string="Mark as Non-conforming"
+                        confirm="Are you sure you want to mark this report as non-conforming?"
+                        class="btn-danger"
+                        type="object"
+                        attrs="{'invisible':[('state', 'not in', ['draft'])]}"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <field
+                            name="name"
+                            attrs="{'readonly':[('state', 'not in', ['draft'])]}"
+                        />
+                        <field
+                            name="external_identifier"
+                            attrs="{'readonly':[('state', 'not in', ['draft'])]}"
+                        />
+                        <field
+                            name="date"
+                            attrs="{'readonly':[('state', 'not in', ['draft'])]}"
+                        />
+                        <field
+                            name="location"
+                            attrs="{'readonly':[('state', 'not in', ['draft'])]}"
+                        />
+                        <field
+                            name="validation_partner"
+                            attrs="{'readonly':[('state', 'not in', ['draft'])]}"
+                        />
+                    </group>
+                    <notebook>
+                        <page string="Indicators">
+                            <field
+                                name="indicator_ids"
+                                mode="tree"
+                                widget="section_and_note_one2many"
+                                attrs="{'readonly':[('state', 'not in', ['draft'])]}"
+                            >
+                                <tree editable="bottom" name="indicator_lines">
+                                    <field name="display_type" invisible="1" />
+                                    <control>
+                                        <create string="Add a line" />
+                                        <create
+                                            string="Add a section"
+                                            context="{'default_display_type': 'line_section'}"
+                                        />
+                                        <create
+                                            string="Add a note"
+                                            context="{'default_display_type': 'line_note'}"
+                                        />
+                                    </control>
+                                    <field name="sequence" widget="handle" />
+                                    <field name="indicator_report_id" invisible="1" />
+                                    <field name="concept_id" invisible="1" />
+                                    <field
+                                        name="name"
+                                        attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
+                                    />
+                                    <field name="value_type" invisible="1" />
+                                    <group string="Value" name="value">
+                                        <field
+                                            name="value_bool"
+                                            attrs="{'invisible': [('value_type', '!=', 'bool')]}"
+                                        />
+                                        <field
+                                            name="value_str"
+                                            attrs="{'invisible': [('value_type', '!=', 'str')]}"
+                                        />
+                                        <field
+                                            name="value_selection"
+                                            widget="dynamic_selection_indicators_report"
+                                            context="{'options': selection_options}"
+                                            attrs="{'invisible': [('value_type', '!=', 'selection')]}"
+                                        />
+                                        <field
+                                            name="value_int"
+                                            attrs="{'invisible': [('value_type', '!=', 'int')]}"
+                                            force_save="1"
+                                        />
+                                        <field
+                                            name="value_float"
+                                            attrs="{'invisible': [('value_type', '!=', 'float')]}"
+                                            force_save="1"
+                                        />
+                                        <field
+                                            name="value"
+                                            attrs="{'invisible': [('value_type', '!=', False)]}"
+                                        />
+                                    </group>
+                                    <field
+                                        name="uom_id"
+                                        attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
+                                    />
+                                    <field name="reference_range_limit" readonly="1" />
+                                    <field name="selection_options" invisible="1" />
+                                    <field name="reference_range_low" invisible="1" />
+                                    <field name="reference_range_high" invisible="1" />
+                                    <field name="interpretation" />
+                                    <field name="value_representation" invisible="1" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field
+                                name="notes"
+                                attrs="{'readonly':[('state', 'not in', ['draft'])]}"
+                            />
+                        </page>
+                        <page string="PDF">
+                            <field name="report_pdf" widget="pdf_viewer" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter" />
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="mgmtsystem_indicators_report_search_view">
+        <field
+            name="name"
+        >mgmtsystem.indicators.report.search (in mgmtsystem_indicators_report)</field>
+        <field name="model">mgmtsystem.indicators.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="mgmtsystem_indicators_report_tree_view">
+        <field
+            name="name"
+        >mgmtsystem.indicators.report.tree (in mgmtsystem_indicators_report)</field>
+        <field name="model">mgmtsystem.indicators.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="date" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="mgmtsystem_indicators_report_act_window">
+        <field name="name">Mgmtsystem Indicators Report</field>
+        <field name="res_model">mgmtsystem.indicators.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <record model="ir.ui.menu" id="menu_mgmtsystem_indicators_report">
+        <field name="name">Indicators Report</field>
+        <field name="parent_id" ref="mgmtsystem.menu_mgmtsystem_root" />
+        <field name="sequence" eval="40" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mgmtsystem.group_mgmtsystem_viewer')])]"
+        />
+    </record>
+    <record model="ir.ui.menu" id="mgmtsystem_indicators_report_menu">
+        <field name="name">Mgmtsystem Indicators Report</field>
+        <field name="parent_id" ref="menu_mgmtsystem_indicators_report" />
+        <field name="action" ref="mgmtsystem_indicators_report_act_window" />
+        <field name="sequence" eval="9" />
+    </record>
+</odoo>
