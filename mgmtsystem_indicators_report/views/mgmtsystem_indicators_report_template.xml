@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="mgmtsystem_indicators_report_template_form_view">
+        <field
+            name="name"
+        >mgmtsystem.indicators.report.template.form (in mgmtsystem_indicators_report)</field>
+        <field name="model">mgmtsystem.indicators.report.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                    <notebook>
+                        <page string="Indicators">
+                            <field
+                                name="indicator_ids"
+                                mode="tree"
+                                widget="section_and_note_one2many"
+                            >
+                                <tree editable="bottom" name="indicator_lines">
+                                    <field name="display_type" invisible="1" />
+                                    <control>
+                                        <create string="Add a line" />
+                                        <create
+                                            string="Add a section"
+                                            context="{'default_display_type': 'line_section'}"
+                                        />
+                                        <create
+                                            string="Add a note"
+                                            context="{'default_display_type': 'line_note'}"
+                                        />
+                                    </control>
+                                    <field
+                                        name="sequence"
+                                        widget="handle"
+                                        force_save="1"
+                                    />
+                                    <field name="template_id" invisible="1" />
+                                    <field name="concept_id" />
+                                    <field
+                                        name="name"
+                                        attrs="{'readonly': [('concept_id', '!=', False)]}"
+                                        force_save="1"
+                                    />
+                                    <field
+                                        name="value_type"
+                                        attrs="{'required': [('display_type', '=', False)], 'readonly': [('concept_id', '!=', False)]}"
+                                        force_save="1"
+                                    />
+                                    <field
+                                        name="selection_options"
+                                        attrs="{'required': [('value_type', '=', 'selection')], 'readonly': ['|', ('concept_id', '!=', False), ('value_type', '!=', 'selection')]}"
+                                        force_save="1"
+                                    />
+                                    <field
+                                        name="uom_id"
+                                        attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
+                                        force_save="1"
+                                    />
+                                    <field
+                                        name="reference_range_low"
+                                        attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
+                                        force_save="1"
+                                    />
+                                    <field
+                                        name="reference_range_high"
+                                        attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
+                                        force_save="1"
+                                    />
+                                    <!--
+                                    <field
+                                        name="reference_range_limit"
+                                        attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
+                                        force_save="1"
+                                    /> -->
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter" />
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="mgmtsystem_indicators_report_template_search_view">
+        <field
+            name="name"
+        >mgmtsystem.indicators.report.template.search (in mgmtsystem_indicators_report)</field>
+        <field name="model">mgmtsystem.indicators.report.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="mgmtsystem_indicators_report_template_tree_view">
+        <field
+            name="name"
+        >mgmtsystem.indicators.report.template.tree (in mgmtsystem_indicators_report)</field>
+        <field name="model">mgmtsystem.indicators.report.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record
+        model="ir.actions.act_window"
+        id="mgmtsystem_indicators_report_template_act_window"
+    >
+        <field name="name">Mgmtsystem Indicators Report Template</field>
+        <field name="res_model">mgmtsystem.indicators.report.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <record model="ir.ui.menu" id="mgmtsystem_indicators_report_template_parent_menu">
+        <field name="name">Mgmtsystem Indicators Report Template</field>
+        <field name="parent_id" ref="menu_mgmtsystem_indicators_report" />
+        <field name="sequence" eval="11" />
+    </record>
+    <record model="ir.ui.menu" id="mgmtsystem_indicators_report_template_menu">
+        <field name="name">Mgmtsystem Indicators Report Template</field>
+        <field
+            name="parent_id"
+            ref="mgmtsystem_indicators_report_template_parent_menu"
+        />
+        <field name="action" ref="mgmtsystem_indicators_report_template_act_window" />
+        <field name="sequence" eval="11" />
+    </record>
+</odoo>

@@ -39,6 +39,8 @@ addon | version | maintainers | summary
 [l10n_es_mis_report_expand](l10n_es_mis_report_expand/) | 13.0.1.0.0 |  | Plantillas extendidas MIS Builder para informes contables españoles
 [mail_telegram](mail_telegram/) | 13.0.1.0.0 |  | Send messages to telegram
 [mail_telegram_broker](mail_telegram_broker/) | 13.0.1.0.0 |  | Set a broker for telegram
+[mgmtsystem_indicators_report](mgmtsystem_indicators_report/) | 13.0.1.0.0 |  | This module allows to manage quality indicators data
+[mgmtsystem_indicators_report_pdf2data_import](mgmtsystem_indicators_report_pdf2data_import/) | 13.0.1.0.0 |  | This addon allows to create a indicators report extracting the data from a pdf
 [pos_close_approval](pos_close_approval/) | 13.0.1.0.0 |  | Adds integration information
 [pos_inter_company](pos_inter_company/) | 13.0.1.0.0 |  | Payment of invoices to another company
 [pos_manual_order](pos_manual_order/) | 13.0.1.0.0 |  | Add Orders manually on a PoS Session
