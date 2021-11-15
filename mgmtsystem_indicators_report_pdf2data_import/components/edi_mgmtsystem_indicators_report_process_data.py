@@ -71,13 +71,14 @@ class EDIBackendInputComponentMixin(Component):
         report.write(vals)
         return report
 
-    def process_data(self, data, template):
+    def process_data(self, data, template, file):
         if not template.mgmtsystem_indicator_template_id:
             record = self.env["mgmtsystem.indicators.report"].create(
                 self._get_parsed_pdf2data_values(data)
             )
         else:
             record = self._generate_from_template(data, template)
+        record.update({"report_pdf": file})
         self.exchange_record.write(
             {"model": record._name, "res_id": record.id}
         )
