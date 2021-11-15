@@ -21,7 +21,7 @@
                 <field name="reference_range_limit" />
                 <field name="uom_id" />
                 <field name="interpretation" />
-                <field name="validation_partner" />
+                <field name="validation_partner_id" />
                 <field name="date" />
             </tree>
         </field>
@@ -39,8 +39,8 @@
                     />
                     <filter
                         string="Validation Partner"
-                        name="validation_partner"
-                        context="{'group_by': 'validation_partner'}"
+                        name="validation_partner_id"
+                        context="{'group_by': 'validation_partner_id'}"
                     />
                     <filter
                         string="Concept"
@@ -62,7 +62,7 @@
         <field name="context">
             {
             'search_default_interpretation': 1,
-            'search_default_validation_partner': 1,
+            'search_default_validation_partner_id': 1,
             'search_default_concept_id': 1,
             'search_default_date': 1}
         </field>

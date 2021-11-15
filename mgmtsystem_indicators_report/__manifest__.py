@@ -10,7 +10,14 @@
     "license": "AGPL-3",
     "author": "Creu Blanca,Odoo Community Association (OCA)",
     "website": "www.creublanca.es",
-    "depends": ["account", "mgmtsystem", "mail", "uom", "web_editor", "web"],
+    "depends": [
+        "account",
+        "mgmtsystem_nonconformity",
+        "mail",
+        "uom",
+        "web_editor",
+        "web",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/mgmtsystem_indicators_report.xml",

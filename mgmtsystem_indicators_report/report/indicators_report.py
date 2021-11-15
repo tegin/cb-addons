@@ -11,7 +11,7 @@ class IndicatorsReport(models.Model):
     name = fields.Char(readonly=True, string="Report Name")
     date = fields.Date(readonly=True)
     location = fields.Char()
-    validation_partner = fields.Many2one("res.partner", readonly=True)
+    validation_partner_id = fields.Many2one("res.partner", readonly=True)
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -50,7 +50,7 @@ class IndicatorsReport(models.Model):
             i.interpretation as interpretation,
             r.name as name,
             r.date as date,
-            r.validation_partner as validation_partner,
+            r.validation_partner_id as validation_partner_id,
             r.location as location,
             r.state as state,
             r.id as indicator_report_id
@@ -75,7 +75,7 @@ class IndicatorsReport(models.Model):
             i.interpretation,
             r.name,
             r.date,
-            r.validation_partner,
+            r.validation_partner_id,
             r.location,
             r.state,
             r.id %s
