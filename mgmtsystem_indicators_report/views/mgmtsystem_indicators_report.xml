@@ -59,7 +59,11 @@
                                 widget="section_and_note_one2many"
                                 attrs="{'readonly':[('state', 'not in', ['draft'])]}"
                             >
-                                <tree editable="bottom" name="indicator_lines">
+                                <tree
+                                    editable="bottom"
+                                    name="indicator_lines"
+                                    decoration-danger="interpretation == 'invalid'"
+                                >
                                     <field name="display_type" invisible="1" />
                                     <control>
                                         <create string="Add a line" />
@@ -80,7 +84,11 @@
                                         attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
                                     />
                                     <field name="value_type" invisible="1" />
-                                    <group string="Value" name="value">
+                                    <group
+                                        string="Value"
+                                        name="value"
+                                        decoration-danger="interpretation == 'invalid'"
+                                    >
                                         <field
                                             name="value_bool"
                                             attrs="{'invisible': [('value_type', '!=', 'bool')]}"
