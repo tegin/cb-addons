@@ -29,6 +29,21 @@
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            type="object"
+                            name="action_view_non_conformities"
+                            class="oe_stat_button"
+                            icon="fa-warning"
+                            attrs="{'invisible':[('non_conformity_count', '=', 0)]}"
+                        >
+                            <field
+                                name="non_conformity_count"
+                                widget="statinfo"
+                                string="Non-conf."
+                            />
+                        </button>
+                    </div>
                     <group>
                         <field
                             name="name"
@@ -47,7 +62,7 @@
                             attrs="{'readonly':[('state', 'not in', ['draft'])]}"
                         />
                         <field
-                            name="validation_partner"
+                            name="validation_partner_id"
                             attrs="{'readonly':[('state', 'not in', ['draft'])]}"
                         />
                     </group>
