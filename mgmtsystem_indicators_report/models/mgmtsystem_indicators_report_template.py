@@ -90,7 +90,7 @@ class MgmtsystemIndicatorTemplate(models.Model):
         return {
             "uom_id": concept.uom_id.id,
             "concept_id": self.concept_id.id,
-            "name": concept.name,
+            "name": self.name if self.name else self.concept_id.name,
             "reference_range_high": concept.reference_range_high,
             "reference_range_low": concept.reference_range_low,
             "display_type": self.display_type,
