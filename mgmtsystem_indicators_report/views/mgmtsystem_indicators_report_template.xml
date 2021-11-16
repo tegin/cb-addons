@@ -42,11 +42,7 @@
                                     />
                                     <field name="template_id" invisible="1" />
                                     <field name="concept_id" />
-                                    <field
-                                        name="name"
-                                        attrs="{'readonly': [('concept_id', '!=', False)]}"
-                                        force_save="1"
-                                    />
+                                    <field name="name" force_save="1" />
                                     <field
                                         name="value_type"
                                         attrs="{'required': [('display_type', '=', False)], 'readonly': [('concept_id', '!=', False)]}"
