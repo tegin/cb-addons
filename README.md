@@ -20,6 +20,7 @@ addon | version | maintainers | summary
 [account_credit_control_deferred](account_credit_control_deferred/) | 13.0.1.1.0 |  | Defferred credit control mails
 [account_journal_inter_company](account_journal_inter_company/) | 13.0.1.0.0 |  | Creates inter company relations
 [account_payment_order_check](account_payment_order_check/) | 13.0.1.0.0 |  | Account Payment Order Check
+[agreement_legal_archive](agreement_legal_archive/) | 13.0.1.0.0 |  | Create contract from agreement
 [cb_helpdesk](cb_helpdesk/) | 13.0.1.0.0 |  | Helpdesk from OCA with some modifications
 [cb_invoice_views](cb_invoice_views/) | 13.0.1.0.0 |  | Modify invoice views css
 [cb_knowledge](cb_knowledge/) | 13.0.1.0.0 |  | Knowledge for CB
