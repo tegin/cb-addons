@@ -8,8 +8,20 @@
         <field name="arch" type="xml">
             <group name="edi_configuration" position="inside">
                 <field name="send_invoice_by_mail" />
-                <field name="email_integration" />
-                <field name="invoice_report_email_id" />
+                <field
+                    name="email_integration"
+                    attrs="{'invisible': [('send_invoice_by_mail', '=', False)]}"
+                />
+                <field
+                    name="invoice_report_email_id"
+                    attrs="{'invisible': [('send_invoice_by_mail', '=', False)]}"
+                />
+                <field
+                    name="invoice_mail_exchange_type_id"
+                    domain="[('backend_type_id', '=', %(edi_account_mail.mail_backend_type)s)]"
+                    options="{'no_create': True, 'no_open': True}"
+                    attrs="{'invisible': [('send_invoice_by_mail', '=', False)]}"
+                />
             </group>
         </field>
     </record>
