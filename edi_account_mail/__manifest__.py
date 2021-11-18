@@ -9,7 +9,6 @@
     "license": "AGPL-3",
     "author": "Creu Blanca",
     "website": "www.creublanca.es",
-    "depends": ["edi_account", "l10n_es_facturae"],
-    # TODO: Remove facturae after migration
+    "depends": ["edi_account"],
     "data": ["data/method_data.xml", "views/res_partner_view.xml"],
 }
