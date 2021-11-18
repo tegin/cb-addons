@@ -31,7 +31,10 @@ class AccountMoveMailListener(Component):
             backend = self._get_backend(record)
             if not backend:
                 continue
-            exchange_type = "account_move_mail"
+            exchange_type = (
+                partner.invoice_mail_exchange_type_id.code
+                or "account_move_mail"
+            )
             if record._has_exchange_record(exchange_type, backend):
                 continue
             exchange_record = backend.create_record(
