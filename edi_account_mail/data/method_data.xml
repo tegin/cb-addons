@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <odoo>
     <record id="mail_backend_type" model="edi.backend.type">
-        <field name="name">Spanish Facturae Backend type</field>
+        <field name="name">Account Move Mail</field>
         <field name="code">account_move_mail</field>
     </record>
     <record id="mail_backend" model="edi.backend">
@@ -13,7 +13,7 @@
         <field name="code">account_move_mail</field>
         <field name="backend_type_id" ref="mail_backend_type" />
         <field name="direction">output</field>
-        <field name="exchange_filename_pattern">{record_name}--{dt}</field>
+        <field name="exchange_filename_pattern">Invoice.pdf</field>
         <field name="exchange_file_ext">pdf</field>
         <field name="model_ids" eval="[(4, ref('account.model_account_move'))]" />
         <field

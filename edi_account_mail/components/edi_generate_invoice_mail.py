@@ -2,6 +2,8 @@
 # @author: Enric Tobella
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import re
+
 from odoo.addons.component.core import Component
 
 
@@ -25,8 +27,10 @@ class EdiOutputL10nEsFacturae(Component):
     def _generate(self):
         action = self.get_email_integration_action()
         content, content_type = action.render(self.exchange_record.record.ids)
+        filename = self.exchange_record.exchange_filename.rsplit(".")[0]
+        filename = re.sub(r'[\\/*?:"<>|]', "", filename)
         return self._post_generate(
-            content, "Invoice.%s" % content_type, content_type
+            content, "{}.{}".format(filename, content_type), content_type
         )
 
     def _post_generate(self, content, content_name, content_type):
