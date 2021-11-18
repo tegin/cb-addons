@@ -11,4 +11,11 @@
             </xpath>
         </field>
     </record>
+    <!-- List as first view -->
+    <record
+        id="agreement_legal.agreement_dashboard_agreement"
+        model="ir.actions.act_window"
+    >
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
 </odoo>
