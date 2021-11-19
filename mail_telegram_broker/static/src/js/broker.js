@@ -275,7 +275,7 @@ odoo.define("telegram.Broker", function(require) {
             $input.autocomplete({
                 source: function(request, response) {
                     self._lastSearchVal = _.escape(request.term);
-                    self._searchChannel(bot_id, self._lastSearchVal).done(function(
+                    self._searchChannel(bot_id, self._lastSearchVal).then(function(
                         result
                     ) {
                         response(result);
