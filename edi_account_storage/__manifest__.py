@@ -10,13 +10,7 @@
     "author": "Creu Blanca",
     "website": "www.creublanca.es",
     "development_status": "Alpha",
-    "depends": [
-        "l10n_es_facturae",
-        "edi_account",
-        "edi_storage",
-        "edi_exchange_template",
-    ],
-    # TODO: Remove L10n_es_facturae after migration
+    "depends": ["edi_account", "edi_storage", "edi_exchange_template"],
     "data": [
         "data/edi_data.xml",
         "views/res_partner.xml",
