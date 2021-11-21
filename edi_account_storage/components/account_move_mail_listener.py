@@ -40,7 +40,7 @@ class AccountMoveMailListener(Component):
             )
             if record.partner_id.account_invoice_storage_clean_file_name:
                 filename = exchange_record.exchange_filename
-                exchange_record.exchange_filename = filename.replace("/", "")
+                exchange_record.exchange_filename = filename.replace("/", "-")
             backend.exchange_generate(exchange_record)
             backend.exchange_send(exchange_record)
 
