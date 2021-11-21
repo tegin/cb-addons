@@ -25,7 +25,6 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 "amount_type": "percent",
                 "amount": 21,
                 "type_tax_use": "sale",
-                "facturae_code": "01",
             }
         )
         self.storage = self.env["storage.backend"].create(
