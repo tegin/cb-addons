@@ -10,7 +10,12 @@
     "depends": ["agreement_legal", "archive_management"],
     "license": "AGPL-3",
     "version": "13.0.1.0.0",
-    "data": ["data/agreement_demo_data.xml", "views/agreement.xml"],
+    "data": [
+        "data/agreement_demo_data.xml",
+        "views/agreement.xml",
+        "templates/assets.xml",
+        "reports/agreement.xml",
+    ],
     "installable": True,
     "auto_install": False,
 }
