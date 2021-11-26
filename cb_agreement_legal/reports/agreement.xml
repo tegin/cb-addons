@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="report_agreement_document"
+        inherit_id="agreement_legal.report_agreement_document"
+    >
+        <xpath expr="//div[hasclass('page')]" position="attributes">
+            <attribute name="class">page o_agreement_layout</attribute>
+        </xpath>
+        <xpath expr="//li[@t-foreach='doc.recital_ids']/.." position="attributes">
+            <attribute name="class">clauses o_clauses</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]//t[@t-if='s.title']" position="inside">
+            <p t-field="s.title" class="sections o_sections" />
+        </xpath>
+        <xpath expr="//div[hasclass('page')]//h2[2]" position="attributes">
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]//h2[3]" position="attributes">
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <xpath
+            expr="//li[@t-foreach='doc.sections_ids']/../../../../.."
+            position="before"
+        >
+            <h2>Clauses</h2>
+        </xpath>
+        <xpath
+            expr="//li[@t-foreach='doc.recital_ids']/../../../../.."
+            position="before"
+        >
+            <h2>Expose</h2>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]//h2[2]/../h3" position="attributes">
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('page')]//h3[@t-field='s.title']"
+            position="attributes"
+        >
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <xpath
+            expr="//tbody[hasclass('section_tbody')]/../theader/tr"
+            position="attributes"
+        >
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <xpath expr="//tbody[hasclass('section_tbody')]/../theader" position="inside">
+            <tr>
+                <th t-field="doc.partner_id" />
+                <th t-field="doc.company_id.partner_id" />
+            </tr>
+        </xpath>
+        <xpath
+            expr="//tbody[hasclass('section_tbody')]//p[@t-field='doc.partner_id']/../.."
+            position="attributes"
+        >
+            <attribute name="t-if">0</attribute>
+        </xpath>
+        <xpath
+            expr="//tbody[hasclass('section_tbody')]//p[@t-field='doc.partner_id']/../../.."
+            position="inside"
+        >
+            <tr>
+                <td>
+                    <p>
+                        Name: <span t-field="doc.partner_contact_id.name" />
+                    </p>
+                    <p>Date: </p>
+                </td>
+                <td>
+                    <p>
+                        Name: <span t-field="doc.company_contact_id.name" />
+                    </p>
+                    <p>Date: </p>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>
