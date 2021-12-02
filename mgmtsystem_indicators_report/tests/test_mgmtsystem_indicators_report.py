@@ -75,9 +75,11 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
         )
         action = report_generation.generate()
         report = self.env[action.get("res_model")].browse(action.get("res_id"))
+        self.assertFalse(report.non_conformity_ids)
         report.conforming_action()
         self.assertEqual(report.state, "conforming")
         self.assertTrue(report.date)
+        self.assertFalse(report.non_conformity_ids)
 
     def test_non_conforming_action(self):
         report_generation = self.env["indicators.report.from.template"].create(
@@ -85,9 +87,20 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
         )
         action = report_generation.generate()
         report = self.env[action.get("res_model")].browse(action.get("res_id"))
-        report.non_conforming_action()
+        self.assertFalse(report.non_conformity_ids)
+        nonconformity_action = report.non_conforming_action()
+        with Form(
+            self.env[nonconformity_action["res_model"]].with_context(
+                **nonconformity_action["context"]
+            )
+        ) as form:
+            form.partner_id = self.env.user.partner_id
+        nonconformity = self.env[nonconformity_action["res_model"]].browse(
+            form.id
+        )
         self.assertEqual(report.state, "non_conforming")
         self.assertTrue(report.date)
+        self.assertEqual(report.non_conformity_ids, nonconformity)
 
     def test_compute_interpretation_float(self):
         indicator = self.env["mgmtsystem.indicator"].create(
