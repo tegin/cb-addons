@@ -11,4 +11,4 @@ class ResPartner(models.Model):
     invoice_report_email_id = fields.Many2one(
         "ir.actions.report", domain=[("model", "=", "account.move")]
     )
-    # invoice_mail_exchange_type_id = fields.Many2one("edi.exchange.type")
+    invoice_mail_exchange_type_id = fields.Many2one("edi.exchange.type")

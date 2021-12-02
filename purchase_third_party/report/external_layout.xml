@@ -29,22 +29,28 @@
                 <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <t t-call="web.external_layout_standard">
+        <div
+            t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+            t-att-data-oe-model="o and o._name"
+            t-att-data-oe-id="o and o.id"
+            t-att-data-oe-lang="o and o.env.context.get('lang')"
+        >
+            <t t-call="web.address_layout" />
             <t t-raw="0" />
-        </t>
-        <div class="footer">
+        </div>
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
             <div class="text-center" style="border-top: 1px solid black;">
                 <ul class="list-inline mb4">
-                    <li t-if="partner.phone">Phone:
+                    <li class="list-inline-item d-inline" t-if="partner.phone">Phone:
                         <span t-field="partner.phone" />
                     </li>
-                    <li t-if="partner.email">Email:
+                    <li class="list-inline-item d-inline" t-if="partner.email">Email:
                         <span t-field="partner.email" />
                     </li>
-                    <li t-if="partner.website">Web:
+                    <li class="list-inline-item d-inline" t-if="partner.website">Web:
                         <span t-field="partner.website" />
                     </li>
-                    <li t-if="partner.vat"><t
+                    <li class="list-inline-item d-inline" t-if="partner.vat"><t
                             t-esc="partner.country_id.vat_label or 'TIN'"
                         />:
                         <span t-field="partner.vat" />

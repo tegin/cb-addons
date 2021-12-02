@@ -22,7 +22,6 @@ addon | version | maintainers | summary
 [account_payment_order_check](account_payment_order_check/) | 13.0.1.0.0 |  | Account Payment Order Check
 [cb_agreement_legal](cb_agreement_legal/) | 13.0.1.0.0 |  | Create contract from agreement
 [cb_helpdesk](cb_helpdesk/) | 13.0.1.0.0 |  | Helpdesk from OCA with some modifications
-[cb_invoice_views](cb_invoice_views/) | 13.0.1.0.0 |  | Modify invoice views css
 [cb_knowledge](cb_knowledge/) | 13.0.1.0.0 |  | Knowledge for CB
 [cb_l10n_es_aeat_mod303](cb_l10n_es_aeat_mod303/) | 13.0.1.0.0 |  | Add report to mod 303
 [cb_purchase_views](cb_purchase_views/) | 13.0.1.0.0 |  | Purchase custom views

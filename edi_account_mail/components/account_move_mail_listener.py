@@ -21,6 +21,8 @@ class AccountMoveMailListener(Component):
 
     def on_post_account_move(self, records):
         for record in records:
+            if record.disable_edi_auto:
+                continue
             partner = record.partner_id
             if record.type not in ["out_invoice", "out_refund"]:
                 continue
@@ -29,7 +31,10 @@ class AccountMoveMailListener(Component):
             backend = self._get_backend(record)
             if not backend:
                 continue
-            exchange_type = "account_move_mail"
+            exchange_type = (
+                partner.invoice_mail_exchange_type_id.code
+                or "account_move_mail"
+            )
             if record._has_exchange_record(exchange_type, backend):
                 continue
             exchange_record = backend.create_record(

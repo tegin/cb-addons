@@ -76,6 +76,9 @@ class MgmtsystemIndicatorsReport(models.Model):
 
     def non_conforming_action(self):
         self.ensure_one()
+        self.state = "non_conforming"
+        if not self.date:
+            self.date = fields.Date.today()
         return self._create_non_conformity()
 
 

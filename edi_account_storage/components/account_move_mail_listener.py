@@ -18,6 +18,8 @@ class AccountMoveMailListener(Component):
 
     def on_post_account_move(self, records):
         for record in records:
+            if record.disable_edi_auto:
+                continue
             partner = record.partner_id
             if record.type not in ["out_invoice", "out_refund"]:
                 continue
@@ -36,6 +38,9 @@ class AccountMoveMailListener(Component):
             exchange_record = backend.create_record(
                 exchange_type, self._get_exchange_record_vals(record)
             )
+            if record.partner_id.account_invoice_storage_clean_file_name:
+                filename = exchange_record.exchange_filename
+                exchange_record.exchange_filename = filename.replace("/", "-")
             backend.exchange_generate(exchange_record)
             backend.exchange_send(exchange_record)
 

@@ -112,7 +112,6 @@ class MailTelegramChat(models.Model):
                         "name": name,
                         "datas": content.encode("utf-8"),
                         "type": "binary",
-                        "datas_fname": name,
                         "description": name,
                         "mimetype": mimetype,
                     },
