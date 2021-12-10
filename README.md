@@ -37,6 +37,7 @@ addon | version | maintainers | summary
 [l10n_es_iva_incluido](l10n_es_iva_incluido/) | 13.0.1.0.0 |  | L10n ES IVA Incluido
 [l10n_es_iva_soportado_no_deducible](l10n_es_iva_soportado_no_deducible/) | 13.0.1.0.0 |  | L10n ES IVA Soportado No Deducible
 [l10n_es_mis_report_expand](l10n_es_mis_report_expand/) | 13.0.1.0.0 |  | Plantillas extendidas MIS Builder para informes contables españoles
+[mail_broker](mail_broker/) | 13.0.1.0.0 |  | Set a broker
 [mail_telegram](mail_telegram/) | 13.0.1.0.0 |  | Send messages to telegram
 [mail_telegram_broker](mail_telegram_broker/) | 13.0.1.0.0 |  | Set a broker for telegram
 [pos_close_approval](pos_close_approval/) | 13.0.1.0.0 |  | Adds integration information
