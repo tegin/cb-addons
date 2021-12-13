@@ -159,6 +159,8 @@ class PosSessionValidation(models.Model):
 
     def close(self):
         self.ensure_one()
+        if self.state != "draft":
+            raise ValidationError(_("You can only approve draft moves"))
         if self.coin_amount != self.cash_amount:
             raise ValidationError(_("Coins and Notes must match cash value"))
         self.closing_move_id = self.env["safe.box.move"].create(
@@ -196,6 +198,8 @@ class PosSessionValidation(models.Model):
 
     def approve(self):
         self.ensure_one()
+        if self.state != "closed":
+            raise ValidationError(_("You can only approve closed moves"))
         sbg = self.safe_box_group_id
         lines = []
         for initial_safe_box, end_safe_box in [
