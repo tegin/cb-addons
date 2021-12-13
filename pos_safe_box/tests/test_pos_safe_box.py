@@ -98,7 +98,11 @@ class TestPosSafeBox(TransactionCase):
         self.assertEqual(self.safe_box_01.amount, 50)
         self.assertEqual(self.safe_box_02.amount, 50)
         self.assertEqual(self.safe_box_03.amount, 0)
+        with self.assertRaises(ValidationError):
+            validation.close()
         validation.approve()
         self.assertEqual(self.safe_box_01.amount, 50)
         self.assertEqual(self.safe_box_02.amount, 0)
         self.assertEqual(self.safe_box_03.amount, 50)
+        with self.assertRaises(ValidationError):
+            validation.approve()
