@@ -13,16 +13,16 @@ class EDIBackendInputComponentMixin(Component):
     _exchange_type = None
     _process_type = "mgmtsystem.indicators.report"
 
-    def _get_parsed_pdf2data_values(self, data_extracted):
-        report_values = {
-            "name": data_extracted.get("report_name"),
-            "date": data_extracted.get("date"),
-            "external_identifier": data_extracted.get("external_identifier"),
-            "indicator_ids": [
-                (0, 0, self._get_parsed_pdf2data_indicator_ids(line))
-                for line in data_extracted.get("lines")
-            ],
-        }
+    def _get_parsed_pdf2data_values(self, model, data_extracted):
+        report_values = {}
+        for field in data_extracted:
+            if field in model._fields:
+                report_values[field] = data_extracted[field]
+        line_values = [
+            (0, 0, self._get_parsed_pdf2data_indicator_ids(line))
+            for line in data_extracted.get("lines")
+        ]
+        report_values.update({"indicator_ids": line_values})
         return report_values
 
     def _get_parsed_pdf2data_indicator_ids(self, line):
@@ -73,8 +73,9 @@ class EDIBackendInputComponentMixin(Component):
 
     def process_data(self, data, template, file):
         if not template.mgmtsystem_indicator_template_id:
-            record = self.env["mgmtsystem.indicators.report"].create(
-                self._get_parsed_pdf2data_values(data)
+            model = self.env["mgmtsystem.indicators.report"]
+            record = model.create(
+                self._get_parsed_pdf2data_values(model, data)
             )
         else:
             record = self._generate_from_template(data, template)
