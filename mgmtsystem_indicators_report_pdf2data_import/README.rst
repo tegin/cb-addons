@@ -26,7 +26,7 @@ Here you have an example of a template to use:
     - TeleTest
     fields:
       report_id: Informe\s(\d{3,}v\d)
-      report_name: Nombre\sMuestra\s+\#\s+(\w.+)
+      name: Nombre\sMuestra\s+\#\s+(\w.+)
       sample_date: Fecha\sToma\sMuestra\s+\#\s+Dia\s+(\d{2}/\d{2}/\d{2})
       date: Fecha\sValidacion\sy\sEmision\sInforme:\s+(\d{2}/\d{2}/\d{2})
       validation_partner: Informe\sValidado\spor\s(\w.+)\s+Jefe
