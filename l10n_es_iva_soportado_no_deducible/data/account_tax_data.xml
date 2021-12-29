@@ -532,4 +532,47 @@
         />
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_10" />
     </record>
+    <record id="account_tax_template_p_iva21_nd_bi" model="account.tax.template">
+        <field name="description" />
+        <!-- for resetting the value on existing DBs -->
+        <field name="type_tax_use">purchase</field>
+        <field name="name">21% IVA Soportado No deducible (bienes de inversión)</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="21" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_iva_21" />
+        <field
+            name="invoice_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('mod_303_30')],
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('mod_303_31')],
+            }),
+
+        ]"
+        />
+        <field
+            name="refund_repartition_line_ids"
+            eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+                'tag_ids': [ref('mod_303_40')],
+            }),
+
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'tag_ids': [ref('mod_303_41')],
+            }),
+        ]"
+        />
+    </record>
 </odoo>
