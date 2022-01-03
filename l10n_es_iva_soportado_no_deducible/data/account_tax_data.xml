@@ -540,7 +540,7 @@
         <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
         <field name="amount" eval="21" />
         <field name="amount_type">percent</field>
-        <field name="tax_group_id" ref="tax_group_iva_21" />
+        <field name="tax_group_id" ref="l10n_es.tax_group_iva_21" />
         <field
             name="invoice_repartition_line_ids"
             eval="[(5, 0, 0),
