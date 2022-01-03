@@ -547,13 +547,13 @@
             (0,0, {
                 'factor_percent': 100,
                 'repartition_type': 'base',
-                'tag_ids': [ref('mod_303_30')],
+                'tag_ids': [ref('l10n_es.mod_303_30')],
             }),
 
             (0,0, {
                 'factor_percent': 100,
                 'repartition_type': 'tax',
-                'tag_ids': [ref('mod_303_31')],
+                'tag_ids': [ref('l10n_es.mod_303_31')],
             }),
 
         ]"
@@ -564,13 +564,13 @@
             (0,0, {
                 'factor_percent': 100,
                 'repartition_type': 'base',
-                'tag_ids': [ref('mod_303_40')],
+                'tag_ids': [ref('l10n_es.mod_303_40')],
             }),
 
             (0,0, {
                 'factor_percent': 100,
                 'repartition_type': 'tax',
-                'tag_ids': [ref('mod_303_41')],
+                'tag_ids': [ref('l10n_es.mod_303_41')],
             }),
         ]"
         />
