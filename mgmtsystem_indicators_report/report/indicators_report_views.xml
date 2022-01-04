@@ -5,9 +5,10 @@
         <field name="model">indicators.report</field>
         <field name="arch" type="xml">
             <pivot string="Indicators Analysis" disable_linking="True">
-                <field name="interpretation" type="col" />
                 <field name="concept_id" type="col" />
                 <field name="date" type="row" />
+                <field name="interpretation" type="col" />
+                <field name="location" type="row" />
             </pivot>
         </field>
     </record>
@@ -16,12 +17,13 @@
         <field name="model">indicators.report</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="location" />
+                <field name="name" />
                 <field name="concept_id" />
                 <field name="value_representation" />
                 <field name="reference_range_limit" />
                 <field name="uom_id" />
                 <field name="interpretation" />
-                <field name="validation_partner_id" />
                 <field name="date" />
             </tree>
         </field>
@@ -31,7 +33,25 @@
         <field name="model">indicators.report</field>
         <field name="arch" type="xml">
             <search>
+                <field name="name" />
+                <field name="location" />
+                <field name="concept_id" />
                 <group expand="1" string="Group By">
+                    <filter
+                        string="Location"
+                        name="location"
+                        context="{'group_by': 'location'}"
+                    />
+                    <filter
+                        string="Report Name"
+                        name="name"
+                        context="{'group_by': 'name'}"
+                    />
+                    <filter
+                        string="Concept"
+                        name="concept_id"
+                        context="{'group_by': 'concept_id'}"
+                    />
                     <filter
                         string="Interpretation"
                         name="interpretation"
@@ -41,11 +61,6 @@
                         string="Validation Partner"
                         name="validation_partner_id"
                         context="{'group_by': 'validation_partner_id'}"
-                    />
-                    <filter
-                        string="Concept"
-                        name="concept_id"
-                        context="{'group_by': 'concept_id'}"
                     />
                     <filter string="Date" name="date" context="{'group_by': 'date'}" />
                 </group>
@@ -59,13 +74,6 @@
         <field
             name="domain"
         >[('state', '!=', 'draft'), ('concept_id', '!=', False)]</field>
-        <field name="context">
-            {
-            'search_default_interpretation': 1,
-            'search_default_validation_partner_id': 1,
-            'search_default_concept_id': 1,
-            'search_default_date': 1}
-        </field>
         <field name="view_id" />
         <!-- force empty -->
     </record>
