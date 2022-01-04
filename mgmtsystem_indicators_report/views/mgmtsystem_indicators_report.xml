@@ -180,6 +180,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
+                <field name="location" />
                 <field name="date" />
                 <field name="state" />
             </tree>
