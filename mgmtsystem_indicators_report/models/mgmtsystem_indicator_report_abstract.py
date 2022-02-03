@@ -11,6 +11,8 @@ class MgmtsystemIndicatorReportAbstract(models.AbstractModel):
 
     name = fields.Char()
 
+    items_blocked = fields.Boolean(default=False)
+
 
 class MgmtsystemIndicatorAbstract(models.AbstractModel):
 
@@ -18,7 +20,7 @@ class MgmtsystemIndicatorAbstract(models.AbstractModel):
     _description = "Abstract Mgmtsystem Indicator"
 
     concept_id = fields.Many2one(comodel_name="mgmtsystem.indicator.concept")
-    name = fields.Char()
+    name = fields.Char(required=True)
 
     uom_id = fields.Many2one("uom.uom", string="Unit of measure")
 
@@ -43,6 +45,8 @@ class MgmtsystemIndicatorAbstract(models.AbstractModel):
         default=False,
         help="Technical field for UX purpose.",
     )
+
+    item_blocked = fields.Boolean(default=False)
 
     _sql_constraints = [
         (

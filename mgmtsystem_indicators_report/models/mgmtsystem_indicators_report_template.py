@@ -17,6 +17,7 @@ class MgmtsystemIndicatorsReportTemplate(models.Model):
     def _generate_report_vals(self):
         return {
             "name": self.name,
+            "items_blocked": self.items_blocked,
             "indicator_ids": [
                 (0, 0, item._generate_report_indicator_vals())
                 for item in self.indicator_ids
@@ -66,6 +67,8 @@ class MgmtsystemIndicatorTemplate(models.Model):
         help="Technical field for UX purpose.",
     )
 
+    item_blocked = fields.Boolean(related="template_id.items_blocked")
+
     _sql_constraints = [
         (
             "concept_id_uniq",
@@ -96,5 +99,6 @@ class MgmtsystemIndicatorTemplate(models.Model):
             "display_type": self.display_type,
             "sequence": self.sequence,
             "selection_options": concept.selection_options,
+            "item_blocked": self.item_blocked,
             "value_type": concept.value_type,
         }

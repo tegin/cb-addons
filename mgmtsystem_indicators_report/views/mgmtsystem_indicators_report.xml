@@ -65,6 +65,7 @@
                             name="validation_partner_id"
                             attrs="{'readonly':[('state', 'not in', ['draft'])]}"
                         />
+                        <field name="items_blocked" invisible="1" />
                     </group>
                     <notebook>
                         <page string="Indicators">
@@ -72,6 +73,7 @@
                                 name="indicator_ids"
                                 mode="tree"
                                 widget="section_and_note_one2many"
+                                options="{'hide_delete_create': 'items_blocked'}"
                                 attrs="{'readonly':[('state', 'not in', ['draft'])]}"
                             >
                                 <tree
@@ -81,24 +83,45 @@
                                 >
                                     <field name="display_type" invisible="1" />
                                     <control>
-                                        <create string="Add a line" />
                                         <create
-                                            string="Add a section"
+                                            string="Add a String"
+                                            context="{'default_value_type': 'str'}"
+                                        />
+                                        <create
+                                            string="Add a Float"
+                                            context="{'default_value_type': 'float'}"
+                                        />
+                                        <create
+                                            string="Add a Integer"
+                                            context="{'default_value_type': 'int'}"
+                                        />
+                                        <create
+                                            string="Add a Boolean"
+                                            context="{'default_value_type': 'bool'}"
+                                        />
+                                        <create
+                                            string="Add a Section"
                                             context="{'default_display_type': 'line_section'}"
                                         />
                                         <create
-                                            string="Add a note"
+                                            string="Add a Note"
                                             context="{'default_display_type': 'line_note'}"
                                         />
                                     </control>
-                                    <field name="sequence" widget="handle" />
+                                    <field
+                                        name="sequence"
+                                        widget="handle"
+                                        attrs="{'column_invisible': [('parent.items_blocked', '=', True)]}"
+                                    />
                                     <field name="indicator_report_id" invisible="1" />
                                     <field name="concept_id" invisible="1" />
                                     <field
                                         name="name"
-                                        attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
+                                        widget="section_and_note_text"
+                                        attrs="{'readonly': ['|', ('concept_id', '!=', False), ('item_blocked', '=', True)]}"
                                     />
                                     <field name="value_type" invisible="1" />
+                                    <field name="value" invisible="1" />
                                     <group
                                         string="Value"
                                         name="value"
@@ -128,11 +151,8 @@
                                             attrs="{'invisible': [('value_type', '!=', 'float')]}"
                                             force_save="1"
                                         />
-                                        <field
-                                            name="value"
-                                            attrs="{'invisible': [('value_type', '!=', False)]}"
-                                        />
                                     </group>
+                                    <field name="item_blocked" invisible="1" />
                                     <field
                                         name="uom_id"
                                         attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
