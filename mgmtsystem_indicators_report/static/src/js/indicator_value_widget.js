@@ -6,6 +6,7 @@ odoo.define("mgmtsystem_indicators_report.ValueWidget", function(require) {
     */
     var field_utils = require("web.field_utils");
     var ListRenderer = require("web.ListRenderer");
+    var relational_fields = require("web.relational_fields");
     ListRenderer.include({
         init: function(parent, state, params) {
             if (parent !== undefined && parent.record !== undefined) {
@@ -27,6 +28,7 @@ odoo.define("mgmtsystem_indicators_report.ValueWidget", function(require) {
             }
             return $th;
         },
+
         _renderBodyCell: function(record, node, colIndex, options) {
             if (node.tag === "group") {
                 var $td = $("<td>", {class: "o_data_cell o_field_cell"});
@@ -86,27 +88,22 @@ odoo.define("mgmtsystem_indicators_report.ValueWidget", function(require) {
                 });
                 return $td;
             }
-            var $cell = this._super.apply(this, arguments);
-            /*
-            Var isSubSection = record.data.display_type === "line_subsection";
-            if (isSubSection) {
-                if (node.attrs.widget === "handle") {
-                    return $cell;
-                } else if (node.attrs.name === "name") {
-                    var nbrColumns = this._getNumberOfCols();
-                    if (this.handleField) {
-                        nbrColumns--;
-                    }
-                    if (this.addTrashIcon) {
-                        nbrColumns--;
-                    }
-                    $cell.attr("colspan", nbrColumns);
-                } else {
-                    return $cell.addClass("o_hidden");
-                }
+
+            return this._super.apply(this, arguments);
+        },
+    });
+
+    relational_fields.FieldX2Many.include({
+        init: function(parent, name, record) {
+            this._super.apply(this, arguments);
+            if (
+                this.attrs.options.hide_delete_create &&
+                record.data[this.attrs.options.hide_delete_create]
+            ) {
+                this.activeActions.create = false;
+                this.activeActions.delete = false;
+                this.activeActions.addTrashIcon = false;
             }
-            */
-            return $cell;
         },
     });
 });
