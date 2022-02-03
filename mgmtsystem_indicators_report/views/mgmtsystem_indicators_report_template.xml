@@ -14,6 +14,7 @@
                 <sheet>
                     <group>
                         <field name="name" />
+                        <field name="items_blocked" string="Block Items?" />
                     </group>
                     <notebook>
                         <page string="Indicators">
@@ -68,6 +69,7 @@
                                         attrs="{'readonly': ['|', ('concept_id', '!=', False), '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
                                         force_save="1"
                                     />
+                                    <field name="item_blocked" invisible="1" />
                                     <!--
                                     <field
                                         name="reference_range_limit"
