@@ -156,15 +156,15 @@ class PosSession(models.Model):
                 receivable_lines = MoveLine.create(vals)
                 for receivable_line in receivable_lines:
                     if not receivable_line.reconciled:
+                        key = (
+                            receivable_line.partner_id.id,
+                            receivable_line.balance > 0,
+                            account_id,
+                        )
                         if account_id not in invoice_receivable_lines:
-                            invoice_receivable_lines[
-                                account_id
-                            ] = receivable_line
+                            invoice_receivable_lines[key] = receivable_line
                         else:
-                            invoice_receivable_lines[
-                                account_id
-                            ] |= receivable_line
-
+                            invoice_receivable_lines[key] |= receivable_line
         data.update({"invoice_receivable_lines": invoice_receivable_lines})
         return data
 
