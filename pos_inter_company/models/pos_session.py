@@ -255,37 +255,3 @@ class PosSession(models.Model):
             self.env["account.move.line"].browse(ids).mapped("move_id")
             | result
         )
-
-    def _reconcile_account_move_lines(self, data):
-        # FIX For https://github.com/odoo/odoo/pull/86177
-        order_account_move_receivable_lines = data.get(
-            "order_account_move_receivable_lines"
-        )
-        invoice_receivable_lines = data.get("invoice_receivable_lines")
-        new_oamrl = defaultdict(lambda: self.env["account.move.line"])
-        new_invoice_receivable_lines = defaultdict(
-            lambda: self.env["account.move.line"]
-        )
-        for key in invoice_receivable_lines:
-            if len(key) > 2:
-                new_invoice_receivable_lines[
-                    (key[0], key[2])
-                ] |= invoice_receivable_lines[key]
-            else:
-                new_invoice_receivable_lines[key] |= invoice_receivable_lines[
-                    key
-                ]
-        for key in order_account_move_receivable_lines:
-            if len(key) > 2:
-                new_oamrl[
-                    (key[0], key[2])
-                ] |= order_account_move_receivable_lines[key]
-            else:
-                new_oamrl[key] |= order_account_move_receivable_lines[key]
-        data.update(
-            {
-                "order_account_move_receivable_lines": new_oamrl,
-                "invoice_receivable_lines": new_invoice_receivable_lines,
-            }
-        )
-        return super(PosSession, self)._reconcile_account_move_lines(data)
