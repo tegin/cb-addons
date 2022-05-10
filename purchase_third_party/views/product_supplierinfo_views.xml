@@ -23,6 +23,7 @@
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="third_party_partner_id" />
+                <field name="product_name" />
             </field>
         </field>
     </record>
@@ -32,8 +33,12 @@
         <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
         <field name="arch" type="xml">
             <field name="name" position="after">
+                <field name="product_name" />
                 <field name="third_party_partner_id" />
             </field>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
