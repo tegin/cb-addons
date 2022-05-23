@@ -49,15 +49,13 @@ class SafeBoxMove(models.Model):
         a safe box.
         Finally, it checks that a safe box is not set as negative
         """
-        amount = sum([l.amount for l in self.line_ids])
+        amount = sum(line.amount for line in self.line_ids)
         amount -= sum(
-            [
-                l.balance
-                for l in self.account_move_ids.mapped("line_ids").filtered(
-                    lambda r: r.account_id.id
-                    in self.safe_box_group_id.account_ids.ids
-                )
-            ]
+            line.balance
+            for line in self.account_move_ids.mapped("line_ids").filtered(
+                lambda r: r.account_id.id
+                in self.safe_box_group_id.account_ids.ids
+            )
         )
         if float_compare(amount, 0, precision_digits=6):
             raise ValidationError(_("Move must be balanced"))
@@ -77,12 +75,10 @@ class SafeBoxMove(models.Model):
                 float_compare(
                     safe_box.amount
                     + sum(
-                        [
-                            l.amount
-                            for l in self.line_ids.filtered(
-                                lambda r: r.safe_box_id == safe_box
-                            )
-                        ]
+                        line.amount
+                        for line in self.line_ids.filtered(
+                            lambda r: r.safe_box_id == safe_box
+                        )
                     ),
                     0,
                     precision_digits=6,
@@ -107,7 +103,7 @@ class SafeBoxMove(models.Model):
 
 class SafeBoxMoveLine(models.Model):
     """
-        This entity has the information of a line move.
+    This entity has the information of a line move.
     """
 
     _name = "safe.box.move.line"
