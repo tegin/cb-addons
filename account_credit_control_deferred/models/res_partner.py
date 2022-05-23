@@ -9,7 +9,8 @@ class ResPartner(models.Model):
 
     credit_control_contact_partner_id = fields.Many2one("res.partner")
     credit_control_communication_ids = fields.One2many(
-        "credit.control.communication", inverse_name="partner_id",
+        "credit.control.communication",
+        inverse_name="partner_id",
     )
     credit_control_communication_count = fields.Integer(
         compute="_compute_credit_control_communication_count"

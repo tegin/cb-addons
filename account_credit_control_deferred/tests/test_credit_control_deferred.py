@@ -202,7 +202,8 @@ class TestCreditControlDeferred(TransactionCase):
         communications.update_balance()
         communications.refresh()
         self.assertEqual(
-            communications.total_due, self.invoice.amount_total - 100,
+            communications.total_due,
+            self.invoice.amount_total - 100,
         )
         self.assertEqual(
             communications.total_invoiced, self.invoice.amount_total
