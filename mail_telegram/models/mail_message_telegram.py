@@ -31,7 +31,10 @@ class MailMessageTelegram(models.Model):
         auto_join=True,
     )
     message_id = fields.Char(readonly=True)
-    chat_id = fields.Many2one("mail.telegram.chat", required=True,)
+    chat_id = fields.Many2one(
+        "mail.telegram.chat",
+        required=True,
+    )
     state = fields.Selection(
         [
             ("outgoing", "Outgoing"),

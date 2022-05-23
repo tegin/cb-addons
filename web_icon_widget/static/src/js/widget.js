@@ -1,4 +1,4 @@
-odoo.define("web_icon_widget.widget", function(require) {
+odoo.define("web_icon_widget.widget", function (require) {
     "use strict";
 
     var basic_fields = require("web.basic_fields");
@@ -6,10 +6,10 @@ odoo.define("web_icon_widget.widget", function(require) {
     var FieldIcon = basic_fields.FieldChar.extend({
         template: "FieldIcon",
         supportedFieldTypes: ["char"],
-        _renderReadonly: function() {
+        _renderReadonly: function () {
             // Do Nothing
         },
-        _renderEdit: function() {
+        _renderEdit: function () {
             this.$input = this.$el.find("input");
         },
     });

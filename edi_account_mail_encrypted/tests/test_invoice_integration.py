@@ -148,7 +148,8 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
     def test_send_zip(self):
         self.assertTrue(self.partner.email_integration_password)
         self.move.with_context(
-            force_edi_send=True, _edi_send_break_on_error=True,
+            force_edi_send=True,
+            _edi_send_break_on_error=True,
         ).post()
         self.assertTrue(self.move.exchange_record_ids)
         self.assertRegex(

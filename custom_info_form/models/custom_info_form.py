@@ -11,7 +11,10 @@ class CustomInfoForm(models.Model):
 
     _inherit = ["custom.info", "mail.thread"]
 
-    name = fields.Char(compute="_compute_name", store=True,)
+    name = fields.Char(
+        compute="_compute_name",
+        store=True,
+    )
     partner_id = fields.Many2one(
         "res.partner",
         required=True,
@@ -19,7 +22,9 @@ class CustomInfoForm(models.Model):
         default=lambda r: r.env.user.partner_id,
     )
     custom_info_template_id = fields.Many2one(
-        context={"default_model": _name}, required=True, readonly=True,
+        context={"default_model": _name},
+        required=True,
+        readonly=True,
     )
     custom_info_ids = fields.One2many(context={"default_model": _name})
 
@@ -27,7 +32,8 @@ class CustomInfoForm(models.Model):
     def _compute_name(self):
         for record in self:
             record.name = "{} - {}".format(
-                record.partner_id.name, record.custom_info_template_id.name,
+                record.partner_id.name,
+                record.custom_info_template_id.name,
             )
 
     def _generate_form(self, template_id):

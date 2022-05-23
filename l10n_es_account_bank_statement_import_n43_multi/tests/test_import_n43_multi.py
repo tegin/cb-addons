@@ -62,7 +62,8 @@ class L10nEsAccountBankStatementImportN43(
             self.assertEqual(statement.date, fields.Date.to_date("2016-02-01"))
             self.assertEqual(len(statement.line_ids), 3)
             self.assertEqual(
-                statement.line_ids[2].date, fields.Date.to_date("2016-05-16"),
+                statement.line_ids[2].date,
+                fields.Date.to_date("2016-05-16"),
             )
             self.assertAlmostEqual(statement.balance_start, 0, 2)
             self.assertAlmostEqual(statement.balance_end, 101.96, 2)

@@ -14,7 +14,9 @@ class MailMessage(models.Model):
         store=True,
         compute="_compute_telegram_chat_id",
     )
-    telegram_unread = fields.Boolean(default=False,)
+    telegram_unread = fields.Boolean(
+        default=False,
+    )
 
     @api.depends("telegram_notification_ids")
     def _compute_telegram_chat_id(self):
