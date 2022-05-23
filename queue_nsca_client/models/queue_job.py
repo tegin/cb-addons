@@ -7,7 +7,7 @@ from odoo import api, fields, models
 
 
 class QueueJob(models.Model):
-    """ Job status and result """
+    """Job status and result"""
 
     _inherit = "queue.job"
 
