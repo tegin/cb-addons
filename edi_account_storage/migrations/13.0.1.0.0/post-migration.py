@@ -146,7 +146,8 @@ def migrate(env, version):
             LEFT JOIN edi_exchange_type eet ON eet.id =
                 rp.account_invoice_storage_exchange_type_id
         WHERE ami.method_id = {method_id}""".format(
-            integration_field=integration_field_name, method_id=method_id,
+            integration_field=integration_field_name,
+            method_id=method_id,
         ),
     )
     openupgrade.logged_query(
@@ -159,7 +160,8 @@ def migrate(env, version):
             INNER JOIN edi_exchange_record eer on eer.{integration_field} = aii.id
         WHERE aii.attachment_id = at.id and aii.method_id = {method_id}
         """.format(
-            integration_field=integration_field_name, method_id=method_id,
+            integration_field=integration_field_name,
+            method_id=method_id,
         ),
     )
     openupgrade.logged_query(
@@ -174,6 +176,6 @@ def migrate(env, version):
                 ON eer.{integration_field} = aii.id
         WHERE aiiia.ir_attachment_id = at.id
         """.format(
-            integration_field=integration_field_name, method_id=method_id,
+            integration_field=integration_field_name,
         ),
     )
