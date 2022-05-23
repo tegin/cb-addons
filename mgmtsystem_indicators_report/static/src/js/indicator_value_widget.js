@@ -1,4 +1,4 @@
-odoo.define("mgmtsystem_indicators_report.ValueWidget", function(require) {
+odoo.define("mgmtsystem_indicators_report.ValueWidget", function (require) {
     "use strict";
     /*
        This code modifies the "group" tag allowing to add
@@ -8,7 +8,7 @@ odoo.define("mgmtsystem_indicators_report.ValueWidget", function(require) {
     var ListRenderer = require("web.ListRenderer");
     var relational_fields = require("web.relational_fields");
     ListRenderer.include({
-        init: function(parent, state, params) {
+        init: function (parent, state, params) {
             if (parent !== undefined && parent.record !== undefined) {
                 var new_context = parent.record.getContext({
                     additionalContext: parent.attrs.context || {},
@@ -20,7 +20,7 @@ odoo.define("mgmtsystem_indicators_report.ValueWidget", function(require) {
             }
             this._super.apply(this, arguments);
         },
-        _renderHeaderCell: function(node) {
+        _renderHeaderCell: function (node) {
             var $th = this._super.apply(this, arguments);
             var name = node.attrs.name;
             if (node.tag === "group" && !this.state.fields[name] && node.attrs.string) {
@@ -29,7 +29,7 @@ odoo.define("mgmtsystem_indicators_report.ValueWidget", function(require) {
             return $th;
         },
 
-        _renderBodyCell: function(record, node, colIndex, options) {
+        _renderBodyCell: function (record, node, colIndex, options) {
             if (node.tag === "group") {
                 var $td = $("<td>", {class: "o_data_cell o_field_cell"});
                 var modifiers = this._registerModifiers(
@@ -45,7 +45,7 @@ odoo.define("mgmtsystem_indicators_report.ValueWidget", function(require) {
                     return $td;
                 }
                 var self = this;
-                _.map(node.children, function(child_node) {
+                _.map(node.children, function (child_node) {
                     var child_modifiers = self._registerModifiers(
                         child_node,
                         record,
@@ -94,7 +94,7 @@ odoo.define("mgmtsystem_indicators_report.ValueWidget", function(require) {
     });
 
     relational_fields.FieldX2Many.include({
-        init: function(parent, name, record) {
+        init: function (parent, name, record) {
             this._super.apply(this, arguments);
             if (
                 this.attrs.options.hide_delete_create &&

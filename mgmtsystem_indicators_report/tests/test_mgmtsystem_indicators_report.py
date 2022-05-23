@@ -152,7 +152,10 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
         self.assertEqual(
             indicator.reference_range_limit,
             "%.2f - %.2f"
-            % (indicator.reference_range_low, indicator.reference_range_high,),
+            % (
+                indicator.reference_range_low,
+                indicator.reference_range_high,
+            ),
         )
 
     def test_compute_reference_range_without_range(self):

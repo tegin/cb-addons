@@ -55,12 +55,24 @@ class MgmtsystemIndicator(models.Model):
         range_limit = ""
         if reference_format and (high and low):
             range_limit = "{} - {}".format(
-                lang.format(reference_format, low or 0, grouping=True,),
-                lang.format(reference_format, high or 0, grouping=True,),
+                lang.format(
+                    reference_format,
+                    low or 0,
+                    grouping=True,
+                ),
+                lang.format(
+                    reference_format,
+                    high or 0,
+                    grouping=True,
+                ),
             )
         elif reference_format and high and not low:
             range_limit = " ≤ {}".format(
-                lang.format(reference_format, high or 0, grouping=True,),
+                lang.format(
+                    reference_format,
+                    high or 0,
+                    grouping=True,
+                ),
             )
         return range_limit
 
