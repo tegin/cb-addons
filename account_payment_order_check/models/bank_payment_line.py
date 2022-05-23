@@ -18,7 +18,9 @@ class BankPaymentLine(models.Model):
         readonly=True,
         string="Monetary amount",
     )
-    check_amount_in_words = fields.Text(compute="_compute_amount_in_words",)
+    check_amount_in_words = fields.Text(
+        compute="_compute_amount_in_words",
+    )
     check_number = fields.Integer(
         string="Check Number",
         readonly=True,

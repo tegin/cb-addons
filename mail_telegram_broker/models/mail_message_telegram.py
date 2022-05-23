@@ -7,7 +7,9 @@ from odoo import api, fields, models
 class MailMessageTelegram(models.Model):
     _inherit = "mail.message.telegram"
 
-    state = fields.Selection(selection_add=[("received", "Received")],)
+    state = fields.Selection(
+        selection_add=[("received", "Received")],
+    )
     chat_id = fields.Many2one(ondelete="cascade")
 
     @api.model_create_multi

@@ -135,7 +135,7 @@ class AccountAssetAsset(models.Model):
         depreciation_start_date,
         depreciation_stop_date,
     ):
-        """"Simulate the computation like year one."""
+        """ "Simulate the computation like year one."""
         is_changed = self.method_time == "percentage"
         if is_changed:
             self.method_time = "year"
@@ -153,7 +153,7 @@ class AccountAssetAsset(models.Model):
         depreciation_stop_date,
         line_dates,
     ):
-        """"Simulate the computation like year one."""
+        """ "Simulate the computation like year one."""
         is_changed = self.method_time == "percentage"
         if is_changed:
             self.method_time = "year"

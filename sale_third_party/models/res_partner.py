@@ -95,11 +95,15 @@ class PartnerProperty(models.TransientModel):
     def get_property_fields(self, obj, properties):
         super().get_property_fields(obj, properties)
         for rec in self:
-            rec.property_third_party_customer_account_id = rec.get_property_value(
-                "property_third_party_customer_account_id", obj, properties
+            rec.property_third_party_customer_account_id = (
+                rec.get_property_value(
+                    "property_third_party_customer_account_id", obj, properties
+                )
             )
-            rec.property_third_party_supplier_account_id = rec.get_property_value(
-                "property_third_party_supplier_account_id", obj, properties
+            rec.property_third_party_supplier_account_id = (
+                rec.get_property_value(
+                    "property_third_party_supplier_account_id", obj, properties
+                )
             )
 
     def get_property_fields_list(self):

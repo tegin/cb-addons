@@ -17,7 +17,8 @@ class AccountPaymentOrder(models.Model):
         help="Number of the first check corresponding to this payment.",
     )
     payment_method_code = fields.Char(
-        related="payment_method_id.code", readonly=True,
+        related="payment_method_id.code",
+        readonly=True,
     )
 
     def generate_payment_file(self):

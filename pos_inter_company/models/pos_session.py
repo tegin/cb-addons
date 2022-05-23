@@ -145,7 +145,9 @@ class PosSession(models.Model):
                 account.id
             ].append(
                 self._get_invoice_receivable_vals(
-                    account.id, amounts["amount"], amounts["amount_converted"],
+                    account.id,
+                    amounts["amount"],
+                    amounts["amount_converted"],
                 )
             )
         for (

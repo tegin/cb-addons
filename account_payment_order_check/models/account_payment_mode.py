@@ -9,7 +9,8 @@ class AccountPaymentMode(models.Model):
     _inherit = "account.payment.mode"
 
     check_layout_id = fields.Many2one(
-        "account.payment.check.report", string="Check report",
+        "account.payment.check.report",
+        string="Check report",
     )
 
     @api.constrains("payment_method_id", "check_layout_id")

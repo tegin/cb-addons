@@ -12,16 +12,26 @@ class MailTelegramChat(models.Model):
     _inherit = "mail.telegram.chat"
 
     message_ids = fields.One2many(
-        "mail.message.telegram", inverse_name="chat_id",
+        "mail.message.telegram",
+        inverse_name="chat_id",
     )
     mail_message_ids = fields.One2many(
-        "mail.message", inverse_name="telegram_chat_id",
+        "mail.message",
+        inverse_name="telegram_chat_id",
     )
     last_message_date = fields.Datetime(
-        compute="_compute_message_data", store=True,
+        compute="_compute_message_data",
+        store=True,
     )
-    unread = fields.Integer(compute="_compute_message_data", store=True,)
-    token = fields.Char(related="bot_id.token", store=True, required=False,)
+    unread = fields.Integer(
+        compute="_compute_message_data",
+        store=True,
+    )
+    token = fields.Char(
+        related="bot_id.token",
+        store=True,
+        required=False,
+    )
     show_on_app = fields.Boolean()
     partner_id = fields.Many2one("res.partner")
     message_main_attachment_id = fields.Many2one(
