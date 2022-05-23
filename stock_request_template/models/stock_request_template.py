@@ -82,7 +82,9 @@ class StockRequestTemplateLine(models.Model):
         required=True,
     )
     product_uom_id = fields.Many2one(
-        "uom.uom", "Product Unit of Measure", required=True,
+        "uom.uom",
+        "Product Unit of Measure",
+        required=True,
     )
 
     product_uom_qty = fields.Float(
