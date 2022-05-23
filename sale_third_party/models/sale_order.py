@@ -85,9 +85,11 @@ class SaleOrder(models.Model):
             third_party_customer_account = rec.partner_id.with_context(
                 force_company=rec.company_id.id
             ).property_third_party_customer_account_id
-            third_party_supplier_account = rec.third_party_partner_id.with_context(
-                force_company=rec.company_id.id
-            ).property_third_party_supplier_account_id
+            third_party_supplier_account = (
+                rec.third_party_partner_id.with_context(
+                    force_company=rec.company_id.id
+                ).property_third_party_supplier_account_id
+            )
             in_residual = 0.0
             in_residual_company = 0.0
             out_residual = 0.0
@@ -184,9 +186,11 @@ class SaleOrder(models.Model):
         third_party_customer_account = self.partner_id.with_context(
             force_company=self.company_id.id
         ).property_third_party_customer_account_id
-        third_party_supplier_account = self.third_party_partner_id.with_context(
-            force_company=self.company_id.id
-        ).property_third_party_supplier_account_id
+        third_party_supplier_account = (
+            self.third_party_partner_id.with_context(
+                force_company=self.company_id.id
+            ).property_third_party_supplier_account_id
+        )
         if not third_party_customer_account:
             raise UserError(
                 _(
@@ -232,7 +236,9 @@ class SaleOrder(models.Model):
 
     def _prepare_third_party_order(self):
         lines = self.order_line.filtered(lambda l: l.third_party_product_id)
-        so_lines = [(0, 0, l._prepare_third_party_order_line()) for l in lines]
+        so_lines = [
+            (0, 0, line._prepare_third_party_order_line()) for line in lines
+        ]
 
         return {
             "partner_id": self.third_party_partner_id.id,
