@@ -13,7 +13,9 @@ class CreditControlLine(models.Model):
     )
     balance_due = fields.Float(string="Due balance")
     original_balance_due = fields.Float(
-        string="Original Due balance", required=True, readonly=True,
+        string="Original Due balance",
+        required=True,
+        readonly=True,
     )
 
     @api.model
