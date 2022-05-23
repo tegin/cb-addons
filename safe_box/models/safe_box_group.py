@@ -39,7 +39,7 @@ class SafeBoxGroup(models.Model):
 
     @api.model
     def _create_sequence(self, vals):
-        """ Create new no_gap entry sequence for every new Safe Box Group"""
+        """Create new no_gap entry sequence for every new Safe Box Group"""
         seq = {
             "name": vals["name"],
             "implementation": "no_gap",
