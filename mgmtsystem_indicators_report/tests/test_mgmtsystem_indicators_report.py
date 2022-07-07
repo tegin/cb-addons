@@ -9,6 +9,16 @@ from odoo.tests.common import Form
 class TestMgmtsystemIndicatorsReport(TransactionCase):
     def setUp(self):
         super(TestMgmtsystemIndicatorsReport, self).setUp()
+        self.user = self.env["res.users"].create(
+            {
+                "name": "test user",
+                "login": "test",
+                "groups_id": [
+                    (4, self.env.ref("base.group_user").id),
+                    (4, self.env.ref("mgmtsystem.group_mgmtsystem_user").id),
+                ],
+            }
+        )
         self.uom = self.env.ref("uom.product_uom_cm")
         self.concept_1 = self.env["mgmtsystem.indicator.concept"].create(
             {
@@ -57,6 +67,25 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
         self.assertEqual(self.template_1.name, report.name)
         self.assertEqual(
             len(self.template_1.indicator_ids), len(report.indicator_ids)
+        )
+
+    def test_report_generation_user(self):
+        report_generation = (
+            self.env["indicators.report.from.template"]
+            .with_user(self.user)
+            .create({"template_id": self.template_1.id})
+        )
+        action = report_generation.generate()
+        report = (
+            self.env[action.get("res_model")]
+            .with_user(self.user)
+            .browse(action.get("res_id"))
+        )
+        self.assertEqual("mgmtsystem.indicators.report", report._name)
+        template = self.template_1.with_user(self.user)
+        self.assertEqual(template.name, report.name)
+        self.assertEqual(
+            len(template.indicator_ids), len(report.indicator_ids)
         )
 
     def test_report_form(self):
