@@ -13,6 +13,7 @@
     "depends": ["sale", "multicompany_property_account"],
     "license": "AGPL-3",
     "data": [
+        "security/security.xml",
         "views/sale_order_views.xml",
         "views/res_company_views.xml",
         "views/partner_views.xml",
