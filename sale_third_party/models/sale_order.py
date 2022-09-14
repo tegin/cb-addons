@@ -168,10 +168,16 @@ class SaleOrder(models.Model):
             order.third_party_order_count = len(order.third_party_order_ids)
 
     def create_third_party_move(self):
-        self.third_party_move_id = self.env["account.move"].create(
-            self._third_party_move_vals()
+        # Manage the creation of invoices in sudo because a salesperson must
+        # be able to generate an invoice from a sale order without "billing"
+        # access rights. However, he should not be able to create an invoice
+        # from scratch.
+        self.third_party_move_id = (
+            self.env["account.move"]
+            .sudo()
+            .create(self._third_party_move_vals())
         )
-        self.third_party_move_id.post()
+        self.third_party_move_id.sudo().post()
 
     def _third_party_move_vals(self):
         journal = self.company_id.third_party_journal_id
@@ -208,6 +214,7 @@ class SaleOrder(models.Model):
 
         return {
             "journal_id": journal.id,
+            "invoice_user_id": self.env.user.id,
             "line_ids": [
                 (
                     0,
