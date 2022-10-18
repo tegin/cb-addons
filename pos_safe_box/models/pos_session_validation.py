@@ -9,6 +9,7 @@ from odoo.exceptions import ValidationError
 class PosSessionValidation(models.Model):
     _name = "pos.session.validation"
     _description = "Session validation"
+    _order = "id desc"
 
     name = fields.Char(default="/", required=True, readonly=True)
     date = fields.Date(default=lambda self: fields.Date.today(), readonly=True)
