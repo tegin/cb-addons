@@ -16,6 +16,7 @@ class SafeBoxMove(models.Model):
 
     _name = "safe.box.move"
     _description = "safe.box.move"
+    _order = "id desc"
 
     name = fields.Char(required=True, default="/", readonly=True)
     safe_box_group_id = fields.Many2one(
