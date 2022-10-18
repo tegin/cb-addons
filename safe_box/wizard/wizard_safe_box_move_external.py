@@ -38,6 +38,7 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
         readonly=True,
     )
     amount = fields.Monetary(currency_field="currency_id", required=True)
+    name = fields.Char()
 
     def create_move_vals(self):
         return {"safe_box_group_id": self.safe_box_group_id.id}
@@ -69,6 +70,7 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
             account = self.account_id
             amount = -self.amount
         vals = {
+            "name": self.name,
             "account_id": account.id,
             "debit": amount > 0 and amount or 0,
             "credit": amount < 0 and -amount or 0,

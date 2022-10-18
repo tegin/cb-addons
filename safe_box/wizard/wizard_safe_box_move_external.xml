@@ -21,6 +21,7 @@
                     <field name="company_id" readonly="1" />
                     <field name="amount" />
                     <field name="currency_id" invisible="1" />
+                    <field name="name" invisible="0" />
                 </group>
                 <footer>
                     <button
