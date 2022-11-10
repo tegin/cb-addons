@@ -67,6 +67,4 @@ class ResInterCompany(models.Model):
                 )
                 > 1
             ):
-                raise ValidationError(
-                    _("Only one record per company is allowed")
-                )
+                raise ValidationError(_("Only one record per company is allowed"))

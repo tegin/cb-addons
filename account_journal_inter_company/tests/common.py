@@ -63,8 +63,7 @@ class TestInterCompany(SavepointCase):
             )
             journal_1 = journal_obj.create(
                 {
-                    "name": "Journal from %s to %s"
-                    % (company_1.name, company_2.name),
+                    "name": "Journal from %s to %s" % (company_1.name, company_2.name),
                     "code": "I;{};{}".format(company_1.id, company_2.id),
                     "type": "general",
                     "company_id": company_1.id,
@@ -85,8 +84,7 @@ class TestInterCompany(SavepointCase):
             )
             journal_2 = journal_obj.create(
                 {
-                    "name": "Journal from %s to %s"
-                    % (company_2.name, company_1.name),
+                    "name": "Journal from %s to %s" % (company_2.name, company_1.name),
                     "code": "I;{};{}".format(company_2.id, company_1.id),
                     "type": "general",
                     "company_id": company_2.id,
@@ -105,9 +103,7 @@ class TestInterCompany(SavepointCase):
 
     @classmethod
     def create_invoice(cls, company, inv_type, partner, product):
-        move_obj = cls.env["account.move"].with_context(
-            force_company=company.id
-        )
+        move_obj = cls.env["account.move"].with_context(force_company=company.id)
         if inv_type in move_obj.get_purchase_types():
             journal_type = "purchase"
         elif inv_type in move_obj.get_sale_types():
