@@ -16,6 +16,13 @@ None
 <!-- prettier-ignore-start -->
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[account_journal_inter_company](account_journal_inter_company/) | 14.0.1.0.0 |  | Creates inter company relations
+
 [//]: # (end addons)
 
 <!-- prettier-ignore-end -->
