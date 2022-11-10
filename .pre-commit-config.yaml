@@ -131,3 +131,17 @@ repos:
       - id: pylint_odoo
         args:
           - --rcfile=.pylintrc-mandatory
+  - repo: https://github.com/OCA/maintainer-tools
+    rev: master
+    hooks:
+      - id: oca-gen-addon-readme
+        args:
+          - --repo-name
+          - cb-addons
+          - --org-name
+          - tegin
+          - --branch
+          - "14.0"
+          - --addons-dir
+          - .
+      - id: oca-gen-addons-table
