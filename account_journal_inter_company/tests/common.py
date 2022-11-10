@@ -67,8 +67,7 @@ class TestInterCompany(SavepointCase):
                     "code": "I;{};{}".format(company_1.id, company_2.id),
                     "type": "general",
                     "company_id": company_1.id,
-                    "default_credit_account_id": account.id,
-                    "default_debit_account_id": account.id,
+                    "default_account_id": account.id,
                 }
             )
         if not journal_2:
@@ -88,8 +87,7 @@ class TestInterCompany(SavepointCase):
                     "code": "I;{};{}".format(company_2.id, company_1.id),
                     "type": "general",
                     "company_id": company_2.id,
-                    "default_credit_account_id": account.id,
-                    "default_debit_account_id": account.id,
+                    "default_account_id": account.id,
                 }
             )
         self.env["res.inter.company"].create(
