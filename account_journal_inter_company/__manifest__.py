@@ -4,8 +4,8 @@
 
 {
     "name": "Intercompany journal",
-    "version": "13.0.1.0.0",
-    "author": "Eficent, Creu Blanca",
+    "version": "14.0.1.0.0",
+    "author": "Eficent, CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
     "summary": "Creates inter company relations",
     "sequence": 30,

@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_journal_inter_company](account_journal_inter_company/) | 13.0.1.0.0 |  | Creates inter company relations
+[account_journal_inter_company](account_journal_inter_company/) | 14.0.1.0.0 |  | Creates inter company relations
 
 [//]: # (end addons)
 
