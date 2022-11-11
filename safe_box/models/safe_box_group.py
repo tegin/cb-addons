@@ -66,9 +66,9 @@ class SafeBoxGroup(models.Model):
 
     def action_count_money(self):
         self.ensure_one()
-        action = self.env.ref("safe_box.wizard_safe_box_count_action").read()[
-            0
-        ]
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "safe_box.wizard_safe_box_count_action"
+        )
         wizard = self.env["wizard.safe.box.count"].create(
             {"safe_box_group_id": self.id}
         )

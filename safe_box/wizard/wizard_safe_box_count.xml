@@ -59,11 +59,10 @@
             </tree>
         </field>
     </record>
-    <act_window
-        id="wizard_safe_box_count_action"
-        name="Count money"
-        res_model="wizard.safe.box.count"
-        view_mode="form"
-        target="new"
-    />
+    <record model="ir.actions.act_window" id="wizard_safe_box_count_action">
+        <field name="name">Count money</field>
+        <field name="res_model">wizard.safe.box.count</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 </odoo>

@@ -44,10 +44,7 @@ class WizardSafeBoxCount(models.TransientModel):
         self.ensure_one()
         self.safe_box_id.recompute_amount()
         amount = sum(self.coin_ids.mapped("amount"))
-        if (
-            float_compare(amount, self.safe_box_id.amount, precision_digits=6)
-            == 0
-        ):
+        if float_compare(amount, self.safe_box_id.amount, precision_digits=6) == 0:
             self.state = "equal"
             self.status = _("Cash Box amount is correct")
         else:
@@ -60,9 +57,7 @@ class WizardSafeBoxCountCoin(models.TransientModel):
     _description = "Count coins"
 
     safe_box_count_id = fields.Many2one("wizard.safe.box.count", readonly=True)
-    safe_box_coin_id = fields.Many2one(
-        "safe.box.coin", required=True, string="Coin"
-    )
+    safe_box_coin_id = fields.Many2one("safe.box.coin", required=True, string="Coin")
     value = fields.Integer(required=True, default=0)
     amount = fields.Float(compute="_compute_amount")
 
