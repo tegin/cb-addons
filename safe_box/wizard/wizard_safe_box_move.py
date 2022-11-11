@@ -45,8 +45,9 @@ class WizardSafeBoxMove(models.TransientModel):
         line_obj.create(self.create_line_vals(move, True))
         line_obj.create(self.create_line_vals(move, False))
         move.close()
-        action = self.env.ref("safe_box.safe_box_move_action")
-        result = action.read()[0]
+        result = self.env["ir.actions.act_window"]._for_xml_id(
+            "safe_box.safe_box_move_action"
+        )
         result["res_id"] = move.id
         result["views"] = [(False, "form")]
         return result

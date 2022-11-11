@@ -14,7 +14,7 @@ class AccountMove(models.Model):
         readonly=True,
         string="Move",
         copy=False,
-        delete="restrict",
+        ondelete="restrict",
         help="Relation to the safe box move. It must be defined if an account is "
         "related to a safe box group",
     )

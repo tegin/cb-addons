@@ -13,7 +13,7 @@ class AccountAccount(models.Model):
     safe_box_group_id = fields.Many2one(
         comodel_name="safe.box.group",
         string="Safe box group",
-        delete="restrict",
+        ondelete="restrict",
     )
     safe_box_currency_id = fields.Many2one(
         "res.currency", related="safe_box_group_id.currency_id", readonly=True
@@ -46,12 +46,7 @@ class AccountAccount(models.Model):
                     ("move_id.state", "=", "posted"),
                 ]
             )
-            if (
-                float_compare(
-                    sum(lines.mapped("balance")), 0, precision_digits=6
-                )
-                != 0
-            ):
+            if float_compare(sum(lines.mapped("balance")), 0, precision_digits=6) != 0:
                 raise ValidationError(
                     _(
                         "Safe box group cannot be set if the account has "
@@ -62,6 +57,4 @@ class AccountAccount(models.Model):
             if sb_group and len(sb_group.account_ids) != len(
                 sb_group.mapped("account_ids.company_id")
             ):
-                raise ValidationError(
-                    _("Only one account by company is allowed")
-                )
+                raise ValidationError(_("Only one account by company is allowed"))
