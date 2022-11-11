@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.actions.act_window" id="safe_box_list_moves">
+        <field name="name">List Safe Box Moves</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">safe.box.move.line</field>
+        <field name="domain">[('safe_box_id', '=', active_id)]</field>
+        <field name="view_mode">graph,tree,form</field>
+        <!--<field name="view_ids" eval="[(5, 0, 0),(0,0, {'view_mode': 'tree', 'view_id': ref('safe_box.safe_box_move_line_view_tree')})]" />-->
+    </record>
+    <record model="ir.actions.act_window.view" id="safe_box_list_moves_tree_view">
+        <field name="act_window_id" ref="safe_box_list_moves" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="safe_box_move_line_view_tree" />
+    </record>
+    <record model="ir.ui.view" id="safe_box_form">
+        <field name="name">safe.box.form</field>
+        <field name="model">safe.box</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" />
+                    <field name="safe_box_group_id" invisible="1" />
+                    <field
+                        name="coin_ids"
+                        widget="many2many_tags"
+                        domain="[('safe_box_group_id', '=', safe_box_group_id)]"
+                    />
+                    <field name="user_ids" widget="many2many_tags" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="safe_box_tree">
+        <field name="name">safe.box.tree</field>
+        <field name="model">safe.box</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="amount" sum="Total Amount" />
+                <button
+                    type="action"
+                    name="%(safe_box_list_moves)s"
+                    icon="fa-align-justify"
+                />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="safe_box_move_tree">
+        <field name="name">safe.box.move.tree</field>
+        <field name="model">safe.box.move</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+</odoo>
