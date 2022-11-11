@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="partner_agreement_form_view" model="ir.ui.view">
+        <field name="model">agreement</field>
+        <field name="inherit_id" ref="agreement_legal.partner_agreement_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_files" type="object" icon="fa-file-archive-o">
+                    <field name="file_count" string="Files" widget="statinfo" />
+                </button>
+            </xpath>
+        </field>
+    </record>
+    <!-- List as first view -->
+    <record
+        id="agreement_legal.agreement_dashboard_agreement"
+        model="ir.actions.act_window"
+    >
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+</odoo>
