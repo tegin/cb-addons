@@ -5,7 +5,7 @@
     "name": "Agreements Legal Demo",
     "summary": "Create contract from agreement",
     "author": "Creu Blanca, Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/contract",
+    "website": "https://github.com/tegin/cb-addons",
     "category": "Agreement",
     "depends": ["agreement_legal", "archive_management"],
     "license": "AGPL-3",
