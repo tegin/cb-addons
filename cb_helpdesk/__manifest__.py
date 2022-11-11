@@ -5,9 +5,9 @@
     "name": "Cb Helpdesk",
     "summary": """
         Helpdesk from OCA with some modifications""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca,Odoo Community Association (OCA)",
+    "author": "CreuBlanca,Odoo Community Association (OCA)",
     "website": "https://github.com/tegin/cb-addons",
     "depends": ["helpdesk_mgmt"],
     "data": ["views/helpdesk_ticket.xml"],
