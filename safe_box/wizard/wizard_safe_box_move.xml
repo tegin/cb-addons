@@ -35,11 +35,10 @@
             </form>
         </field>
     </record>
-    <act_window
-        id="wizard_safe_box_move_action"
-        name="Generate move"
-        res_model="wizard.safe.box.move"
-        view_mode="form"
-        target="new"
-    />
+    <record model="ir.actions.act_window" id="wizard_safe_box_move_action">
+        <field name="name">Generate move</field>
+        <field name="res_model">wizard.safe.box.move</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 </odoo>

@@ -58,9 +58,7 @@ class TestSafeBox(TransactionCase):
                 "name": "Account 01",
                 "code": "001",
                 "company_id": self.company_01.id,
-                "user_type_id": self.ref(
-                    "account.data_account_type_liquidity"
-                ),
+                "user_type_id": self.ref("account.data_account_type_liquidity"),
                 "safe_box_group_id": self.safe_box_group.id,
             }
         )
@@ -69,9 +67,7 @@ class TestSafeBox(TransactionCase):
                 "name": "Account 02",
                 "code": "002",
                 "company_id": self.company_02.id,
-                "user_type_id": self.ref(
-                    "account.data_account_type_liquidity"
-                ),
+                "user_type_id": self.ref("account.data_account_type_liquidity"),
                 "safe_box_group_id": self.safe_box_group.id,
             }
         )
@@ -96,9 +92,7 @@ class TestSafeBox(TransactionCase):
                 "name": "Account 03",
                 "code": "003",
                 "company_id": self.company_01.id,
-                "user_type_id": self.ref(
-                    "account.data_account_type_liquidity"
-                ),
+                "user_type_id": self.ref("account.data_account_type_liquidity"),
             }
         )
         self.account_04 = self.env["account.account"].create(
@@ -106,9 +100,7 @@ class TestSafeBox(TransactionCase):
                 "name": "Account 04",
                 "code": "004",
                 "company_id": self.company_02.id,
-                "user_type_id": self.ref(
-                    "account.data_account_type_liquidity"
-                ),
+                "user_type_id": self.ref("account.data_account_type_liquidity"),
             }
         )
 
@@ -147,9 +139,7 @@ class TestSafeBox(TransactionCase):
         self.assertEqual(self.safe_box_01.amount, 100)
         self.assertEqual(self.safe_box_02.amount, 0)
         with self.assertRaises(ValidationError):
-            self.env["wizard.safe.box.move"].with_user(
-                user=self.user.id
-            ).create(
+            self.env["wizard.safe.box.move"].with_user(user=self.user.id).create(
                 {
                     "safe_box_group_id": self.safe_box_group.id,
                     "initial_safe_box_id": self.safe_box_01.id,
@@ -177,9 +167,7 @@ class TestSafeBox(TransactionCase):
         self.safe_box_group.recompute_amount()
         wizard_action = self.safe_box_group.action_count_money()
         self.safe_box_group.flush()
-        count = self.env["wizard.safe.box.count"].browse(
-            wizard_action["res_id"]
-        )
+        count = self.env["wizard.safe.box.count"].browse(wizard_action["res_id"])
         count.flush()
         with Form(count) as form_count:
             form_count.safe_box_id = self.safe_box_02
@@ -196,9 +184,7 @@ class TestSafeBox(TransactionCase):
         with self.assertRaises(ValidationError):
             self.account_02.write({"safe_box_group_id": False})
         with self.assertRaises(ValidationError):
-            self.account_04.write(
-                {"safe_box_group_id": self.safe_box_group.id}
-            )
+            self.account_04.write({"safe_box_group_id": self.safe_box_group.id})
         with self.assertRaises(ValidationError):
             self.env["wizard.safe.box.move.external"].create(
                 {

@@ -23,7 +23,7 @@ class SafeBoxMove(models.Model):
         comodel_name="safe.box.group",
         string="Safe box group",
         required=True,
-        delete="restrict",
+        ondelete="restrict",
     )
     line_ids = fields.One2many(
         comodel_name="safe.box.move.line",
@@ -54,8 +54,7 @@ class SafeBoxMove(models.Model):
         amount -= sum(
             line.balance
             for line in self.account_move_ids.mapped("line_ids").filtered(
-                lambda r: r.account_id.id
-                in self.safe_box_group_id.account_ids.ids
+                lambda r: r.account_id.id in self.safe_box_group_id.account_ids.ids
             )
         )
         if float_compare(amount, 0, precision_digits=6):
@@ -63,13 +62,10 @@ class SafeBoxMove(models.Model):
         for safe_box in self.line_ids.mapped("safe_box_id"):
             if (
                 self.env.user.id not in safe_box.user_ids.ids
-                and not self.env.user.has_group(
-                    "safe_box.group_safe_box_manager"
-                )
+                and not self.env.user.has_group("safe_box.group_safe_box_manager")
             ):
                 raise ValidationError(
-                    _("You are not allowed to move/take money from %s")
-                    % safe_box.name
+                    _("You are not allowed to move/take money from %s") % safe_box.name
                 )
             safe_box.sudo().recompute_amount()
             if (
@@ -86,9 +82,7 @@ class SafeBoxMove(models.Model):
                 )
                 < 0
             ):
-                raise ValidationError(
-                    _("Safe box cannot have a negative value")
-                )
+                raise ValidationError(_("Safe box cannot have a negative value"))
 
     def close(self):
         self.ensure_one()
@@ -118,7 +112,7 @@ class SafeBoxMoveLine(models.Model):
         string="Safe box",
         required=True,
         domain="[('safe_box_group_id', '=', safe_box_group_id)]",
-        delete="restrict",
+        ondelete="restrict",
     )
     state = fields.Selection(related="safe_box_move_id.state", readonly=True)
     safe_box_group_id = fields.Many2one(
@@ -132,9 +126,7 @@ class SafeBoxMoveLine(models.Model):
         related="safe_box_group_id.currency_id",
         readonly=True,
     )
-    amount = fields.Monetary(
-        required=True, default=0, currency_field="currency_id"
-    )
+    amount = fields.Monetary(required=True, default=0, currency_field="currency_id")
 
     def name_get(self):
         result = []

@@ -29,8 +29,7 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
     account_id = fields.Many2one(
         "account.account",
         required=True,
-        domain="[('id', 'not in', account_ids),"
-        " ('company_id', '=', company_id)]",
+        domain="[('id', 'not in', account_ids)," " ('company_id', '=', company_id)]",
     )
     currency_id = fields.Many2one(
         comodel_name="res.currency",
@@ -82,19 +81,18 @@ class WizardSafeBoxMoveExternal(models.TransientModel):
     def run(self):
         self.ensure_one()
         move = self.env["safe.box.move"].create(self.create_move_vals())
-        self.env["safe.box.move.line"].create(
-            self.create_safe_box_move_line_vals(move)
-        )
+        self.env["safe.box.move.line"].create(self.create_safe_box_move_line_vals(move))
         lines = list()
         lines.append(self.create_account_line_vals(True))
         lines.append(self.create_account_line_vals(False))
         account_move = self.env["account.move"].create(
             self.create_account_move_vals(move, lines)
         )
-        account_move.post()
+        account_move.action_post()
         move.close()
-        action = self.env.ref("safe_box.safe_box_move_action")
-        result = action.read()[0]
+        result = self.env["ir.actions.act_window"]._for_xml_id(
+            "safe_box.safe_box_move_action"
+        )
         result["res_id"] = move.id
         result["views"] = [(False, "form")]
         return result
