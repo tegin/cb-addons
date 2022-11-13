@@ -131,7 +131,7 @@ repos:
       - id: pylint_odoo
         args:
           - --rcfile=.pylintrc-mandatory
-  - repo: https://github.com/tegin/maintainer-tools
+  - repo: https://github.com/OCA/maintainer-tools
     # We will replace it by OCA once they merge compatibility with Python3.11
     rev: master
     hooks:
