@@ -10,7 +10,12 @@
     "summary": "Creates inter company relations",
     "sequence": 30,
     "category": "Sale",
-    "depends": ["sale", "multicompany_property_account"],
+    "depends": [
+        "sale",
+        "multicompany_property_account",
+        "multicompany_property_base",
+        "multicompany_property_product",
+    ],
     "license": "AGPL-3",
     "data": [
         "security/security.xml",

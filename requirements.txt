@@ -1,2 +1,5 @@
 # generated from manifests external_dependencies
+git+https://github.com/forgeflow/multicompany-fixes.git@14.0#subdirectory=setup/multicompany_property_account
+git+https://github.com/forgeflow/multicompany-fixes.git@14.0#subdirectory=setup/multicompany_property_base
+git+https://github.com/forgeflow/multicompany-fixes.git@14.0#subdirectory=setup/multicompany_property_product
 git+https://github.com/tegin/archive-management.git@14.0#subdirectory=setup/archive_management
