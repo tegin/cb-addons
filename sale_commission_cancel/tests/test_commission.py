@@ -91,7 +91,7 @@ class TestSaleCommission(TransactionCase):
         }
         payment.with_context(context).create_invoices()
         self.assertNotEqual(len(sale_order.invoice_ids), 0)
-        sale_order.invoice_ids.post()
+        sale_order.invoice_ids.action_post()
         line = sale_order.invoice_ids.invoice_line_ids
         agent_line = line.agent_ids
         self.assertTrue(agent_line)
