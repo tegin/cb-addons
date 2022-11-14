@@ -1,4 +1,5 @@
 import dateutil.relativedelta
+
 from odoo import fields
 from odoo.tests.common import TransactionCase
 
@@ -78,9 +79,7 @@ class TestSaleCommission(TransactionCase):
         )
 
     def test_change(self):
-        sale_order = self._create_sale_order(
-            self.agent_1, self.commission_net_invoice
-        )
+        sale_order = self._create_sale_order(self.agent_1, self.commission_net_invoice)
 
         sale_order.action_confirm()
         self.assertEqual(len(sale_order.invoice_ids), 0)
@@ -136,6 +135,4 @@ class TestSaleCommission(TransactionCase):
         self.assertFalse(agent_line.can_cancel)
         self.assertEqual(agent_line.agent_id, self.agent_2)
         self.assertTrue(line.agent_ids.filtered(lambda r: r.is_cancel))
-        self.assertTrue(
-            line.agent_ids.filtered(lambda r: r.agent_id == self.agent_1)
-        )
+        self.assertTrue(line.agent_ids.filtered(lambda r: r.agent_id == self.agent_1))

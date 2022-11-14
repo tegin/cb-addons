@@ -5,9 +5,7 @@ class AccountInvoiceAgentChange(models.TransientModel):
     _name = "account.invoice.agent.change"
     _description = "Change agent"
 
-    agent = fields.Many2one(
-        "res.partner", domain=[("agent", "=", True)], required=True
-    )
+    agent = fields.Many2one("res.partner", domain=[("agent", "=", True)], required=True)
     agent_line = fields.Many2one(
         "account.invoice.line.agent", required=True, readonly=True
     )
