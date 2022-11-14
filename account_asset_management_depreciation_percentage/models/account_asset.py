@@ -4,6 +4,7 @@
 from datetime import date
 
 from dateutil.relativedelta import relativedelta
+
 from odoo import api, fields, models
 from odoo.tools import float_compare
 
@@ -21,9 +22,7 @@ class AccountAssetAsset(models.Model):
         inverse="_inverse_method_percentage",
         store=True,
     )
-    use_percentage = fields.Boolean(
-        string="Use percentage method", default=False
-    )
+    use_percentage = fields.Boolean(string="Use percentage method", default=False)
     _sql_constraints = [
         (
             "annual_percentage",
@@ -37,9 +36,7 @@ class AccountAssetAsset(models.Model):
         mapping = self.env["account.asset.profile"].METHOD_PERIOD_MAPPING
         for asset in self:
             asset.method_percentage = (
-                asset.annual_percentage
-                * mapping.get(asset.method_period, 12)
-                / 12
+                asset.annual_percentage * mapping.get(asset.method_period, 12) / 12
             )
 
     @api.onchange("method_time")
@@ -55,9 +52,7 @@ class AccountAssetAsset(models.Model):
         mapping = self.env["account.asset.profile"].METHOD_PERIOD_MAPPING
         for asset in self:
             new_percentage = (
-                asset.method_percentage
-                * 12
-                / mapping.get(asset.method_period, 12)
+                asset.method_percentage * 12 / mapping.get(asset.method_period, 12)
             )
             # Only change amount when significant delta
             if float_compare(new_percentage, self.annual_percentage, 2) != 0:
@@ -81,9 +76,7 @@ class AccountAssetAsset(models.Model):
             stop_date = depreciation_start_date
             while percentage > 0:
                 if number == 0 and self.prorata:
-                    days = (
-                        date(stop_date.year, month=12, day=31) - stop_date
-                    ).days + 1
+                    days = (date(stop_date.year, month=12, day=31) - stop_date).days + 1
                     year_days = (
                         date(stop_date.year, month=12, day=31)
                         - date(stop_date.year, month=1, day=1)
@@ -91,12 +84,7 @@ class AccountAssetAsset(models.Model):
                     percentage -= self.annual_percentage * days / year_days
                     stop_date += relativedelta(day=31, month=12)
                 else:
-                    if (
-                        float_compare(
-                            percentage - self.annual_percentage, 0.0, 8
-                        )
-                        >= 0
-                    ):
+                    if float_compare(percentage - self.annual_percentage, 0.0, 8) >= 0:
                         stop_date += relativedelta(years=1)
                     else:
                         # Remaining percentage is not whole year
@@ -104,9 +92,7 @@ class AccountAssetAsset(models.Model):
                             date(stop_date.year + 1, month=12, day=31)
                             - date(stop_date.year + 1, month=1, day=1)
                         ).days + 1
-                        days = int(
-                            year_days * percentage / self.annual_percentage
-                        )
+                        days = int(year_days * percentage / self.annual_percentage)
                         stop_date += relativedelta(days=days)
                     percentage -= self.annual_percentage
                 number += 1
