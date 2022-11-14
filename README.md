@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_asset_management_depreciation_percentage](account_asset_management_depreciation_percentage/) | 14.0.1.0.0 |  | Account Asset Management Depreciation Percentage
+[account_credit_control_deferred](account_credit_control_deferred/) | 13.0.1.1.0 |  | Defferred credit control mails
 [account_journal_inter_company](account_journal_inter_company/) | 14.0.1.0.0 |  | Creates inter company relations
 [cb_agreement_legal](cb_agreement_legal/) | 14.0.1.0.0 |  | Create contract from agreement
 [cb_helpdesk](cb_helpdesk/) | 14.0.1.0.0 |  | Helpdesk from OCA with some modifications

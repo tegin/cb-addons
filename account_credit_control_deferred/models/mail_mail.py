@@ -17,9 +17,7 @@ class MailMail(models.Model):
             if self.subtype_id == mt_request:
                 self.env[msg.model].browse(msg.res_id).write(
                     {
-                        "state": "sent"
-                        if self.state == "sent"
-                        else "email_error",
+                        "state": "sent" if self.state == "sent" else "email_error",
                     }
                 )
         return super()._postprocess_sent_message(

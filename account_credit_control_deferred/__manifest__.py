@@ -8,7 +8,7 @@
     "version": "13.0.1.1.0",
     "license": "AGPL-3",
     "author": "Creu Blanca,Odoo Community Association (OCA)",
-    "website": "www.creublanca.es",
+    "website": "https://github.com/tegin/cb-addons",
     "depends": ["account_credit_control"],
     "data": [
         "views/res_company.xml",
