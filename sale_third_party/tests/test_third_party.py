@@ -55,9 +55,7 @@ class ThirdParty(TransactionCase):
                 "company_id": self.company.id,
                 "code": "ThirdPartySupp",
                 "name": "Third party supplier account",
-                "user_type_id": self.browse_ref(
-                    "account.data_account_type_payable"
-                ).id,
+                "user_type_id": self.browse_ref("account.data_account_type_payable").id,
                 "reconcile": True,
             }
         )
@@ -129,9 +127,7 @@ class ThirdParty(TransactionCase):
         prop = self.customer.property_ids.filtered(
             lambda r: r.company_id == self.company
         )
-        prop.write(
-            {"property_third_party_customer_account_id": self.customer_acc2.id}
-        )
+        prop.write({"property_third_party_customer_account_id": self.customer_acc2.id})
         prop.refresh()
         self.assertEqual(
             self.customer.with_context(
@@ -358,9 +354,7 @@ class ThirdParty(TransactionCase):
         )
         wizard = (
             self.env["cash.third.party.sale"]
-            .with_context(
-                active_ids=statement.ids, active_model=statement._name
-            )
+            .with_context(active_ids=statement.ids, active_model=statement._name)
             .create({"sale_order_id": sale_order.id, "amount": 0})
         )
         wizard._onchange_sale_order()
@@ -376,15 +370,11 @@ class ThirdParty(TransactionCase):
         )
         wizard = (
             self.env["cash.third.party.sale"]
-            .with_context(
-                active_ids=statement.ids, active_model=statement._name
-            )
+            .with_context(active_ids=statement.ids, active_model=statement._name)
             .create({"sale_order_id": sale_order.id, "amount": 0})
         )
         wizard._onchange_sale_order()
-        self.assertEqual(
-            wizard.amount, sale_order.third_party_customer_in_residual
-        )
+        self.assertEqual(wizard.amount, sale_order.third_party_customer_in_residual)
         wizard.run()
         statement.balance_end_real = statement.balance_end
         statement.check_confirm_bank()
@@ -486,9 +476,7 @@ class ThirdParty(TransactionCase):
         )
         wizard = (
             self.env["cash.third.party.sale"]
-            .with_context(
-                active_ids=statement.ids, active_model=statement._name
-            )
+            .with_context(active_ids=statement.ids, active_model=statement._name)
             .create({"sale_order_id": sale_order.id, "amount": 0})
         )
         wizard._onchange_sale_order()
@@ -504,15 +492,11 @@ class ThirdParty(TransactionCase):
         )
         wizard = (
             self.env["cash.third.party.sale"]
-            .with_context(
-                active_ids=statement.ids, active_model=statement._name
-            )
+            .with_context(active_ids=statement.ids, active_model=statement._name)
             .create({"sale_order_id": sale_order.id, "amount": 0})
         )
         wizard._onchange_sale_order()
-        self.assertEqual(
-            wizard.amount, sale_order.third_party_customer_in_residual
-        )
+        self.assertEqual(wizard.amount, sale_order.third_party_customer_in_residual)
         wizard.run()
         statement.balance_end_real = statement.balance_end
         statement.check_confirm_bank()

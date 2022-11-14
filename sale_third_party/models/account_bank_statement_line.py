@@ -14,9 +14,7 @@ class AccountBankStatementLine(models.Model):
     def fast_counterpart_creation(self):
         for st_line in self:
             if not st_line.third_party_sale_order_id:
-                super(
-                    AccountBankStatementLine, st_line
-                ).fast_counterpart_creation()
+                super(AccountBankStatementLine, st_line).fast_counterpart_creation()
             else:
                 sale_order = st_line.third_party_sale_order_id
                 move_line = sale_order.third_party_move_id.line_ids.filtered(
@@ -30,6 +28,4 @@ class AccountBankStatementLine(models.Model):
                         "move_line": move_line,
                         "third_party_customer_sale_order_id": sale_order.id,
                     }
-                    st_line.process_reconciliation(
-                        counterpart_aml_dicts=[vals]
-                    )
+                    st_line.process_reconciliation(counterpart_aml_dicts=[vals])

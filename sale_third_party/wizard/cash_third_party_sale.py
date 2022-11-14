@@ -28,18 +28,12 @@ class CashInvoiceOut(models.TransientModel):
     def _default_journal(self):
         journals = self._default_journals()
         if journals and len(journals.ids) > 0:
-            return (
-                self.env["account.journal"]
-                .browse(journals.ids[0])
-                .ensure_one()
-            )
+            return self.env["account.journal"].browse(journals.ids[0]).ensure_one()
 
     def _default_journal_count(self):
         return len(self._default_journals())
 
-    sale_order_id = fields.Many2one(
-        "sale.order", string="Sale Order", required=True
-    )
+    sale_order_id = fields.Many2one("sale.order", string="Sale Order", required=True)
     name = fields.Char(related="sale_order_id.name", readonly=True)
     company_id = fields.Many2one(
         "res.company", default=_default_company, required=True, readonly=True
@@ -57,9 +51,7 @@ class CashInvoiceOut(models.TransientModel):
     journal_id = fields.Many2one(
         "account.journal", required=True, default=_default_journal
     )
-    journal_count = fields.Integer(
-        default=_default_journal_count, readonly=True
-    )
+    journal_count = fields.Integer(default=_default_journal_count, readonly=True)
 
     def default_company(self, active_model, active_ids):
         return self.env[active_model].browse(active_ids)[0].company_id
@@ -77,8 +69,7 @@ class CashInvoiceOut(models.TransientModel):
     @api.onchange("journal_id")
     def _onchange_journal(self):
         self.currency_id = (
-            self.journal_id.currency_id
-            or self.journal_id.company_id.currency_id
+            self.journal_id.currency_id or self.journal_id.company_id.currency_id
         )
 
     @api.onchange("sale_order_id")
