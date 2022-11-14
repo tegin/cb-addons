@@ -4,8 +4,8 @@
 
 {
     "name": "Sequence parser",
-    "version": "14.0.1.0.0",
-    "author": "Eficent, CreuBlanca",
+    "version": "13.0.1.0.0",
+    "author": "Eficent, Creu Blanca",
     "website": "https://github.com/tegin/cb-addons",
     "summary": "Returns the sequence on a tuple",
     "sequence": 30,
