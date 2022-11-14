@@ -33,9 +33,7 @@ class CreditControlCommunication(models.Model):
     def _compute_total(self):
         super()._compute_total()
         for communication in self:
-            communication.total_current_invoiced = (
-                communication._get_current_total()
-            )
+            communication.total_current_invoiced = communication._get_current_total()
 
     def _get_current_total(self):
         result = 0
@@ -143,9 +141,9 @@ class CreditControlCommunication(models.Model):
     @api.returns("mail.message", lambda value: value.id)
     def message_post(self, **kwargs):
         if self.env.context.get("mark_communication_as_sent"):
-            self.filtered(
-                lambda o: o.state in ["queued", "email_error"]
-            ).write({"state": "sent"})
+            self.filtered(lambda o: o.state in ["queued", "email_error"]).write(
+                {"state": "sent"}
+            )
         return super().message_post(**kwargs)
 
     @api.model
@@ -155,9 +153,7 @@ class CreditControlCommunication(models.Model):
         for res in result:
             partner = partner_obj.browse(res["partner_id"])
             if partner.credit_control_contact_partner_id:
-                res[
-                    "contact_address_id"
-                ] = partner.credit_control_contact_partner_id.id
+                res["contact_address_id"] = partner.credit_control_contact_partner_id.id
         return result
 
     def update_balance(self):
