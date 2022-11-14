@@ -3,10 +3,10 @@
 
 {
     "name": "Account Asset Management Depreciation Percentage",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "depends": ["account_asset_management"],
     "conflicts": ["l10n_es_account_asset"],
-    "author": "Eficent",
+    "author": "CreuBlanca, Eficent",
     "license": "AGPL-3",
     "website": "https://github.com/tegin/cb-addons",
     "category": "Accounting & Finance",
