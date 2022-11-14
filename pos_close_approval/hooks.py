@@ -1,6 +1,7 @@
 from odoo import _
-from odoo.addons.point_of_sale.models.pos_config import PosConfig
 from odoo.exceptions import UserError
+
+from odoo.addons.point_of_sale.models.pos_config import PosConfig
 
 
 def post_load_hook():  # noqa: C901
