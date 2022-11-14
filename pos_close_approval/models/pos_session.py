@@ -9,9 +9,7 @@ from odoo.exceptions import UserError, ValidationError
 class PosSession(models.Model):
     _inherit = "pos.session"
 
-    state = fields.Selection(
-        selection_add=[("pending_approval", "Pending approval")]
-    )
+    state = fields.Selection(selection_add=[("pending_approval", "Pending approval")])
     statement_line_ids = fields.One2many(
         "account.bank.statement.line",
         inverse_name="pos_session_id",
@@ -45,14 +43,10 @@ class PosSession(models.Model):
             session.action_pos_session_close()
 
     def action_pos_session_closing_control(self):
-        approved = len(
-            self.filtered(lambda r: not r.config_id.requires_approval)
-        )
+        approved = len(self.filtered(lambda r: not r.config_id.requires_approval))
         if approved == len(self):
             return super(PosSession, self).action_pos_session_closing_control()
         if approved == 0:
-            self.write(
-                {"state": "pending_approval", "stop_at": fields.Datetime.now()}
-            )
+            self.write({"state": "pending_approval", "stop_at": fields.Datetime.now()})
             return
         raise UserError(_("Cannot close different kinds of sessions"))

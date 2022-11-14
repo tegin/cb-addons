@@ -29,6 +29,7 @@ addon | version | maintainers | summary
 [cb_knowledge](cb_knowledge/) | 14.0.1.0.0 |  | Knowledge for CB
 [cb_l10n_es_aeat_mod303](cb_l10n_es_aeat_mod303/) | 14.0.1.0.0 |  | Add report to mod 303
 [mgmtsystem_indicators_report](mgmtsystem_indicators_report/) | 14.0.1.0.0 |  | This module allows to manage quality indicators data
+[pos_close_approval](pos_close_approval/) | 13.0.1.0.0 |  | Adds integration information
 [pos_multiple_sessions](pos_multiple_sessions/) | 14.0.1.0.0 |  | Adds integration information
 [product_comercial](product_comercial/) | 14.0.1.0.0 |  | Add Comercial field to product
 [safe_box](safe_box/) | 14.0.1.0.0 |  | Creates inter company relations

@@ -66,17 +66,13 @@ class TestPosCloseApproval(TransactionCase):
                 "company_id": self.pos_config.company_id.id,
                 "name": "Account",
                 "code": "CODE",
-                "user_type_id": self.ref(
-                    "account.data_account_type_prepayments"
-                ),
+                "user_type_id": self.ref("account.data_account_type_prepayments"),
             }
         )
         self._open_session()
         wizard = (
             self.env["cash.box.out"]
-            .with_context(
-                active_model="pos.session", active_ids=self.session.ids
-            )
+            .with_context(active_model="pos.session", active_ids=self.session.ids)
             .create({"amount": 10, "name": "Out"})
         )
         wizard.run()
@@ -86,9 +82,7 @@ class TestPosCloseApproval(TransactionCase):
         )
         wizard = (
             self.env["cash.box.out"]
-            .with_context(
-                active_model="pos.session", active_ids=self.session.ids
-            )
+            .with_context(active_model="pos.session", active_ids=self.session.ids)
             .create({"amount": -10, "name": "Out"})
         )
         wizard.run()
