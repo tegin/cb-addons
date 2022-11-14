@@ -18,6 +18,7 @@
     ],
     "license": "AGPL-3",
     "data": [
+        "security/ir.model.access.csv",
         "security/security.xml",
         "wizard/cash_third_party_sale_view.xml",
         "reports/sale_third_party_report_templates.xml",
