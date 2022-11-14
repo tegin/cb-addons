@@ -85,11 +85,9 @@ class SaleOrder(models.Model):
             third_party_customer_account = rec.partner_id.with_context(
                 force_company=rec.company_id.id
             ).property_third_party_customer_account_id
-            third_party_supplier_account = (
-                rec.third_party_partner_id.with_context(
-                    force_company=rec.company_id.id
-                ).property_third_party_supplier_account_id
-            )
+            third_party_supplier_account = rec.third_party_partner_id.with_context(
+                force_company=rec.company_id.id
+            ).property_third_party_supplier_account_id
             in_residual = 0.0
             in_residual_company = 0.0
             out_residual = 0.0
@@ -110,9 +108,7 @@ class SaleOrder(models.Model):
                         from_currency = (
                             line.currency_id
                             and line.currency_id.with_context(date=line.date)
-                        ) or line.company_id.currency_id.with_context(
-                            date=line.date
-                        )
+                        ) or line.company_id.currency_id.with_context(date=line.date)
                         in_residual += from_currency._convert(
                             line.amount_residual,
                             rec.currency_id,
@@ -134,22 +130,16 @@ class SaleOrder(models.Model):
                         from_currency = (
                             line.currency_id
                             and line.currency_id.with_context(date=line.date)
-                        ) or line.company_id.currency_id.with_context(
-                            date=line.date
-                        )
+                        ) or line.company_id.currency_id.with_context(date=line.date)
                         out_residual += from_currency._convert(
                             line.amount_residual,
                             rec.currency_id,
                             line.company_id,
                             line.date,
                         )
-            rec.third_party_customer_in_residual_company = abs(
-                in_residual_company
-            )
+            rec.third_party_customer_in_residual_company = abs(in_residual_company)
             rec.third_party_customer_in_residual = abs(in_residual)
-            rec.third_party_customer_out_residual_company = abs(
-                out_residual_company
-            )
+            rec.third_party_customer_out_residual_company = abs(out_residual_company)
             rec.third_party_customer_out_residual = abs(out_residual)
             if rec.currency_id and float_is_zero(
                 rec.third_party_customer_in_residual,
@@ -173,9 +163,7 @@ class SaleOrder(models.Model):
         # access rights. However, he should not be able to create an invoice
         # from scratch.
         self.third_party_move_id = (
-            self.env["account.move"]
-            .sudo()
-            .create(self._third_party_move_vals())
+            self.env["account.move"].sudo().create(self._third_party_move_vals())
         )
         self.third_party_move_id.sudo().post()
 
@@ -192,11 +180,9 @@ class SaleOrder(models.Model):
         third_party_customer_account = self.partner_id.with_context(
             force_company=self.company_id.id
         ).property_third_party_customer_account_id
-        third_party_supplier_account = (
-            self.third_party_partner_id.with_context(
-                force_company=self.company_id.id
-            ).property_third_party_supplier_account_id
-        )
+        third_party_supplier_account = self.third_party_partner_id.with_context(
+            force_company=self.company_id.id
+        ).property_third_party_supplier_account_id
         if not third_party_customer_account:
             raise UserError(
                 _(
@@ -243,9 +229,7 @@ class SaleOrder(models.Model):
 
     def _prepare_third_party_order(self):
         lines = self.order_line.filtered(lambda l: l.third_party_product_id)
-        so_lines = [
-            (0, 0, line._prepare_third_party_order_line()) for line in lines
-        ]
+        so_lines = [(0, 0, line._prepare_third_party_order_line()) for line in lines]
 
         return {
             "partner_id": self.third_party_partner_id.id,
@@ -314,9 +298,7 @@ class SaleOrder(models.Model):
     def _check_third_party_constrains(self):
         for rec in self:
             if rec.third_party_order and not rec.third_party_partner_id:
-                raise ValidationError(
-                    _("Please define a third party partner.")
-                )
+                raise ValidationError(_("Please define a third party partner."))
 
     def third_party_invoice_print(self):
         return self.env.ref(
