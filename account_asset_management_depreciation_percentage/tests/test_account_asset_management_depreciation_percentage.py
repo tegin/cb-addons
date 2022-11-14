@@ -68,7 +68,7 @@ class TestAssetManagementDepreciationPercentage(TransactionCase):
         days = 1461
         day_amount = 4000 / days
         # January has 31 days
-        self.assertAlmostEquals(
+        self.assertAlmostEqual(
             asset.depreciation_line_ids[1].amount, 31 * day_amount, places=2
         )
         # February has 29 days
