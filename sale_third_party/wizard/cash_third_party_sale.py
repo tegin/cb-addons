@@ -79,7 +79,7 @@ class CashInvoiceOut(models.TransientModel):
     def _calculate_values_for_statement_line(self, record):
         res = super()._calculate_values_for_statement_line(record)
         res["third_party_sale_order_id"] = self.sale_order_id.id
-        res["account_id"] = (
+        res["counterpart_account_id"] = (
             self.sale_order_id.third_party_move_id.line_ids.filtered(
                 lambda r: r.debit > 0
             )

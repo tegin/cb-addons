@@ -165,7 +165,7 @@ class SaleOrder(models.Model):
         self.third_party_move_id = (
             self.env["account.move"].sudo().create(self._third_party_move_vals())
         )
-        self.third_party_move_id.sudo().post()
+        self.third_party_move_id.sudo().action_post()
 
     def _third_party_move_vals(self):
         journal = self.company_id.third_party_journal_id

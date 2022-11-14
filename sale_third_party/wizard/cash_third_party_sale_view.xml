@@ -23,7 +23,7 @@
                         domain="[('company_id', '=', company_id),
                            ('third_party_order', '=', True),
                            ('currency_id', '=', currency_id),
-                           ('third_party_customer_state', '=', 'pending'),
+                           ('third_party_customer_in_state', '=', 'pending'),
                            ('third_party_move_id', '!=', False)]"
                         options="{'no_create': True, 'no_open':True}"
                     />
@@ -49,13 +49,15 @@
             </form>
         </field>
     </record>
-    <act_window
+    <record
         id="action_cash_third_party_sale_from_statement"
-        name="Collect Payment from Third Party Sale"
-        res_model="cash.third.party.sale"
-        binding_model="account.bank.statement"
-        view_mode="form"
-        target="new"
-        binding_views="form"
-    />
+        model="ir.actions.act_window"
+    >
+        <field name="name">Collect Payment from Third Party Sale</field>
+        <field name="res_model">cash.third.party.sale</field>
+        <field name="binding_model_id" ref="account.model_account_bank_statement" />
+        <field name="binding_view_types">form</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+    </record>
 </odoo>
