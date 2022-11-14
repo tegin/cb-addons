@@ -2,6 +2,7 @@ import time
 from datetime import datetime
 
 from dateutil import relativedelta
+
 from odoo import fields, tools
 from odoo.modules.module import get_resource_path
 from odoo.tests.common import Form, TransactionCase
@@ -175,9 +176,7 @@ class TestCreditControlDeferred(TransactionCase):
         self.assertEqual(3, len(communications.message_ids))
         self.assertGreater(communications.last_message, now)
         self.assertEqual(communications.total_due, self.invoice.amount_total)
-        self.assertEqual(
-            communications.total_invoiced, self.invoice.amount_total
-        )
+        self.assertEqual(communications.total_invoiced, self.invoice.amount_total)
         partial_payment = self.env["account.move"].create(
             {
                 "journal_id": self.env.ref("account.cash_journal").id,
@@ -205,9 +204,7 @@ class TestCreditControlDeferred(TransactionCase):
             communications.total_due,
             self.invoice.amount_total - 100,
         )
-        self.assertEqual(
-            communications.total_invoiced, self.invoice.amount_total
-        )
+        self.assertEqual(communications.total_invoiced, self.invoice.amount_total)
 
     def test_credit_control_deferred_manual(self):
         control_run, control_lines, communications = self.generate_run()
@@ -234,8 +231,6 @@ class TestCreditControlDeferred(TransactionCase):
         self.assertEqual(communications.contact_address_id, self.partner)
 
     def test_credit_control_deferred_contact_02(self):
-        self.partner.write(
-            {"credit_control_contact_partner_id": self.partner_02.id}
-        )
+        self.partner.write({"credit_control_contact_partner_id": self.partner_02.id})
         control_run, control_lines, communications = self.generate_run()
         self.assertEqual(communications.contact_address_id, self.partner_02)
