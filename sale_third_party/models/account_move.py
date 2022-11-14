@@ -23,6 +23,4 @@ class AccountMove(models.Model):
     @api.depends("third_party_sale_order_ids")
     def _compute_third_party_sale_order(self):
         for record in self:
-            record.third_party_sale_order = bool(
-                record.third_party_sale_order_ids
-            )
+            record.third_party_sale_order = bool(record.third_party_sale_order_ids)
