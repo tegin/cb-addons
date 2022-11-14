@@ -4,8 +4,8 @@
 
 {
     "name": "Sale third party invoice",
-    "version": "13.0.1.0.0",
-    "author": "Eficent, Creu Blanca",
+    "version": "14.0.1.0.0",
+    "author": "Eficent, CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
     "summary": "Creates inter company relations",
     "sequence": 30,
@@ -14,13 +14,13 @@
     "license": "AGPL-3",
     "data": [
         "security/security.xml",
+        "wizard/cash_third_party_sale_view.xml",
+        "reports/sale_third_party_report_templates.xml",
+        "reports/sale_third_party_report.xml",
         "views/sale_order_views.xml",
         "views/res_company_views.xml",
         "views/partner_views.xml",
         "views/account_payment_views.xml",
-        "wizard/cash_third_party_sale_view.xml",
-        "reports/sale_third_party_report_templates.xml",
-        "reports/sale_third_party_report.xml",
     ],
     "installable": True,
     "application": False,
