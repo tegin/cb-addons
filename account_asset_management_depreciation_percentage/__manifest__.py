@@ -8,7 +8,7 @@
     "conflicts": ["l10n_es_account_asset"],
     "author": "Eficent",
     "license": "AGPL-3",
-    "website": "https://www.eficent.com",
+    "website": "https://github.com/tegin/cb-addons",
     "category": "Accounting & Finance",
     "data": [
         "views/account_asset_profile_views.xml",
