@@ -82,11 +82,11 @@ class SaleOrder(models.Model):
         for rec in self:
             rec.third_party_customer_in_state = "pending"
             rec.third_party_customer_out_state = "pending"
-            third_party_customer_account = rec.partner_id.with_context(
-                force_company=rec.company_id.id
+            third_party_customer_account = rec.partner_id.with_company(
+                self.company_id.id
             ).property_third_party_customer_account_id
-            third_party_supplier_account = rec.third_party_partner_id.with_context(
-                force_company=rec.company_id.id
+            third_party_supplier_account = rec.third_party_partner_id.with_company(
+                self.company_id.id
             ).property_third_party_supplier_account_id
             in_residual = 0.0
             in_residual_company = 0.0
@@ -177,11 +177,11 @@ class SaleOrder(models.Model):
                 ],
                 limit=1,
             )
-        third_party_customer_account = self.partner_id.with_context(
-            force_company=self.company_id.id
+        third_party_customer_account = self.partner_id.with_company(
+            self.company_id.id
         ).property_third_party_customer_account_id
-        third_party_supplier_account = self.third_party_partner_id.with_context(
-            force_company=self.company_id.id
+        third_party_supplier_account = self.third_party_partner_id.with_company(
+            self.company_id.id
         ).property_third_party_supplier_account_id
         if not third_party_customer_account:
             raise UserError(
@@ -233,8 +233,8 @@ class SaleOrder(models.Model):
 
         return {
             "partner_id": self.third_party_partner_id.id,
-            "fiscal_position_id": self.third_party_partner_id.with_context(
-                force_company=self.company_id.id
+            "fiscal_position_id": self.third_party_partner_id.with_company(
+                self.company_id.id
             ).property_account_position_id.id
             or False,
             "order_line": so_lines,
