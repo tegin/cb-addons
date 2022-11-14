@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [cb_agreement_legal](cb_agreement_legal/) | 14.0.1.0.0 |  | Create contract from agreement
 [cb_helpdesk](cb_helpdesk/) | 14.0.1.0.0 |  | Helpdesk from OCA with some modifications
 [safe_box](safe_box/) | 14.0.1.0.0 |  | Creates inter company relations
+[sale_commission_cancel](sale_commission_cancel/) | 13.0.1.0.0 |  | Creates inter company relations
 
 [//]: # (end addons)
 

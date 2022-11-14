@@ -5,17 +5,13 @@ from odoo.exceptions import ValidationError
 class AccountInvoiceLineAgent(models.Model):
     _inherit = "account.invoice.line.agent"
 
-    parent_agent_line_id = fields.Many2one(
-        "account.invoice.line.agent", readonly=True
-    )
+    parent_agent_line_id = fields.Many2one("account.invoice.line.agent", readonly=True)
     child_agent_line_ids = fields.One2many(
         "account.invoice.line.agent",
         inverse_name="parent_agent_line_id",
         readonly=True,
     )
-    is_cancel = fields.Boolean(
-        default=False, required=True, readonly=True, store=True
-    )
+    is_cancel = fields.Boolean(default=False, required=True, readonly=True, store=True)
     can_cancel = fields.Boolean(compute="_compute_can_cancel", store=True)
 
     @classmethod
@@ -36,9 +32,7 @@ class AccountInvoiceLineAgent(models.Model):
         cls._sql_constraints = constraints
         return res
 
-    @api.depends(
-        "child_agent_line_ids", "is_cancel", "object_id.move_id.state"
-    )
+    @api.depends("child_agent_line_ids", "is_cancel", "object_id.move_id.state")
     def _compute_can_cancel(self):
         for rec in self:
             rec.can_cancel = (
@@ -53,9 +47,7 @@ class AccountInvoiceLineAgent(models.Model):
             if record.is_cancel and not record.parent_agent_line_id:
                 raise ValidationError(_("Cancelled lines must have a parent."))
 
-    @api.depends(
-        "object_id.price_subtotal", "is_cancel", "parent_agent_line_id.amount"
-    )
+    @api.depends("object_id.price_subtotal", "is_cancel", "parent_agent_line_id.amount")
     def _compute_amount(self):
         res = super(
             AccountInvoiceLineAgent, self.filtered(lambda r: not r.is_cancel)
