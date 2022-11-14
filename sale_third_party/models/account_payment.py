@@ -25,12 +25,12 @@ class AccountPayment(models.Model):
                 and rec.use_third_party_account
             ):
                 if rec.partner_type == "customer":
-                    rec.third_party_account_id = rec.partner_id.with_context(
-                        force_company=self.company_id.id
+                    rec.third_party_account_id = rec.partner_id.with_company(
+                        self.company_id.id
                     ).property_third_party_customer_account_id.id
                 else:
-                    rec.third_party_account_id = rec.partner_id.with_context(
-                        force_company=rec.company_id.id
+                    rec.third_party_account_id = rec.partner_id.with_company(
+                        self.company_id.id
                     ).property_third_party_supplier_account_id.id
             else:
                 rec.third_party_account_id = False

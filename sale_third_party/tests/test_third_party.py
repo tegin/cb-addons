@@ -130,14 +130,14 @@ class ThirdParty(TransactionCase):
         prop.write({"property_third_party_customer_account_id": self.customer_acc2.id})
         prop.refresh()
         self.assertEqual(
-            self.customer.with_context(
-                force_company=self.company.id
+            self.customer.with_company(
+                self.company_id.id
             ).property_third_party_customer_account_id,
             self.customer_acc2,
         )
         self.assertEqual(
-            self.customer.with_context(
-                force_company=self.company.id
+            self.customer.with_company(
+                self.company_id.id
             ).property_third_party_customer_account_id,
             prop.property_third_party_customer_account_id,
         )
@@ -404,8 +404,8 @@ class ThirdParty(TransactionCase):
             }
         )
         payment.post()
-        supplier_acc = payment.partner_id.with_context(
-            force_company=self.company.id
+        supplier_acc = payment.partner_id.with_company(
+            self.company_id.id
         ).property_third_party_supplier_account_id
         aml_recs = payment.move_line_ids.filtered(
             lambda l: l.account_id == supplier_acc
@@ -526,8 +526,8 @@ class ThirdParty(TransactionCase):
             }
         )
         payment.post()
-        supplier_acc = payment.partner_id.with_context(
-            force_company=self.company.id
+        supplier_acc = payment.partner_id.with_company(
+            self.company_id.id
         ).property_third_party_supplier_account_id
         aml_recs = payment.move_line_ids.filtered(
             lambda l: l.account_id == supplier_acc
