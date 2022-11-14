@@ -1,4 +1,5 @@
 from odoo import models
+
 from odoo.addons.base.models.ir_sequence import _select_nextval, _update_nogap
 
 
@@ -8,9 +9,7 @@ class IrSequence(models.Model):
     def _next_do(self):
         if self.env.context.get("sequence_tuple", False):
             if self.implementation == "standard":
-                number_next = _select_nextval(
-                    self._cr, "ir_sequence_%03d" % self.id
-                )[0]
+                number_next = _select_nextval(self._cr, "ir_sequence_%03d" % self.id)[0]
             else:
                 number_next = _update_nogap(self, self.number_increment)
             prefix, suffix = self._get_prefix_suffix()
@@ -34,9 +33,7 @@ class IrSequenceDateRange(models.Model):
                     "ir_sequence_%03d_%03d" % (self.sequence_id.id, self.id),
                 )[0]
             else:
-                number_next = _update_nogap(
-                    self, self.sequence_id.number_increment
-                )
+                number_next = _update_nogap(self, self.sequence_id.number_increment)
             prefix, suffix = self.sequence_id._get_prefix_suffix()
             code = self.sequence_id.get_next_char(number_next)
             dc = ""
