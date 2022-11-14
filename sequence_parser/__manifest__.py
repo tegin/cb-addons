@@ -6,7 +6,7 @@
     "name": "Sequence parser",
     "version": "13.0.1.0.0",
     "author": "Eficent, Creu Blanca",
-    "website": "http://github.com/eficent/cb-addons",
+    "website": "https://github.com/tegin/cb-addons",
     "summary": "Returns the sequence on a tuple",
     "sequence": 30,
     "category": "Sale",
