@@ -59,9 +59,7 @@ class TestSequence(TransactionCase):
 
     def test_standard_date_dc(self):
         sequence = self.create_sequence("P", "S")
-        sequence.write(
-            {"use_date_range": True, "check_digit_formula": "ISO7064_37_36"}
-        )
+        sequence.write({"use_date_range": True, "check_digit_formula": "ISO7064_37_36"})
         self.assertTrue(isinstance(sequence.next_by_id(), str))
         result = sequence.with_context(sequence_tuple=True).next_by_id()
         self.assertTrue(isinstance(result, tuple))
