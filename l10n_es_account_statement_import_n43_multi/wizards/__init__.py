@@ -1,1 +1,1 @@
-from . import account_bank_statement_import_n43_multi
+from . import account_statement_import_n43_multi

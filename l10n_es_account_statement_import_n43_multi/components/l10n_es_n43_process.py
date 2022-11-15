@@ -12,17 +12,9 @@ class L10nEsN43Process(Component):
     _backend_type = "l10n_es_n43"
 
     def process(self):
-        self.env["account.bank.statement.import"].create(
+        self.env["account.statement.import"].create(
             {
-                "attachment_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": self.exchange_record.exchange_filename,
-                            "datas": self.exchange_record.exchange_file,
-                        },
-                    )
-                ]
+                "statement_file": self.exchange_record._get_file_content(),
+                "statement_filename": self.exchange_record.exchange_file,
             }
         ).with_context(journal_id=self.exchange_record.record.id).import_file()

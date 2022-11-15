@@ -7,7 +7,7 @@
         <field name="model">account.journal</field>
         <field
             name="inherit_id"
-            ref="l10n_es_account_bank_statement_import_n43.view_account_journal_form_n43"
+            ref="l10n_es_account_statement_import_n43.view_account_journal_form_n43"
         />
         <field name="arch" type="xml">
             <field name="n43_date_type" position="after">

@@ -28,7 +28,7 @@ addon | version | maintainers | summary
 [cb_helpdesk](cb_helpdesk/) | 14.0.1.0.0 |  | Helpdesk from OCA with some modifications
 [cb_knowledge](cb_knowledge/) | 14.0.1.0.0 |  | Knowledge for CB
 [cb_l10n_es_aeat_mod303](cb_l10n_es_aeat_mod303/) | 14.0.1.0.0 |  | Add report to mod 303
-[l10n_es_account_bank_statement_import_n43_multi](l10n_es_account_bank_statement_import_n43_multi/) | 13.0.1.0.0 |  | Import n43 multi wizard
+[l10n_es_account_statement_import_n43_multi](l10n_es_account_statement_import_n43_multi/) | 14.0.1.0.0 |  | Import n43 multi wizard
 [mgmtsystem_indicators_report](mgmtsystem_indicators_report/) | 14.0.1.0.0 |  | This module allows to manage quality indicators data
 [pos_multiple_sessions](pos_multiple_sessions/) | 14.0.1.0.0 |  | Adds integration information
 [product_comercial](product_comercial/) | 14.0.1.0.0 |  | Add Comercial field to product

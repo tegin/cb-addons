@@ -17,7 +17,7 @@
         id="menu_account_edi_exchange_record"
         name="N43 Files"
         action="act_open_edi_exchange_record_account_n43_view"
-        parent="edi_account.menu_account_edi_root"
+        parent="edi_account_oca.menu_account_edi_root"
         sequence="30"
     />
 </odoo>

@@ -17,9 +17,9 @@ except ImportError:
     )
 
 
-class AccountBankStatementImportN43Multi(models.TransientModel):
-    _name = "account.bank.statement.import.n43.multi"
-    _description = "account.bank.statement.import.n43.multi"
+class AccountStatementImportN43Multi(models.TransientModel):
+    _name = "account.statement.import.n43.multi"
+    _description = "account.statement.import.n43.multi"
 
     data_file = fields.Binary(
         string="Bank Statement File",
@@ -46,9 +46,7 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
         self.ensure_one()
         n43_multi = self._check_n43(base64.b64decode(self.data_file))
         real_filename, extension = self.filename.rsplit(".", 1)
-        backend = self.env.ref(
-            "l10n_es_account_bank_statement_import_n43_multi.backend"
-        )
+        backend = self.env.ref("l10n_es_account_statement_import_n43_multi.backend")
         for account in n43_multi:
             n43 = n43_multi[account]
             journal = self._get_journal(n43["journal"], n43)
@@ -66,7 +64,7 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
 
     @api.model
     def _get_common_file_encodings(self):
-        return self.env["account.bank.statement.import"]._get_common_file_encodings()
+        return self.env["account.statement.import"]._get_common_file_encodings()
 
     def _check_n43(self, data_file):
         # We'll try to decode with the encoding detected by chardet first
