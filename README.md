@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [cb_helpdesk](cb_helpdesk/) | 14.0.1.0.0 |  | Helpdesk from OCA with some modifications
 [cb_knowledge](cb_knowledge/) | 14.0.1.0.0 |  | Knowledge for CB
 [cb_l10n_es_aeat_mod303](cb_l10n_es_aeat_mod303/) | 14.0.1.0.0 |  | Add report to mod 303
+[pos_multiple_sessions](pos_multiple_sessions/) | 14.0.1.0.0 |  | Adds integration information
 [safe_box](safe_box/) | 14.0.1.0.0 |  | Creates inter company relations
 [sale_commission_cancel](sale_commission_cancel/) | 14.0.1.0.0 |  | Creates inter company relations
 [sequence_parser](sequence_parser/) | 14.0.1.0.0 |  | Returns the sequence on a tuple

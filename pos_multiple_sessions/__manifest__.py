@@ -6,7 +6,7 @@
     "name": "PoS multiple sessions per user",
     "version": "13.0.1.0.0",
     "category": "Reporting",
-    "website": "https://github.com/eficent/cb-addons",
+    "website": "https://github.com/tegin/cb-addons",
     "author": "Creu Blanca, Eficent",
     "license": "AGPL-3",
     "installable": True,
