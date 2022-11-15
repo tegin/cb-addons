@@ -5,9 +5,9 @@
     "name": "Cb L10n Es Aeat Mod303",
     "summary": """
         Add report to mod 303""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca",
+    "author": "CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
     "depends": ["l10n_es_aeat_mod303"],
     "data": ["views/aeat_mod_303report.xml"],
