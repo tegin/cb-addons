@@ -30,6 +30,4 @@ class TestProductTemplateComercial(TransactionCase):
         )
 
     def test_name(self):
-        self.assertEqual(
-            self.product.display_name, "[CODE] Product (Comercial)"
-        )
+        self.assertEqual(self.product.display_name, "[CODE] Product (Comercial)")
