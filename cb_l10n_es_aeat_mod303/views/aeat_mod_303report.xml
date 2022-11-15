@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <record id="aeat_mod_303" model="ir.actions.report">
+            <field name="name">303 Report</field>
+            <field name="model">l10n.es.aeat.mod303.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cb_l10n_es_aeat_mod303.report_eaet_mod_303</field>
+            <field name="report_file">cb_l10n_es_aeat_mod303.report_eaet_mod_303</field>
+            <field name="print_report_name">('AEAT_MOD303')</field>
+        </record>
+        <template id="report_eaet_mod_303">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <div class="row">
+                                <h3>
+                                    <strong>Report:
+                                        <p t-field="o.name" />
+                                    </strong>
+                                </h3>
+                            </div>
+                            <div class="row">
+                                <h4>
+                                    <strong>Declaration:</strong>
+                                </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <b>VAT number:</b>
+                                    <span t-field="o.company_vat" />
+                                    <br />
+                                    <b>Year:</b>
+                                    <span t-field="o.year" />
+                                    <br />
+                                    <b>Period type:</b>
+                                    <span t-field="o.period_type" />
+                                    <br />
+                                    <div>
+                                        <b>Dates:</b>
+                                        <span t-field="o.date_start" />
+                                        <span>-</span>
+                                        <span t-field="o.date_end" />
+                                    </div>
+                                    <b>Company: </b>
+                                    <span t-esc="o.company_id.name" />
+                                    <br />
+                                </div>
+                                <div class="col">
+                                    <div t-if="o.allow_posting">
+                                        <b>Journal: </b>
+                                        <span t-esc="o.journal_id.name" />
+                                        <br />
+                                        <b>Counterpart account: </b>
+                                        <span t-esc="o.counterpart_account_id.name" />
+                                        <br />
+                                    </div>
+                                    <b>L.R. VAT number: </b>
+                                    <span t-esc="o.representative_vat" />
+                                    <br />
+                                    <b>Support type: </b>
+                                    <span t-esc="o.support_type" />
+                                    <br />
+                                    <b>Calculation date: </b>
+                                    <span t-esc="o.calculation_date" />
+                                    <br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h4>
+                                        <strong>Contact data:</strong>
+                                    </h4>
+                                    <b>Full name:</b>
+                                    <span t-field="o.contact_name" />
+                                    <br />
+                                    <b>Phone:</b>
+                                    <span t-field="o.contact_phone" />
+                                    <br />
+                                    <b>Contact email:</b>
+                                    <span t-field="o.contact_email" />
+                                    <br />
+                                </div>
+                                <div class="col">
+                                    <h4>
+                                        <strong>Other parameters:</strong>
+                                    </h4>
+                                    <b>Statement Type:</b>
+                                    <span t-field="o.period_type" />
+                                    <br />
+                                    <div t-if="o.period_type != 'N'">
+                                        <b>Previous number:</b>
+                                        <span t-field="o.previous_number" />
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4>
+                                    <strong>Result:</strong>
+                                </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <b>[27] VAT payable: </b>
+                                    <span
+                                        t-field="o.total_devengado"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                    <b>[45] VAT receivable: </b>
+                                    <span
+                                        t-field="o.total_deducir"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                    <b>General scheme result:</b>
+                                    <span
+                                        t-field="o.casilla_46"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                </div>
+                                <div class="col">
+                                    <b>[65] % attributable to State: </b>
+                                    <span t-field="o.porcentaje_atribuible_estado" />
+                                    <br />
+                                    <b>[66] Attributable to Administration: </b>
+                                    <span
+                                        t-field="o.atribuible_estado"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                    <b>[67] Fees to compensate: </b>
+                                    <span
+                                        t-field="o.cuota_compensar"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                </div>
+                                <div class="col">
+                                    <b>[68] Annual regularization: </b>
+                                    <span
+                                        t-field="o.regularizacion_anual"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                    <b>[77] Vat deferred (Settle by customs): </b>
+                                    <span
+                                        t-field="o.casilla_77"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                    <b>[69] Result: </b>
+                                    <span
+                                        t-field="o.casilla_69"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                    <b>[67] To be deducted</b>
+                                    <span
+                                        t-field="o.previous_result"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                </div>
+                                <div class="col">
+                                    <b>[71] Settlement result: </b>
+                                    <span
+                                        t-field="o.resultado_liquidacion"
+                                        t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"
+                                    />
+                                    <br />
+                                    <div t-if="o.exonerated_390 != '2'">
+                                        <b>[88] Total volumen operaciones</b>
+                                        <span t-field="o.result_type" />
+                                        <br />
+                                    </div>
+                                    <b>Result type: </b>
+                                    <span t-field="o.result_type" />
+                                    <br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4>
+                                    <strong>Tax lines:</strong>
+                                </h4>
+                            </div>
+                            <div class="row">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Field number</th>
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.tax_line_ids" t-as="line">
+                                            <td>
+                                                <span t-field="line.field_number" />
+                                            </td>
+                                            <td>
+                                                <span t-field="line.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="line.amount" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
