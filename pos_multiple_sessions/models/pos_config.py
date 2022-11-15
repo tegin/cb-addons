@@ -19,6 +19,7 @@ class PosConfig(models.Model):
             )
             pos_config.current_session_id = session
             pos_config.current_session_state = session.state
+            pos_config.has_active_session = session and True or False
 
     def open_ui(self):
         self.ensure_one()
