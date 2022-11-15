@@ -8,7 +8,7 @@
     "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "author": "Creu Blanca",
-    "website": "www.creublanca.es",
+    "website": "https://github.com/tegin/cb-addons",
     "depends": ["l10n_es_aeat_mod303"],
     "data": ["views/aeat_mod_303report.xml"],
 }
