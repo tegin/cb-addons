@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="credit_control_line_tree">
+        <field
+            name="name"
+        >credit.control.line.tree (in account_credit_control_deferred)</field>
+        <field name="model">credit.control.line</field>
+        <field
+            name="inherit_id"
+            ref="account_credit_control.credit_control_line_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="date_entry" />
+            </field>
+        </field>
+    </record>
+</odoo>
