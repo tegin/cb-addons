@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [sale_commission_cancel](sale_commission_cancel/) | 14.0.1.0.0 |  | Creates inter company relations
 [sale_third_party](sale_third_party/) | 14.0.1.0.0 |  | Creates inter company relations
 [sequence_parser](sequence_parser/) | 14.0.1.0.0 |  | Returns the sequence on a tuple
+[stock_barcodes_gs1_configurator](stock_barcodes_gs1_configurator/) | 14.0.1.0.0 |  | Simplify configuration of GS1 barcodes
 
 [//]: # (end addons)
 
