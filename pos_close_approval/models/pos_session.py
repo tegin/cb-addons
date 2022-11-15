@@ -9,7 +9,10 @@ from odoo.exceptions import UserError, ValidationError
 class PosSession(models.Model):
     _inherit = "pos.session"
 
-    state = fields.Selection(selection_add=[("pending_approval", "Pending approval")])
+    state = fields.Selection(
+        selection_add=[("pending_approval", "Pending approval")],
+        ondelete={"pending_approval": "cascade"},
+    )
     statement_line_ids = fields.One2many(
         "account.bank.statement.line",
         inverse_name="pos_session_id",

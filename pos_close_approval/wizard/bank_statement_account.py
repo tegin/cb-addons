@@ -40,5 +40,11 @@ class AccountBankStatementLineAccount(models.TransientModel):
 
     def run(self):
         for record in self:
-            record.statement_line_id.write(record._statement_line_vals())
+            if record.statement_line_id.move_id.state != "draft":
+                continue
+            _liquidity, suspense, other = record.statement_line_id._seek_for_lines()
+            lines = suspense | other
+            if len(lines) != 1:
+                continue
+            lines.account_id = record.account_id
         return {}
