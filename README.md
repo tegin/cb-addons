@@ -32,6 +32,7 @@ addon | version | maintainers | summary
 [product_comercial](product_comercial/) | 14.0.1.0.0 |  | Add Comercial field to product
 [safe_box](safe_box/) | 14.0.1.0.0 |  | Creates inter company relations
 [sale_commission_cancel](sale_commission_cancel/) | 14.0.1.0.0 |  | Creates inter company relations
+[sale_third_party](sale_third_party/) | 14.0.1.0.0 |  | Creates inter company relations
 [sequence_parser](sequence_parser/) | 14.0.1.0.0 |  | Returns the sequence on a tuple
 
 [//]: # (end addons)
