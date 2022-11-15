@@ -32,7 +32,7 @@ addon | version | maintainers | summary
 [safe_box](safe_box/) | 14.0.1.0.0 |  | Creates inter company relations
 [sale_commission_cancel](sale_commission_cancel/) | 14.0.1.0.0 |  | Creates inter company relations
 [sequence_parser](sequence_parser/) | 14.0.1.0.0 |  | Returns the sequence on a tuple
-[stock_barcodes_gs1_configurator](stock_barcodes_gs1_configurator/) | 13.0.1.0.0 |  | Simplify configuration of GS1 barcodes
+[stock_barcodes_gs1_configurator](stock_barcodes_gs1_configurator/) | 14.0.1.0.0 |  | Simplify configuration of GS1 barcodes
 
 [//]: # (end addons)
 
