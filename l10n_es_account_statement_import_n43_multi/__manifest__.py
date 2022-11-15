@@ -6,6 +6,7 @@
     "summary": """
         Import n43 multi wizard""",
     "version": "13.0.1.0.0",
+    "website": "https://github.com/tegin/cb-addons",
     "license": "AGPL-3",
     "author": "Creu Blanca",
     "depends": ["l10n_es_account_bank_statement_import_n43", "edi_account"],

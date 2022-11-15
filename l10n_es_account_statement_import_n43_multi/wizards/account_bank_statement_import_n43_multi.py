@@ -34,15 +34,12 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
             [("n43_identifier", "=", account)], limit=1
         )
 
-    def _get_exchange_record_vals(
-        self, journal, account, n43, filename, extension
-    ):
+    def _get_exchange_record_vals(self, journal, account, n43, filename, extension):
         return {
             "model": journal._name,
             "res_id": journal.id,
             "edi_exchange_state": "input_received",
-            "exchange_filename": "%s_%s.%s"
-            % (filename, journal.id, extension),
+            "exchange_filename": "%s_%s.%s" % (filename, journal.id, extension),
         }
 
     def process_file(self):
@@ -69,9 +66,7 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
 
     @api.model
     def _get_common_file_encodings(self):
-        return self.env[
-            "account.bank.statement.import"
-        ]._get_common_file_encodings()
+        return self.env["account.bank.statement.import"]._get_common_file_encodings()
 
     def _check_n43(self, data_file):
         # We'll try to decode with the encoding detected by chardet first
@@ -132,9 +127,7 @@ class AccountBankStatementImportN43Multi(models.TransientModel):
                 # CTRL-Z (^Z), is often used as an end-of-file marker in DOS
                 continue
             else:  # pragma: no cover
-                raise ValidationError(
-                    _("Record type %s is not valid.") % raw_line[0:2]
-                )
+                raise ValidationError(_("Record type %s is not valid.") % raw_line[0:2])
             if account not in files:
                 files[account] = {
                     "file": "",

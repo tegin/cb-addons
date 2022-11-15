@@ -4,8 +4,9 @@
 import base64
 
 from odoo import fields
-from odoo.addons.edi.tests import common
 from odoo.modules.module import get_module_resource
+
+from odoo.addons.edi.tests import common
 
 
 class L10nEsAccountBankStatementImportN43(
@@ -18,9 +19,7 @@ class L10nEsAccountBankStatementImportN43(
         cls._load_module_components(
             cls, "l10n_es_account_bank_statement_import_n43_multi"
         )
-        cls.partner = cls.env["res.partner"].create(
-            {"name": "Test partner N43"}
-        )
+        cls.partner = cls.env["res.partner"].create({"name": "Test partner N43"})
         cls.journal = cls.env["account.journal"].create(
             {
                 "type": "bank",
