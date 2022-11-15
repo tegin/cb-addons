@@ -5,9 +5,9 @@
     "name": "Account Credit Control Deferred",
     "summary": """
         Defferred credit control mails""",
-    "version": "13.0.1.1.0",
+    "version": "14.0.1.1.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca,Odoo Community Association (OCA)",
+    "author": "CreuBlanca,Odoo Community Association (OCA)",
     "website": "https://github.com/tegin/cb-addons",
     "depends": ["account_credit_control"],
     "data": [

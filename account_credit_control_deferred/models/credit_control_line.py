@@ -8,7 +8,10 @@ class CreditControlLine(models.Model):
 
     _inherit = "credit.control.line"
 
-    channel = fields.Selection(selection_add=[("email_deferred", "Email Deferred")])
+    channel = fields.Selection(
+        selection_add=[("email_deferred", "Email Deferred")],
+        ondelete={"email_deferred": "cascade"},
+    )
     balance_due = fields.Float(string="Due balance")
     original_balance_due = fields.Float(
         string="Original Due balance",
