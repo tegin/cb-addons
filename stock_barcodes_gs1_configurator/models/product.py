@@ -25,9 +25,7 @@ class ProductProduct(models.Model):
             result = self.action_check_packaging()
             result["context"].update(
                 {
-                    "default_status": _(
-                        "Something went wrong. Please, try again."
-                    ),
+                    "default_status": _("Something went wrong. Please, try again."),
                     "default_state": "warning",
                 }
             )
