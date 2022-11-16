@@ -14,7 +14,7 @@ class L10nEsN43Process(Component):
     def process(self):
         self.env["account.statement.import"].create(
             {
-                "statement_file": self.exchange_record._get_file_content(),
-                "statement_filename": self.exchange_record.exchange_file,
+                "statement_file": self.exchange_record.exchange_file,
+                "statement_filename": self.exchange_record.exchange_filename,
             }
-        ).with_context(journal_id=self.exchange_record.record.id).import_file()
+        ).with_context(journal_id=self.exchange_record.record.id)._import_file()

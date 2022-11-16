@@ -18,12 +18,21 @@ class L10nEsAccountBankStatementImportN43(
         cls._load_module_components(cls, "edi_account")
         cls._load_module_components(cls, "l10n_es_account_statement_import_n43_multi")
         cls.partner = cls.env["res.partner"].create({"name": "Test partner N43"})
+        cls.partner_bank = cls.env["res.partner.bank"].create(
+            {
+                "acc_number": "000000000000000000000000",
+                "company_id": cls.env.company.id,
+                "partner_id": cls.env.company.partner_id.id,
+            }
+        )
         cls.journal = cls.env["account.journal"].create(
             {
                 "type": "bank",
                 "name": "Test N43 bank",
                 "code": "BNKN43",
                 "n43_identifier": "000000000000000000",
+                "company_id": cls.env.company.id,
+                "bank_account_id": cls.partner_bank.id,
             }
         )
         cls.journal_2 = cls.env["account.journal"].create(
