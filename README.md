@@ -39,6 +39,7 @@ addon | version | maintainers | summary
 [sequence_parser](sequence_parser/) | 14.0.1.0.0 |  | Returns the sequence on a tuple
 [stock_barcodes_gs1_configurator](stock_barcodes_gs1_configurator/) | 14.0.1.0.0 |  | Simplify configuration of GS1 barcodes
 [web_flagbox](web_flagbox/) | 14.0.1.0.0 |  | Allows to us a flag box with icons / buttons
+[web_history_back](web_history_back/) | 13.0.1.0.0 |  | Add history back
 
 [//]: # (end addons)
 
