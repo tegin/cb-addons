@@ -49,9 +49,7 @@ class EDIBackendInputComponentMixin(Component):
                                 template_indicator.id,
                                 {
                                     "value_%s"
-                                    % template_indicator.value_type: line.get(
-                                        "value"
-                                    )
+                                    % template_indicator.value_type: line.get("value")
                                 },
                             )
                         )
@@ -74,12 +72,8 @@ class EDIBackendInputComponentMixin(Component):
     def process_data(self, data, template, file):
         if not template.mgmtsystem_indicator_template_id:
             model = self.env["mgmtsystem.indicators.report"]
-            record = model.create(
-                self._get_parsed_pdf2data_values(model, data)
-            )
+            record = model.create(self._get_parsed_pdf2data_values(model, data))
         else:
             record = self._generate_from_template(data, template)
         record.update({"report_pdf": file})
-        self.exchange_record.write(
-            {"model": record._name, "res_id": record.id}
-        )
+        self.exchange_record.write({"model": record._name, "res_id": record.id})
