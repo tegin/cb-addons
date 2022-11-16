@@ -8,8 +8,7 @@ class IndicatorsReportFromTemplate(models.TransientModel):
 
     _name = "indicators.report.from.template"
     _description = (
-        " This wizard allows to create "
-        "an indicators report using a template"
+        " This wizard allows to create " "an indicators report using a template"
     )
     test = fields.Char()
     template_id = fields.Many2one(
