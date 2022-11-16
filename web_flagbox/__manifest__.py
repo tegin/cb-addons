@@ -3,8 +3,9 @@
 
 {
     "name": "Flag Box",
-    "version": "13.0.1.0.0",
-    "author": "Creu Blanca",
+    "version": "14.0.1.0.0",
+    "author": "CreuBlanca",
+    "website": "https://github.com/tegin/cb-addons",
     "license": "AGPL-3",
     "category": "Website",
     "summary": "Allows to us a flag box with icons / buttons",
