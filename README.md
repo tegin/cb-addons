@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [cb_helpdesk](cb_helpdesk/) | 14.0.1.0.0 |  | Helpdesk from OCA with some modifications
 [cb_knowledge](cb_knowledge/) | 14.0.1.0.0 |  | Knowledge for CB
 [cb_l10n_es_aeat_mod303](cb_l10n_es_aeat_mod303/) | 14.0.1.0.0 |  | Add report to mod 303
+[cb_purchase_views](cb_purchase_views/) | 14.0.1.0.0 |  | Purchase custom views
 [mgmtsystem_indicators_report](mgmtsystem_indicators_report/) | 14.0.1.0.0 |  | This module allows to manage quality indicators data
 [pos_close_approval](pos_close_approval/) | 14.0.1.0.0 |  | Adds integration information
 [pos_multiple_sessions](pos_multiple_sessions/) | 14.0.1.0.0 |  | Adds integration information
