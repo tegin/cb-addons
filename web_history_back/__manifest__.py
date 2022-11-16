@@ -5,9 +5,9 @@
     "name": "Web History Back",
     "summary": """
         Add history back""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca",
+    "author": "CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
     "depends": ["web"],
     "data": ["views/templates.xml"],
