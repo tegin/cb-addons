@@ -21,17 +21,13 @@ class IndicatorsReport(models.Model):
         readonly=True,
     )
 
-    indicator_report_id = fields.Many2one(
-        "mgmtsystem.indicators.report", readonly=True
-    )
+    indicator_report_id = fields.Many2one("mgmtsystem.indicators.report", readonly=True)
     concept_id = fields.Many2one(
         comodel_name="mgmtsystem.indicator.concept", readonly=True
     )
     uom_id = fields.Many2one("uom.uom", readonly=True)
     value_representation = fields.Char(readonly=True)
-    reference_range_limit = fields.Char(
-        string="Reference Range", readonly=True
-    )
+    reference_range_limit = fields.Char(string="Reference Range", readonly=True)
     interpretation = fields.Selection(
         [("valid", "Valid"), ("invalid", "Invalid")], readonly=True
     )
@@ -83,15 +79,16 @@ class IndicatorsReport(models.Model):
             groupby
         )
 
-        return (
-            "%s (SELECT %s FROM %s WHERE i.concept_id IS NOT NULL GROUP BY %s)"
-            % (with_, select_, from_, groupby_)
+        return "%s (SELECT %s FROM %s WHERE i.concept_id IS NOT NULL GROUP BY %s)" % (
+            with_,
+            select_,
+            from_,
+            groupby_,
         )
 
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
         # pylint: disable=E8103
         self.env.cr.execute(
-            """CREATE or REPLACE VIEW %s as (%s)"""
-            % (self._table, self._query())
+            """CREATE or REPLACE VIEW %s as (%s)""" % (self._table, self._query())
         )

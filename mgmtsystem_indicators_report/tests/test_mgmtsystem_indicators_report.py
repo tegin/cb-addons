@@ -48,9 +48,7 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
             {"name": "Line 4", "value_type": "str"},
             {"name": "Line 5", "concept_id": self.concept_1.id},
         ]
-        self.template_1 = self.env[
-            "mgmtsystem.indicators.report.template"
-        ].create(
+        self.template_1 = self.env["mgmtsystem.indicators.report.template"].create(
             {
                 "name": "Template 1",
                 "indicator_ids": [(0, 0, item) for item in items],
@@ -65,9 +63,7 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
         report = self.env[action.get("res_model")].browse(action.get("res_id"))
         self.assertEqual("mgmtsystem.indicators.report", report._name)
         self.assertEqual(self.template_1.name, report.name)
-        self.assertEqual(
-            len(self.template_1.indicator_ids), len(report.indicator_ids)
-        )
+        self.assertEqual(len(self.template_1.indicator_ids), len(report.indicator_ids))
 
     def test_report_generation_user(self):
         report_generation = (
@@ -84,9 +80,7 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
         self.assertEqual("mgmtsystem.indicators.report", report._name)
         template = self.template_1.with_user(self.user)
         self.assertEqual(template.name, report.name)
-        self.assertEqual(
-            len(template.indicator_ids), len(report.indicator_ids)
-        )
+        self.assertEqual(len(template.indicator_ids), len(report.indicator_ids))
 
     def test_report_form(self):
         template = self.env["mgmtsystem.indicators.report.template"].create(
@@ -124,9 +118,7 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
             )
         ) as form:
             form.partner_id = self.env.user.partner_id
-        nonconformity = self.env[nonconformity_action["res_model"]].browse(
-            form.id
-        )
+        nonconformity = self.env[nonconformity_action["res_model"]].browse(form.id)
         self.assertEqual(report.state, "non_conforming")
         self.assertTrue(report.date)
         self.assertEqual(report.non_conformity_ids, nonconformity)
@@ -162,9 +154,7 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
         self.assertEqual(indicator.interpretation, "invalid")
 
     def test_compute_interpretation_bool(self):
-        indicator = self.env["mgmtsystem.indicator"].create(
-            {"name": "Indicator"}
-        )
+        indicator = self.env["mgmtsystem.indicator"].create({"name": "Indicator"})
         indicator.value_bool = True
         self.assertFalse(indicator.interpretation)
 
@@ -188,9 +178,7 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
         )
 
     def test_compute_reference_range_without_range(self):
-        indicator = self.env["mgmtsystem.indicator"].create(
-            {"name": "Indicator"}
-        )
+        indicator = self.env["mgmtsystem.indicator"].create({"name": "Indicator"})
         indicator._compute_reference_range()
         self.assertFalse(indicator.reference_range_limit)
 
