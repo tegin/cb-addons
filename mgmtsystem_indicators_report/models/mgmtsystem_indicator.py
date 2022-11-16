@@ -118,9 +118,7 @@ class MgmtsystemIndicator(models.Model):
                         label = "valid"
             rec.interpretation = label
 
-    @api.depends(
-        "value_float", "value_int", "value_selection", "value_str", "value"
-    )
+    @api.depends("value_float", "value_int", "value_selection", "value_str", "value")
     def _compute_value_representation(self):
         for rec in self:
             if rec.value_type and hasattr(rec, "value_%s" % rec.value_type):
