@@ -40,6 +40,7 @@ addon | version | maintainers | summary
 [stock_barcodes_gs1_configurator](stock_barcodes_gs1_configurator/) | 14.0.1.0.0 |  | Simplify configuration of GS1 barcodes
 [web_flagbox](web_flagbox/) | 14.0.1.0.0 |  | Allows to us a flag box with icons / buttons
 [web_history_back](web_history_back/) | 14.0.1.0.0 |  | Add history back
+[web_icon_widget](web_icon_widget/) | 13.0.1.0.0 |  | Allows to use a flag box with icons / buttons
 
 [//]: # (end addons)
 
