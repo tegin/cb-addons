@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.menu" id="menu_mgmtsystem_indicators_report">
+        <field name="name">Indicators Report</field>
+        <field name="parent_id" ref="mgmtsystem.menu_mgmtsystem_root" />
+        <field name="sequence" eval="40" />
+        <field
+            name="groups_id"
+            eval="[(6, 0, [ref('mgmtsystem.group_mgmtsystem_viewer')])]"
+        />
+    </record>
+
+</odoo>

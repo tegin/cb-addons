@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="mgmtsystem_indicator_concept_form_view">
+        <field
+            name="name"
+        >mgmtsystem.indicator.concept.form (in mgmtsystem_indicators_report)</field>
+        <field name="model">mgmtsystem.indicator.concept</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="value_type" required="1" />
+                        <field
+                            name="selection_options"
+                            attrs="{'required': [('value_type', '=', 'selection')], 'readonly': [('value_type', '!=', 'selection')]}"
+                        />
+                        <field
+                            name="uom_id"
+                            attrs="{'readonly': ['|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')],
+                            'required':['|',('value_type', '=', 'float'), ('value_type', '=', 'int')]}"
+                        />
+                        <field
+                            name="reference_range_low"
+                            attrs="{'readonly': ['|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
+                        />
+                        <field
+                            name="reference_range_high"
+                            attrs="{'readonly': [ '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
+                        />
+                    </group>
+                </sheet>
+                <div class="oe_chatter" />
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="mgmtsystem_indicator_concept_search_view">
+        <field
+            name="name"
+        >mgmtsystem.indicator.concept.search (in mgmtsystem_indicators_report)</field>
+        <field name="model">mgmtsystem.indicator.concept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="mgmtsystem_indicator_concept_tree_view">
+        <field
+            name="name"
+        >mgmtsystem.indicator.concept.tree (in mgmtsystem_indicators_report)</field>
+        <field name="model">mgmtsystem.indicator.concept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="mgmtsystem_indicator_concept_act_window">
+        <field name="name">Mgmtsystem Indicator Concept</field>
+        <field name="res_model">mgmtsystem.indicator.concept</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <record model="ir.ui.menu" id="mgmtsystem_indicator_concept_menu">
+        <field name="name">Mgmtsystem Indicator Concept</field>
+        <field
+            name="parent_id"
+            ref="mgmtsystem_indicators_report_template_parent_menu"
+        />
+        <field name="action" ref="mgmtsystem_indicator_concept_act_window" />
+        <field name="sequence" eval="12" />
+    </record>
+</odoo>
