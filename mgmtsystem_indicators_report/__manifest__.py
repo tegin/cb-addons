@@ -6,9 +6,9 @@
     "summary": """
         This module allows to
         manage quality indicators data""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca,Odoo Community Association (OCA)",
+    "author": "CreuBlanca,Odoo Community Association (OCA)",
     "website": "https://github.com/tegin/cb-addons",
     "depends": [
         "account",
@@ -20,13 +20,14 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "views/menu.xml",
+        "templates/assets.xml",
+        "wizards/indicators_report_from_template.xml",
+        "report/indicators_report_views.xml",
+        "views/uom_uom.xml",
         "views/mgmtsystem_indicators_report.xml",
         "views/mgmtsystem_indicators_report_template.xml",
         "views/mgmtsystem_indicator_concept.xml",
-        "templates/assets.xml",
-        "views/uom_uom.xml",
-        "wizards/indicators_report_from_template.xml",
-        "report/indicators_report_views.xml",
     ],
     "demo": [],
 }
