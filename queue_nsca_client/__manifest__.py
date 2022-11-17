@@ -3,10 +3,10 @@
 {
     "name": "Queue - NSCA Client",
     "summary": "Send passive alerts to monitor your Odoo application.",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Tools",
     "website": "https://github.com/tegin/cb-addons",
-    "author": "Creu Blanca, Odoo Community Association (OCA)",
+    "author": "CreuBlanca, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
