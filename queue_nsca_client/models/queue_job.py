@@ -16,12 +16,10 @@ class QueueJob(models.Model):
         self, domain, created_seconds=False, warning=False, critical=False
     ):
         if created_seconds:
-            date = fields.Datetime.from_string(
-                fields.Datetime.now()
-            ) + timedelta(seconds=-created_seconds)
-            domain.append(
-                ("date_created", "<", fields.Datetime.to_string(date))
+            date = fields.Datetime.from_string(fields.Datetime.now()) + timedelta(
+                seconds=-created_seconds
             )
+            domain.append(("date_created", "<", fields.Datetime.to_string(date)))
         queues = self.search_count(domain)
         status_code = 0
         status = "%s jobs" % queues
