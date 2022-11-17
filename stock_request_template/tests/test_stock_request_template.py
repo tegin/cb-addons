@@ -9,12 +9,8 @@ class TestStockRequest(common.TransactionCase):
     def setUp(self):
         super(TestStockRequest, self).setUp()
 
-        self.company_1 = self.env["res.company"].create(
-            {"name": "Test Company 1"}
-        )
-        self.partner_1 = self.env["res.partner"].create(
-            {"name": "Partner Test 1"}
-        )
+        self.company_1 = self.env["res.company"].create({"name": "Test Company 1"})
+        self.partner_1 = self.env["res.partner"].create({"name": "Partner Test 1"})
         self.warehouse_1 = self.env["stock.warehouse"].create(
             {
                 "name": "Warehouse Test 1",
@@ -31,12 +27,8 @@ class TestStockRequest(common.TransactionCase):
                 "company_id": self.company_1.id,
             }
         )
-        self.partner_2 = self.env["res.partner"].create(
-            {"name": "Partner Test 2"}
-        )
-        self.company_2 = self.env["res.company"].create(
-            {"name": "Test Company 2"}
-        )
+        self.partner_2 = self.env["res.partner"].create({"name": "Partner Test 2"})
+        self.company_2 = self.env["res.company"].create({"name": "Test Company 2"})
         self.warehouse_2 = self.env["stock.warehouse"].create(
             {
                 "name": "Warehouse Test 2",
@@ -95,9 +87,7 @@ class TestStockRequest(common.TransactionCase):
     def test_stock_request_template_onchange_warehouse_id(self):
         self.template.warehouse_id = self.warehouse_2.id
         self.template.onchange_warehouse_id()
-        self.assertEqual(
-            self.template.location_id.get_warehouse(), self.warehouse_2
-        )
+        self.assertEqual(self.template.location_id.get_warehouse(), self.warehouse_2)
         self.assertEqual(self.template.company_id, self.company_2)
 
     def test_stock_request_template_onchange_company_id(self):
@@ -109,9 +99,7 @@ class TestStockRequest(common.TransactionCase):
     def test_stock_request_template_onchange_location_id(self):
         self.template.location_id = self.location_2.id
         self.template.onchange_location_id()
-        self.assertEqual(
-            self.template.location_id.get_warehouse(), self.warehouse_2
-        )
+        self.assertEqual(self.template.location_id.get_warehouse(), self.warehouse_2)
         self.assertEqual(self.template.company_id, self.company_2)
 
     def test_stock_request_template_line_check_product_quantity(self):
@@ -153,9 +141,7 @@ class TestStockRequest(common.TransactionCase):
         )
         wizard.apply_template()
         self.assertEqual(len(self.request_order.stock_request_ids), 2)
-        self.assertEqual(
-            self.template.warehouse_id, self.request_order.warehouse_id
-        )
+        self.assertEqual(self.template.warehouse_id, self.request_order.warehouse_id)
         self.assertEqual(
             self.template.template_line_ids[0].product_id,
             self.request_order.stock_request_ids[0].product_id,

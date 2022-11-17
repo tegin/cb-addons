@@ -52,11 +52,7 @@ class StockRequestTemplate(models.Model):
                 [("company_id", "=", self.company_id.id)], limit=1
             )
             self.with_context(no_change_childs=True).onchange_warehouse_id()
-        return {
-            "domain": {
-                "warehouse_id": [("company_id", "=", self.company_id.id)]
-            }
-        }
+        return {"domain": {"warehouse_id": [("company_id", "=", self.company_id.id)]}}
 
     @api.onchange("location_id")
     def onchange_location_id(self):
@@ -64,9 +60,7 @@ class StockRequestTemplate(models.Model):
             loc_wh = self.location_id.sudo().get_warehouse()
             if loc_wh and self.warehouse_id != loc_wh:
                 self.warehouse_id = loc_wh
-                self.with_context(
-                    no_change_childs=True
-                ).onchange_warehouse_id()
+                self.with_context(no_change_childs=True).onchange_warehouse_id()
 
 
 class StockRequestTemplateLine(models.Model):
@@ -91,8 +85,7 @@ class StockRequestTemplateLine(models.Model):
         "Quantity",
         digits="Product Unit of Measure",
         required=True,
-        help="Quantity, specified in the unit of measure indicated in the "
-        "request.",
+        help="Quantity, specified in the unit of measure indicated in the " "request.",
     )
 
     @api.constrains("product_uom_qty")
