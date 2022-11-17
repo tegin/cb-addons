@@ -3,8 +3,9 @@
 
 {
     "name": "Web Single App Logo",
-    "version": "13.0.1.0.0",
-    "author": "Creu Blanca",
+    "version": "14.0.1.0.0",
+    "website": "https://github.com/tegin/cb-addons",
+    "author": "CreuBlanca",
     "license": "AGPL-3",
     "category": "Website",
     "summary": "Allows to define a single app logo",

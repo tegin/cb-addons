@@ -4,7 +4,7 @@ from mock import patch
 
 from odoo import tools
 from odoo.http import Response
-from odoo.tests.common import HttpCase, at_install, post_install
+from odoo.tests.common import HttpCase, tagged
 
 from ..controllers.main import MulticompanyLogo
 
@@ -29,8 +29,7 @@ def fake_response(data, filename=False, mtime=False):
     return Response(data.getvalue(), direct_passthrough=True)
 
 
-@post_install(True)
-@at_install(False)
+@tagged("post_install", "-at_install")
 class TestWebSingleAppLogo(HttpCase):
     def test_logo(self):
         data = self.url_open("/app_logo.png")
