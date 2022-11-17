@@ -32,7 +32,5 @@ class TestNomenclature(TransactionCase):
             }
         )
         action = self.nomenclature.action_view_items()
-        items = self.env["product.nomenclature.product"].search(
-            action["domain"]
-        )
+        items = self.env["product.nomenclature.product"].search(action["domain"])
         self.assertIn(item.id, items.ids)

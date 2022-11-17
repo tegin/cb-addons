@@ -13,7 +13,7 @@
         "views/product_nomenclature_product_views.xml",
         "views/product_nomenclature_views.xml",
     ],
-    "website": "https://github.com/Eficent/cb-addons",
+    "website": "https://github.com/tegin/cb-addons",
     "license": "AGPL-3",
     "installable": True,
     "auto_install": False,
