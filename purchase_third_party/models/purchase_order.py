@@ -1,14 +1,13 @@
 from odoo import _, api, fields, models
-from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
 from odoo.exceptions import ValidationError
+
+from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
 
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    third_party_order = fields.Boolean(
-        default=False, states=Purchase.READONLY_STATES
-    )
+    third_party_order = fields.Boolean(default=False, states=Purchase.READONLY_STATES)
     third_party_partner_id = fields.Many2one(
         "res.partner", states=Purchase.READONLY_STATES
     )
@@ -42,9 +41,7 @@ class PurchaseOrder(models.Model):
                 tp_amount_tax += line.third_party_price_tax
             order.update(
                 {
-                    "tp_amount_untaxed": order.currency_id.round(
-                        tp_amount_untaxed
-                    ),
+                    "tp_amount_untaxed": order.currency_id.round(tp_amount_untaxed),
                     "tp_amount_tax": order.currency_id.round(tp_amount_tax),
                     "tp_amount_total": tp_amount_untaxed + tp_amount_tax,
                 }
@@ -160,13 +157,7 @@ class PurchaseOrderLine(models.Model):
                 self.order_id.company_id,
                 self.date_order or fields.Date.today(),
             )
-        if (
-            seller
-            and self.product_uom
-            and seller.product_uom != self.product_uom
-        ):
-            price_unit = seller.product_uom._compute_price(
-                price_unit, self.product_uom
-            )
+        if seller and self.product_uom and seller.product_uom != self.product_uom:
+            price_unit = seller.product_uom._compute_price(price_unit, self.product_uom)
         self.third_party_price_unit = price_unit
         return res
