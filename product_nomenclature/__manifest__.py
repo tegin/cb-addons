@@ -4,8 +4,8 @@
 
 {
     "name": "Product nomenclature",
-    "version": "13.0.1.0.0",
-    "author": "Creu Blanca",
+    "version": "14.0.1.0.0",
+    "author": "CreuBlanca",
     "category": "Product",
     "depends": ["sale"],
     "data": [
