@@ -13,9 +13,7 @@ class ResConfigSettings(models.TransientModel):
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
         single_app_logo = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("app.logo", default=False)
+            self.env["ir.config_parameter"].sudo().get_param("app.logo", default=False)
         )
         res.update(single_app_logo=single_app_logo)
         return res
