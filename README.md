@@ -32,6 +32,7 @@ addon | version | maintainers | summary
 [mgmtsystem_indicators_report](mgmtsystem_indicators_report/) | 14.0.1.0.0 |  | This module allows to manage quality indicators data
 [pos_close_approval](pos_close_approval/) | 14.0.1.0.0 |  | Adds integration information
 [cb_stock_location_warning](cb_stock_location_warning/) | 14.0.1.0.0 |  | Add warnings to stock locations
+[cb_sale_report_invoice](cb_sale_report_invoice/) | 14.0.1.0.0 |  | Sale Report invoice modification for CB
 [pos_multiple_sessions](pos_multiple_sessions/) | 14.0.1.0.0 |  | Adds integration information
 [product_comercial](product_comercial/) | 14.0.1.0.0 |  | Add Comercial field to product
 [safe_box](safe_box/) | 14.0.1.0.0 |  | Creates inter company relations
