@@ -5,10 +5,10 @@
     "name": "Document Quick Access Report Qr",
     "summary": """
         Add QR to models reports""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca",
-    "website": "www.creublanca.es",
+    "author": "CreuBlanca",
+    "website": "https://github.com/tegin/cb-addons",
     "depends": [
         "document_quick_access",
         "account_banking_sepa_direct_debit",
