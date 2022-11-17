@@ -5,9 +5,9 @@
     "name": "Remote Report To Printer Label",
     "summary": """
         Adds label selection to remote printer""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca",
+    "author": "CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
     "depends": ["remote_report_to_printer"],
 }
