@@ -3,10 +3,10 @@
 
 {
     "name": "Check Digit on Sequences",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Reporting",
     "website": "https://github.com/tegin/cb-addons",
-    "author": "Creu Blanca",
+    "author": "CreuBlanca",
     "license": "AGPL-3",
     "installable": True,
     "application": False,
