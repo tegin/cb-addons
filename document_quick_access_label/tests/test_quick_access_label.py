@@ -4,6 +4,7 @@ import json
 
 from lxml import etree
 from mock import patch
+
 from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
@@ -70,8 +71,7 @@ class TestQuickAccessLabel(TransactionCase):
         data = self.partner.fields_view_get()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
-            "//div[@name='button_box']/"
-            "button[@name='action_print_document_label']"
+            "//div[@name='button_box']/" "button[@name='action_print_document_label']"
         )
         self.assertFalse(
             any(
@@ -86,8 +86,7 @@ class TestQuickAccessLabel(TransactionCase):
         data = self.partner.fields_view_get()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
-            "//div[@name='button_box']/"
-            "button[@name='action_print_document_label']"
+            "//div[@name='button_box']/" "button[@name='action_print_document_label']"
         )
         self.assertTrue(
             any(
@@ -102,8 +101,7 @@ class TestQuickAccessLabel(TransactionCase):
         data = self.partner.fields_view_get()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
-            "//div[@name='button_box']/"
-            "button[@name='action_print_document_label']"
+            "//div[@name='button_box']/" "button[@name='action_print_document_label']"
         )
         final_button = False
         for button in buttons:
@@ -126,8 +124,7 @@ class TestQuickAccessLabel(TransactionCase):
         data = self.partner.fields_view_get()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
-            "//div[@name='button_box']/"
-            "button[@name='action_print_document_label']"
+            "//div[@name='button_box']/" "button[@name='action_print_document_label']"
         )
         final_button = False
         for button in buttons:
@@ -138,9 +135,7 @@ class TestQuickAccessLabel(TransactionCase):
                 final_button = button
                 break
         context = json.loads(final_button.attrib["context"])
-        with patch(
-            "odoo.addons.base_remote.models.base.Base.remote", new=self.remote
-        ):
+        with patch("odoo.addons.base_remote.models.base.Base.remote", new=self.remote):
             print_file_patch.assert_not_called()
             self.partner.with_context(**context).action_print_document_label()
             print_file_patch.assert_called()
@@ -154,8 +149,7 @@ class TestQuickAccessLabel(TransactionCase):
         data = self.partner.fields_view_get()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
-            "//div[@name='button_box']/"
-            "button[@name='action_print_document_label']"
+            "//div[@name='button_box']/" "button[@name='action_print_document_label']"
         )
         final_button = False
         for button in buttons:
@@ -167,13 +161,9 @@ class TestQuickAccessLabel(TransactionCase):
                 break
         context = json.loads(final_button.attrib["context"])
         self.remote.write({"remote_printer_ids": [(5, 0, 0)]})
-        with patch(
-            "odoo.addons.base_remote.models.base.Base.remote", new=self.remote
-        ):
+        with patch("odoo.addons.base_remote.models.base.Base.remote", new=self.remote):
             with self.assertRaises(UserError):
-                self.partner.with_context(
-                    **context
-                ).action_print_document_label()
+                self.partner.with_context(**context).action_print_document_label()
 
     @patch(
         "odoo.addons.base_report_to_printer.models.printing_printer."
@@ -184,8 +174,7 @@ class TestQuickAccessLabel(TransactionCase):
         data = self.partner.fields_view_get()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
-            "//div[@name='button_box']/"
-            "button[@name='action_print_document_label']"
+            "//div[@name='button_box']/" "button[@name='action_print_document_label']"
         )
         final_button = False
         for button in buttons:
@@ -203,9 +192,7 @@ class TestQuickAccessLabel(TransactionCase):
                 "printing_printer_id": self.printer.id,
             }
         )
-        with patch(
-            "odoo.addons.base_remote.models.base.Base.remote", new=self.remote
-        ):
+        with patch("odoo.addons.base_remote.models.base.Base.remote", new=self.remote):
             print_file_patch.assert_not_called()
             self.partner.with_context(**context).action_print_document_label()
             print_file_patch.assert_called()
@@ -221,8 +208,7 @@ class TestQuickAccessLabel(TransactionCase):
         data = self.partner.fields_view_get()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
-            "//div[@name='button_box']/"
-            "button[@name='action_print_document_label']"
+            "//div[@name='button_box']/" "button[@name='action_print_document_label']"
         )
         final_button = False
         for button in buttons:

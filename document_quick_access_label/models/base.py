@@ -4,6 +4,7 @@
 import json
 
 from lxml import etree
+
 from odoo import _, api, models
 from odoo.exceptions import UserError
 
@@ -44,9 +45,7 @@ class Base(models.AbstractModel):
         raise UserError(_("Printer function not defined"))
 
     def action_print_document_label(self):
-        label = self.env["printing.label.zpl2"].browse(
-            self.env.context.get("label_id")
-        )
+        label = self.env["printing.label.zpl2"].browse(self.env.context.get("label_id"))
         self._get_document_quick_access_label_printer().print_document(
             report=self.env["ir.actions.report"],
             content=label._generate_zpl2_data(self),
