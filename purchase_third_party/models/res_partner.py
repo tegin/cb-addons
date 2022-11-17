@@ -20,9 +20,7 @@ class ResPartner(models.Model):
 
     def action_view_product_supplierinfo(self):
         self.ensure_one()
-        action = self.env.ref(
-            "product.product_supplierinfo_type_action"
-        ).read()[0]
+        action = self.env.ref("product.product_supplierinfo_type_action").read()[0]
         action["domain"] = [
             "|",
             ("name", "=", self.id),
