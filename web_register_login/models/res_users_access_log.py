@@ -25,9 +25,7 @@ class ResUsersAccessLog(models.Model):
         "res.remote", readonly=True, default=lambda r: r._default_remote_id()
     )
 
-    remote_name = fields.Char(
-        readonly=True, default=lambda r: r._default_remote_name()
-    )
+    remote_name = fields.Char(readonly=True, default=lambda r: r._default_remote_name())
 
     remote_ip = fields.Char(
         readonly=True,
