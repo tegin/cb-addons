@@ -17,7 +17,7 @@ class PurchaseOrder(models.Model):
         store=True,
         readonly=True,
         compute="_compute_amount_all_tp",
-        track_visibility="always",
+        tracking=True,
     )
     tp_amount_tax = fields.Monetary(
         string="Third Party Taxes",
@@ -160,4 +160,48 @@ class PurchaseOrderLine(models.Model):
         if seller and self.product_uom and seller.product_uom != self.product_uom:
             price_unit = seller.product_uom._compute_price(price_unit, self.product_uom)
         self.third_party_price_unit = price_unit
+        return res
+
+    @api.model
+    def _prepare_purchase_order_line_from_procurement(
+        self, product_id, product_qty, product_uom, company_id, values, po
+    ):
+        res = super()._prepare_purchase_order_line_from_procurement(
+            product_id, product_qty, product_uom, company_id, values, po
+        )
+        procurement_uom_po_qty = res["product_qty"]
+        partner = values["supplier"].name
+        seller = product_id._select_seller(
+            partner_id=partner,
+            quantity=procurement_uom_po_qty,
+            date=po.date_order.date(),
+            uom_id=product_id.uom_po_id,
+        )
+        if not seller.third_party_partner_id and not po.third_party_order:
+            return res
+        taxes = product_id.supplier_taxes_id
+        fpos = po.fiscal_position_id
+        taxes_id = fpos.map_tax(taxes) if fpos else taxes
+        if taxes_id:
+            taxes_id = taxes_id.filtered(
+                lambda x: x.company_id.id == values["company_id"].id
+            )
+        price_unit = (
+            self.env["account.tax"]._fix_tax_included_price_company(
+                seller.third_party_price,
+                product_id.supplier_taxes_id,
+                taxes_id,
+                values["company_id"],
+            )
+            if seller
+            else 0.0
+        )
+        if (
+            price_unit
+            and seller
+            and po.currency_id
+            and seller.currency_id != po.currency_id
+        ):
+            price_unit = seller.currency_id.compute(price_unit, po.currency_id)
+        res["third_party_price_unit"] = price_unit
         return res
