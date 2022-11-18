@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="external_layout">
+        <div class="header">
+            <div class="row">
+                <div class="col-3 mb4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" name="company_address">
+                    <span
+                        t-esc="partner"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                        style="border-bottom: 1px solid black; display:inline-block;"
+                    />
+                </div>
+            </div>
+        </div>
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <div
+            t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+            t-att-data-oe-model="o and o._name"
+            t-att-data-oe-id="o and o.id"
+            t-att-data-oe-lang="o and o.env.context.get('lang')"
+        >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <li class="list-inline-item d-inline" t-if="partner.phone">Phone:
+                        <span t-field="partner.phone" />
+                    </li>
+                    <li class="list-inline-item d-inline" t-if="partner.email">Email:
+                        <span t-field="partner.email" />
+                    </li>
+                    <li class="list-inline-item d-inline" t-if="partner.website">Web:
+                        <span t-field="partner.website" />
+                    </li>
+                    <li class="list-inline-item d-inline" t-if="partner.vat"><t
+                            t-esc="partner.country_id.vat_label or 'TIN'"
+                        />:
+                        <span t-field="partner.vat" />
+                    </li>
+                </ul>
+                <div class="text-muted">
+                    Page:
+                    <span class="page" />
+                    /
+                    <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>
