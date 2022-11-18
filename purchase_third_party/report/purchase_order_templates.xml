@@ -44,15 +44,19 @@
             </t>
         </t>
     </template>
-    <report
-        string="Third Party Purchase Order"
-        id="action_report_purchase_order"
-        model="purchase.order"
-        report_type="qweb-pdf"
-        name="purchase_third_party.report_purchaseorder_third_party"
-        file="purchase_third_party.report_purchaseorder_third_party"
-        print_report_name="
-                (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or
-                'Purchase Order - %s' % (object.name))"
-    />
+    <record id="action_report_purchase_order" model="ir.actions.report">
+        <field name="name">purchase_third_party.report_purchaseorder_third_party</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="print_report_name"
+        >(object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or 'Purchase Order - %s' % (object.name))</field>
+        <field name="model">purchase.order</field>
+        <field
+            name="report_file"
+        >purchase_third_party.report_purchaseorder_third_party</field>
+            <field
+            name="report_name"
+        >purchase_third_party.report_purchaseorder_third_party</field>
+
+    </record>
 </odoo>
