@@ -40,17 +40,13 @@ class TestInterCompanyCashInvoice(common.TestInterCompany):
         )
         in_invoice = (
             self.env["cash.invoice.in"]
-            .with_context(
-                active_ids=statement.ids, active_model=statement._name
-            )
+            .with_context(active_ids=statement.ids, active_model=statement._name)
             .create({"invoice_id": invoice_in.id, "amount": -100.0})
         )
         in_invoice.run()
         out_invoice = (
             self.env["cash.invoice.out"]
-            .with_context(
-                active_ids=statement.ids, active_model=statement._name
-            )
+            .with_context(active_ids=statement.ids, active_model=statement._name)
             .create({"invoice_id": invoice_out.id, "amount": 100.0})
         )
         out_invoice.run()

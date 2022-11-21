@@ -20,10 +20,7 @@ class PosSession(models.Model):
         invoice_receivables = data["invoice_receivables"]
         inter_company_receivables = data["inter_company_invoice_receivables"]
         inter_company_amounts = data["inter_company_amounts"]
-        if (
-            order.is_invoiced
-            and order.account_move.company_id == self.company_id
-        ):
+        if order.is_invoiced and order.account_move.company_id == self.company_id:
             # Combine invoice receivable lines
             key = key.with_context(force_company=self.company_id.id)
             invoice_receivables[key] = self._update_amounts(
@@ -84,9 +81,7 @@ class PosSession(models.Model):
                     _("Intercompany relation not found between %s and %s")
                     % (
                         self.company_id.display_name,
-                        self.env["res.company"]
-                        .browse(company_id)
-                        .display_name,
+                        self.env["res.company"].browse(company_id).display_name,
                     )
                 )
             inter_company_map[company_id] = inter_company
@@ -124,9 +119,7 @@ class PosSession(models.Model):
                 partner_account_id = commercial_partner.with_context(
                     force_company=company
                 ).property_account_receivable_id.id
-                inter_company_receivable_vals[company][
-                    partner_account_id
-                ].append(
+                inter_company_receivable_vals[company][partner_account_id].append(
                     self._get_invoice_receivable_vals(
                         partner_account_id,
                         amounts["amount"],
@@ -141,9 +134,7 @@ class PosSession(models.Model):
                 account = journal.default_credit_account_id
             else:
                 account = journal.default_debit_account_id
-            inter_company_receivable_vals[self.company_id.id][
-                account.id
-            ].append(
+            inter_company_receivable_vals[self.company_id.id][account.id].append(
                 self._get_invoice_receivable_vals(
                     account.id,
                     amounts["amount"],
@@ -204,8 +195,7 @@ class PosSession(models.Model):
                 balancing_vals.update(
                     {
                         "account_id": account.id,
-                        "name": _("Intercompany amount from %s")
-                        % self.company_id.name,
+                        "name": _("Intercompany amount from %s") % self.company_id.name,
                     }
                 )
                 MoveLine = data.get("MoveLine")
@@ -232,15 +222,11 @@ class PosSession(models.Model):
         non_reconcilable_lines = session_move.mapped("line_ids").filtered(
             lambda aml: not aml.account_id.reconcile
         )
-        reconcilable_lines = (
-            session_move.mapped("line_ids") - non_reconcilable_lines
-        )
+        reconcilable_lines = session_move.mapped("line_ids") - non_reconcilable_lines
         fully_reconciled_lines = reconcilable_lines.filtered(
             lambda aml: aml.full_reconcile_id
         )
-        partially_reconciled_lines = (
-            reconcilable_lines - fully_reconciled_lines
-        )
+        partially_reconciled_lines = reconcilable_lines - fully_reconciled_lines
 
         ids = (
             non_reconcilable_lines.ids
@@ -253,7 +239,4 @@ class PosSession(models.Model):
             )
         )
 
-        return (
-            self.env["account.move.line"].browse(ids).mapped("move_id")
-            | result
-        )
+        return self.env["account.move.line"].browse(ids).mapped("move_id") | result

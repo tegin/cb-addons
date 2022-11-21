@@ -2,9 +2,10 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo.addons.account_journal_inter_company.tests import common
 from odoo.exceptions import UserError
 from odoo.tests import Form
+
+from odoo.addons.account_journal_inter_company.tests import common
 
 
 class TestInterCompanyCashInvoice(common.TestInterCompany):

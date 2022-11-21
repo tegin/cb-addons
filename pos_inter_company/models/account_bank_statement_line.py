@@ -52,10 +52,7 @@ class BankStatementLine(models.Model):
     def fast_counterpart_creation(self):
         for st_line in self:
             company = st_line.statement_id.company_id
-            if (
-                st_line.account_id
-                and st_line.account_id.company_id.id != company.id
-            ):
+            if st_line.account_id and st_line.account_id.company_id.id != company.id:
                 st_line.with_context(
                     force_company=st_line.statement_id.company_id.id,
                     journal_id=st_line.statement_id.journal_id.id,

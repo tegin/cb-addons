@@ -6,7 +6,7 @@
     "name": "Cash payments between intercompanies",
     "version": "13.0.1.0.0",
     "author": "Eficent, Creu Blanca",
-    "website": "http://github.com/eficent/cb-addons",
+    "website": "https://github.com/tegin/cb-addons",
     "summary": "Payment of invoices to another company",
     "sequence": 30,
     "category": "Accounting",
