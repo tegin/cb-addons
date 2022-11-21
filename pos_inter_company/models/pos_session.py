@@ -22,22 +22,29 @@ class PosSession(models.Model):
         inter_company_amounts = data["inter_company_amounts"]
         if order.is_invoiced and order.account_move.company_id == self.company_id:
             # Combine invoice receivable lines
-            key = key.with_context(force_company=self.company_id.id)
-            invoice_receivables[key] = self._update_amounts(
-                invoice_receivables[key],
-                {"amount": order._get_amount_receivable()},
-                order.date_order,
-            )
-        elif order.is_invoiced:
+            key = key.with_company(self.company_id.id)
+            if self.config_id.cash_rounding:
+                invoice_receivables[key] = self._update_amounts(
+                    invoice_receivables[key],
+                    {"amount": order.amount_paid},
+                    order.date_order,
+                )
+            else:
+                invoice_receivables[key] = self._update_amounts(
+                    invoice_receivables[key],
+                    {"amount": order.amount_total},
+                    order.date_order,
+                )
+        if order.is_invoiced and order.account_move.company_id != self.company_id:
             company_id = order.account_move.company_id.id
             inter_company_receivables[company_id][key] = self._update_amounts(
                 inter_company_receivables[company_id][key],
-                {"amount": order._get_amount_receivable()},
+                {"amount": order.amount_total},
                 order.date_order,
             )
             inter_company_amounts[company_id] = self._update_amounts(
                 inter_company_amounts[company_id],
-                {"amount": order._get_amount_receivable()},
+                {"amount": order.amount_total},
                 order.date_order,
             )
 
@@ -61,7 +68,7 @@ class PosSession(models.Model):
 
     def _accumulate_amounts(self, data):
         result = super(
-            PosSession, self.with_context(force_company=self.company_id.id)
+            PosSession, self.with_company(self.company_id.id)
         )._accumulate_amounts(data)
         self._accumulate_amount_preprocess_data(data)
         for order in self.order_ids:
@@ -88,6 +95,7 @@ class PosSession(models.Model):
             related_journal = inter_company.related_journal_id
             inter_company_move_map[company_id] = (
                 self.env["account.move"]
+                .with_company(company_id)
                 .with_context(default_journal_id=related_journal.id)
                 .create(
                     {
@@ -116,8 +124,8 @@ class PosSession(models.Model):
         for company, invoice_receivables in inter_company_receivables.items():
             for partner, amounts in invoice_receivables.items():
                 commercial_partner = partner.commercial_partner_id
-                partner_account_id = commercial_partner.with_context(
-                    force_company=company
+                partner_account_id = commercial_partner.with_company(
+                    company
                 ).property_account_receivable_id.id
                 inter_company_receivable_vals[company][partner_account_id].append(
                     self._get_invoice_receivable_vals(
@@ -130,10 +138,7 @@ class PosSession(models.Model):
                 )
         for company, amounts in data["inter_company_amounts"].items():
             journal = data["inter_company_map"][company].journal_id
-            if amounts["amount"] > 0:
-                account = journal.default_credit_account_id
-            else:
-                account = journal.default_debit_account_id
+            account = journal.default_account_id
             inter_company_receivable_vals[self.company_id.id][account.id].append(
                 self._get_invoice_receivable_vals(
                     account.id,
@@ -188,10 +193,7 @@ class PosSession(models.Model):
                 related_journal = data["inter_company_map"][
                     move.company_id.id
                 ].related_journal_id
-                if imbalance_amount > 0:
-                    account = related_journal.default_credit_account_id
-                else:
-                    account = related_journal.default_debit_account_id
+                account = related_journal.default_account_id
                 balancing_vals.update(
                     {
                         "account_id": account.id,
@@ -200,13 +202,12 @@ class PosSession(models.Model):
                 )
                 MoveLine = data.get("MoveLine")
                 MoveLine.create(balancing_vals)
-
         return result
 
-    def _validate_session(self):
-        result = super(PosSession, self)._validate_session()
-        self.inter_company_move_ids.post()
-        return result
+    def _reconcile_account_move_lines(self, data):
+        self.inter_company_move_ids.refresh()
+        self.inter_company_move_ids._post()
+        return super(PosSession, self)._reconcile_account_move_lines(data)
 
     def _get_related_account_moves(self):
         result = super()._get_related_account_moves()

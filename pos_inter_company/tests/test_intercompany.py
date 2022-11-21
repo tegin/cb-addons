@@ -2,9 +2,12 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
+from odoo.tests.common import tagged
+
 from odoo.addons.account_journal_inter_company.tests import common
 
 
+@tagged("post_install", "-at_install")
 class TestInterCompanyCashInvoice(common.TestInterCompany):
     @classmethod
     def setUpClass(cls):
@@ -51,13 +54,8 @@ class TestInterCompanyCashInvoice(common.TestInterCompany):
         )
         out_invoice.run()
         statement.balance_end_real = statement.balance_start
-        statement.check_confirm_bank()
+        statement.button_post()
         invoice_out.refresh()
         invoice_in.refresh()
         self.assertEqual(invoice_in.amount_residual, 0.0)
         self.assertEqual(invoice_out.amount_residual, 0.0)
-        self.assertEqual(len(statement.inter_company_statement_ids), 1)
-        interco_statement = statement.inter_company_statement_ids[0]
-        self.assertEqual(interco_statement.state, "confirm")
-        self.assertEqual(len(interco_statement.line_ids), 2)
-        self.assertEqual(interco_statement.balance_end_real, 0.0)

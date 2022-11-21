@@ -14,14 +14,24 @@ class CashInvoiceIn(models.TransientModel):
 
     def _calculate_values_for_statement_line(self, record):
         res = super()._calculate_values_for_statement_line(record)
-        res.update(
-            {
-                "account_id": self.invoice_id.line_ids.filtered(
-                    lambda line: line.account_id.user_type_id.type
-                    in ("receivable", "payable")
+        if self.invoice_id and self.invoice_id.company_id != self.journal_id.company_id:
+            account = self.invoice_id.line_ids.filtered(
+                lambda line: line.account_id.user_type_id.type
+                in ("receivable", "payable")
+            )
+            inter_company = (
+                self.env["res.inter.company"]
+                .search(
+                    [
+                        ("company_id", "=", self.journal_id.company_id.id),
+                        ("related_company_id", "=", account.company_id.id),
+                    ]
                 )
-                .mapped("account_id")
-                .ids[0]
-            }
-        )
+                .ensure_one()
+            )
+            res.update(
+                {
+                    "counterpart_account_id": inter_company.journal_id.default_account_id.id
+                }
+            )
         return res

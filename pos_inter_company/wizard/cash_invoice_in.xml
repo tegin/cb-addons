@@ -14,7 +14,7 @@
                             ('company_id', 'in', inter_company_ids),
                            ('state', '=', 'posted'),
                            ('currency_id', '=', currency_id),
-                           ('type', 'in', ['in_invoice', 'out_refund'])]</attribute>
+                           ('move_type', 'in', ['in_invoice', 'out_refund'])]</attribute>
             </field>
         </field>
     </record>

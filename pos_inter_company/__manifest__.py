@@ -4,8 +4,8 @@
 
 {
     "name": "Cash payments between intercompanies",
-    "version": "13.0.1.0.0",
-    "author": "Eficent, Creu Blanca",
+    "version": "14.0.1.0.0",
+    "author": "Eficent, CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
     "summary": "Payment of invoices to another company",
     "sequence": 30,
@@ -13,7 +13,6 @@
     "depends": [
         "pos_session_pay_invoice",
         "account_journal_inter_company",
-        "mcfix_point_of_sale",
         "pos_close_approval",
     ],
     "license": "AGPL-3",

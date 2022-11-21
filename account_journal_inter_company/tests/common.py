@@ -122,7 +122,7 @@ class TestInterCompany(SavepointCase):
         invoice = cls.env["account.move"].create(
             {
                 "company_id": company.id,
-                "type": inv_type,
+                "move_type": inv_type,
                 "partner_id": partner.id,
                 "journal_id": journal.id,
                 "invoice_line_ids": [
@@ -140,5 +140,5 @@ class TestInterCompany(SavepointCase):
                 ],
             }
         )
-        invoice.with_context(force_company=company.id).post()
+        invoice.with_context(force_company=company.id)._post()
         return invoice

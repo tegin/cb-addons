@@ -4,10 +4,12 @@
 
 from odoo.exceptions import UserError
 from odoo.tests import Form
+from odoo.tests.common import tagged
 
 from odoo.addons.account_journal_inter_company.tests import common
 
 
+@tagged("post_install", "-at_install")
 class TestInterCompanyCashInvoice(common.TestInterCompany):
     @classmethod
     def setUpClass(cls):
@@ -19,7 +21,53 @@ class TestInterCompanyCashInvoice(common.TestInterCompany):
             {"name": "Partner", "company_id": False}
         )
 
-        cls.pos_config = cls.env["pos.config"].create({"name": "PoS config"})
+        cls.pos_config = cls.env["pos.config"].create(
+            {
+                "name": "PoS config",
+                "journal_id": cls.company_data["default_journal_sale"].id,
+                "invoice_journal_id": cls.company_data["default_journal_sale"].id,
+            }
+        )
+        cls.cash_payment_method = cls.env["pos.payment.method"].create(
+            {
+                "name": "Cash",
+                "receivable_account_id": cls.company_data[
+                    "default_account_receivable"
+                ].id,
+                "is_cash_count": True,
+                "cash_journal_id": cls.company_data["default_journal_cash"].id,
+                "company_id": cls.env.company.id,
+            }
+        )
+        cls.bank_payment_method = cls.env["pos.payment.method"].create(
+            {
+                "name": "Bank",
+                "receivable_account_id": cls.company_data[
+                    "default_account_receivable"
+                ].id,
+                "is_cash_count": False,
+                "company_id": cls.env.company.id,
+            }
+        )
+        cls.credit_payment_method = cls.env["pos.payment.method"].create(
+            {
+                "name": "Credit",
+                "receivable_account_id": cls.company_data[
+                    "default_account_receivable"
+                ].id,
+                "split_transactions": True,
+                "company_id": cls.env.company.id,
+            }
+        )
+        cls.pos_config.write(
+            {
+                "payment_method_ids": [
+                    (4, cls.credit_payment_method.id),
+                    (4, cls.bank_payment_method.id),
+                    (4, cls.cash_payment_method.id),
+                ]
+            }
+        )
         cls.out_invoice_company_1 = cls.create_invoice(
             cls.company_1, "out_invoice", cls.partner, cls.product
         )
