@@ -47,9 +47,7 @@ class TestPosSafeBox(TransactionCase):
                 "name": "Account 01",
                 "code": "001",
                 "company_id": self.company.id,
-                "user_type_id": self.ref(
-                    "account.data_account_type_liquidity"
-                ),
+                "user_type_id": self.ref("account.data_account_type_liquidity"),
                 "safe_box_group_id": self.safe_box_group.id,
             }
         )
