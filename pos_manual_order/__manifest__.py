@@ -8,6 +8,6 @@
     "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "author": "Creu Blanca",
-    "depends": ["mcfix_point_of_sale"],
+    "depends": ["point_of_sale"],
     "data": ["wizards/pos_session_add_order.xml", "views/pos_session.xml"],
 }
