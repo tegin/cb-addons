@@ -4,8 +4,8 @@
 
 {
     "name": "Safe Box with PoS",
-    "version": "13.0.1.0.0",
-    "author": "Eficent, Creu Blanca",
+    "version": "14.0.1.0.0",
+    "author": "Eficent, CreuBlanca",
     "depends": ["safe_box", "pos_close_approval", "pos_session_pay_invoice"],
     "data": [
         "security/ir.model.access.csv",

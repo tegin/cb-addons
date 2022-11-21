@@ -119,10 +119,7 @@ class PosSessionValidation(models.Model):
         if not account:
             raise ValidationError(_("Account cannot be found for this company"))
         amount = statement.total_entry_encoding
-        if amount > 0:
-            statement_account = statement.journal_id.default_credit_account_id
-        else:
-            statement_account = statement.journal_id.default_debit_account_id
+        statement_account = statement.journal_id.default_account_id
         return {
             "journal_id": statement.journal_id.id,
             "safe_box_move_id": self.closing_move_id.id,
@@ -177,7 +174,7 @@ class PosSessionValidation(models.Model):
             lambda r: (r.journal_id.type == "cash" and r.total_entry_encoding != 0)
         ):
             move = self.env["account.move"].create(self.account_move_vals(statement))
-            move.post()
+            move.action_post()
         self.closing_move_id.close()
         self.write({"state": "closed", "closing_date": fields.Datetime.now()})
 
