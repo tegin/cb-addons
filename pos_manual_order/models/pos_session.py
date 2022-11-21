@@ -19,9 +19,7 @@ class PosSession(models.Model):
             "fiscal_position_id": fiscal_position.id or False,
         }
 
-    def _get_manual_order_line_vals(
-        self, product, qty, price, discount, order
-    ):
+    def _get_manual_order_line_vals(self, product, qty, price, discount, order):
         return [
             {
                 "order_id": order.id,
@@ -80,9 +78,7 @@ class PosSession(models.Model):
         ):
             line = self.env["pos.order.line"].new(line_vals)
             line._onchange_qty()
-            self.env["pos.order.line"].create(
-                line._convert_to_write(line._cache)
-            )
+            self.env["pos.order.line"].create(line._convert_to_write(line._cache))
             order._onchange_amount_all()
 
         data = self._get_manual_order_payment_data(order, payment_method)
