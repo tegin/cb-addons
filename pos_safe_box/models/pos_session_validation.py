@@ -58,21 +58,15 @@ class PosSessionValidation(models.Model):
     cash_amount = fields.Monetary(
         currency_field="currency_id", compute="_compute_statement_values"
     )
-    closing_move_id = fields.Many2one(
-        "safe.box.move", "Closing move", readonly=True
-    )
+    closing_move_id = fields.Many2one("safe.box.move", "Closing move", readonly=True)
     closing_date = fields.Datetime(readonly=True)
-    approve_move_id = fields.Many2one(
-        "safe.box.move", "Approve move", readonly=True
-    )
+    approve_move_id = fields.Many2one("safe.box.move", "Approve move", readonly=True)
     approve_date = fields.Datetime(readonly=True)
 
     @api.depends("pos_session_ids")
     def _compute_statement_ids(self):
         for record in self:
-            record.statement_ids = record.pos_session_ids.mapped(
-                "statement_ids"
-            )
+            record.statement_ids = record.pos_session_ids.mapped("statement_ids")
             record.statement_line_ids = record.statement_ids.mapped("line_ids")
 
     @api.depends("line_ids")
@@ -101,14 +95,12 @@ class PosSessionValidation(models.Model):
             record.amount = sum(statements.mapped("total_entry_encoding"))
             record.amount = record._compute_statement_amount()
             record.cash_amount = sum(
-                statements.filtered(
-                    lambda r: r.journal_id.type == "cash"
-                ).mapped("total_entry_encoding")
+                statements.filtered(lambda r: r.journal_id.type == "cash").mapped(
+                    "total_entry_encoding"
+                )
             )
             lines = record.statement_line_ids
-            record.issue_statement_line_ids = lines.filtered(
-                lambda r: not r.invoice_id
-            )
+            record.issue_statement_line_ids = lines.filtered(lambda r: not r.invoice_id)
 
     def safe_box_move_vals(self):
         return {"safe_box_group_id": self.safe_box_group_id.id}
@@ -125,9 +117,7 @@ class PosSessionValidation(models.Model):
             lambda r: r.company_id.id == statement.journal_id.company_id.id
         )
         if not account:
-            raise ValidationError(
-                _("Account cannot be found for this company")
-            )
+            raise ValidationError(_("Account cannot be found for this company"))
         amount = statement.total_entry_encoding
         if amount > 0:
             statement_account = statement.journal_id.default_credit_account_id
@@ -181,18 +171,12 @@ class PosSessionValidation(models.Model):
             if not safe_box:
                 raise ValidationError(_("Safe boxes are not configured"))
             self.env["safe.box.move.line"].create(
-                self.safe_box_move_line_vals(
-                    self.closing_move_id, safe_box, lines[key]
-                )
+                self.safe_box_move_line_vals(self.closing_move_id, safe_box, lines[key])
             )
         for statement in self.statement_ids.filtered(
-            lambda r: (
-                r.journal_id.type == "cash" and r.total_entry_encoding != 0
-            )
+            lambda r: (r.journal_id.type == "cash" and r.total_entry_encoding != 0)
         ):
-            move = self.env["account.move"].create(
-                self.account_move_vals(statement)
-            )
+            move = self.env["account.move"].create(self.account_move_vals(statement))
             move.post()
         self.closing_move_id.close()
         self.write({"state": "closed", "closing_date": fields.Datetime.now()})
@@ -212,9 +196,7 @@ class PosSessionValidation(models.Model):
                     lambda r: r.safe_box_id.id == initial_safe_box.id
                 ).amount
                 lines.append({"safe_box_id": end_safe_box.id, "amount": value})
-                lines.append(
-                    {"safe_box_id": initial_safe_box.id, "amount": -value}
-                )
+                lines.append({"safe_box_id": initial_safe_box.id, "amount": -value})
         if len(lines) > 0:
             self.approve_move_id = self.env["safe.box.move"].create(
                 {
@@ -223,16 +205,11 @@ class PosSessionValidation(models.Model):
                 }
             )
             self.approve_move_id.close()
-        self.write(
-            {"state": "approved", "approve_date": fields.Datetime.now()}
-        )
+        self.write({"state": "approved", "approve_date": fields.Datetime.now()})
 
     @api.model
     def get_name(self, vals):
-        return (
-            self.env["ir.sequence"].next_by_code("pos.session.validation")
-            or "/"
-        )
+        return self.env["ir.sequence"].next_by_code("pos.session.validation") or "/"
 
     @api.model
     def create(self, vals):
