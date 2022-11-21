@@ -5,9 +5,14 @@
     "name": "Pos Manual Order",
     "summary": """
         Add Orders manually on a PoS Session""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
+    "website": "https://github.com/tegin/cb-addons",
     "license": "AGPL-3",
-    "author": "Creu Blanca",
+    "author": "CreuBlanca",
     "depends": ["point_of_sale"],
-    "data": ["wizards/pos_session_add_order.xml", "views/pos_session.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "wizards/pos_session_add_order.xml",
+        "views/pos_session.xml",
+    ],
 }
