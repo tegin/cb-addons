@@ -48,7 +48,5 @@ class SafeBoxGroup(models.Model):
                 self.session_validation_vals()
             )
         if len(validation.ids) > 1:
-            raise exceptions.Warning(
-                _("Only one validation session is allowed")
-            )
+            raise exceptions.Warning(_("Only one validation session is allowed"))
         return validation
