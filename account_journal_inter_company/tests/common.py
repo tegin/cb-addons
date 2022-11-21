@@ -2,10 +2,17 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo.tests.common import SavepointCase
+from datetime import datetime
+
+from dateutil import relativedelta
+
+from odoo.tests.common import tagged
+
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestInterCompany(SavepointCase):
+@tagged("post_install", "-at_install")
+class TestInterCompany(AccountTestInvoicingCommon):
     @classmethod
     def _setup_context(cls):
         return dict(
@@ -15,35 +22,11 @@ class TestInterCompany(SavepointCase):
         )
 
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
         cls.env = cls.env(context=cls._setup_context())
-        cls.company_1 = cls.env["res.company"].create(
-            {
-                "name": "1Company",
-                "vat": "1",
-                "currency_id": cls.env.ref("base.USD").id,
-                "country_id": cls.env.ref("base.us").id,
-                "logo": False,
-            }
-        )
-        cls.company_2 = cls.env["res.company"].create(
-            {
-                "name": "2Company",
-                "vat": "2",
-                "currency_id": cls.env.ref("base.USD").id,
-                "country_id": cls.env.ref("base.us").id,
-                "logo": False,
-            }
-        )
-        cls.chart_template_id = cls.env["account.chart.template"].search(
-            [("visible", "=", True)], limit=1
-        )
-        for company in [cls.company_1, cls.company_2]:
-            cls.env.user.write(
-                {"company_ids": [(4, company.id)], "company_id": company.id}
-            )
-            cls.chart_template_id.try_loading()
+        cls.company_1 = cls.company_data["company"]
+        cls.company_2 = cls.company_data_2["company"]
         cls.user_type = cls.env.ref("account.data_account_type_revenue")
 
     def create_inter_company(
@@ -101,7 +84,7 @@ class TestInterCompany(SavepointCase):
 
     @classmethod
     def create_invoice(cls, company, inv_type, partner, product):
-        move_obj = cls.env["account.move"].with_context(force_company=company.id)
+        move_obj = cls.env["account.move"].with_company(company.id)
         if inv_type in move_obj.get_purchase_types():
             journal_type = "purchase"
         elif inv_type in move_obj.get_sale_types():
@@ -140,5 +123,7 @@ class TestInterCompany(SavepointCase):
                 ],
             }
         )
-        invoice.with_context(force_company=company.id)._post()
+        date_invoice = datetime.today() - relativedelta.relativedelta(years=1)
+        invoice.invoice_date = date_invoice
+        invoice.with_company(company.id)._post()
         return invoice
