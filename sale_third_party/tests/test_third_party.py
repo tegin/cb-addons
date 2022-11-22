@@ -122,23 +122,6 @@ class ThirdParty(TransactionCase):
             self.company.default_third_party_supplier_account_id,
             self.customer.property_third_party_supplier_account_id,
         )
-        prop = self.customer.property_ids.filtered(
-            lambda r: r.company_id == self.company
-        )
-        prop.write({"property_third_party_customer_account_id": self.customer_acc2.id})
-        prop.refresh()
-        self.assertEqual(
-            self.customer.with_company(
-                self.company.id
-            ).property_third_party_customer_account_id,
-            self.customer_acc2,
-        )
-        self.assertEqual(
-            self.customer.with_company(
-                self.company.id
-            ).property_third_party_customer_account_id,
-            prop.property_third_party_customer_account_id,
-        )
 
     def test_create_partner_third_party(self):
         third_party = self.env["res.partner"].create(
