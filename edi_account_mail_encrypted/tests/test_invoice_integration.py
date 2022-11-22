@@ -5,10 +5,12 @@ import logging
 from io import BytesIO
 
 import mock
-from odoo.addons.base.models.ir_actions_report import IrActionsReport
-from odoo.addons.component.tests.common import SavepointComponentRegistryCase
+
 from odoo.tests import common
 from odoo.tools.config import config
+
+from odoo.addons.base.models.ir_actions_report import IrActionsReport
+from odoo.addons.component.tests.common import SavepointComponentRegistryCase
 
 _logger = logging.getLogger(__name__)
 try:
@@ -51,9 +53,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 "vat": "ES05680675C",
                 "send_invoice_by_mail": True,
                 "email_integration": "demo@demo.es",
-                "invoice_report_email_id": self.env.ref(
-                    "account.account_invoices"
-                ).id,
+                "invoice_report_email_id": self.env.ref("account.account_invoices").id,
             }
         )
         self.password = "1234"
@@ -78,9 +78,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 "company_id": main_company.id,
                 "name": "Facturae Product account",
                 "code": "facturae_product",
-                "user_type_id": self.env.ref(
-                    "account.data_account_type_revenue"
-                ).id,
+                "user_type_id": self.env.ref("account.data_account_type_revenue").id,
             }
         )
         self.move = self.env["account.move"].create(
@@ -137,9 +135,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
             ).post()
             patch.assert_called()
         self.assertTrue(self.move.exchange_record_ids)
-        self.assertRegex(
-            self.move.exchange_record_ids.exchange_filename, r"^.*\.pdf"
-        )
+        self.assertRegex(self.move.exchange_record_ids.exchange_filename, r"^.*\.pdf")
         data = base64.b64decode(self.move.exchange_record_ids.exchange_file)
         in_buff = BytesIO(data)
         pdf = PdfFileReader(in_buff)
@@ -152,6 +148,4 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
             _edi_send_break_on_error=True,
         ).post()
         self.assertTrue(self.move.exchange_record_ids)
-        self.assertRegex(
-            self.move.exchange_record_ids.exchange_filename, r"^.*\.zip$"
-        )
+        self.assertRegex(self.move.exchange_record_ids.exchange_filename, r"^.*\.zip$")
