@@ -5,9 +5,7 @@ from openupgradelib import openupgrade
 
 @openupgrade.migrate()
 def migrate(env, version):
-    integration_field_name = openupgrade.get_legacy_name(
-        "account_move_integration_id"
-    )
+    integration_field_name = openupgrade.get_legacy_name("account_move_integration_id")
     if not openupgrade.table_exists(env.cr, "account_move_integration"):
         return
     if not openupgrade.table_exists(env.cr, "account_move_integration_method"):
