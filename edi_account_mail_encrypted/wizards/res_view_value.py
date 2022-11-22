@@ -12,9 +12,7 @@ class ResViewValue(models.TransientModel):
     @api.model
     def _default_value(self):
         ctx = self.env.context
-        partner = self.env[ctx.get("default_model")].browse(
-            ctx.get("default_res_id")
-        )
+        partner = self.env[ctx.get("default_model")].browse(ctx.get("default_res_id"))
         encrypted = getattr(partner, ctx.get("default_field"))
         return self._decrypt_value(encrypted)
 
