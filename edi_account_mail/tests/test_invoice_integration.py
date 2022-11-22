@@ -1,8 +1,9 @@
 # © 2017 Creu Blanca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo.addons.component.tests.common import SavepointComponentRegistryCase
 from odoo.tests import common
+
+from odoo.addons.component.tests.common import SavepointComponentRegistryCase
 
 
 class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
@@ -36,9 +37,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 "vat": "ES05680675C",
                 "send_invoice_by_mail": True,
                 "email_integration": "demo@demo.es",
-                "invoice_report_email_id": self.env.ref(
-                    "account.account_invoices"
-                ).id,
+                "invoice_report_email_id": self.env.ref("account.account_invoices").id,
             }
         )
         main_company = self.env.ref("base.main_company")
@@ -57,9 +56,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 "company_id": main_company.id,
                 "name": "Facturae Product account",
                 "code": "facturae_product",
-                "user_type_id": self.env.ref(
-                    "account.data_account_type_revenue"
-                ).id,
+                "user_type_id": self.env.ref("account.data_account_type_revenue").id,
             }
         )
         self.move = self.env["account.move"].create(

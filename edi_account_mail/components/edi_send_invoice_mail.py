@@ -7,6 +7,7 @@ import mimetypes
 from email.utils import formataddr
 
 from odoo import tools
+
 from odoo.addons.component.core import Component
 
 
@@ -34,9 +35,7 @@ class EdiOutputAccountMoveSendMail(Component):
             (
                 self.exchange_record.exchange_filename,
                 base64.b64decode(self.exchange_record.exchange_file),
-                mimetypes.guess_type(self.exchange_record.exchange_filename)[
-                    0
-                ],
+                mimetypes.guess_type(self.exchange_record.exchange_filename)[0],
             )
         ]
         result += self._get_extra_attachment()
@@ -52,9 +51,7 @@ class EdiOutputAccountMoveSendMail(Component):
             .generate_email(record.ids, ["subject", "body_html"])[record.id]
         )
         msg = IrMailServer.build_email(
-            email_from=self._get_email(
-                record.company_id.partner_id, "mail_from"
-            )[0],
+            email_from=self._get_email(record.company_id.partner_id, "mail_from")[0],
             email_to=self._get_email(record.partner_id, "mail_to"),
             subject=values["subject"],
             body=values["body"],
