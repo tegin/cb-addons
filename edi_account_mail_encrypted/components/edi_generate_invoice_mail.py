@@ -9,8 +9,9 @@ from io import BytesIO
 from tempfile import TemporaryDirectory
 
 from odoo import _
-from odoo.addons.component.core import Component
 from odoo.exceptions import UserError
+
+from odoo.addons.component.core import Component
 
 _logger = logging.getLogger(__name__)
 try:
@@ -24,9 +25,7 @@ class EdiOutputL10nEsFacturae(Component):
 
     def _generate(self):
         content, content_name, content_type = super()._generate()
-        password = (
-            self.exchange_record.record.partner_id.email_integration_password
-        )
+        password = self.exchange_record.record.partner_id.email_integration_password
         if password:
             password = self.env["email.encryptor"]._decrypt_value(password)
             if content_type == "pdf":
@@ -58,9 +57,7 @@ class EdiOutputL10nEsFacturae(Component):
                 )
                 stdout, stderr = process.communicate()
                 if stderr:
-                    raise UserError(
-                        _("The following error was raised: %s") % stderr
-                    )
+                    raise UserError(_("The following error was raised: %s") % stderr)
                 content_name = zip_file
                 buff = BytesIO()
                 with open(os.path.join(tmpdir.name, zip_file), "rb") as f:
@@ -68,7 +65,5 @@ class EdiOutputL10nEsFacturae(Component):
                 content = buff.getvalue()
                 content_type = "zip"
             else:
-                raise UserError(
-                    _("Still not implemented how to encrypt a zip file")
-                )
+                raise UserError(_("Still not implemented how to encrypt a zip file"))
         return content, content_name, content_type
