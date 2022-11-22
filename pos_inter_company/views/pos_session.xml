@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_pos_session_form" model="ir.ui.view">
+        <field name="name">pos.session.form.view</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="pos_session_pay_invoice.view_pos_session_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//button[@name='%(pos_session_pay_invoice.action_pos_invoice_in)d']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'invisible':[('state', 'not in', ['opened', 'closing_control', 'pending_approval'])]}</attribute>
+            </xpath>
+            <xpath
+                expr="//button[@name='%(pos_session_pay_invoice.action_pos_invoice_in_control)d']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'invisible':[('state', 'not in', ['opened', 'closing_control', 'pending_approval'])]}</attribute>
+            </xpath>
+            <xpath
+                expr="//button[@name='%(pos_session_pay_invoice.action_pos_invoice_out)d']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'invisible':[('state', 'not in', ['opened', 'closing_control', 'pending_approval'])]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
