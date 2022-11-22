@@ -3,7 +3,7 @@
     <record id="view_partner_form1" model="ir.ui.view">
         <field name="name">res.partner.form</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="edi_account.view_partner_form" />
+        <field name="inherit_id" ref="edi_account_oca.view_partner_form" />
         <field name="type">form</field>
         <field name="arch" type="xml">
             <group name="edi_configuration" position="inside">
