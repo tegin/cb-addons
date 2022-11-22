@@ -17,8 +17,8 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
         self._load_module_components(self, "component_event")
         self._load_module_components(self, "edi")
         self._load_module_components(self, "storage")
-        self._load_module_components(self, "edi_account")
-        self._load_module_components(self, "edi_storage")
+        self._load_module_components(self, "edi_account_oca")
+        self._load_module_components(self, "edi_storage_oca")
         self._load_module_components(self, "edi_account_storage")
         self.tax = self.env["account.tax"].create(
             {
@@ -95,7 +95,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 # "account_id": self.partner.property_account_receivable_id.id,
                 "journal_id": self.sale_journal.id,
                 "invoice_date": "2016-03-12",
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": [
                     (
                         0,
@@ -119,7 +119,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
     def test_send(self):
         self.move.with_context(
             force_edi_send=True, _edi_send_break_on_error=True
-        ).post()
+        ).action_post()
         self.assertTrue(self.move.exchange_record_ids)
         self.assertEqual(
             self.move.exchange_record_ids.edi_exchange_state, "output_sent"

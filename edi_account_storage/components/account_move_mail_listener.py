@@ -21,7 +21,7 @@ class AccountMoveMailListener(Component):
             if record.disable_edi_auto:
                 continue
             partner = record.partner_id
-            if record.type not in ["out_invoice", "out_refund"]:
+            if record.move_type not in ["out_invoice", "out_refund"]:
                 continue
             if not partner.account_invoice_storage_exchange_type_id:
                 continue
