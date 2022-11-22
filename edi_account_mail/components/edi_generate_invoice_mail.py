@@ -26,7 +26,7 @@ class EdiOutputL10nEsFacturae(Component):
 
     def _generate(self):
         action = self.get_email_integration_action()
-        content, content_type = action.render(self.exchange_record.record.ids)
+        content, content_type = action._render(self.exchange_record.record.ids)
         filename = self.exchange_record.exchange_filename.rsplit(".")[0]
         filename = re.sub(r'[\\/*?:"<>|]', "", filename)
         return self._post_generate(
