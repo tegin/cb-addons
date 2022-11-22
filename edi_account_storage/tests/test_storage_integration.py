@@ -1,8 +1,9 @@
 # © 2017 Creu Blanca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo.addons.component.tests.common import SavepointComponentRegistryCase
 from odoo.tests import common
+
+from odoo.addons.component.tests.common import SavepointComponentRegistryCase
 
 
 class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
@@ -33,18 +34,14 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
         self.backend = self.env["edi.backend"].create(
             {
                 "name": "Demo Backend",
-                "backend_type_id": self.env.ref(
-                    "edi_account_storage.backend_type"
-                ).id,
+                "backend_type_id": self.env.ref("edi_account_storage.backend_type").id,
                 "storage_id": self.storage.id,
             }
         )
         self.exchange_type = self.env["edi.exchange.type"].create(
             {
                 "name": "Storage backend demo",
-                "backend_type_id": self.env.ref(
-                    "edi_account_storage.backend_type"
-                ).id,
+                "backend_type_id": self.env.ref("edi_account_storage.backend_type").id,
                 "backend_id": self.backend.id,
                 "code": "edi_account_storage_partner",
                 "direction": "output",
@@ -53,9 +50,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
         self.env["edi.exchange.template.output"].create(
             {
                 "name": "Storage backend demo",
-                "backend_type_id": self.env.ref(
-                    "edi_account_storage.backend_type"
-                ).id,
+                "backend_type_id": self.env.ref("edi_account_storage.backend_type").id,
                 "backend_id": self.backend.id,
                 "type_id": self.exchange_type.id,
                 "code": "edi_account_storage_partner_template",
@@ -91,9 +86,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 "company_id": main_company.id,
                 "name": "Facturae Product account",
                 "code": "facturae_product",
-                "user_type_id": self.env.ref(
-                    "account.data_account_type_revenue"
-                ).id,
+                "user_type_id": self.env.ref("account.data_account_type_revenue").id,
             }
         )
         self.move = self.env["account.move"].create(

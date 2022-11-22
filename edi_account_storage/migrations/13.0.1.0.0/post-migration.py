@@ -5,9 +5,7 @@ from openupgradelib import openupgrade
 
 @openupgrade.migrate()
 def migrate(env, version):
-    integration_field_name = openupgrade.get_legacy_name(
-        "account_move_integration_id"
-    )
+    integration_field_name = openupgrade.get_legacy_name("account_move_integration_id")
     if not openupgrade.table_exists(env.cr, "account_move_integration"):
         return
     if not openupgrade.table_exists(env.cr, "account_move_integration_method"):
@@ -65,9 +63,7 @@ def migrate(env, version):
                 "backend_id": backend.id,
                 "code": "edi_account_storage_partner_%s" % partner.id,
                 "direction": "output",
-                "exchange_filename_pattern": x[3].replace(
-                    "{invoice", "{record"
-                ),
+                "exchange_filename_pattern": x[3].replace("{invoice", "{record"),
                 "model_ids": [(4, env.ref("account.model_account_move").id)],
                 "enable_snippet": "result = not record."
                 "_has_exchange_record(exchange_type.code)",

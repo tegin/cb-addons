@@ -8,7 +8,7 @@
     "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "author": "Creu Blanca",
-    "website": "www.creublanca.es",
+    "website": "https://github.com/tegin/cb-addons",
     "development_status": "Alpha",
     "depends": ["edi_account", "edi_storage", "edi_exchange_template"],
     "data": [
