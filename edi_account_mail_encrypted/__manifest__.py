@@ -5,16 +5,18 @@
     "name": "Invoice Integration Email Encrypted",
     "summary": """
         Send invoices through emails as an integration method""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca",
+    "author": "CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
-    "depends": ["edi_account_mail"],
+    "depends": [
+        "edi_account_mail",
+    ],
     "data": [
-        "security/security.xml",
+        "security/ir.model.access.csv",
         "wizards/res_view_value.xml",
         "wizards/res_encrypt_value.xml",
         "views/res_partner_view.xml",
     ],
-    "external_dependencies": {"python": ["PyPDF2"]},
+    "external_dependencies": {"python": ["PyPDF2"], "deb": ["zip"]},
 }

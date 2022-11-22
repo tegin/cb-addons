@@ -29,8 +29,8 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
         self = cls
         config["email_integration_key"] = Fernet.generate_key()
         self._load_module_components(self, "component_event")
-        self._load_module_components(self, "edi")
-        self._load_module_components(self, "edi_account")
+        self._load_module_components(self, "edi_oca")
+        self._load_module_components(self, "edi_account_oca")
         self._load_module_components(self, "edi_account_mail")
         self._load_module_components(self, "edi_account_mail_encrypted")
         self.tax = self.env["account.tax"].create(
@@ -39,7 +39,6 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 "amount_type": "percent",
                 "amount": 21,
                 "type_tax_use": "sale",
-                "facturae_code": "01",
             }
         )
 
@@ -84,10 +83,9 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
         self.move = self.env["account.move"].create(
             {
                 "partner_id": self.partner.id,
-                # "account_id": self.partner.property_account_receivable_id.id,
                 "journal_id": self.sale_journal.id,
                 "invoice_date": "2016-03-12",
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": [
                     (
                         0,
@@ -132,7 +130,7 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 force_edi_send=True,
                 _edi_send_break_on_error=True,
                 force_report_rendering=True,
-            ).post()
+            ).action_post()
             patch.assert_called()
         self.assertTrue(self.move.exchange_record_ids)
         self.assertRegex(self.move.exchange_record_ids.exchange_filename, r"^.*\.pdf")
@@ -146,6 +144,6 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
         self.move.with_context(
             force_edi_send=True,
             _edi_send_break_on_error=True,
-        ).post()
+        ).action_post()
         self.assertTrue(self.move.exchange_record_ids)
         self.assertRegex(self.move.exchange_record_ids.exchange_filename, r"^.*\.zip$")

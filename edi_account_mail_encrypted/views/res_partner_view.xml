@@ -19,7 +19,7 @@
                         type="action"
                         string="View value"
                         class="btn btn-primary oe_inline"
-                        groups="edi_account_mail_encrypted.group_view_encrypted_email_values"
+                        groups="account.group_account_user"
                         context="{'default_res_id': active_id, 'default_model': active_model, 'default_field': 'email_integration_password'}"
                     />
                     <button
@@ -27,7 +27,7 @@
                         type="action"
                         string="Set value"
                         class="btn btn-secondary oe_inline"
-                        groups="edi_account_mail_encrypted.group_set_encrypted_email_values"
+                        groups="account.group_account_user"
                         context="{'default_res_id': active_id, 'default_model': active_model, 'default_field': 'email_integration_password'}"
                     />
                 </div>

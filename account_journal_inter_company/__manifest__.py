@@ -11,6 +11,9 @@
     "sequence": 30,
     "category": "Accounting",
     "depends": ["account"],
+    "external_dependencies": {
+        "deb": ["zip"],
+    },
     "license": "AGPL-3",
     "data": [
         "security/ir.model.access.csv",
