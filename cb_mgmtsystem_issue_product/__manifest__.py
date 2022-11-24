@@ -5,10 +5,10 @@
     "name": "Cb Mgmtsystem Issue Product",
     "summary": """
         Enables to relate quality issues with products""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca,Odoo Community Association (OCA)",
-    "website": "https://github.com/tegin/cb-medical",
+    "author": "CreuBlanca,Odoo Community Association (OCA)",
+    "website": "https://github.com/tegin/cb-addons",
     "depends": ["cb_mgmtsystem_issue", "product"],
     "data": ["views/product_template.xml"],
     "demo": [],
