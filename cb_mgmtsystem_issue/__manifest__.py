@@ -5,10 +5,10 @@
     "name": "Cb Mgmtsystem Issue",
     "summary": """
         Managemente System Issues""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca",
-    "website": "https://github.com/tegin/cb-medical",
+    "author": "CreuBlanca",
+    "website": "https://github.com/tegin/cb-addons",
     "depends": ["mgmtsystem_nonconformity"],
     "data": [
         "views/res_partner.xml",
