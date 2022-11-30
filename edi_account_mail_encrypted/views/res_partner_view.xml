@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form1" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="edi_account_mail.view_partner_form1" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="invoice_report_email_id" position="after">
+                <label for="email_integration_password" />
+                <div>
+                    <field
+                        name="email_integration_password"
+                        class="oe_inline"
+                        password="True"
+                    />
+                    <button
+                        name="%(edi_account_mail_encrypted.res_view_value_act_window)s"
+                        type="action"
+                        string="View value"
+                        class="btn btn-primary oe_inline"
+                        groups="account.group_account_user"
+                        context="{'default_res_id': active_id, 'default_model': active_model, 'default_field': 'email_integration_password'}"
+                    />
+                    <button
+                        name="%(edi_account_mail_encrypted.res_encrypt_value_act_window)s"
+                        type="action"
+                        string="Set value"
+                        class="btn btn-secondary oe_inline"
+                        groups="account.group_account_user"
+                        context="{'default_res_id': active_id, 'default_model': active_model, 'default_field': 'email_integration_password'}"
+                    />
+                </div>
+            </field>
+        </field>
+    </record>
+</odoo>
