@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//t[@t-set='o']" position="after">
+            <t
+                t-set="o"
+                t-value="o.with_context(lang=o.partner_id.lang or o.env.user.lang)"
+            />
+        </xpath>
         <xpath expr="//div[@name='div_sched_date']" position="after">
             <div t-if="not o.partner_id" class="col-auto" name="div_destination">
                 <strong>Destination</strong>
@@ -14,7 +20,7 @@
             <attribute name="t-if">False</attribute>
         </xpath>
         <xpath
-            expr="//table[@name='stock_move_line_table']//span[@t-field='move_line.move_id.description_picking']/.."
+            expr="//table[@name='stock_backorder_table']//span[@t-field='bo_line.description_picking']/.."
             position="attributes"
         >
             <attribute name="t-if">False</attribute>
