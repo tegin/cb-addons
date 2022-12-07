@@ -4,8 +4,8 @@
 
 {
     "name": "L10n ES IVA Soportado No Deducible",
-    "version": "13.0.1.0.0",
-    "author": "ForgeFlow, Creu Blanca",
+    "version": "14.0.1.0.0",
+    "author": "ForgeFlow, CreuBlanca",
     "depends": [
         "l10n_es",
         "l10n_es_aeat_mod303",
@@ -23,6 +23,4 @@
     ],
     "website": "https://github.com/tegin/cb-addons",
     "license": "AGPL-3",
-    "installable": True,
-    "auto_install": False,
 }

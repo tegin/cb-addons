@@ -10,6 +10,7 @@
     <!-- ADQUISICIONES INTRACOMUNITARIAS NO DEDUCIBLES -->
     <!-- IVA 21% Adquisición de servicios intracomunitarios no deducible -->
     <record id="account_tax_template_p_iva21_sp_in_nd" model="account.tax.template">
+        <field name="active" eval="0" />
         <field
             name="name"
         >IVA 21% Adquisición de servicios intracomunitarios no deducible</field>
@@ -68,6 +69,7 @@
     </record>
     <!-- IVA 21% Adquisición de servicios intracomunitarios no deducible. Bienes corrientes -->
     <record id="account_tax_template_p_iva21_ic_nd_bc" model="account.tax.template">
+        <field name="active" eval="0" />
         <field
             name="name"
         >IVA 21% Adquisición Intracomunitaria no deducible. Bienes corrientes</field>
@@ -126,6 +128,7 @@
     </record>
     <!-- IVA 21% Adquisición Intracomunitaria no deducible. Bienes de inversión -->
     <record id="account_tax_template_p_iva21_ic_nd_bi" model="account.tax.template">
+        <field name="active" eval="0" />
         <field
             name="name"
         >IVA 21% Adquisición Intracomunitaria no deducible. Bienes de inversión</field>
@@ -184,6 +187,7 @@
     </record>
     <!-- IVA 10% Adquisición de servicios intracomunitarios no deducible -->
     <record id="account_tax_template_p_iva10_sp_in_nd" model="account.tax.template">
+        <field name="active" eval="0" />
         <field
             name="name"
         >IVA 10% Adquisición de servicios intracomunitarios no deducible</field>
@@ -242,6 +246,7 @@
     </record>
     <!-- IVA 4% Adquisición de servicios intracomunitarios no deducible -->
     <record id="account_tax_template_p_iva4_sp_in_nd" model="account.tax.template">
+        <field name="active" eval="0" />
         <field
             name="name"
         >IVA 4% Adquisición de servicios intracomunitarios no deducible</field>
@@ -300,6 +305,7 @@
     </record>
     <!-- IVA 4% Intracomunitario no deducible. Bienes corrientes -->
     <record id="account_tax_template_p_iva4_ic_nd_bc" model="account.tax.template">
+        <field name="active" eval="0" />
         <field
             name="name"
         >IVA 4% Adquisición Intracomunitario no deducible. Bienes corrientes</field>
@@ -358,6 +364,7 @@
     </record>
     <!-- IVA 4% Adquisición Intracomunitario no deducible. Bienes de inversión -->
     <record id="account_tax_template_p_iva4_ic_nd_bi" model="account.tax.template">
+        <field name="active" eval="0" />
         <field
             name="name"
         >IVA 4% Adquisición Intracomunitario no deducible. Bienes de inversión</field>
@@ -418,6 +425,7 @@
     </record>
     <!-- IVA 10% Adquisición Intracomunitario no deducible. Bienes corrientes -->
     <record id="account_tax_template_p_iva10_ic_nd_bc" model="account.tax.template">
+        <field name="active" eval="0" />
         <field
             name="name"
         >IVA 10% Adquisición Intracomunitario no deducible. Bienes corrientes</field>
@@ -476,6 +484,7 @@
     </record>
     <!-- IVA 10% Adquisición Intracomunitario no deducible. Bienes de inversión -->
     <record id="account_tax_template_p_iva10_ic_nd_bi" model="account.tax.template">
+        <field name="active" eval="0" />
         <field
             name="name"
         >IVA 10% Adquisición Intracomunitario no deducible. Bienes de inversión</field>
@@ -533,6 +542,7 @@
         <field name="tax_group_id" ref="l10n_es.tax_group_iva_10" />
     </record>
     <record id="account_tax_template_p_iva21_nd_bi" model="account.tax.template">
+        <field name="active" eval="0" />
         <field name="description" />
         <!-- for resetting the value on existing DBs -->
         <field name="type_tax_use">purchase</field>
