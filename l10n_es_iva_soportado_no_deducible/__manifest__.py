@@ -21,7 +21,7 @@
         "data/aeat_349_map_data.xml",
         "data/map_taxes_vat_book.xml",
     ],
-    "website": "https://github.com/Eficent/cb-addons",
+    "website": "https://github.com/tegin/cb-addons",
     "license": "AGPL-3",
     "installable": True,
     "auto_install": False,
