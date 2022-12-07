@@ -13,7 +13,6 @@
         "l10n_es_aeat_mod349",
         "l10n_es_aeat_mod347",
         "l10n_es_vat_book",
-        "l10n_es_facturae",
     ],
     "data": [
         "data/account_tax_data.xml",
@@ -22,7 +21,7 @@
         "data/tax_code_map_mod390_data.xml",
         "data/map_taxes_vat_book.xml",
     ],
-    "website": "https://github.com/Eficent/cb-addons",
+    "website": "https://github.com/tegin/cb-addons",
     "license": "AGPL-3",
     "installable": True,
     "auto_install": False,
