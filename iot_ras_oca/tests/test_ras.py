@@ -12,12 +12,7 @@ class TestRas(HttpCase):
 
     def _get_wizard(self):
         wizard = self.env["iot.device.configure"].create({})
-        self.assertFalse(wizard.serial)
-        self.assertFalse(wizard.generated)
-        self.assertFalse(wizard.url)
-        wizard.run()
         self.assertTrue(wizard.serial)
-        self.assertTrue(wizard.generated)
         self.assertTrue(wizard.url)
         return wizard
 
