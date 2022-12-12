@@ -12,7 +12,7 @@
     <menuitem
         id="edi_pdf2data_wizard_mgmtsystem_menu"
         parent="mgmtsystem.menu_mgmtsystem_root"
-        action="edi_pdf2data.edi_pdf2data_wizard_action"
+        action="edi_pdf2data_oca.edi_pdf2data_wizard_action"
         sequence="45"
     />
 </odoo>

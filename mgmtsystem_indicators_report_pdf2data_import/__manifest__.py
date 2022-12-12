@@ -6,11 +6,11 @@
     "summary": """
         This addon allows to create a indicators report
         extracting the data from a pdf""",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Creu Blanca,Odoo Community Association (OCA)",
+    "author": "CreuBlanca,Odoo Community Association (OCA)",
     "website": "https://github.com/tegin/cb-addons",
-    "depends": ["mgmtsystem_indicators_report", "edi_pdf2data"],
+    "depends": ["mgmtsystem_indicators_report", "edi_pdf2data_oca"],
     "data": [
         "views/pdf2data_template.xml",
         "views/mgmtsystem_menu.xml",

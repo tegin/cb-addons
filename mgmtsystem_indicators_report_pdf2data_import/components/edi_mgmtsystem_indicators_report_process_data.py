@@ -6,12 +6,9 @@ from odoo.addons.component.core import Component
 
 
 class EDIBackendInputComponentMixin(Component):
-    _inherit = "edi.component.process_data.mixin"
+    _inherit = "edi.input.process.pdf2data.base"
     _name = "edi.component.process_data.mgmtsystem.indicators.report"
-    _usage = "process_data"
-    _backend_type = "import_data"
-    _exchange_type = None
-    _process_type = "mgmtsystem.indicators.report"
+    _exchange_type = "pdf2data_mgmtsystem_indicators_report"
 
     def _get_parsed_pdf2data_values(self, model, data_extracted):
         report_values = {}
