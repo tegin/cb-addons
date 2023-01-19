@@ -1,0 +1,1 @@
+git+https://github.com/tegin/edi.git@14.0-mig-edi_pdf2data#subdirectory=setup/edi_pdf2data_oca

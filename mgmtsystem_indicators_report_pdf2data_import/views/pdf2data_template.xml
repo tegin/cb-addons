@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="pdf2data_template_form_view">
+        <field
+            name="name"
+        >pdf2data.template.form (in mgmtsystem_indicators_report_pdf2data_import)</field>
+        <field name="model">pdf2data.template</field>
+        <field name="inherit_id" ref="edi_pdf2data_oca.pdf2data_template_form_view" />
+        <field name="arch" type="xml">
+            <field name="exchange_type_id" position="after">
+                <field name="mgmtsystem_indicator_template_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
