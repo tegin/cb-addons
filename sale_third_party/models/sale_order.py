@@ -83,10 +83,10 @@ class SaleOrder(models.Model):
             rec.third_party_customer_in_state = "pending"
             rec.third_party_customer_out_state = "pending"
             third_party_customer_account = rec.partner_id.with_company(
-                self.company_id.id
+                rec.company_id.id
             ).property_third_party_customer_account_id
             third_party_supplier_account = rec.third_party_partner_id.with_company(
-                self.company_id.id
+                rec.company_id.id
             ).property_third_party_supplier_account_id
             in_residual = 0.0
             in_residual_company = 0.0
