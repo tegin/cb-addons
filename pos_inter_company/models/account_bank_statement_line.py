@@ -53,16 +53,16 @@ class BankStatementLine(models.Model):
         for st_line in self:
             company = st_line.statement_id.company_id
             if st_line.account_id and st_line.account_id.company_id.id != company.id:
-                st_line.with_context(
-                    force_company=st_line.statement_id.company_id.id,
+                st_line.with_company(st_line.statement_id.company_id.id).with_context(
                     journal_id=st_line.statement_id.journal_id.id,
                     default_journal_id=st_line.statement_id.journal_id.id,
                 ).inter_company_payment()
             else:
                 super(
                     BankStatementLine,
-                    st_line.with_context(
-                        force_company=st_line.statement_id.company_id.id,
+                    st_line.with_company(
+                        st_line.statement_id.company_id.id
+                    ).with_context(
                         journal_id=st_line.statement_id.journal_id.id,
                         default_journal_id=st_line.statement_id.journal_id.id,
                     ),
