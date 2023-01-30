@@ -22,9 +22,9 @@ class MgmtsystemQualityIssue(models.AbstractModel):
             record.quality_issue_count = len(record.quality_issue_ids)
 
     def action_view_quality_issues(self):
-        action = self.env.ref(
+        action = self.env["ir.actions.act_window"]._for_xml_id(
             "cb_mgmtsystem_issue.mgmtsystem_quality_issue_act_window"
-        ).read()[0]
+        )
         if len(self.quality_issue_ids) > 1:
             action["domain"] = [("id", "in", self.quality_issue_ids.ids)]
         elif self.quality_issue_ids:
