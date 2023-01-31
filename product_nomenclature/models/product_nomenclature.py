@@ -13,10 +13,9 @@ class ProductNomenclature(models.Model):
     active = fields.Boolean(default=True)
 
     def action_view_items(self):
-        action = self.env.ref(
+        result = self.env["ir.actions.act_window"]._for_xml_id(
             "product_nomenclature." "product_nomenclature_product_action"
         )
-        result = action.read()[0]
         result["context"] = {"default_nomenclature_id": self.id}
         result["domain"] = [("nomenclature_id", "=", self.id)]
         return result
