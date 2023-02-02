@@ -30,7 +30,9 @@ class ProductProduct(models.Model):
                 }
             )
             return result
-        result = self.env.ref("product.action_packaging_view").read()[0]
+        result = self.env["ir.actions.act_window"]._for_xml_id(
+            "product.action_packaging_view"
+        )
         result.update(
             {
                 "views": [(False, "form")],
