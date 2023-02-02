@@ -283,8 +283,7 @@ class SaleOrder(models.Model):
         return res
 
     def action_view_third_party_order(self):
-        action = self.env.ref("sale.action_orders")
-        result = action.read()[0]
+        result = self.env["ir.actions.act_window"]._for_xml_id("sale.action_orders")
         order_ids = self.third_party_order_ids.ids
         if len(order_ids) != 1:
             result["domain"] = [("id", "in", order_ids)]
