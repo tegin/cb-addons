@@ -20,9 +20,9 @@ class ResPartner(models.Model):
 
     def action_view_quality_issues(self):
         self.ensure_one()
-        action = self.env.ref(
+        action = self.env["ir.actions.act_window"]._for_xml_id(
             "cb_mgmtsystem_issue.mgmtsystem_quality_issue_act_window"
-        ).read()[0]
+        )
         if len(self.quality_issue_ids) > 1:
             action["domain"] = [("partner_id", "=", self.id)]
         elif self.quality_issue_ids:
