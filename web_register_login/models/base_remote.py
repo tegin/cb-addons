@@ -9,8 +9,8 @@ class BaseRemote(models.Model):
     _inherit = "res.remote"
 
     def view_access_registers(self):
-        action = self.env.ref(
+        action = self.env["ir.actions.act_window"]._for_xml_id(
             "web_register_login.res_users_access_log_act_window"
-        ).read()[0]
+        )
         action["domain"] = [("remote_id", "=", self.id)]
         return action
