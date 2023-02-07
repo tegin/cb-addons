@@ -1,7 +1,7 @@
 # Copyright 2020 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
 class MgmtsystemNonconformity(models.Model):
@@ -10,16 +10,6 @@ class MgmtsystemNonconformity(models.Model):
 
     res_model = fields.Char(index=True)
     res_id = fields.Integer(index=True)
-    ref = fields.Char(readonly=True, copy=False, default="/")
-
-    @api.model
-    def create(self, vals):
-        if vals.get("ref", "/") == "/":
-            sequence = self.env.ref(
-                "mgmtsystem_nonconformity.seq_mgmtsystem_nonconformity"
-            )
-            vals["ref"] = sequence.next_by_id()
-        return super().create(vals)
 
     def access_related_item(self):
         self.ensure_one()
