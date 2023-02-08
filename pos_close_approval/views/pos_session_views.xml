@@ -91,7 +91,7 @@
                         <tree>
                             <field name="journal_id" />
                             <field name="state" invisible="1" />
-                            <field name="ref" />
+                            <field name="payment_ref" />
                             <field name="name" />
                             <field name="partner_id" />
                             <field name="amount" />
