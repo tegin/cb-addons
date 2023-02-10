@@ -24,10 +24,7 @@ class BankStatementLine(models.Model):
         )
         journal = inter_company.journal_id
         related_journal = inter_company.related_journal_id
-        if self.amount > 0:
-            account = journal.default_credit_account_id
-        else:
-            account = journal.default_debit_account_id
+        account = journal.default_account_id
         vals = {
             "name": self.name,
             "debit": self.amount < 0 and -self.amount or 0.0,
