@@ -9,6 +9,9 @@
                     <field name="file_count" string="Files" widget="statinfo" />
                 </button>
             </xpath>
+            <field name="company_id" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
         </field>
     </record>
     <!-- List as first view -->
