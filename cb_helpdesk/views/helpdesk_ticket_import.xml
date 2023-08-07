@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 CreuBlanca
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="helpdesk_ticket_import_form_view">
+        <field name="name">helpdesk.ticket.import.form (in cb_helpdesk)</field>
+        <field name="model">helpdesk.ticket.import</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button
+                            name="import_data"
+                            type="object"
+                            string="Import data"
+                            icon="fa-upload"
+                            states="draft"
+                        />
+                        <button
+                            name="generate_full_file"
+                            type="object"
+                            string="Generate Zip"
+                            icon="fa-file-archive-o"
+                        />
+                    </div>
+                    <group>
+                        <field name="name" />
+                        <field name="data" filename="filename" />
+                        <field name="filename" invisible="1" />
+                        <field name="configuration_id" />
+                        <field name="team_id" />
+                        <field name="generate_tickets" />
+                        <field name="generate_files" />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field
+                        name="message_ids"
+                        widget="mail_thread"
+                        options="{'post_refresh': 'recipients', 'open_attachments': True}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="helpdesk_ticket_import_search_view">
+        <field name="name">helpdesk.ticket.import.search (in cb_helpdesk)</field>
+        <field name="model">helpdesk.ticket.import</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="helpdesk_ticket_import_tree_view">
+        <field name="name">helpdesk.ticket.import.tree (in cb_helpdesk)</field>
+        <field name="model">helpdesk.ticket.import</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="helpdesk_ticket_import_act_window">
+        <field name="name">Helpdesk Import</field> <!-- TODO -->
+        <field name="res_model">helpdesk.ticket.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.ui.menu" id="helpdesk_ticket_import_menu">
+        <field name="name">Helpdesk Import</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_main_menu" />
+        <field name="action" ref="helpdesk_ticket_import_act_window" />
+        <field name="sequence" eval="15" />
+    </record>
+
+</odoo>
