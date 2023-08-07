@@ -9,6 +9,12 @@
     "license": "AGPL-3",
     "author": "CreuBlanca,Odoo Community Association (OCA)",
     "website": "https://github.com/tegin/cb-addons",
-    "depends": ["helpdesk_mgmt"],
-    "data": ["views/helpdesk_ticket.xml"],
+    "depends": ["helpdesk_mgmt", "queue_job"],
+    "external_dependencies": {"python": ["openpyxl"]},
+    "data": [
+        "security/ir.model.access.csv",
+        "views/helpdesk_ticket_import_config.xml",
+        "views/helpdesk_ticket_import.xml",
+        "views/helpdesk_ticket.xml",
+    ],
 }
