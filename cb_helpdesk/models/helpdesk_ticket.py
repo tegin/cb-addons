@@ -9,6 +9,7 @@ class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
     partner_phone = fields.Char()
+    helpdesk_import_id = fields.Many2one("helpdesk.ticket.import", readonly=True)
 
     def send_user_mail(self):
         return
