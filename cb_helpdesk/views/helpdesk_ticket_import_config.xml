@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 CreuBlanca
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="helpdesk_ticket_import_config_form_view">
+        <field name="name">helpdesk.ticket.import.config.form (in cb_helpdesk)</field>
+        <field name="model">helpdesk.ticket.import.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!-- TODO -->
+                </header>
+                <sheet>
+                    <!-- TODO -->
+                    <group>
+                        <field name="name" />
+                        <field name="start_row" />
+                        <field name="start_col" />
+                        <field name="report_id" />
+                    </group>
+                    <notebook>
+                        <page name="line" string="Lines">
+                            <field name="line_ids" />
+                        </page>
+                        <page name="description" string="Description">
+                            <field name="description" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter" />
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="helpdesk_ticket_import_config_search_view">
+        <field name="name">helpdesk.ticket.import.config.search (in cb_helpdesk)</field>
+        <field name="model">helpdesk.ticket.import.config</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="helpdesk_ticket_import_config_tree_view">
+        <field name="name">helpdesk.ticket.import.config.tree (in cb_helpdesk)</field>
+        <field name="model">helpdesk.ticket.import.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- TODO -->
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="helpdesk_ticket_import_config_line_tree_view">
+        <field
+            name="name"
+        >helpdesk.ticket.import.config.line.tree (in cb_helpdesk)</field>
+        <field name="model">helpdesk.ticket.import.config.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="col" />
+                <field name="kind" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="helpdesk_ticket_import_config_line_form_view">
+        <field
+            name="name"
+        >helpdesk.ticket.import.config.line.form (in cb_helpdesk)</field>
+        <field name="model">helpdesk.ticket.import.config.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header />
+                <sheet>
+                    <group>
+                        <field name="configuration_id" />
+                        <field name="col" />
+                        <field name="name" />
+                        <field name="kind" />
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter" />
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="helpdesk_ticket_import_config_act_window">
+        <field name="name">Helpdesk Ticket Import Config</field> <!-- TODO -->
+        <field name="res_model">helpdesk.ticket.import.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.ui.menu" id="helpdesk_ticket_import_config_menu">
+        <field name="name">Helpdesk Import</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu" />
+        <field name="action" ref="helpdesk_ticket_import_config_act_window" />
+        <field name="sequence" eval="90" />
+    </record>
+
+</odoo>
