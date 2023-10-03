@@ -124,6 +124,7 @@ class HelpdeskTicketImport(models.Model):
         result = defaultdict(lambda: [])
         for configuration_line in self.configuration_id.line_ids:
             value = configuration_line._import_data(sheet, line)
+            result.setdefault(configuration_line.name, [])
             if value:
                 result[configuration_line.name].append(value)
         return {key: " ".join(result[key]) for key in result}
