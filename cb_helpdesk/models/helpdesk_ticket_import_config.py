@@ -49,4 +49,10 @@ class HelpdeskTicketImportConfigLine(models.Model):
             return False
         if hasattr(self, "_import_data_%s" % self.kind):
             return getattr(self, "_import_data_%s" % self.kind)(value)
-        return value
+        return str(value)
+
+    def _import_data_date(self, value):
+        return value.isoformat()
+
+    def _import_data_datetime(self, value):
+        return value.isoformat()
