@@ -106,7 +106,7 @@ class TestSafeBox(TransactionCase):
 
     def create_company(self, name):
         company = self.env["res.company"].create(
-            {"name": name, "vat": "1", "currency_id": self.ref("base.USD")}
+            {"name": name, "vat": False, "currency_id": self.ref("base.USD")}
         )
         self.env.user.write(
             {"company_ids": [(4, company.id)], "company_id": company.id}
