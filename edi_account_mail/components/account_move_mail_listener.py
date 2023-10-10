@@ -40,7 +40,7 @@ class AccountMoveMailListener(Component):
                 exchange_type, self._get_exchange_record_vals(record)
             )
             backend.exchange_generate(exchange_record)
-            backend.exchange_send(exchange_record)
+            # backend.exchange_send(exchange_record)
 
     def on_generate_account_edi(self, records):
         return self.on_post_account_move(records)
