@@ -2,13 +2,21 @@
 <odoo>
     <template id="sale_third_party_layout_standard">
         <div class="header">
-            <div class="row">
+            <div class="row" style="border-bottom: 1px solid black">
                 <div class="col-6" name="third_party_address">
-                    <span
+                    <address
                         t-field="doc.third_party_partner_id"
-                        t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                        style="border-bottom: 1px solid black; display:inline-block;"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
                     />
+                    <div t-if="doc.third_party_partner_id.vat" class="mt16">
+                    <t
+                            t-if="doc.third_party_partner_id.country_id.vat_label"
+                            t-esc="doc.third_party_partner_id.country_id.vat_label"
+                            id="inv_tax_id_label"
+                        />
+                    <t t-else="">Tax ID</t>: <span
+                            t-field="doc.third_party_partner_id.vat"
+                        /></div>
                 </div>
             </div>
         </div>
