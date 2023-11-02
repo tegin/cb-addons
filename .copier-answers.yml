@@ -15,8 +15,8 @@ odoo_version: 14.0
 org_name: CreuBlanca
 org_slug: tegin
 rebel_module_groups: []
-repo_description: null
-repo_name: null
+repo_description: todo
+repo_name: CB Addons
 repo_slug: cb-addons
 repo_website: https://github.com/tegin/cb-addons
 travis_apt_packages: []
