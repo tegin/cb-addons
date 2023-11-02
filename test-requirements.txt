@@ -1,1 +1,2 @@
-git+https://github.com/tegin/edi.git@14.0-mig-edi_pdf2data#subdirectory=setup/edi_pdf2data_oca
+odoo14-addon-edi_pdf2data_oca @ git+https://github.com/tegin/edi.git@14.0-mig-edi_pdf2data#subdirectory=setup/edi_pdf2data_oca
+odoo14-addon-archive_management @ git+https://github.com/tegin/archive-management.git@14.0#subdirectory=setup/archive_management

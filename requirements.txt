@@ -1,4 +1,3 @@
 # generated from manifests external_dependencies
-git+https://github.com/tegin/archive-management.git@14.0#subdirectory=setup/archive_management
 openpyxl
 PyPDF2
