@@ -32,6 +32,11 @@
                             name="reference_range_high"
                             attrs="{'readonly': [ '|', '|', ('value_type', '=', 'selection'), ('value_type', '=', 'str'), ('value_type', '=', 'bool')]}"
                         />
+                        <field name="reference_interpretation" />
+                        <field
+                            name="bool_expected"
+                            attrs="{'invisible': [('value_type', '!=', 'bool')]}"
+                        />
                     </group>
                 </sheet>
                 <div class="oe_chatter" />
