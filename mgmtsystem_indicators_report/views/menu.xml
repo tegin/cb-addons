@@ -3,12 +3,18 @@
 
     <record model="ir.ui.menu" id="menu_mgmtsystem_indicators_report">
         <field name="name">Indicators Report</field>
-        <field name="parent_id" ref="mgmtsystem.menu_mgmtsystem_root" />
-        <field name="sequence" eval="40" />
+        <field name="parent_id" eval="False" />
+        <field name="sequence" eval="90" />
         <field
-            name="groups_id"
-            eval="[(6, 0, [ref('mgmtsystem.group_mgmtsystem_viewer')])]"
-        />
+            name="web_icon"
+        >mgmtsystem_indicators_report,static/description/icon.png</field>
+
+    </record>
+
+    <record model="ir.ui.menu" id="mgmtsystem_indicators_report_template_parent_menu">
+        <field name="name">Indicators Configuration</field>
+        <field name="parent_id" ref="mgmtsystem.menu_mgmtsystem_root" />
+        <field name="sequence" eval="11" />
     </record>
 
 </odoo>

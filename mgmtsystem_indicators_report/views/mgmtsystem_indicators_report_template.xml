@@ -79,6 +79,9 @@
                                 </tree>
                             </field>
                         </page>
+                        <page name="group" string="Group">
+                            <field name="group_ids" />
+                        </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter" />
@@ -116,11 +119,6 @@
         <field name="view_mode">tree,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
-    </record>
-    <record model="ir.ui.menu" id="mgmtsystem_indicators_report_template_parent_menu">
-        <field name="name">Mgmtsystem Indicators Report Template</field>
-        <field name="parent_id" ref="menu_mgmtsystem_indicators_report" />
-        <field name="sequence" eval="11" />
     </record>
     <record model="ir.ui.menu" id="mgmtsystem_indicators_report_template_menu">
         <field name="name">Mgmtsystem Indicators Report Template</field>
