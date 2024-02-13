@@ -52,6 +52,7 @@ class TestMgmtsystemIndicatorsReport(TransactionCase):
             {
                 "name": "Template 1",
                 "indicator_ids": [(0, 0, item) for item in items],
+                "group_ids": [(4, self.env.ref("mgmtsystem.group_mgmtsystem_user").id)],
             }
         )
 

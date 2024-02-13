@@ -11,7 +11,9 @@ class MgmtsystemIndicator(models.Model):
     _description = "Mgmtsystem Indicator"
 
     indicator_report_id = fields.Many2one(
-        "mgmtsystem.indicators.report", ondelete="cascade"
+        "mgmtsystem.indicators.report",
+        ondelete="cascade",
+        auto_join=True,
     )
     concept_id = fields.Many2one(store=True)
 

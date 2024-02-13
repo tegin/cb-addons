@@ -40,10 +40,7 @@
     </record>
     <record model="ir.ui.menu" id="indicators_report_from_template_menu">
         <field name="name">Create Indicators Report From Template</field>
-        <field
-            name="parent_id"
-            ref="mgmtsystem_indicators_report.menu_mgmtsystem_indicators_report"
-        />
+        <field name="parent_id" ref="menu_mgmtsystem_indicators_report" />
         <field name="action" ref="indicators_report_from_template_act_window" />
         <field name="sequence" eval="11" />
     </record>
