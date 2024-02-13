@@ -13,6 +13,8 @@ class MgmtsystemIndicatorsReport(models.Model):
     ]
     _description = "Mgmtsystem Indicators Report"
 
+    template_id = fields.Many2one("mgmtsystem.indicators.report.template")
+
     date = fields.Date()
 
     notes = fields.Text()

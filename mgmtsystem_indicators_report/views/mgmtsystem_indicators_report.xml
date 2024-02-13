@@ -8,7 +8,7 @@
         >mgmtsystem.indicators.report.form (in mgmtsystem_indicators_report)</field>
         <field name="model">mgmtsystem.indicators.report</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="0">
                 <header>
                     <button
                         name="conforming_action"
@@ -188,7 +188,7 @@
         >mgmtsystem.indicators.report.tree (in mgmtsystem_indicators_report)</field>
         <field name="model">mgmtsystem.indicators.report</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="0">
                 <field name="name" />
                 <field name="location" />
                 <field name="date" />
