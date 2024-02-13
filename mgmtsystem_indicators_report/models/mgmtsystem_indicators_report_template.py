@@ -96,6 +96,7 @@ class MgmtsystemIndicatorTemplate(models.Model):
             "name": self.name if self.name else self.concept_id.name,
             "reference_range_high": concept.reference_range_high,
             "reference_range_low": concept.reference_range_low,
+            "bool_expected": concept.bool_expected,
             "display_type": self.display_type,
             "sequence": self.sequence,
             "selection_options": concept.selection_options,
