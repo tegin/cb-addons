@@ -20,6 +20,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/security.xml",
         "views/menu.xml",
         "templates/assets.xml",
         "wizards/indicators_report_from_template.xml",

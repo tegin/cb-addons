@@ -11,7 +11,9 @@ class MgmtsystemIndicator(models.Model):
     _description = "Mgmtsystem Indicator"
 
     indicator_report_id = fields.Many2one(
-        "mgmtsystem.indicators.report", ondelete="cascade"
+        "mgmtsystem.indicators.report",
+        ondelete="cascade",
+        auto_join=True,
     )
     concept_id = fields.Many2one(store=True)
 
@@ -25,7 +27,10 @@ class MgmtsystemIndicator(models.Model):
     value_selection = fields.Char()
     value_int = fields.Integer()
     value_bool = fields.Boolean()
-
+    bool_expected = fields.Boolean()
+    reference_interpretation = fields.Char(
+        related="concept_id.reference_interpretation"
+    )
     reference_range_limit = fields.Char(
         string="Reference Range",
         compute="_compute_reference_range",
@@ -46,7 +51,11 @@ class MgmtsystemIndicator(models.Model):
 
     @api.model
     def _get_reference_range_fields(self):
-        return ["reference_range_low", "reference_range_high"]
+        return [
+            "reference_range_low",
+            "reference_range_high",
+            "reference_interpretation",
+        ]
 
     def _get_reference_range_values(self):
         return self.reference_range_low, self.reference_range_high
@@ -79,6 +88,9 @@ class MgmtsystemIndicator(models.Model):
     @api.depends(_get_reference_range_fields)
     def _compute_reference_range(self):
         for rec in self:
+            if rec.reference_interpretation:
+                rec.reference_range_limit = rec.reference_interpretation
+                continue
             reference_format = rec._get_reference_format()
             lang_code = rec._get_lang()
             lang = self.env["res.lang"]._lang_get(lang_code)
@@ -91,12 +103,20 @@ class MgmtsystemIndicator(models.Model):
     @api.depends(
         "value_float",
         "value_int",
+        "value_bool",
         "reference_range_low",
         "reference_range_high",
+        "bool_expected",
     )
     def _compute_interpretation(self):
         for rec in self:
             label = False
+            if rec.value_type == "bool":
+                label = (
+                    "valid"
+                    if (bool(rec.value_bool) == bool(rec.bool_expected))
+                    else "invalid"
+                )
             if rec.reference_range_high or rec.reference_range_low:
                 if rec.value_float:
                     if (
@@ -118,7 +138,14 @@ class MgmtsystemIndicator(models.Model):
                         label = "valid"
             rec.interpretation = label
 
-    @api.depends("value_float", "value_int", "value_selection", "value_str", "value")
+    @api.depends(
+        "value_float",
+        "value_int",
+        "value_selection",
+        "value_str",
+        "value_bool",
+        "value",
+    )
     def _compute_value_representation(self):
         for rec in self:
             if rec.value_type and hasattr(rec, "value_%s" % rec.value_type):

@@ -13,10 +13,12 @@ class MgmtsystemIndicatorsReportTemplate(models.Model):
     indicator_ids = fields.One2many(
         "mgmtsystem.indicator.template", inverse_name="template_id"
     )
+    group_ids = fields.Many2many("res.groups")
 
     def _generate_report_vals(self):
         return {
             "name": self.name,
+            "template_id": self.id,
             "items_blocked": self.items_blocked,
             "indicator_ids": [
                 (0, 0, item._generate_report_indicator_vals())
@@ -96,6 +98,7 @@ class MgmtsystemIndicatorTemplate(models.Model):
             "name": self.name if self.name else self.concept_id.name,
             "reference_range_high": concept.reference_range_high,
             "reference_range_low": concept.reference_range_low,
+            "bool_expected": self.concept_id.bool_expected,
             "display_type": self.display_type,
             "sequence": self.sequence,
             "selection_options": concept.selection_options,

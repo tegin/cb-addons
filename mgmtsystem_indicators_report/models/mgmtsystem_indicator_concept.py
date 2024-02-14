@@ -23,6 +23,10 @@ class MgmtsystemIndicatorConcept(models.Model):
     uom_id = fields.Many2one("uom.uom", string="Unit of measure")
     reference_range_low = fields.Float()
     reference_range_high = fields.Float()
+    reference_interpretation = fields.Char()
+    bool_expected = fields.Boolean(
+        string="Expected value", help="Expected value for booleans"
+    )
 
     _sql_constraints = [
         ("name_uniq", "UNIQUE (name)", "Concept name must be unique!"),

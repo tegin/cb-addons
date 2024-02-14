@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="check_indicators_report_template_user" model="ir.rule">
+        <field name="name">Template Users</field>
+        <field name="model_id" ref="model_mgmtsystem_indicators_report_template" />
+        <field name="domain_force">
+            [('group_ids', '!=', False), ('group_ids.users', '=', user.id)]
+        </field>
+        <field
+            name="groups"
+            eval="[(6, 0, [ref('mgmtsystem.group_mgmtsystem_user')])]"
+        />
+    </record>
+    <record id="check_indicators_report_template_mgmtsystem_user" model="ir.rule">
+        <field name="name">Template Users</field>
+        <field name="model_id" ref="model_mgmtsystem_indicators_report_template" />
+        <field name="domain_force">
+            [(1, '=', 1)]
+        </field>
+        <field
+            name="groups"
+            eval="[(6, 0, [ref('mgmtsystem.group_mgmtsystem_manager')])]"
+        />
+    </record>
+    <record id="check_indicators_report_user" model="ir.rule">
+        <field name="name">Report Users</field>
+        <field name="model_id" ref="model_mgmtsystem_indicators_report" />
+        <field name="domain_force">
+            [('template_id', '!=', False), ('template_id.group_ids', '!=', False), ('template_id.group_ids.users', '=', user.id)]
+        </field>
+        <field
+            name="groups"
+            eval="[(6, 0, [ref('mgmtsystem.group_mgmtsystem_user')])]"
+        />
+    </record>
+    <record id="check_indicators_report_mgmtsystem_user" model="ir.rule">
+        <field name="name">Report Users</field>
+        <field name="model_id" ref="model_mgmtsystem_indicators_report" />
+        <field name="domain_force">
+            [(1, '=', 1)]
+        </field>
+        <field
+            name="groups"
+            eval="[(6, 0, [ref('mgmtsystem.group_mgmtsystem_manager')])]"
+        />
+    </record>
+    <record id="check_indicators_indicator_user" model="ir.rule">
+        <field name="name">Report Users</field>
+        <field name="model_id" ref="model_mgmtsystem_indicator" />
+        <field name="domain_force">
+            [('indicator_report_id.template_id', '!=', False), ('indicator_report_id.template_id.group_ids', '!=', False), ('indicator_report_id.template_id.group_ids.users', '=', user.id)]
+        </field>
+        <field
+            name="groups"
+            eval="[(6, 0, [ref('mgmtsystem.group_mgmtsystem_user')])]"
+        />
+    </record>
+    <record id="check_indicators_indicator_mgmtsystem_user" model="ir.rule">
+        <field name="name">Report Users</field>
+        <field name="model_id" ref="model_mgmtsystem_indicator" />
+        <field name="domain_force">
+            [(1, '=', 1)]
+        </field>
+        <field
+            name="groups"
+            eval="[(6, 0, [ref('mgmtsystem.group_mgmtsystem_manager')])]"
+        />
+    </record>
+</odoo>
