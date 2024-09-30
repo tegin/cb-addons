@@ -36,10 +36,8 @@ class AccountMoveMailListener(Component):
             )
             if record._has_exchange_record(exchange_type, backend):
                 continue
-            exchange_record = backend.create_record(
-                exchange_type, self._get_exchange_record_vals(record)
-            )
-            backend.exchange_generate(exchange_record)
+            backend.create_record(exchange_type, self._get_exchange_record_vals(record))
+            # backend.exchange_generate(exchange_record)
             # backend.exchange_send(exchange_record)
 
     def on_generate_account_edi(self, records):
