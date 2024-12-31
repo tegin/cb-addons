@@ -26,10 +26,6 @@
         >res.partner.form.buttons (in account_credit_control_deferred)</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account_credit_control.partner_view_buttons" />
-        <field
-            name="groups_id"
-            eval="[(4, ref('account_credit_control.group_account_credit_control_manager')), (4, ref('account_credit_control.group_account_credit_control_user'))]"
-        />
         <field name="arch" type="xml">
             <button name="action_view_partner_invoices" position="after">
                 <button
@@ -39,6 +35,7 @@
                     context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
                     attrs="{'invisible': [('credit_control_communication_count', '=', 0)]}"
                     icon="fa-commenting-o"
+                    groups="account_credit_control.group_account_credit_control_manager,account_credit_control.group_account_credit_control_user"
                 >
                     <field
                         string="Communications"

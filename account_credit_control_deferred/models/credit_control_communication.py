@@ -31,9 +31,10 @@ class CreditControlCommunication(models.Model):
             )
 
     def _compute_total(self):
-        super()._compute_total()
+        result = super()._compute_total()
         for communication in self:
             communication.total_current_invoiced = communication._get_current_total()
+        return result
 
     def _get_current_total(self):
         result = 0
@@ -60,12 +61,9 @@ class CreditControlCommunication(models.Model):
 
     def action_communication_answer(self):
         self.ensure_one()
-        ir_model_data = self.env["ir.model.data"]
         template_id = self.policy_level_id.email_template_id.id
         try:
-            compose_form_id = ir_model_data.get_object_reference(
-                "mail", "email_compose_message_wizard_form"
-            )[1]
+            compose_form_id = self.env.ref("mail.email_compose_message_wizard_form").id
         except ValueError:
             compose_form_id = False
         ctx = dict(self.env.context or {})
@@ -98,12 +96,9 @@ class CreditControlCommunication(models.Model):
 
     def action_communication_send(self):
         self.ensure_one()
-        ir_model_data = self.env["ir.model.data"]
         template_id = self.policy_level_id.email_template_id.id
         try:
-            compose_form_id = ir_model_data.get_object_reference(
-                "mail", "email_compose_message_wizard_form"
-            )[1]
+            compose_form_id = self.env.ref("mail.email_compose_message_wizard_form").id
         except ValueError:
             compose_form_id = False
         ctx = dict(self.env.context or {})
