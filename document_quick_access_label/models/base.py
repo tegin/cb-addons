@@ -35,9 +35,11 @@ class Base(models.AbstractModel):
         return result
 
     def _get_document_quick_access_label_printer(self):
-        behaviour = self.remote.with_context(
-            printer_usage="label"
-        ).get_printer_behaviour()
+        behaviour = (
+            self.sudo()
+            .remote.with_context(printer_usage="label")
+            .get_printer_behaviour()
+        )
         if "printer" in behaviour:
             return behaviour.pop("printer")
         if self.env.user.printing_printer_id:
@@ -54,25 +56,17 @@ class Base(models.AbstractModel):
         return True
 
     @api.model
-    def _fields_view_get(
-        self, view_id=None, view_type="form", toolbar=False, submenu=False
-    ):
-        res = super()._fields_view_get(
-            view_id=view_id,
-            view_type=view_type,
-            toolbar=toolbar,
-            submenu=submenu,
-        )
+    def _get_view(self, view_id=None, view_type="form", **options):
+        arch, view = super()._get_view(view_id=view_id, view_type=view_type, **options)
         rules = self.env["document.quick.access.rule"].search(
             [("model_id.model", "=", self._name), ("label_id", "!=", False)]
         )
         if rules and view_type == "form":
-            doc = etree.XML(res["arch"])
-            nodes = doc.xpath("//form/sheet/div[@name='button_box']")
+            nodes = arch.xpath("//form/sheet/div[@name='button_box']")
             if nodes:
                 node = nodes[0]
             else:
-                sheet = doc.xpath("//sheet")
+                sheet = arch.xpath("//sheet")
                 if sheet:
                     node = etree.Element(
                         "div",
@@ -88,5 +82,4 @@ class Base(models.AbstractModel):
                 buttons = self._get_quick_access_buttons(rules)
                 for button in buttons:
                     node.append(button)
-            res["arch"] = etree.tostring(doc, encoding="unicode")
-        return res
+        return arch, view

@@ -1,9 +1,9 @@
 # Copyright 2019 Creu Blanca
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import json
+from unittest.mock import patch
 
 from lxml import etree
-from mock import patch
 
 from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
@@ -68,8 +68,7 @@ class TestQuickAccessLabel(TransactionCase):
         self.partner = self.env.user.partner_id
 
     def test_views_no_button(self):
-        data = self.partner.fields_view_get()
-        xml = etree.XML(data["arch"])
+        xml, _view = self.partner._get_view()
         buttons = xml.xpath(
             "//div[@name='button_box']/" "button[@name='action_print_document_label']"
         )
@@ -83,7 +82,7 @@ class TestQuickAccessLabel(TransactionCase):
 
     def test_views_button(self):
         self.rule.label_id = self.label
-        data = self.partner.fields_view_get()
+        data = self.partner.get_view()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
             "//div[@name='button_box']/" "button[@name='action_print_document_label']"
@@ -98,7 +97,7 @@ class TestQuickAccessLabel(TransactionCase):
 
     def test_views_button_no_options(self):
         self.rule.label_id = self.label
-        data = self.partner.fields_view_get()
+        data = self.partner.get_view()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
             "//div[@name='button_box']/" "button[@name='action_print_document_label']"
@@ -112,7 +111,7 @@ class TestQuickAccessLabel(TransactionCase):
                 final_button = button
                 break
         self.assertNotEqual(final_button, None)
-        self.assertEqual(final_button.attrib["attrs"], "{}")
+        self.assertFalse(final_button.attrib.get("modifiers"))
         self.assertEqual(final_button.attrib["string"], self.label.name)
 
     @patch(
@@ -121,7 +120,7 @@ class TestQuickAccessLabel(TransactionCase):
     )
     def test_printing(self, print_file_patch):
         self.rule.label_id = self.label
-        data = self.partner.fields_view_get()
+        data = self.partner.get_view()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
             "//div[@name='button_box']/" "button[@name='action_print_document_label']"
@@ -146,7 +145,7 @@ class TestQuickAccessLabel(TransactionCase):
     )
     def test_printing_exception(self, print_file_patch):
         self.rule.label_id = self.label
-        data = self.partner.fields_view_get()
+        data = self.partner.get_view()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
             "//div[@name='button_box']/" "button[@name='action_print_document_label']"
@@ -171,7 +170,7 @@ class TestQuickAccessLabel(TransactionCase):
     )
     def test_printing_user(self, print_file_patch):
         self.rule.label_id = self.label
-        data = self.partner.fields_view_get()
+        data = self.partner.get_view()
         xml = etree.XML(data["arch"])
         buttons = xml.xpath(
             "//div[@name='button_box']/" "button[@name='action_print_document_label']"
@@ -201,12 +200,11 @@ class TestQuickAccessLabel(TransactionCase):
         self.rule.write(
             {
                 "label_id": self.label.id,
-                "label_attrs": "{'invisible': [('is_company', '=', False)]}",
+                "label_attrs": '{"invisible": [["is_company", "=", False]]}',
                 "label_name": "NEW LABEL NAME",
             }
         )
-        data = self.partner.fields_view_get()
-        xml = etree.XML(data["arch"])
+        xml, _view = self.partner._get_view()
         buttons = xml.xpath(
             "//div[@name='button_box']/" "button[@name='action_print_document_label']"
         )
