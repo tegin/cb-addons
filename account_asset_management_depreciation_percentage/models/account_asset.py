@@ -143,11 +143,12 @@ class AccountAssetAsset(models.Model):
         is_changed = self.method_time == "percentage"
         if is_changed:
             self.method_time = "year"
-        super()._compute_depreciation_table_lines(
+        res = super()._compute_depreciation_table_lines(
             table, depreciation_start_date, depreciation_stop_date, line_dates
         )
         if is_changed:
             self.method_time = "percentage"
+        return res
 
     def _get_amount_linear(
         self, depreciation_start_date, depreciation_stop_date, entry
