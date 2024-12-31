@@ -35,7 +35,7 @@ class StockRequestTemplate(models.Model):
     def onchange_warehouse_id(self):
         if self.warehouse_id:
             # search with sudo because the user may not have permissions
-            loc_wh = self.location_id.sudo().get_warehouse()
+            loc_wh = self.location_id.warehouse_id
             if self.warehouse_id != loc_wh:
                 self.location_id = self.warehouse_id.sudo().lot_stock_id
 
@@ -57,7 +57,7 @@ class StockRequestTemplate(models.Model):
     @api.onchange("location_id")
     def onchange_location_id(self):
         if self.location_id:
-            loc_wh = self.location_id.sudo().get_warehouse()
+            loc_wh = self.location_id.warehouse_id
             if loc_wh and self.warehouse_id != loc_wh:
                 self.warehouse_id = loc_wh
                 self.with_context(no_change_childs=True).onchange_warehouse_id()
