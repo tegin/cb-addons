@@ -14,9 +14,10 @@ class ResUsers(models.Model):
         return self.env["res.users.access.log"].create({})  # populated by defaults
 
     def _update_last_login(self):
-        super()._update_last_login()
+        res = super()._update_last_login()
         if not self.dont_register_login:
             self.register_new_login()
+        return res
 
     def view_access_registers(self):
         action = self.env["ir.actions.act_window"]._for_xml_id(

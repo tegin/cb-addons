@@ -11,15 +11,15 @@ class ResUsersAccessLog(models.Model):
 
     @api.model
     def _default_remote_id(self):
-        return self.remote.id
+        return self.sudo().remote.id
 
     @api.model
     def _default_remote_name(self):
-        return self.remote.name
+        return self.sudo().remote.name
 
     @api.model
     def _default_remote_ip(self):
-        return self.remote.ip
+        return self.sudo().remote.ip
 
     remote_id = fields.Many2one(
         "res.remote", readonly=True, default=lambda r: r._default_remote_id()
