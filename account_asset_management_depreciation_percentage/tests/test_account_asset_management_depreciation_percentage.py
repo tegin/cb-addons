@@ -10,20 +10,12 @@ class TestAssetManagementDepreciationPercentage(TransactionCase):
         super(TestAssetManagementDepreciationPercentage, self).setUp()
         self.asset_model = self.env["account.asset"]
         self.asset_profile_model = self.env["account.asset.profile"]
-        self.account_account_type_model = self.env["account.account.type"]
-        self.account_type_regular = self.account_account_type_model.create(
-            {
-                "name": "Test Regular",
-                "type": "other",
-                "internal_group": "asset",
-            }
-        )
 
         self.account = self.env["account.account"].create(
             {
                 "name": "Test account",
                 "code": "TAC",
-                "user_type_id": self.account_type_regular.id,
+                "account_type": "asset_current",
             }
         )
         self.journal = self.env["account.journal"].create(
@@ -59,7 +51,7 @@ class TestAssetManagementDepreciationPercentage(TransactionCase):
             }
         )
         asset.compute_depreciation_board()
-        asset.refresh()
+        asset.invalidate_recordset()
         # 25% of 4000 is 1000.
         # At 25% depreciation, and starting at 2016-01-01 we will
         # depreciate in 4 years, therefore ending at 2016-12-31.
