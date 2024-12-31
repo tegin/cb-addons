@@ -21,23 +21,21 @@ class TestCreditControlDeferred(AccountTestInvoicingCommon):
 
         cls.journal = cls.company_data["default_journal_sale"]
 
-        account_type_rec = cls.env.ref("account.data_account_type_receivable")
         cls.account = cls.env["account.account"].create(
             {
                 "code": "TEST430001",
                 "name": "Clients (test)",
-                "user_type_id": account_type_rec.id,
+                "account_type": "asset_receivable",
                 "reconcile": True,
             }
         )
 
         tag_operation = cls.env.ref("account.account_tag_operating")
-        account_type_inc = cls.env.ref("account.data_account_type_revenue")
         analytic_account = cls.env["account.account"].create(
             {
                 "code": "TEST701001",
                 "name": "Ventes en Belgique (test)",
-                "user_type_id": account_type_inc.id,
+                "account_type": "income",
                 "reconcile": True,
                 "tag_ids": [(6, 0, [tag_operation.id])],
             }
@@ -126,8 +124,8 @@ class TestCreditControlDeferred(AccountTestInvoicingCommon):
             }
         )
         control_run.with_context(lang="en_US").generate_credit_lines()
-        control_run.flush()
-        self.invoice.refresh()
+        control_run.flush_recordset()
+        self.invoice.invalidate_recordset()
         self.assertTrue(len(self.invoice.credit_control_line_ids), 1)
         self.assertEqual(control_run.state, "done")
         control_lines = self.invoice.credit_control_line_ids
@@ -135,7 +133,7 @@ class TestCreditControlDeferred(AccountTestInvoicingCommon):
             {"name": "to_be_sent", "line_ids": [(6, 0, control_lines.ids)]}
         )
         marker.mark_lines()
-        control_lines.flush()
+        control_lines.flush_recordset()
 
         self.assertEqual(0, self.partner.credit_control_communication_count)
         control_run.run_channel_action()
@@ -154,8 +152,8 @@ class TestCreditControlDeferred(AccountTestInvoicingCommon):
             .with_context(**action_mail["context"])
             .create({})
         )
-        send_mail_action.send_mail()
-        communications.refresh()
+        send_mail_action.action_send_mail()
+        communications.invalidate_recordset()
         self.assertEqual(communications.state, "sent")
         self.assertEqual(2, len(communications.message_ids))
         action_mail = communications.action_communication_answer()
@@ -166,8 +164,8 @@ class TestCreditControlDeferred(AccountTestInvoicingCommon):
         )
         now = fields.Datetime.now()
         time.sleep(3)
-        send_mail_action.send_mail()
-        communications.refresh()
+        send_mail_action.action_send_mail()
+        communications.invalidate_recordset()
         self.assertEqual(3, len(communications.message_ids))
         self.assertGreater(communications.last_message, now)
         self.assertEqual(communications.total_due, self.invoice.amount_total)
@@ -194,9 +192,9 @@ class TestCreditControlDeferred(AccountTestInvoicingCommon):
         (partial_payment.line_ids | self.invoice.line_ids).filtered(
             lambda r: r.account_id == self.account
         ).reconcile()
-        self.invoice.refresh()
+        self.invoice.invalidate_recordset()
         communications.update_balance()
-        communications.refresh()
+        communications.invalidate_recordset()
         self.assertEqual(
             communications.total_due,
             self.invoice.amount_total - 100,
