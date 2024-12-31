@@ -87,7 +87,7 @@ class TestStockRequest(common.TransactionCase):
     def test_stock_request_template_onchange_warehouse_id(self):
         self.template.warehouse_id = self.warehouse_2.id
         self.template.onchange_warehouse_id()
-        self.assertEqual(self.template.location_id.get_warehouse(), self.warehouse_2)
+        self.assertEqual(self.template.location_id.warehouse_id, self.warehouse_2)
         self.assertEqual(self.template.company_id, self.company_2)
 
     def test_stock_request_template_onchange_company_id(self):
@@ -99,7 +99,7 @@ class TestStockRequest(common.TransactionCase):
     def test_stock_request_template_onchange_location_id(self):
         self.template.location_id = self.location_2.id
         self.template.onchange_location_id()
-        self.assertEqual(self.template.location_id.get_warehouse(), self.warehouse_2)
+        self.assertEqual(self.template.location_id.warehouse_id, self.warehouse_2)
         self.assertEqual(self.template.company_id, self.company_2)
 
     def test_stock_request_template_line_check_product_quantity(self):
