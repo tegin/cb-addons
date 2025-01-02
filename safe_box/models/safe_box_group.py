@@ -34,7 +34,9 @@ class SafeBoxGroup(models.Model):
         inverse_name="safe_box_group_id",
         string="Coins",
     )
-    currency_id = fields.Many2one("res.currency", required=True)
+    currency_id = fields.Many2one(
+        "res.currency", required=True, string="Currency Safe Box"
+    )
     sequence_id = fields.Many2one("ir.sequence", string="Entry Sequence")
 
     @api.model

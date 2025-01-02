@@ -42,6 +42,7 @@
                     type="action"
                     name="%(safe_box_list_moves)s"
                     icon="fa-align-justify"
+                    title="List Moves"
                 />
             </tree>
         </field>
