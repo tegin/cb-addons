@@ -4,7 +4,7 @@
 
 {
     "name": "PoS Close approval",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Reporting",
     "website": "https://github.com/tegin/cb-addons",
     "author": "CreuBlanca, Eficent",
@@ -12,12 +12,13 @@
     "installable": True,
     "application": False,
     "summary": "Adds integration information",
-    "depends": ["pos_multiple_sessions", "pos_session_pay_invoice"],
+    "depends": ["pos_session_pay_invoice"],
     "post_load": "post_load_hook",
     "data": [
+        "wizards/pos_cash_box.xml",
+        "views/res_config_settings.xml",
         "security/ir.model.access.csv",
-        "wizard/bank_statement_account.xml",
-        "views/pos_config_views.xml",
+        "wizards/bank_statement_account.xml",
         "views/pos_session_views.xml",
         "views/bank_statement_views.xml",
     ],

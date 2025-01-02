@@ -13,7 +13,7 @@
                         options="{'no_create': True}"
                         domain="[('company_id', '=', company_id)]"
                     />
-                    <field name="statement_line_id" invisible="1" />
+                    <field name="statement_line_id" invisible="0" />
                 </group>
                 <footer>
                     <button

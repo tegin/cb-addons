@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Dixmit
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="pos_cash_box_form_view">
+        <field name="model">pos.cash.box</field>
+        <field name="arch" type="xml">
+            <form string="Pos Cash Box">
+                <group>
+                    <field name="move_type" />
+                    <field name="amount" />
+                    <field name="reason" />
+                    <field name="currency_id" invisible="1" />
+                    <field name="session_id" invisible="1" />
+                </group>
+                <footer>
+                    <button name="run" string="OK" class="btn-primary" type="object" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="pos_cash_box_act_window">
+        <field name="name">Pos Cash Box</field>
+        <field name="res_model">pos.cash.box</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'default_session_id': active_id}</field>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>
