@@ -9,6 +9,7 @@ class TestWebRegisterLogin(TransactionCase):
     def setUp(self):
         super().setUp()
         self.remote_addr = "127.0.0.1"
+        self.original_request = http.request
         http.request = type(
             "obj",
             (object,),
@@ -24,6 +25,10 @@ class TestWebRegisterLogin(TransactionCase):
                 ),
             },
         )
+
+    def tearDown(self):
+        super().tearDown()
+        http.request = self.original_request
 
     def test_web_register_login(self):
         users_obj = self.env["res.users"]
