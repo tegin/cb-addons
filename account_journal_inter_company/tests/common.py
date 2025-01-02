@@ -27,50 +27,51 @@ class TestInterCompany(AccountTestInvoicingCommon):
         cls.env = cls.env(context=cls._setup_context())
         cls.company_1 = cls.company_data["company"]
         cls.company_2 = cls.company_data_2["company"]
-        cls.user_type = cls.env.ref("account.data_account_type_revenue")
 
     def create_inter_company(
-        self, company_1, company_2, journal_1=False, journal_2=False
+        self,
+        company_1,
+        company_2,
+        journal_1=False,
+        journal_2=False,
+        account_1=False,
+        account_2=False,
     ):
         journal_obj = self.env["account.journal"]
-        if not journal_1:
-            account = self.env["account.account"].create(
+        if not account_1:
+            account_1 = self.env["account.account"].create(
                 {
                     "name": "Intercompany to %s" % company_2.name,
-                    "code": "I;%s" % company_2.id,
+                    "code": "I%s" % company_2.id,
                     "company_id": company_1.id,
-                    "user_type_id": self.env.ref(
-                        "account.data_account_type_liquidity"
-                    ).id,
+                    "account_type": "liability_current",
                 }
             )
+        if not journal_1:
             journal_1 = journal_obj.create(
                 {
                     "name": "Journal from %s to %s" % (company_1.name, company_2.name),
-                    "code": "I;{};{}".format(company_1.id, company_2.id),
+                    "code": "I{}{}".format(company_1.id, company_2.id),
                     "type": "general",
                     "company_id": company_1.id,
-                    "default_account_id": account.id,
+                }
+            )
+        if not account_2:
+            account_2 = self.env["account.account"].create(
+                {
+                    "name": "Intercompany to %s" % company_1.name,
+                    "code": "I%s" % company_1.id,
+                    "company_id": company_2.id,
+                    "account_type": "liability_current",
                 }
             )
         if not journal_2:
-            account = self.env["account.account"].create(
-                {
-                    "name": "Intercompany to %s" % company_1.name,
-                    "code": "I;%s" % company_1.id,
-                    "company_id": company_2.id,
-                    "user_type_id": self.env.ref(
-                        "account.data_account_type_liquidity"
-                    ).id,
-                }
-            )
             journal_2 = journal_obj.create(
                 {
                     "name": "Journal from %s to %s" % (company_2.name, company_1.name),
-                    "code": "I;{};{}".format(company_2.id, company_1.id),
+                    "code": "I{}{}".format(company_2.id, company_1.id),
                     "type": "general",
                     "company_id": company_2.id,
-                    "default_account_id": account.id,
                 }
             )
         self.env["res.inter.company"].create(
@@ -78,7 +79,9 @@ class TestInterCompany(AccountTestInvoicingCommon):
                 "company_id": company_1.id,
                 "related_company_id": company_2.id,
                 "journal_id": journal_1.id,
+                "account_id": account_1.id,
                 "related_journal_id": journal_2.id,
+                "related_account_id": account_2.id,
             }
         )
 
@@ -98,7 +101,7 @@ class TestInterCompany(AccountTestInvoicingCommon):
         account = cls.env["account.account"].search(
             [
                 ("company_id", "=", company.id),
-                ("user_type_id", "=", cls.user_type.id),
+                ("account_type", "=", "liability_current"),
             ],
             limit=1,
         )

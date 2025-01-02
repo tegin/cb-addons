@@ -16,6 +16,11 @@ class ResInterCompany(models.Model):
         required=True,
         domain="[('company_id', '=', company_id)]",
     )
+    account_id = fields.Many2one(
+        "account.account",
+        required=True,
+        domain="[('deprecated', '=', False), ('company_id', '=', company_id)]",
+    )
     inter_company_id = fields.Many2one("res.inter.company", ondelete="cascade")
     related_company_id = fields.Many2one(
         comodel_name="res.company",
@@ -35,6 +40,14 @@ class ResInterCompany(models.Model):
         domain="[('company_id', '=', related_company_id)]",
         required=True,
     )
+    related_account_id = fields.Many2one(
+        comodel_name="account.account",
+        string="Related account",
+        related="inter_company_id.account_id",
+        readonly=False,
+        domain="[('company_id', '=', related_company_id)]",
+        required=True,
+    )
 
     @api.model
     def create(self, vals):
@@ -45,6 +58,8 @@ class ResInterCompany(models.Model):
                 "journal_id": vals.get("related_journal_id"),
                 "related_company_id": vals.get("company_id"),
                 "related_journal_id": vals.get("journal_id"),
+                "account_id": vals.get("related_account_id"),
+                "related_account_id": vals.get("account_id"),
                 "inter_company_id": res.id,
             }
         )

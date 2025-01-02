@@ -18,7 +18,7 @@ class TestInterCompanyJournal(common.TestInterCompany):
             self.company_1.inter_company_ids.inter_company_id,
             self.company_2.inter_company_ids,
         )
-        self.company_1.refresh()
+        self.company_1.invalidate_recordset()
         self.assertTrue(
             self.company_1.related_company_ids.filtered(
                 lambda r: r.id == self.company_2.id
@@ -30,4 +30,6 @@ class TestInterCompanyJournal(common.TestInterCompany):
                 self.company_2,
                 self.company_1.inter_company_ids.journal_id,
                 self.company_1.inter_company_ids.related_journal_id,
+                self.company_1.inter_company_ids.account_id,
+                self.company_1.inter_company_ids.related_account_id,
             )
