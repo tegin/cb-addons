@@ -40,8 +40,6 @@ class AccountBankStatementLineAccount(models.TransientModel):
 
     def run(self):
         for record in self:
-            if record.statement_line_id.move_id.state != "draft":
-                continue
             _liquidity, suspense, other = record.statement_line_id._seek_for_lines()
             lines = suspense | other
             if len(lines) != 1:

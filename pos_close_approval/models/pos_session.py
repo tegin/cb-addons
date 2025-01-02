@@ -2,54 +2,42 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo import _, fields, models
+from odoo.exceptions import UserError
 
 
 class PosSession(models.Model):
     _inherit = "pos.session"
 
-    state = fields.Selection(
-        selection_add=[("pending_approval", "Pending approval")],
-        ondelete={"pending_approval": "cascade"},
-    )
     statement_line_ids = fields.One2many(
         "account.bank.statement.line",
         inverse_name="pos_session_id",
         readonly=True,
     )
-
-    @api.constrains("config_id")
-    def _check_pos_config(self):
-        if not self.config_id.requires_approval:
-            return super(PosSession, self)._check_pos_config()
-        if (
-            self.search_count(
-                [
-                    ("state", "not in", ["closed", "pending_approval"]),
-                    ("config_id", "=", self.config_id.id),
-                ]
-            )
-            > 1
-        ):
-            raise ValidationError(
-                _(
-                    "You cannot create two active sessions "
-                    "related to the same point of sale"
-                )
-            )
+    requires_approval = fields.Boolean(related="config_id.requires_approval")
 
     def action_pos_session_approve(self):
         for session in self:
-            for statement in session.statement_ids:
-                statement.write({"balance_end_real": statement.balance_end})
-            session.action_pos_session_close()
+            balancing_account = False
+            amount_to_balance = 0
+            bank_payment_method_diffs = None
+            if any(order.state == "draft" for order in session.order_ids):
+                raise UserError(
+                    _("You cannot close the POS when orders are still in draft")
+                )
+            if session.state == "closed":
+                raise UserError(_("This session is already closed."))
+            session.cash_register_balance_end_real = session.cash_register_balance_end
+            session.cash_register_difference = 0.0
+            session.action_pos_session_validate(
+                balancing_account, amount_to_balance, bank_payment_method_diffs
+            )
 
-    def action_pos_session_closing_control(self):
+    def action_pos_session_closing_control(self, **kwargs):
         approved = len(self.filtered(lambda r: not r.config_id.requires_approval))
         if approved == len(self):
-            return super(PosSession, self).action_pos_session_closing_control()
+            return super(PosSession, self).action_pos_session_closing_control(**kwargs)
         if approved == 0:
-            self.write({"state": "pending_approval", "stop_at": fields.Datetime.now()})
+            self.write({"rescue": True, "stop_at": fields.Datetime.now()})
             return
         raise UserError(_("Cannot close different kinds of sessions"))

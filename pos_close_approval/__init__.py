@@ -3,5 +3,5 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from . import models
-from . import wizard
 from .hooks import post_load_hook
+from . import wizards
