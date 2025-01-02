@@ -4,7 +4,7 @@
 
 {
     "name": "Cash Box management",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "author": "Eficent, CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
     "summary": "Creates inter company relations",

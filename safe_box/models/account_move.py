@@ -42,4 +42,4 @@ class AccountMove(models.Model):
                         "moves"
                     )
                 )
-        super(AccountMove, self)._post_validate()
+        return super(AccountMove, self)._post_validate()
