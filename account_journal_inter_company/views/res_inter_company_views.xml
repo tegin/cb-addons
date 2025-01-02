@@ -12,7 +12,9 @@
                     attrs="{'readonly': [('inter_company_id', '!=', False)]}"
                 />
                 <field name="journal_id" />
+                <field name="account_id" />
                 <field name="related_journal_id" />
+                <field name="related_account_id" />
                 <field name="inter_company_id" invisible="1" />
             </tree>
         </field>
