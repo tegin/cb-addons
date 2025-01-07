@@ -5,11 +5,11 @@
     "name": "L10n Es Facturae Storage",
     "summary": """
         Summary""",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
-    "development_status": "Alpha",
+    "development_status": "Beta",
     "depends": ["edi_account_oca", "edi_storage_oca", "edi_exchange_template_oca"],
     "data": [
         "data/edi_data.xml",
