@@ -3,14 +3,13 @@
 import base64
 import logging
 from io import BytesIO
-
-import mock
+from unittest import mock
 
 from odoo.tests import common
 from odoo.tools.config import config
 
 from odoo.addons.base.models.ir_actions_report import IrActionsReport
-from odoo.addons.component.tests.common import SavepointComponentRegistryCase
+from odoo.addons.edi_oca.tests.common import EDIBackendCommonComponentRegistryTestCase
 
 _logger = logging.getLogger(__name__)
 try:
@@ -20,20 +19,20 @@ except ImportError as err:
     _logger.debug(err)
 
 
-class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
+class EDIBackendTestCase(
+    EDIBackendCommonComponentRegistryTestCase, common.TransactionCase
+):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
-
-        self = cls
         config["email_integration_key"] = Fernet.generate_key()
-        self._load_module_components(self, "component_event")
-        self._load_module_components(self, "edi_oca")
-        self._load_module_components(self, "edi_account_oca")
-        self._load_module_components(self, "edi_account_mail")
-        self._load_module_components(self, "edi_account_mail_encrypted")
-        self.tax = self.env["account.tax"].create(
+        cls._load_module_components(cls, "component_event")
+        cls._load_module_components(cls, "edi_oca")
+        cls._load_module_components(cls, "edi_account_oca")
+        cls._load_module_components(cls, "edi_account_mail")
+        cls._load_module_components(cls, "edi_account_mail_encrypted")
+        cls.tax = cls.env["account.tax"].create(
             {
                 "name": "Test tax",
                 "amount_type": "percent",
@@ -42,29 +41,29 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
             }
         )
 
-        self.partner = self.env["res.partner"].create(
+        cls.partner = cls.env["res.partner"].create(
             {
                 "name": "Cliente de prueba",
                 "street": "C/ Ejemplo, 13",
                 "zip": "13700",
                 "city": "Tomelloso",
-                "country_id": self.env.ref("base.es").id,
+                "country_id": cls.env.ref("base.es").id,
                 "vat": "ES05680675C",
                 "send_invoice_by_mail": True,
                 "email_integration": "demo@demo.es",
-                "invoice_report_email_id": self.env.ref("account.account_invoices").id,
+                "invoice_report_email_id": cls.env.ref("account.account_invoices").id,
             }
         )
-        self.password = "1234"
-        self.env["res.encrypt.value"].with_context(
-            default_res_id=self.partner.id,
-            default_model=self.partner._name,
+        cls.password = "1234"
+        cls.env["res.encrypt.value"].with_context(
+            default_res_id=cls.partner.id,
+            default_model=cls.partner._name,
             default_field="email_integration_password",
-        ).create({"value": self.password}).encrypt_store()
-        main_company = self.env.ref("base.main_company")
+        ).create({"value": cls.password}).encrypt_store()
+        main_company = cls.env.ref("base.main_company")
         main_company.vat = "ESA12345674"
-        main_company.partner_id.country_id = self.env.ref("base.uk")
-        self.sale_journal = self.env["account.journal"].create(
+        main_company.partner_id.country_id = cls.env.ref("base.uk")
+        cls.sale_journal = cls.env["account.journal"].create(
             {
                 "name": "Sale journal",
                 "code": "SALE_TEST",
@@ -72,18 +71,18 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                 "company_id": main_company.id,
             }
         )
-        self.account = self.env["account.account"].create(
+        cls.account = cls.env["account.account"].create(
             {
                 "company_id": main_company.id,
                 "name": "Facturae Product account",
-                "code": "facturae_product",
-                "user_type_id": self.env.ref("account.data_account_type_revenue").id,
+                "code": "facturaproduct",
+                "account_type": "income",
             }
         )
-        self.move = self.env["account.move"].create(
+        cls.move = cls.env["account.move"].create(
             {
-                "partner_id": self.partner.id,
-                "journal_id": self.sale_journal.id,
+                "partner_id": cls.partner.id,
+                "journal_id": cls.sale_journal.id,
                 "invoice_date": "2016-03-12",
                 "move_type": "out_invoice",
                 "invoice_line_ids": [
@@ -91,20 +90,18 @@ class EDIBackendTestCase(SavepointComponentRegistryCase, common.SavepointCase):
                         0,
                         0,
                         {
-                            "product_id": self.env.ref(
-                                "product.product_delivery_02"
-                            ).id,
-                            "account_id": self.account.id,
+                            "product_id": cls.env.ref("product.product_delivery_02").id,
+                            "account_id": cls.account.id,
                             "name": "Producto de prueba",
                             "quantity": 1.0,
                             "price_unit": 100.0,
-                            "tax_ids": [(6, 0, self.tax.ids)],
+                            "tax_ids": [(6, 0, cls.tax.ids)],
                         },
                     )
                 ],
             }
         )
-        self.move.refresh()
+        cls.move.flush_recordset()
 
     def test_check_password(self):
         view_value = (
