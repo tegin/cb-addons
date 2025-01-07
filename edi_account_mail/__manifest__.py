@@ -5,7 +5,7 @@
     "name": "Invoice Integration Email",
     "summary": """
         Send invoices through emails as an integration method""",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",

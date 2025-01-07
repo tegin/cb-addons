@@ -15,7 +15,13 @@
         <field name="direction">output</field>
         <field name="exchange_filename_pattern">Invoice.pdf</field>
         <field name="exchange_file_ext">pdf</field>
-        <field name="model_ids" eval="[(4, ref('account.model_account_move'))]" />
+    </record>
+    <record id="mail_exchange_type_rule" model="edi.exchange.type.rule">
+        <field name="name">Default</field>
+        <field name="active" eval="True" />
+        <field name="type_id" ref="mail_exchange_type" />
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="kind">form_btn</field>
         <field
             name="enable_domain"
         >[('state', '!=', 'draft'), ('partner_id.send_invoice_by_mail', '=', True)]</field>
@@ -23,4 +29,5 @@
             name="enable_snippet"
         >result = not record._has_exchange_record(exchange_type.code)</field>
     </record>
+
 </odoo>
