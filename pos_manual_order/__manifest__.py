@@ -5,7 +5,7 @@
     "name": "Pos Manual Order",
     "summary": """
         Add Orders manually on a PoS Session""",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "website": "https://github.com/tegin/cb-addons",
     "license": "AGPL-3",
     "author": "CreuBlanca",

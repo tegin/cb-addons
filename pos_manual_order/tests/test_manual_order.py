@@ -162,8 +162,9 @@ class TestManualOrder(TestPointOfSaleCommon):
         self.product4 = self.env["product.product"].create(
             {"name": "TEST PRODUCT 4", "type": "service", "taxes_id": []}
         )
-        self.pos_config.open_session_cb()
+        self.pos_config._action_to_open_ui()
         self.pos_order_session0 = self.pos_config.current_session_id
+        self.pos_order_session0.set_cashbox_pos(0, "TEST")
 
     def test_manual_order_excluded(self):
         session = self.pos_order_session0
@@ -204,8 +205,11 @@ class TestManualOrder(TestPointOfSaleCommon):
     def test_onchange_product(self):
         session = self.pos_order_session0
         self.product3.lst_price = 10
-        with Form(self.env["pos.session.add.order"]) as wizard:
-            wizard.session_id = session
+        with Form(
+            self.env["pos.session.add.order"].with_context(
+                default_session_id=session.id
+            )
+        ) as wizard:
             wizard.qty = 1
             wizard.payment_method_id = session.payment_method_ids[0]
             self.assertEqual(0, wizard.price)
