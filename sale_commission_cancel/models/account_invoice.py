@@ -13,24 +13,15 @@ class AccountInvoiceLineAgent(models.Model):
     )
     is_cancel = fields.Boolean(default=False, required=True, readonly=True, store=True)
     can_cancel = fields.Boolean(compute="_compute_can_cancel", store=True)
+    amount = fields.Monetary(recursive=True)
 
-    @classmethod
-    def _build_model_attributes(cls, pool):
-        res = super()._build_model_attributes(pool)
-        constraints = []
-        for (key, definition, message) in cls._sql_constraints:
-            if key in ["unique_agent"]:
-                constraints.append(
-                    (
-                        key,
-                        "UNIQUE(object_id, agent_id, parent_agent_line_id, is_cancel)",
-                        message,
-                    )
-                )
-            else:
-                constraints.append((key, definition, message))
-        cls._sql_constraints = constraints
-        return res
+    _sql_constraints = [
+        (
+            "unique_agent",
+            "UNIQUE(object_id, agent_id, parent_agent_line_id, is_cancel)",
+            "You can only add one time each agent.",
+        )
+    ]
 
     @api.depends("child_agent_line_ids", "is_cancel", "object_id.move_id.state")
     def _compute_can_cancel(self):
@@ -60,8 +51,8 @@ class AccountInvoiceLineAgent(models.Model):
         return {
             "parent_agent_line_id": self.id,
             "object_id": self.object_id.id,
+            "settlement_line_ids": False,
             "commission_id": self.commission_id.id,
-            "agent_line": False,
             "agent_id": agent.id if agent else self.agent_id.id,
             "is_cancel": self.is_cancel if agent else not self.is_cancel,
         }
@@ -70,7 +61,7 @@ class AccountInvoiceLineAgent(models.Model):
         self.ensure_one()
         if agent == self.agent_id:
             return
-        if not self.agent_line:
+        if not self.settlement_line_ids:
             self.agent_id = agent
             return
         self.create(self.get_commission_cancel_vals())

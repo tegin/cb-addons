@@ -3,7 +3,7 @@
     <record id="invoice_line_agent_tree" model="ir.ui.view">
         <field name="name">account.invoice.line.agent.tree</field>
         <field name="model">account.invoice.line.agent</field>
-        <field name="inherit_id" ref="sale_commission.invoice_line_agent_tree" />
+        <field name="inherit_id" ref="account_commission.invoice_line_agent_tree" />
         <field name="arch" type="xml">
             <tree position="inside">
                 <field name="can_cancel" invisible="1" />
