@@ -3,13 +3,19 @@
 
 {
     "name": "Flag Box",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "author": "CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
     "license": "AGPL-3",
     "category": "Website",
     "summary": "Allows to us a flag box with icons / buttons",
     "depends": ["web"],
-    "data": ["views/templates.xml"],
+    "data": [],
+    "assets": {
+        "web.assets_backend": [
+            "/web_flagbox/static/src/js/*.js",
+            "/web_flagbox/static/src/scss/*.scss",
+        ]
+    },
     "installable": True,
 }
