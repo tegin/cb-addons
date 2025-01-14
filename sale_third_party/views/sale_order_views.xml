@@ -111,7 +111,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale_third_party.view_order_form" />
         <field name="arch" type="xml">
-            <button name="preview_sale_order" position="before">
+            <button name="action_quotation_send" position="before">
                 <button
                     type="object"
                     name="third_party_invoice_print"
