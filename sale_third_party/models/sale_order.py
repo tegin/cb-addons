@@ -246,7 +246,7 @@ class SaleOrder(models.Model):
     def _create_third_party_order(self):
         vals = self._prepare_third_party_order()
         order = self.env["sale.order"].create(vals)
-        order._compute_tax_id()
+        order._recompute_taxes()
         return order
 
     def _action_confirm(self):

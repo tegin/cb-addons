@@ -19,9 +19,7 @@ class ThirdParty(TransactionCase):
                 "company_id": self.company.id,
                 "code": "Tra",
                 "name": "Transfer Account",
-                "user_type_id": self.browse_ref(
-                    "account.data_account_type_current_assets"
-                ).id,
+                "account_type": "asset_current",
                 "reconcile": False,
             }
         )
@@ -30,9 +28,7 @@ class ThirdParty(TransactionCase):
                 "company_id": self.company.id,
                 "code": "ThirdPartyCust",
                 "name": "Third party customer account",
-                "user_type_id": self.browse_ref(
-                    "account.data_account_type_receivable"
-                ).id,
+                "account_type": "asset_receivable",
                 "reconcile": True,
             }
         )
@@ -42,18 +38,40 @@ class ThirdParty(TransactionCase):
                 "company_id": self.company.id,
                 "code": "ThirdPartyCust2",
                 "name": "Third party customer account2",
-                "user_type_id": self.browse_ref(
-                    "account.data_account_type_receivable"
-                ).id,
+                "account_type": "asset_receivable",
                 "reconcile": True,
             }
+        )
+        self.customer_acc_receivable = self.env["account.account"].create(
+            {
+                "company_id": self.company.id,
+                "code": "CustomerReceivable",
+                "name": "Third party customer account2",
+                "account_type": "asset_receivable",
+                "reconcile": True,
+            }
+        )
+        self.supplier_acc_payable = self.env["account.account"].create(
+            {
+                "company_id": self.company.id,
+                "code": "SupplierPayable",
+                "name": "Third party customer account2",
+                "account_type": "liability_payable",
+                "reconcile": True,
+            }
+        )
+        self.company.account_journal_payment_debit_account_id = (
+            self.customer_acc_receivable
+        )
+        self.company.account_journal_payment_credit_account_id = (
+            self.supplier_acc_payable
         )
         self.supplier_acc = self.env["account.account"].create(
             {
                 "company_id": self.company.id,
                 "code": "ThirdPartySupp",
                 "name": "Third party supplier account",
-                "user_type_id": self.browse_ref("account.data_account_type_payable").id,
+                "account_type": "liability_payable",
                 "reconcile": True,
             }
         )
@@ -113,7 +131,7 @@ class ThirdParty(TransactionCase):
                 "default_third_party_supplier_account_id": self.supplier_acc.id,
             }
         )
-        self.company.refresh()
+        self.company.invalidate_recordset()
         self.assertEqual(
             self.company.default_third_party_customer_account_id,
             self.customer.property_third_party_customer_account_id,
@@ -277,7 +295,7 @@ class ThirdParty(TransactionCase):
                 "default_third_party_supplier_account_id": self.supplier_acc.id,
             }
         )
-        self.company.refresh()
+        self.company.invalidate_recordset()
         sale_order = (
             self.env["sale.order"]
             .with_user(user)
@@ -327,41 +345,6 @@ class ThirdParty(TransactionCase):
         self.assertEqual(sale_order.third_party_customer_in_state, "pending")
         self.assertEqual(sale_order.third_party_customer_out_state, "pending")
         self.assertEqual(sale_order.state, "done")
-        journal = self.env["account.journal"].search(
-            [("company_id", "=", self.company.id)], limit=1
-        )
-        statement = self.env["account.bank.statement"].create(
-            {"name": "Statement", "journal_id": journal.id}
-        )
-        wizard = (
-            self.env["cash.third.party.sale"]
-            .with_context(active_ids=statement.ids, active_model=statement._name)
-            .create({"sale_order_id": sale_order.id, "amount": 0})
-        )
-        wizard._onchange_sale_order()
-        self.assertEqual(wizard.amount, sale_order.amount_total)
-        wizard.amount = 100
-        wizard.run()
-        statement.balance_end_real = statement.balance_end
-        statement.button_post()
-        statement.button_validate_or_action()
-        self.assertEqual(sale_order.third_party_customer_in_residual, 10)
-        self.assertEqual(sale_order.third_party_customer_in_state, "pending")
-        statement = self.env["account.bank.statement"].create(
-            {"name": "Statement", "journal_id": journal.id}
-        )
-        wizard = (
-            self.env["cash.third.party.sale"]
-            .with_context(active_ids=statement.ids, active_model=statement._name)
-            .create({"sale_order_id": sale_order.id, "amount": 0})
-        )
-        wizard._onchange_sale_order()
-        self.assertEqual(wizard.amount, sale_order.third_party_customer_in_residual)
-        wizard.run()
-        statement.balance_end_real = statement.balance_end
-        statement.button_post()
-        statement.button_validate_or_action()
-        self.assertEqual(sale_order.third_party_customer_in_state, "paid")
         # Test the outbound payment
         bank_journal = self.env["account.journal"].create(
             {
@@ -406,7 +389,7 @@ class ThirdParty(TransactionCase):
                 "default_third_party_supplier_account_id": self.supplier_acc.id,
             }
         )
-        self.company.refresh()
+        self.company.invalidate_recordset()
         sale_order = self.env["sale.order"].create(
             {
                 "company_id": self.company.id,
@@ -449,42 +432,6 @@ class ThirdParty(TransactionCase):
         self.assertEqual(sale_order.third_party_customer_out_residual, 110)
         self.assertEqual(sale_order.third_party_customer_in_state, "pending")
         self.assertEqual(sale_order.third_party_customer_out_state, "pending")
-        self.assertEqual(sale_order.state, "done")
-        journal = self.env["account.journal"].search(
-            [("company_id", "=", self.company.id)], limit=1
-        )
-        statement = self.env["account.bank.statement"].create(
-            {"name": "Statement", "journal_id": journal.id}
-        )
-        wizard = (
-            self.env["cash.third.party.sale"]
-            .with_context(active_ids=statement.ids, active_model=statement._name)
-            .create({"sale_order_id": sale_order.id, "amount": 0})
-        )
-        wizard._onchange_sale_order()
-        self.assertEqual(wizard.amount, sale_order.amount_total)
-        wizard.amount = 100
-        wizard.run()
-        statement.balance_end_real = statement.balance_end
-        statement.button_post()
-        statement.button_validate_or_action()
-        self.assertEqual(sale_order.third_party_customer_in_residual, 10)
-        self.assertEqual(sale_order.third_party_customer_in_state, "pending")
-        statement = self.env["account.bank.statement"].create(
-            {"name": "Statement", "journal_id": journal.id}
-        )
-        wizard = (
-            self.env["cash.third.party.sale"]
-            .with_context(active_ids=statement.ids, active_model=statement._name)
-            .create({"sale_order_id": sale_order.id, "amount": 0})
-        )
-        wizard._onchange_sale_order()
-        self.assertEqual(wizard.amount, sale_order.third_party_customer_in_residual)
-        wizard.run()
-        statement.balance_end_real = statement.balance_end
-        statement.button_post()
-        statement.button_validate_or_action()
-        self.assertEqual(sale_order.third_party_customer_in_state, "paid")
         # Test the outbound payment
         bank_journal = self.env["account.journal"].create(
             {

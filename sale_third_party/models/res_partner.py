@@ -18,12 +18,12 @@ class ResPartner(models.Model):
     )
     property_third_party_customer_account_id = fields.Many2one(
         "account.account",
-        domain="[('deprecated', '=', False)," "('internal_type', '=', 'receivable')]",
+        domain="[('deprecated', '=', False), ('account_type', '=', 'asset_receivable')]",
         company_dependent=True,
     )
     property_third_party_supplier_account_id = fields.Many2one(
         "account.account",
-        domain="[('deprecated', '=', False)," "('internal_type', '=', 'payable')]",
+        domain="[('deprecated', '=', False), ('account_type', '=', 'liability_payable')]",
         company_dependent=True,
     )
 

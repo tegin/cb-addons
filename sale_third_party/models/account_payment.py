@@ -5,12 +5,10 @@ class AccountPayment(models.Model):
     _inherit = "account.payment"
 
     use_third_party_account = fields.Boolean(
-        "Use Third Party Account",
         help="When you set this flag the payment will be recorded to "
         "the third party account defined for this partner.",
     )
     third_party_account_id = fields.Many2one(
-        string="Third party account",
         comodel_name="account.account",
         readonly=True,
         compute="_compute_third_party_account_id",
