@@ -12,7 +12,7 @@ class MgmtsystemQualityIssue(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(required=True, string="Title")
-    description = fields.Text("Description", required=True)
+    description = fields.Text(required=True)
     partner_id = fields.Many2one("res.partner", "Partner", required=True)
     res_model = fields.Char(index=True)
     res_id = fields.Integer(index=True)
@@ -51,14 +51,17 @@ class MgmtsystemQualityIssue(models.Model):
         tracking=True,
     )
 
-    non_conformity_id = fields.Many2one("mgmtsystem.nonconformity", readonly=True)
+    non_conformity_id = fields.Many2one(
+        "mgmtsystem.nonconformity", readonly=True, string="Related Non Conformity"
+    )
 
-    @api.model
-    def create(self, vals):
-        if vals.get("ref", "/") == "/":
-            sequence = self.env.ref("cb_mgmtsystem_issue.seq_mgmtsystem_issue")
-            vals["ref"] = sequence.next_by_id()
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("ref", "/") == "/":
+                sequence = self.env.ref("cb_mgmtsystem_issue.seq_mgmtsystem_issue")
+                vals["ref"] = sequence.next_by_id()
+        return super().create(vals_list)
 
     def _message_auto_subscribe_followers(self, updated_values, default_subtype_ids):
         result = super()._message_auto_subscribe_followers(
