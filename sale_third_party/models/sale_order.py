@@ -317,9 +317,20 @@ class SalerOrderLine(models.Model):
         "order_id.third_party_order",
     )
     def _compute_invoice_status(self):
-        res = super()._compute_invoice_status()
+        res = super(
+            SalerOrderLine, self.filtered(lambda r: not r.order_id.third_party_order)
+        )._compute_invoice_status()
         for line in self.filtered(lambda r: r.order_id.third_party_order):
             line.invoice_status = "no"
+        return res
+
+    @api.depends("order_id.third_party_order")
+    def _compute_qty_to_invoice(self):
+        res = super(
+            SalerOrderLine, self.filtered(lambda r: not r.order_id.third_party_order)
+        )._compute_qty_to_invoice()
+        for line in self.filtered(lambda r: r.order_id.third_party_order):
+            line.qty_to_invoice = 0
         return res
 
     third_party_price = fields.Monetary(currency_field="currency_id")

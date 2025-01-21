@@ -326,6 +326,8 @@ class ThirdParty(TransactionCase):
         self.assertEqual(0, sale_order.invoice_count)
         self.assertEqual(0, sale_order.third_party_order_count)
         self.assertEqual("no", sale_order.invoice_status)
+        for line in sale_order.order_line:
+            self.assertEqual(0, line.qty_to_invoice)
         self.assertFalse(sale_order.third_party_move_id)
         sale_order.action_confirm()
         sale_order.third_party_move_id.check_access_rights("read")
@@ -333,6 +335,8 @@ class ThirdParty(TransactionCase):
         self.assertTrue(sale_order.third_party_move_id)
         self.assertEqual(1, sale_order.third_party_order_count)
         self.assertEqual("no", sale_order.invoice_status)
+        for line in sale_order.order_line:
+            self.assertEqual(0, line.qty_to_invoice)
         self.assertEqual(len(sale_order.third_party_order_ids), 1)
         third_party_order = sale_order.third_party_order_ids[0]
         self.assertEqual(
