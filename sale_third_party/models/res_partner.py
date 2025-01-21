@@ -56,11 +56,12 @@ class ResPartner(models.Model):
                     )
         return super().write(vals)
 
-    @api.model
-    def create(self, vals):
-        prefix = vals.get("third_party_sequence_prefix")
-        if prefix:
-            seq_vals = self._prepare_ir_sequence(prefix)
-            sequence = self.env["ir.sequence"].create(seq_vals)
-            vals["third_party_sequence_id"] = sequence.id
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, mvals):
+        for vals in mvals:
+            prefix = vals.get("third_party_sequence_prefix")
+            if prefix:
+                seq_vals = self._prepare_ir_sequence(prefix)
+                sequence = self.env["ir.sequence"].create(seq_vals)
+                vals["third_party_sequence_id"] = sequence.id
+        return super().create(mvals)
