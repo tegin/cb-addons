@@ -73,7 +73,7 @@
                     <notebook>
                         <page name="description" string="Description">
                             <group>
-                                <field name="description" nolabel="1" />
+                                <field name="description" nolabel="1" colspan="2" />
                             </group>
                         </page>
                     </notebook>
