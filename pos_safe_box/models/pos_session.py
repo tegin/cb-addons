@@ -10,9 +10,9 @@ class PosSession(models.Model):
 
     pos_session_validation_id = fields.Many2one("pos.session.validation", readonly=True)
 
-    def action_pos_session_close(self):
-        res = super(PosSession, self).action_pos_session_close()
-        for session in self:
+    def action_pos_session_close(self, *args, **kwargs):
+        res = super(PosSession, self).action_pos_session_close(*args, **kwargs)
+        for session in self.filtered(lambda r: r.state == "closed"):
             sbg = session.config_id.safe_box_group_id
             if sbg:
                 self.pos_session_validation_id = sbg.get_current_session_validation()
