@@ -2,7 +2,7 @@
 # Copyright 2017 Eficent Business and IT Consulting Services, S.L.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, api, fields, models
+from odoo import _, api, fields, models, tools
 from odoo.exceptions import ValidationError
 
 
@@ -32,14 +32,9 @@ class PosSessionValidation(models.Model):
     state = fields.Selection(
         [("draft", "Draft"), ("closed", "Closed"), ("approved", "Approved")]
     )
-    statement_ids = fields.One2many(
-        comodel_name="account.bank.statement",
-        compute="_compute_statement_ids",
-        readonly=True,
-    )
     statement_line_ids = fields.One2many(
         comodel_name="account.bank.statement.line",
-        compute="_compute_statement_ids",
+        compute="_compute_statement_line_ids",
         readonly=True,
     )
     issue_statement_line_ids = fields.One2many(
@@ -64,10 +59,11 @@ class PosSessionValidation(models.Model):
     approve_date = fields.Datetime(readonly=True)
 
     @api.depends("pos_session_ids")
-    def _compute_statement_ids(self):
+    def _compute_statement_line_ids(self):
         for record in self:
-            record.statement_ids = record.pos_session_ids.mapped("statement_ids")
-            record.statement_line_ids = record.statement_ids.mapped("line_ids")
+            record.statement_line_ids = record.pos_session_ids.mapped(
+                "statement_line_ids"
+            )
 
     @api.depends("line_ids")
     def _compute_amount(self):
@@ -75,12 +71,10 @@ class PosSessionValidation(models.Model):
             record.coin_amount = sum(record.line_ids.mapped("amount"))
 
     def _compute_statement_amount(self):
-        lines = self.pos_session_ids.mapped("cash_register_id.line_ids")
+        lines = self.pos_session_ids.mapped("statement_line_ids")
         lines_not_computed = lines.filtered(
             lambda r: r.account_id
-            not in r.statement_id.pos_session_id.payment_method_ids.mapped(
-                "receivable_account_id"
-            )
+            not in r.pos_session_id.payment_method_ids.mapped("receivable_account_id")
         )
         payments = self.pos_session_ids.mapped("order_ids.payment_ids")
         amount = sum(lines_not_computed.mapped("amount")) + sum(
@@ -88,16 +82,15 @@ class PosSessionValidation(models.Model):
         )
         return amount
 
-    @api.depends("statement_ids", "pos_session_ids")
+    @api.depends("statement_line_ids", "pos_session_ids")
     def _compute_statement_values(self):
         for record in self:
-            statements = record.statement_ids
-            record.amount = sum(statements.mapped("total_entry_encoding"))
+            record.amount = sum(record.statement_line_ids.mapped("amount"))
             record.amount = record._compute_statement_amount()
             record.cash_amount = sum(
-                statements.filtered(lambda r: r.journal_id.type == "cash").mapped(
-                    "total_entry_encoding"
-                )
+                record.statement_line_ids.filtered(
+                    lambda r: r.journal_id.type == "cash"
+                ).mapped("amount")
             )
             lines = record.statement_line_ids
             record.issue_statement_line_ids = lines.filtered(lambda r: not r.invoice_id)
@@ -112,16 +105,15 @@ class PosSessionValidation(models.Model):
             "amount": value,
         }
 
-    def account_move_vals(self, statement):
+    def account_move_vals(self, journal, amount):
         account = self.safe_box_group_id.account_ids.filtered(
-            lambda r: r.company_id.id == statement.journal_id.company_id.id
+            lambda r: r.company_id.id == journal.company_id.id
         )
         if not account:
             raise ValidationError(_("Account cannot be found for this company"))
-        amount = statement.total_entry_encoding
-        statement_account = statement.journal_id.default_account_id
+        statement_account = journal.default_account_id
         return {
-            "journal_id": statement.journal_id.id,
+            "journal_id": journal.id,
             "safe_box_move_id": self.closing_move_id.id,
             "line_ids": [
                 (
@@ -170,10 +162,24 @@ class PosSessionValidation(models.Model):
             self.env["safe.box.move.line"].create(
                 self.safe_box_move_line_vals(self.closing_move_id, safe_box, lines[key])
             )
-        for statement in self.statement_ids.filtered(
-            lambda r: (r.journal_id.type == "cash" and r.total_entry_encoding != 0)
+        for journal in self.statement_line_ids.journal_id.filtered(
+            lambda r: (r.type == "cash")
         ):
-            move = self.env["account.move"].create(self.account_move_vals(statement))
+            amount = sum(
+                self.statement_line_ids.filtered(
+                    lambda r: r.journal_id == journal
+                ).mapped("amount")
+            )
+            if tools.float_is_zero(
+                amount,
+                precision_rounding=(
+                    journal.currency_id or journal.company_id.currency_id
+                ).rounding,
+            ):
+                continue
+            move = self.env["account.move"].create(
+                self.account_move_vals(journal, amount)
+            )
             move.action_post()
         self.closing_move_id.close()
         self.write({"state": "closed", "closing_date": fields.Datetime.now()})
