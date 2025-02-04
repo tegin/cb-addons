@@ -23,12 +23,15 @@ class AccountMoveMailListener(Component):
             partner = record.partner_id
             if record.move_type not in ["out_invoice", "out_refund"]:
                 continue
-            if not partner.account_invoice_storage_exchange_type_id:
+            exchange_type = partner.with_company(
+                record.company_id
+            ).account_invoice_storage_exchange_type_id
+            if not exchange_type:
                 continue
-            backend = partner.account_invoice_storage_exchange_type_id.backend_id
+            backend = exchange_type.backend_id
             if not backend:
                 continue
-            exchange_type = partner.account_invoice_storage_exchange_type_id.code
+            exchange_type = exchange_type.code
             if record._has_exchange_record(exchange_type, backend):
                 continue
             exchange_record = backend.create_record(
