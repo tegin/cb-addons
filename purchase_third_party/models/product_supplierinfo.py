@@ -22,7 +22,7 @@ class SupplierInfo(models.Model):
 
     @api.constrains(
         "third_party_partner_id",
-        "name",
+        "partner_id",
         "product_id",
         "date_start",
         "date_end",
@@ -81,7 +81,7 @@ class SupplierInfo(models.Model):
                 [
                     ("id", "!=", rec.id),
                     ("product_id", "=", rec.product_id.id),
-                    ("name", "=", rec.name.id),
+                    ("partner_id", "=", rec.partner_id.id),
                     (
                         "third_party_partner_id",
                         "!=",
@@ -101,7 +101,7 @@ class SupplierInfo(models.Model):
                 [
                     ("id", "!=", rec.id),
                     ("product_tmpl_id", "=", rec.product_tmpl_id.id),
-                    ("name", "=", rec.name.id),
+                    ("partner_id", "=", rec.partner_id.id),
                     (
                         "third_party_partner_id",
                         "!=",

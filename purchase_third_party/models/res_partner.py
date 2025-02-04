@@ -9,7 +9,7 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     supplier_info_ids = fields.One2many(
-        "product.supplierinfo", inverse_name="name", check_company=True
+        "product.supplierinfo", inverse_name="partner_id", check_company=True
     )
 
     third_party_supplier_info_ids = fields.One2many(
@@ -25,7 +25,7 @@ class ResPartner(models.Model):
         )
         action["domain"] = [
             "|",
-            ("name", "=", self.id),
+            ("partner_id", "=", self.id),
             ("third_party_partner_id", "=", self.id),
         ]
         return action

@@ -11,27 +11,56 @@
         <xpath expr="//div[@t-field = 'o.partner_id']" position="attributes">
             <attribute name="t-field">o.third_party_partner_id</attribute>
         </xpath>
-        <xpath expr="//p[@t-if = 'o.partner_id.vat']" position="attributes">
-            <attribute name="t-if">o.third_party_partner_id.vat</attribute>
-        </xpath>
-        <xpath expr="//span[@t-field = 'o.partner_id.vat']" position="attributes">
-            <attribute name="t-field">o.third_party_partner_id.vat</attribute>
-        </xpath>
         <xpath expr="//span[@t-field = 'line.price_unit']" position="attributes">
             <attribute name="t-field">line.third_party_price_unit</attribute>
         </xpath>
         <xpath expr="//span[@t-field = 'line.price_subtotal']" position="attributes">
             <attribute name="t-field">line.third_party_price_subtotal</attribute>
         </xpath>
-        <xpath expr="//span[@t-field = 'o.amount_untaxed']" position="attributes">
-            <attribute name="t-field">o.tp_amount_untaxed</attribute>
+        <xpath expr="//div[@id='total']" position="attributes">
+            <attribute name="t-if">False</attribute>
         </xpath>
-        <xpath expr="//span[@t-field = 'o.amount_tax']" position="attributes">
-            <attribute name="t-field">o.tp_amount_tax</attribute>
+        <xpath expr="//div[@id='total']" position="after">
+            <div id="total" class="row justify-content-end">
+                <div class="col-4">
+                    <table class="table table-sm">
+                        <tr class="border-black">
+                            <td name="td_subtotal_label">
+                                <strong>Subtotal</strong>
+                            </td>
+                            <td class="text-right">
+                                <span
+                                    t-field="o.tp_amount_untaxed"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td name="td_taxes_label">Taxes</td>
+                            <td class="text-right">
+                                <span
+                                    t-field="o.tp_amount_tax"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                />
+                            </td>
+                        </tr>
+                        <tr class="border-black o_total">
+                            <td name="td_amount_total_label">
+                                <strong>Total</strong>
+                            </td>
+                            <td class="text-right">
+                                <span
+                                    t-field="o.tp_amount_total"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </xpath>
-        <xpath expr="//span[@t-field = 'o.amount_total']" position="attributes">
-            <attribute name="t-field">o.tp_amount_total</attribute>
-        </xpath>
+
+
     </template>
     <template id="report_purchaseorder_third_party">
         <t t-call="web.html_container">
@@ -44,19 +73,22 @@
             </t>
         </t>
     </template>
+
     <record id="action_report_purchase_order" model="ir.actions.report">
-        <field name="name">purchase_third_party.report_purchaseorder_third_party</field>
+        <field name="name">Third Party Purchase Order</field>
+        <field name="model">purchase.order</field>
         <field name="report_type">qweb-pdf</field>
         <field
-            name="print_report_name"
-        >(object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or 'Purchase Order - %s' % (object.name))</field>
-        <field name="model">purchase.order</field>
+            name="report_name"
+        >purchase_third_party.report_purchaseorder_third_party</field>
         <field
             name="report_file"
         >purchase_third_party.report_purchaseorder_third_party</field>
-            <field
-            name="report_name"
-        >purchase_third_party.report_purchaseorder_third_party</field>
-
+        <field name="print_report_name">
+            (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or
+            'Purchase Order - %s' % (object.name))</field>
+        <field name="binding_model_id" ref="model_purchase_order" />
+        <field name="binding_type">report</field>
     </record>
+
 </odoo>
