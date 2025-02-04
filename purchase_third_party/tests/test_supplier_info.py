@@ -24,7 +24,7 @@ class TestPurchaseThirdParty(TransactionCase):
                         0,
                         0,
                         {
-                            "name": self.supplier.id,
+                            "partner_id": self.supplier.id,
                             "third_party_partner_id": self.tp_partner.id,
                             "third_party_price": 5,
                             "price": 7,
@@ -52,7 +52,7 @@ class TestPurchaseThirdParty(TransactionCase):
                             0,
                             0,
                             {
-                                "name": self.supplier.id,
+                                "partner_id": self.supplier.id,
                                 "third_party_partner_id": self.tp_partner.id,
                                 "third_party_price": False,
                                 "price": 7,
@@ -65,7 +65,7 @@ class TestPurchaseThirdParty(TransactionCase):
     def test_check_third_party_tmpl(self):
         self.env["product.supplierinfo"].create(
             {
-                "name": self.supplier.id,
+                "partner_id": self.supplier.id,
                 "third_party_partner_id": self.tp_partner.id,
                 "third_party_price": 5,
                 "price": 7,
@@ -75,7 +75,7 @@ class TestPurchaseThirdParty(TransactionCase):
         with self.assertRaises(ValidationError):
             self.env["product.supplierinfo"].create(
                 {
-                    "name": self.supplier.id,
+                    "partner_id": self.supplier.id,
                     "third_party_partner_id": self.supplier.id,
                     "third_party_price": 5,
                     "price": 7,
@@ -86,7 +86,7 @@ class TestPurchaseThirdParty(TransactionCase):
     def test_check_third_party(self):
         self.env["product.supplierinfo"].create(
             {
-                "name": self.supplier.id,
+                "partner_id": self.supplier.id,
                 "third_party_partner_id": self.tp_partner.id,
                 "third_party_price": 5,
                 "price": 7,
@@ -96,7 +96,7 @@ class TestPurchaseThirdParty(TransactionCase):
         with self.assertRaises(ValidationError):
             self.env["product.supplierinfo"].create(
                 {
-                    "name": self.supplier.id,
+                    "partner_id": self.supplier.id,
                     "third_party_partner_id": self.supplier.id,
                     "third_party_price": 5,
                     "price": 7,
