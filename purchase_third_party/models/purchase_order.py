@@ -51,17 +51,15 @@ class PurchaseOrder(models.Model):
         res = super().action_rfq_send()
         if self.env.context.get("third_party_send"):
             ctx = res.get("context")
-            ir_model_data = self.env["ir.model.data"]
             try:
                 if self.env.context.get("send_rfq", False):
-                    template_id = ir_model_data.get_object_reference(
-                        "purchase_third_party", "email_template_edi_purchase"
-                    )[1]
+                    template_id = self.env.ref(
+                        "purchase_third_party.email_template_edi_purchase"
+                    ).id
                 else:
-                    template_id = ir_model_data.get_object_reference(
-                        "purchase_third_party",
-                        "email_template_edi_purchase_done",
-                    )[1]
+                    template_id = self.env.ref(
+                        "purchase_third_party.email_template_edi_purchase_done"
+                    ).id
             except ValueError:
                 template_id = False
             ctx.update(
@@ -119,8 +117,8 @@ class PurchaseOrderLine(models.Model):
             )
 
     @api.onchange("product_qty", "product_uom")
-    def _onchange_quantity(self):
-        res = super()._onchange_quantity()
+    def _compute_price_unit_and_date_planned_and_name(self):
+        res = super()._compute_price_unit_and_date_planned_and_name()
         if not self.product_id or not self.order_id.third_party_order:
             return res
         seller = self.product_id._select_seller(
@@ -170,7 +168,7 @@ class PurchaseOrderLine(models.Model):
             product_id, product_qty, product_uom, company_id, values, po
         )
         procurement_uom_po_qty = res["product_qty"]
-        partner = values["supplier"].name
+        partner = values["supplier"].partner_id
         seller = product_id._select_seller(
             partner_id=partner,
             quantity=procurement_uom_po_qty,
