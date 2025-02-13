@@ -19,6 +19,7 @@ class HelpdeskTicket(models.Model):
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
-        super()._onchange_partner_id()
+        res = super()._onchange_partner_id()
         if self.partner_id:
             self.partner_phone = self.partner_id.phone
+        return res
