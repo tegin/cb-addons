@@ -58,8 +58,9 @@ class Base(models.AbstractModel):
     @api.model
     def _get_view(self, view_id=None, view_type="form", **options):
         arch, view = super()._get_view(view_id=view_id, view_type=view_type, **options)
+        model = self.env["ir.model"].sudo().search([("model", "=", self._name)])
         rules = self.env["document.quick.access.rule"].search(
-            [("model_id.model", "=", self._name), ("label_id", "!=", False)]
+            [("model_id", "=", model.id), ("label_id", "!=", False)]
         )
         if rules and view_type == "form":
             nodes = arch.xpath("//form/sheet/div[@name='button_box']")
