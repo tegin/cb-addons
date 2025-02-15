@@ -11,7 +11,9 @@ class ResUsers(models.Model):
     dont_register_login = fields.Boolean()
 
     def register_new_login(self):
-        return self.env["res.users.access.log"].create({})  # populated by defaults
+        return (
+            self.env["res.users.access.log"].sudo().create({})
+        )  # populated by defaults
 
     def _update_last_login(self):
         res = super()._update_last_login()
