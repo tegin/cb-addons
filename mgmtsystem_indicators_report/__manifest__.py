@@ -32,7 +32,8 @@
     "demo": [],
     "assets": {
         "web.assets_backend": [
-            "mgmtsystem_nonconformity/static/src/js/*,js",
+            "mgmtsystem_indicators_report/static/src/components/**/*.esm.js",
+            "mgmtsystem_indicators_report/static/src/components/**/*.xml",
         ],
     },
 }
