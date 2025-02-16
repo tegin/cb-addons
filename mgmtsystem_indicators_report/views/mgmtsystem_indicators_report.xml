@@ -120,23 +120,11 @@
                                         widget="section_and_note_text"
                                         attrs="{'readonly': ['|', ('concept_id', '!=', False), ('item_blocked', '=', True)]}"
                                     />
-                                    <field name="value_type" invisible="1" />
                                     <field
-                                        string="Value"
                                         name="value"
-                                        widget="mgmtsystem_indicator_report"
-                                        decoration-danger="interpretation == 'invalid'"
-                                    >
-                                        <field name="value_bool" />
-                                        <field name="value_str" />
-                                        <field
-                                            name="value_selection"
-                                            widget="dynamic_selection_indicators_report"
-                                            context="{'options': selection_options}"
-                                        />
-                                        <field name="value_int" force_save="1" />
-                                        <field name="value_float" force_save="1" />
-                                    </field>
+                                        widget="mgmtsystem_indicators_report_value"
+                                    />
+                                    <field name="value_type" invisible="1" />
                                     <field name="value_bool" invisible="1" />
                                     <field name="value_str" invisible="1" />
                                     <field name="value_selection" invisible="1" />
@@ -167,7 +155,6 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter" />
             </form>
         </field>
     </record>
