@@ -1,1 +1,2 @@
 odoo_test_helper
+odoo-addon-archive-management@git+https://github.com/tegin/archive-management.git@16.0#subdirectory=setup/archive_management
