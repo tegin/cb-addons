@@ -8,4 +8,4 @@ class StockLocation(models.Model):
 
     _inherit = "stock.location"
 
-    warning = fields.Text(string="Warning")
+    warning = fields.Text()
