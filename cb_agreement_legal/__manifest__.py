@@ -9,13 +9,17 @@
     "category": "Agreement",
     "depends": ["agreement_legal", "archive_management"],
     "license": "AGPL-3",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "data": [
         "data/agreement_demo_data.xml",
         "views/agreement.xml",
-        "templates/assets.xml",
         "reports/agreement.xml",
     ],
+    "assets": {
+        "web.report_assets_common": [
+            "cb_agreement_legal/static/src/scss/agreement_layout.scss"
+        ],
+    },
     "installable": True,
     "auto_install": False,
 }
