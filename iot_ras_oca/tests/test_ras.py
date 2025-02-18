@@ -78,7 +78,7 @@ class TestRas(HttpCase):
         attendance = self.env["hr.attendance"].search(
             [("employee_id", "=", self.employee.id)]
         )
-        attendance.refresh()
+        attendance.invalidate_recordset()
         self.assertTrue(attendance)
         self.assertEqual(1, len(attendance))
         self.assertTrue(attendance.check_out)
