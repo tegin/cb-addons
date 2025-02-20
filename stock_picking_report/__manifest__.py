@@ -5,7 +5,7 @@
     "name": "Stock Picking Report",
     "summary": """
         Improve Picking report""",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "CreuBlanca,Odoo Community Association (OCA)",
     "website": "https://github.com/tegin/cb-addons",
