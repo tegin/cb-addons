@@ -4,7 +4,7 @@
 
 {
     "name": "PoS multiple sessions per user",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Reporting",
     "website": "https://github.com/tegin/cb-addons",
     "author": "CreuBlanca, Eficent",

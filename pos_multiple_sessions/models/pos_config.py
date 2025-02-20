@@ -11,15 +11,16 @@ class PosConfig(models.Model):
     def closed_states(self):
         return ["closed"]
 
-    @api.depends("session_ids")
+    @api.depends("session_ids", "session_ids.state")
     def _compute_current_session(self):
         for pos_config in self:
-            session = pos_config.session_ids.filtered(
+            opened_sessions = pos_config.session_ids.filtered(
                 lambda r: r.state not in self.closed_states()
             )
-            pos_config.current_session_id = session
-            pos_config.current_session_state = session.state
-            pos_config.has_active_session = session and True or False
+            pos_config.number_of_opened_session = len(opened_sessions)
+            pos_config.has_active_session = opened_sessions and True or False
+            pos_config.current_session_id = opened_sessions
+            pos_config.current_session_state = opened_sessions.state
 
     def open_ui(self):
         self.ensure_one()
