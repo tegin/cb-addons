@@ -49,22 +49,23 @@ class ResInterCompany(models.Model):
         required=True,
     )
 
-    @api.model
-    def create(self, vals):
-        res = super(ResInterCompany, self).create(vals)
-        related = super(ResInterCompany, self).create(
-            {
-                "company_id": vals.get("related_company_id"),
-                "journal_id": vals.get("related_journal_id"),
-                "related_company_id": vals.get("company_id"),
-                "related_journal_id": vals.get("journal_id"),
-                "account_id": vals.get("related_account_id"),
-                "related_account_id": vals.get("account_id"),
-                "inter_company_id": res.id,
-            }
-        )
-        res.inter_company_id = related
-        return res
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super(ResInterCompany, self).create(vals_list)
+        for res, vals in zip(records, vals_list):
+            related = super(ResInterCompany, self).create(
+                {
+                    "company_id": vals.get("related_company_id"),
+                    "journal_id": vals.get("related_journal_id"),
+                    "related_company_id": vals.get("company_id"),
+                    "related_journal_id": vals.get("journal_id"),
+                    "account_id": vals.get("related_account_id"),
+                    "related_account_id": vals.get("account_id"),
+                    "inter_company_id": res.id,
+                }
+            )
+            res.inter_company_id = related
+        return records
 
     @api.constrains("company_id", "related_company_id")
     def _check_company(self):
