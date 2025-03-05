@@ -1,6 +1,5 @@
 import base64
-
-from mock import patch
+from unittest.mock import patch
 
 from odoo import tools
 from odoo.http import Response
@@ -37,7 +36,7 @@ class TestWebSingleAppLogo(HttpCase):
 
     def test_with_mock(self):
         image = tools.file_open(
-            "logo.png", mode="rb", subdir="addons/web_single_app_logo/tests"
+            "addons/web_single_app_logo/tests/logo.png", mode="rb"
         ).read()
         settings = self.env["res.config.settings"].create({})
         settings.single_app_logo = base64.b64encode(image)

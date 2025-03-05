@@ -8,16 +8,4 @@
             <img t-attf-src="/app_logo.png{{ '?dbname='+db if db else '' }}" />
         </xpath>
     </template>
-    <template
-        id="assets_backend"
-        name="web_widget_image_url assets"
-        inherit_id="web.assets_backend"
-    >
-        <xpath expr="." position="inside">
-            <script
-                type="text/javascript"
-                src="/web_single_app_logo/static/src/js/web_client.js"
-            />
-        </xpath>
-    </template>
 </odoo>

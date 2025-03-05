@@ -20,7 +20,7 @@ class MulticompanyLogo(http.Controller):
             get_resource_path, "web", "static", "src", "img"
         )
         if not request.env:
-            return http.send_file(placeholder(imgname + imgext))
+            return http.Stream(placeholder(imgname + imgext))
         try:
             key = "app.logo"
             image = (
@@ -36,13 +36,14 @@ class MulticompanyLogo(http.Controller):
                 image_base64 = base64.b64decode(image[0]["value"])
                 image_data = io.BytesIO(image_base64)
                 imgext = "." + (imghdr.what(None, h=image_base64) or "png")
-                response = http.send_file(
-                    image_data,
+                response = http.Stream(
+                    type="data",
+                    data=image_data.getvalue(),
                     filename=imgname + imgext,
-                    mtime=image[0]["write_date"],
+                    mimetype=image[0]["write_date"],
                 )
             else:
-                response = http.send_file(placeholder("nologo.png"))
+                response = http.Stream(data=placeholder("nologo.png")).get_response()
         except Exception:
-            response = http.send_file(placeholder(imgname + imgext))
-        return response
+            response = http.Stream(data=placeholder(imgname + imgext)).get_response()
+        return response.get_response()
