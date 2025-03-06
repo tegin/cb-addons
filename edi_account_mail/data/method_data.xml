@@ -15,6 +15,7 @@
         <field name="direction">output</field>
         <field name="exchange_filename_pattern">Invoice.pdf</field>
         <field name="exchange_file_ext">pdf</field>
+        <field name="exchange_file_auto_generate" eval="True" />
     </record>
     <record id="mail_exchange_type_rule" model="edi.exchange.type.rule">
         <field name="name">Default</field>
