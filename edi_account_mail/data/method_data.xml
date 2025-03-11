@@ -28,7 +28,7 @@
         >[('state', '!=', 'draft'), ('partner_id.send_invoice_by_mail', '=', True)]</field>
         <field
             name="enable_snippet"
-        >result = not record._has_exchange_record(exchange_type.code)</field>
+        >result = not record._has_exchange_record(exchange_type)</field>
     </record>
 
 </odoo>
