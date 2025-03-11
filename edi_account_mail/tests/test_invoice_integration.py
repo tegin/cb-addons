@@ -16,7 +16,7 @@ class EDIBackendTestCase(
         cls._setup_env()
 
         cls._load_module_components(cls, "component_event")
-        cls._load_module_components(cls, "edi")
+        cls._load_module_components(cls, "edi_oca")
         cls._load_module_components(cls, "edi_account_oca")
         cls._load_module_components(cls, "edi_account_mail")
         cls.tax = cls.env["account.tax"].create(
