@@ -214,11 +214,12 @@ class PosSessionValidation(models.Model):
     def get_name(self, vals):
         return self.env["ir.sequence"].next_by_code("pos.session.validation") or "/"
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", "/") == "/":
-            vals.update({"name": self.get_name(vals)})
-        return super(PosSessionValidation, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", "/") == "/":
+                vals.update({"name": self.get_name(vals)})
+        return super().create(vals_list)
 
 
 class PosSessionValidationLine(models.Model):
