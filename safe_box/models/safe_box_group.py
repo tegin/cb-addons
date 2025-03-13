@@ -55,11 +55,12 @@ class SafeBoxGroup(models.Model):
         seq_date_range.number_next = 1
         return seq
 
-    @api.model
-    def create(self, vals):
-        if not vals.get("sequence_id"):
-            vals.update({"sequence_id": self.sudo()._create_sequence(vals).id})
-        return super(SafeBoxGroup, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get("sequence_id"):
+                vals.update({"sequence_id": self.sudo()._create_sequence(vals).id})
+        return super().create(vals_list)
 
     def recompute_amount(self):
         for record in self.sudo():
