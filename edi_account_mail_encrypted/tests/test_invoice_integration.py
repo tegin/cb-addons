@@ -19,6 +19,7 @@ except ImportError as err:
     _logger.debug(err)
 
 
+@common.tagged("post_install", "-at_install")
 class EDIBackendTestCase(
     EDIBackendCommonComponentRegistryTestCase, common.TransactionCase
 ):
