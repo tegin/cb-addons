@@ -3,11 +3,11 @@
 
 import base64
 import functools
-import imghdr
 import io
 
 from odoo import http
 from odoo.modules import get_resource_path
+from odoo.tools.mimetypes import guess_mimetype
 
 
 class MulticompanyLogo(http.Controller):
@@ -16,11 +16,13 @@ class MulticompanyLogo(http.Controller):
         imgname = "logo"
         imgext = ".png"
         request = http.request
-        placeholder = functools.partial(
-            get_resource_path, "web", "static", "src", "img"
-        )
+        placeholder = functools.partial(get_resource_path, "web", "static", "img")
         if not request.env:
-            return http.Stream(placeholder(imgname + imgext))
+            return http.Stream(
+                type="path",
+                path=placeholder(imgname + imgext),
+                download_name=imgname + imgext,
+            )
         try:
             key = "app.logo"
             image = (
@@ -35,15 +37,26 @@ class MulticompanyLogo(http.Controller):
             if image:
                 image_base64 = base64.b64decode(image[0]["value"])
                 image_data = io.BytesIO(image_base64)
-                imgext = "." + (imghdr.what(None, h=image_base64) or "png")
+                mimetype = guess_mimetype(image_base64, default="image/png")
+                imgext = "." + mimetype.split("/")[1]
+                if imgext == ".svg+xml":
+                    imgext = ".svg"
                 response = http.Stream(
                     type="data",
                     data=image_data.getvalue(),
-                    filename=imgname + imgext,
-                    mimetype=image[0]["write_date"],
+                    download_name=imgname + imgext,
+                    last_modified=image[0]["write_date"],
                 )
             else:
-                response = http.Stream(data=placeholder("nologo.png")).get_response()
+                response = http.Stream(
+                    type="path",
+                    path=placeholder("nologo.png"),
+                    download_name="nologo.png",
+                )
         except Exception:
-            response = http.Stream(data=placeholder(imgname + imgext)).get_response()
+            response = http.Stream(
+                type="path",
+                path=placeholder(imgname + imgext),
+                download_name=imgname + imgext,
+            )
         return response.get_response()
