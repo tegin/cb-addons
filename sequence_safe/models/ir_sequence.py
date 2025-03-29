@@ -30,7 +30,7 @@ class IrSequence(models.Model):
             result = res.with_context(ignore_safe=True)._next(
                 sequence_date=sequence_date
             )
-            res.flush()
+            res.flush_recordset()
             new_cr.commit()
         except Exception:
             new_cr.rollback()  # error, rollback everything atomically
