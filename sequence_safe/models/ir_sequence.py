@@ -18,7 +18,7 @@ class IrSequence(models.Model):
 
     def _next(self, sequence_date=None):
         if (
-            getattr(threading.currentThread(), "testing", False)
+            getattr(threading.current_thread(), "testing", False)
             or self.env.context.get("install_mode")
             or self.env.context.get("ignore_safe", not self.safe)
         ):
