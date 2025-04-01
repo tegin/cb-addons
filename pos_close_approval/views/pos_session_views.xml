@@ -21,7 +21,7 @@
                     type="object"
                     string="Approve"
                     class="oe_highlight"
-                    attrs="{'invisible': ['|','|', ('requires_approval', '=', False), ('state', '!=', 'closing_control'), ('rescue', '=', False)]}"
+                    attrs="{'invisible': ['|','|', ('requires_approval', '=', False), ('state', 'not in', ['closing_control', 'opened']), ('rescue', '=', False)]}"
                     groups="point_of_sale.group_pos_manager"
                 />
                 <field name="requires_approval" invisible="1" />
@@ -86,7 +86,7 @@
                                     type="action"
                                     string="Change account"
                                     class="oe_highlight"
-                                    attrs="{'invisible':['|', ('pos_session_state', '!=', 'closing_control'), ('account_id', '=', False)]}"
+                                    attrs="{'invisible':['|', ('pos_session_state', 'not in', ['closing_control', 'opened']), ('account_id', '=', False)]}"
                                 />
                                 <field name="pos_session_state" invisible="1" />
                                 <field name="payment_ref" />
