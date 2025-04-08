@@ -15,8 +15,10 @@
     "depends": ["pos_session_pay_invoice"],
     "post_load": "post_load_hook",
     "data": [
+        "wizards/change_payment_method_wizard.xml",
         "wizards/pos_cash_box.xml",
         "views/res_config_settings.xml",
+        "views/pos_payment.xml",
         "security/ir.model.access.csv",
         "wizards/bank_statement_account.xml",
         "views/pos_session_views.xml",
