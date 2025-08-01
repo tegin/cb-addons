@@ -9,19 +9,17 @@
     "license": "AGPL-3",
     "author": "Dixmit, CreuBlanca",
     "website": "https://github.com/tegin/cb-addons",
-    "depends": [
-        "account",
-        "account_commission",
-        "portal",
-    ],
+    "depends": ["account", "account_commission", "portal", "cb_medical_commission"],
     "data": [
         "views/account_portal_templates.xml",
         "security/account_portal_security.xml",
+        "security/ir.model.access.csv",
+        "wizards/search_encounters_wizard_view.xml",
     ],
     "demo": [],
     "assets": {
         "web.assets_frontend": [
-            "account_portal_commission/static/src/js/account_portal.esm.js",
+            "account_portal_commission/static/src/js/*.esm.js",
         ],
     },
 }

@@ -197,6 +197,16 @@
                 </div>
             </div>
         </div>
+        <div class="d-none" id="search_encounters_wizard_view">
+            <t
+                    t-esc="env.ref('account_portal_commission.view_search_encounters_wizard').sudo().get_combined_arch()"
+                />
+        </div>
+        <section>
+            <button type="button" class="btn btn-secondary" id="search_encounters">
+                Search Commission State
+            </button>
+        </section>
     </t>
   </template>
 </odoo>
