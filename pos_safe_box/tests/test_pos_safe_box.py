@@ -100,7 +100,9 @@ class TestPosSafeBox(TestPointOfSaleCommon):
             session.set_cashbox_pos(0, None)
         wizard_context = session.button_show_wizard_pay_out_invoice()["context"]
         cash_in = self.env["cash.pay.invoice"].with_context(**wizard_context)
-        with Form(cash_in) as form:
+        with Form(
+            cash_in, view="pos_session_pay_invoice.view_cash_pay_invoice_form"
+        ) as form:
             form.pos_payment_method_id = self.pos_config.payment_method_ids.filtered(
                 lambda r: r.is_cash_count
             )[:1]
