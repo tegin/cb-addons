@@ -94,9 +94,16 @@ class TestPosSafeBox(TestPointOfSaleCommon):
         self.pos_config._action_to_open_ui()
         session = self.pos_config.current_session_id
         session.action_pos_session_open()
+        if session.state == "opening_control":
+            # Enforce it if it is not opened yet
+            session.cash_register_balance_start = 0.0
+            session.set_cashbox_pos(0, None)
         wizard_context = session.button_show_wizard_pay_out_invoice()["context"]
         cash_in = self.env["cash.pay.invoice"].with_context(**wizard_context)
         with Form(cash_in) as form:
+            form.pos_payment_method_id = self.pos_config.payment_method_ids.filtered(
+                lambda r: r.is_cash_count
+            )[:1]
             form.invoice_id = self.invoice_out
             self.assertEqual(form.amount, 100)
         cash_in.browse(form.id).action_pay_invoice()
