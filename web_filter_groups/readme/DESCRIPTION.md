@@ -1,0 +1,1 @@
+Add a group that shows the filters. If you don't have it, no personalized filters are showed.

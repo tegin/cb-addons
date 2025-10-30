@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-inherit="web.FilterMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//CustomFilterItem" position="attributes">
+            <attribute name="t-if">showFilter</attribute>
+        </xpath>
+        <xpath
+            expr="//Dropdown/t/div[hasclass('dropdown-divider')]"
+            position="attributes"
+        >
+            <attribute name="t-if">showFilter</attribute>
+        </xpath>
+    </t>
+</templates>
