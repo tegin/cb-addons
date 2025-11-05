@@ -27,6 +27,8 @@ class IndicatorsReport(models.Model):
     )
     uom_id = fields.Many2one("uom.uom", readonly=True)
     value_representation = fields.Char(readonly=True)
+    value_float = fields.Float(readonly=True)
+    value_int = fields.Integer(readonly=True)
     reference_range_limit = fields.Char(string="Reference Range", readonly=True)
     interpretation = fields.Selection(
         [("valid", "Valid"), ("invalid", "Invalid")], readonly=True
@@ -42,6 +44,8 @@ class IndicatorsReport(models.Model):
             i.concept_id as concept_id,
             i.uom_id as uom_id,
             i.value_representation as value_representation,
+            i.value_float as value_float,
+            i.value_int as value_int,
             i.reference_range_limit as reference_range_limit,
             i.interpretation as interpretation,
             r.name as name,
@@ -67,6 +71,8 @@ class IndicatorsReport(models.Model):
             i.concept_id,
             i.uom_id,
             i.value_representation,
+            i.value_float,
+            i.value_int,
             i.reference_range_limit,
             i.interpretation,
             r.name,
