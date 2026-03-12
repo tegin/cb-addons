@@ -23,13 +23,15 @@ class AccessFastController(http.Controller):
             )
 
         record = (
-            request.env[action.model_id.model]
+            request.env[action.sudo().model_id.model]
             .sudo()
-            .search([(action.field_id.name or "name", "=", code)], limit=1)
+            .search([(action.sudo().field_id.name or "name", "=", code)], limit=1)
         )
         if not record:
             return request.make_response(
                 "Record not found", headers=[("Content-Type", "text/plain")], status=404
             )
 
-        return request.redirect(f"/web#model={action.model_id.model}&id={record.id}")
+        return request.redirect(
+            f"/web#model={action.sudo().model_id.model}&id={record.id}"
+        )
