@@ -36,14 +36,6 @@
             <field name="system_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
-            <field name="description" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
-            <field name="description" position="after">
-                <group>
-                    <field name="description" nolabel="1" />
-                </group>
-            </field>
         </field>
     </record>
 </odoo>
