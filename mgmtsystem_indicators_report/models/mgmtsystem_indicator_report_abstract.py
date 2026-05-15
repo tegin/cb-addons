@@ -46,7 +46,7 @@ class MgmtsystemIndicatorAbstract(models.AbstractModel):
         help="Technical field for UX purpose.",
     )
 
-    item_blocked = fields.Boolean(default=False)
+    item_blocked = fields.Boolean()
 
     _sql_constraints = [
         (

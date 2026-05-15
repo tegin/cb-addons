@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="edi_pdf2data_wizard_action_mgmtsystem" model="ir.actions.act_window">
+        <field name="name">Import PDF</field>
+        <field name="res_model">pdf2data.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem
+        id="edi_pdf2data_wizard_mgmtsystem_menu"
+        parent="mgmtsystem.menu_mgmtsystem_root"
+        action="edi_pdf2data_oca.edi_pdf2data_wizard_action"
+        sequence="45"
+    />
+</odoo>
