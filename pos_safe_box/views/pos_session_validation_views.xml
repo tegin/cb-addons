@@ -73,7 +73,10 @@
                     </group>
                     <notebook>
                         <page string="Coins" id="line">
-                            <field name="line_ids" />
+                            <field
+                                name="line_ids"
+                                attrs="{'readonly': [('state', 'not in', ['draft'])]}"
+                            />
                         </page>
                         <page string="Sessions" id="pos_session">
                             <field
