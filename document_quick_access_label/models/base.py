@@ -51,7 +51,7 @@ class Base(models.AbstractModel):
         self._get_document_quick_access_label_printer().print_document(
             report=self.env["ir.actions.report"],
             content=label._generate_zpl2_data(self),
-            doc_format="txt",
+            doc_format="raw",
         )
         return True
 
