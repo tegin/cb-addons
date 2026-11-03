@@ -40,9 +40,9 @@
                 <attribute name="invisible">1</attribute>
             </field>
             <field name="description" position="after">
-                <group>
+                <div>
                     <field name="description" nolabel="1" />
-                </group>
+                </div>
             </field>
         </field>
     </record>
